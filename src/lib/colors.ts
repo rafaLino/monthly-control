@@ -1,4 +1,8 @@
+import { StatusGoal } from '@/types/goal';
+import { RegisterType } from '@/types/register.types';
+
 export type ColorType = 'red' | 'green' | 'yellow';
+
 export const COLORS = {
     red: {
         border: 'border-red-600',
@@ -16,3 +20,24 @@ export const COLORS = {
         text: 'text-yellow-500'
     },
 };
+
+export function getColor(type: RegisterType): ColorType {
+    if (type === 'incomes') {
+        return 'green';
+    }
+    else if (type === 'expenses') {
+        return 'red';
+    }
+    else {
+        return 'yellow';
+    }
+}
+
+export function getGoalCardColor(status: StatusGoal): ColorType {
+    if (status === 'OK')
+        return 'green';
+    else if (status === 'WARNING')
+        return 'yellow';
+    else
+        return 'red';
+}

@@ -1,24 +1,23 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Pagination, PaginationContent, PaginationItem } from '@/components/ui/pagination';
 import {
   DropdownMenu,
-  DropdownMenuTrigger,
+  DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuCheckboxItem,
-  DropdownMenuItem,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Pagination, PaginationContent, PaginationItem } from '@/components/ui/pagination';
 import { Separator } from '@/components/ui/separator';
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { createLazyFileRoute } from '@tanstack/react-router';
-import { ListFilter, Copy, Truck, MoreVertical, CreditCard, ChevronLeft, ChevronRight, File } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-
-import { SummarizedCard } from '@/components/SummarizedCard';
-import { BalanceCard } from '@/components/BalanceCard';
-import { DataTable } from '@/components/DataTable';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { ExpensesBalanceCard, IncomesBalanceCard, InvestmentsBalanceCard, TotalBalance } from '@/features/Balance';
+import { DataTable } from '@/features/DataTable';
+import { GoalCard } from '@/features/GoalCard';
+import { createLazyFileRoute } from '@tanstack/react-router';
+import { ChevronLeft, ChevronRight, Copy, CreditCard, File, ListFilter, MoreVertical, Truck } from 'lucide-react';
 
 export const Route = createLazyFileRoute('/')({
   component: Index,
@@ -29,12 +28,13 @@ function Index() {
     <>
       <div className='grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2'>
         <div className='grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4'>
-          <BalanceCard incomes={10} expenses={4} />
+          <TotalBalance />
+          <GoalCard />
         </div>
         <div className='grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4'>
-          <SummarizedCard planned={10} realized={6} color='green' />
-          <SummarizedCard planned={10} realized={6} color='red' />
-          <SummarizedCard planned={10} realized={6} color='yellow' />
+          <IncomesBalanceCard />
+          <ExpensesBalanceCard />
+          <InvestmentsBalanceCard />
         </div>
         <Tabs defaultValue='incomes'>
           <div className='flex items-center'>
@@ -65,13 +65,13 @@ function Index() {
             </div>
           </div>
           <TabsContent value='incomes'>
-            <DataTable color='green' />
+            <DataTable type='incomes' />
           </TabsContent>
           <TabsContent value='expenses'>
-            <DataTable color='red' />
+            <DataTable type='expenses' />
           </TabsContent>
           <TabsContent value='investments'>
-            <DataTable color='yellow' />
+            <DataTable type='investments' />
           </TabsContent>
         </Tabs>
       </div>

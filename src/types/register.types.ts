@@ -4,3 +4,5 @@ export type Register = {
     value: number;
     checked: boolean;
 }
+
+export type RegisterType = 'incomes' | 'expenses' | 'investments';

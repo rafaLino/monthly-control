@@ -40,7 +40,6 @@
     "@radix-ui/react-tooltip": "^1.1.2",
     "@tanstack/react-router": "^1.48.1",
     "@tanstack/react-table": "^8.20.1",
-    "@xstate/react": "^4.1.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cmdk": "1.0.0",
@@ -61,8 +60,8 @@
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^0.9.1",
-    "xstate": "^5.17.4",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "zustand": "4.5.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

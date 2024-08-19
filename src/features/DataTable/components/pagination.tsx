@@ -2,7 +2,9 @@ import {
   Pagination,
   PaginationContent,
   PaginationEllipsis,
+  PaginationFirst,
   PaginationItem,
+  PaginationLast,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
@@ -15,6 +17,7 @@ type PaginationProps = {
   canNextPage: boolean;
   goPrevious: () => void;
   goNext: () => void;
+  onChangePage: (page: number) => void;
 };
 export default function CustomPagination({
   pageIndex,
@@ -23,28 +26,39 @@ export default function CustomPagination({
   canPreviousPage,
   goNext,
   goPrevious,
+  onChangePage,
 }: Readonly<PaginationProps>) {
+  const currentPage = pageIndex + 1;
+  const isLastPage = currentPage === pageCount;
+  const isFirstPage = pageIndex === 0;
+  const thereIsMorePages = currentPage !== pageCount;
   return (
-    <Pagination className='h-24 justify-end items-end'>
+    <Pagination className='justify-end items-end'>
       <PaginationContent className='gap-3'>
+        <PaginationItem>
+          <PaginationFirst onClick={() => onChangePage(0)} disabled={isFirstPage} />
+        </PaginationItem>
         <PaginationItem>
           <PaginationPrevious onClick={goPrevious} disabled={!canPreviousPage} />
         </PaginationItem>
-        {pageIndex + 1 === pageCount && (
+        {isLastPage && (
           <PaginationItem>
             <PaginationEllipsis />
           </PaginationItem>
         )}
         <PaginationItem>
-          <PaginationLink isActive={true}>{pageIndex + 1}</PaginationLink>
+          <PaginationLink isActive={true}>{currentPage}</PaginationLink>
         </PaginationItem>
-        {pageIndex + 1 !== pageCount && (
+        {thereIsMorePages && (
           <PaginationItem>
             <PaginationEllipsis />
           </PaginationItem>
         )}
         <PaginationItem>
           <PaginationNext onClick={goNext} disabled={!canNextPage} />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLast onClick={() => onChangePage(pageCount - 1)} disabled={isLastPage} />
         </PaginationItem>
       </PaginationContent>
     </Pagination>

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { formatCurrency } from '@/lib/utils';
+import { formatCurrency, generateId } from '@/lib/utils';
 import {
   CellContext,
   ColumnDef,
@@ -10,17 +10,20 @@ import {
   RowData,
   useReactTable,
 } from '@tanstack/react-table';
-import { useMemo } from 'react';
-import { Checkbox } from '../../ui/checkbox';
+import { useCallback, useMemo } from 'react';
 import { useSkipper } from '../hooks/useSkipper';
 import { EditableCell, EditableNumberCell } from './editable-cell';
 import { Register } from '@/types/register.types';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import CustomPagination from './pagination';
+import { AddInput } from '@/components/AddInput';
+import { Checkbox } from '@/components/ui/checkbox';
+import { CircleX } from 'lucide-react';
 
 declare module '@tanstack/react-table' {
   interface TableMeta<TData extends RowData> {
     updateData: (rowIndex: number, columnId: string, value: unknown) => void;
+    removeData: (rowIndex: number) => void;
   }
 }
 
@@ -53,6 +56,14 @@ function ValueCell({ getValue, row: { index }, column: { id }, table }: Readonly
     />
   );
 }
+
+function DeleteCell({ row: { index }, table }: Readonly<CellContext<Register, unknown>>) {
+  return (
+    <button className='invisible group-hover:visible' onClick={() => table.options.meta?.removeData(index)}>
+      <CircleX size={20} />
+    </button>
+  );
+}
 type RegisterTableProps = {
   data: Array<Register>;
   onChange?: (newData: Array<Register>) => void;
@@ -61,7 +72,8 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
   const columns = useMemo<ColumnDef<Register>[]>(
     () => [
       {
-        id: 'checked',
+        header: '',
+        accessorKey: 'checked',
         cell: CheckedCell,
       },
       {
@@ -74,25 +86,58 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
         accessorKey: 'value',
         cell: ValueCell,
       },
+      {
+        header: '',
+        id: 'actions',
+        cell: DeleteCell,
+      },
     ],
     []
   );
 
   const [autoResetPageIndex, skipAutoResetPageIndex] = useSkipper();
 
-  const updateData = (rowIndex: number, columnId: string, value: unknown) => {
-    skipAutoResetPageIndex();
-    const newData = data.map((row, index) => {
-      if (index === rowIndex) {
-        return {
-          ...row,
-          [columnId]: value,
-        };
-      }
-      return row;
-    });
-    onChange?.(newData);
-  };
+  const updateData = useCallback(
+    (rowIndex: number, columnId: string, value: unknown) => {
+      skipAutoResetPageIndex();
+      const newData = data.map((row, index) => {
+        if (index === rowIndex) {
+          return {
+            ...row,
+            [columnId]: value,
+          };
+        }
+        return row;
+      });
+      onChange?.(newData);
+    },
+    [data, onChange, skipAutoResetPageIndex]
+  );
+
+  const addData = useCallback(
+    (name: string | undefined) => {
+      if (!name) return;
+      skipAutoResetPageIndex();
+      const newData = [...data];
+      newData.push({
+        id: generateId(),
+        name,
+        value: 0,
+        checked: false,
+      });
+      onChange?.(newData);
+    },
+    [data, onChange, skipAutoResetPageIndex]
+  );
+
+  const removeData = useCallback(
+    (rowIndex: number) => {
+      skipAutoResetPageIndex();
+      const newData = data.filter((_, index) => index !== rowIndex);
+      onChange?.(newData);
+    },
+    [data, onChange, skipAutoResetPageIndex]
+  );
 
   const table = useReactTable({
     data,
@@ -101,9 +146,9 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     autoResetPageIndex,
-    // Provide our updateData function to our table meta
     meta: {
       updateData,
+      removeData,
     },
   });
 
@@ -132,7 +177,9 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
               <TableRow key={row.id}>
                 {row.getVisibleCells().map((cell) => {
                   return (
-                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                    <TableCell align='center' className='group' key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
                   );
                 })}
               </TableRow>
@@ -140,6 +187,14 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
           })}
         </TableBody>
       </Table>
+      <div className='flex py-2'>
+        <AddInput
+          placeholder='add new register...'
+          type='text'
+          className='placeholder:text-stone-300'
+          onAdd={addData}
+        />
+      </div>
       <CustomPagination
         pageIndex={table.getState().pagination.pageIndex}
         pageCount={table.getPageCount()}
@@ -147,6 +202,7 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
         canPreviousPage={table.getCanPreviousPage()}
         goNext={table.nextPage}
         goPrevious={table.previousPage}
+        onChangePage={table.setPageIndex}
       />
     </div>
   );
