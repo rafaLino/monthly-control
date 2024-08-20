@@ -4,8 +4,9 @@ import { create } from 'zustand';
 import { GlobalState } from './global.state';
 import { Goal } from '@/types/goal';
 import { capitalize } from '@/lib/utils';
-import { RegisterType } from '@/types/register.types';
+import { Register, RegisterType } from '@/types/register.types';
 import { useShallow } from 'zustand/react/shallow'
+import { fetchRegisters } from '@/lib/fetchRegisters';
 
 //accessible only by hooks
 const useGlobalStore = create<GlobalState>()((set) => ({
@@ -17,18 +18,36 @@ const useGlobalStore = create<GlobalState>()((set) => ({
         expenses: 0.65,
         investments: 0.3,
     },
+    loading: false,
     actions: {
         setIncomes: (incomes) => set({ incomes }),
         setExpenses: (expenses) => set({ expenses }),
         setInvestments: (investments) => set({ investments }),
         setGoal: (goal: Goal) => set({ goal }),
-    }
+        setLoading: (loading: boolean) => set({ loading }),
+        setRegisters: (incomes: Array<Register>, expenses: Array<Register>, investments: Array<Register>) =>
+            set({ incomes, expenses, investments }),
+    },
 }));
 
+//services
+export const load = async () => {
+    const { setRegisters } = useGlobalStore.getState().actions;
+
+    const collection = await fetchRegisters();
+    setRegisters(collection.incomes, collection.expenses, collection.investments);
+}
+export const getAll = () => {
+    const state = useGlobalStore.getState()
+    return {
+        incomes: state.incomes,
+        expenses: state.expenses,
+        investments: state.investments
+    }
+}
 
 //hooks
 export const useRegisters = (type: RegisterType) => {
-    useGlobalStore.getState()
     return useGlobalStore(useShallow((state) => [
         state[type],
         state.actions[`set${capitalize(type)}` as keyof GlobalState['actions']]

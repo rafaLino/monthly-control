@@ -1,3 +1,7 @@
+import UserImg from '@/assets/placeholder-user.jpg';
+import { DynamicBreadcrumb } from '@/components/dynamic-breadcrumb/dynamic-breadcrumb';
+import { TooltipLink } from '@/components/tooltip-link/tooltip-link';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,18 +11,20 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Home, LineChart, PanelLeft, Users2, Settings } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import UserImg from '@/assets/placeholder-user.jpg';
+import { saveRegisters } from '@/lib/fetchRegisters';
+import { getAll } from '@/store/store';
 import { Link, Outlet } from '@tanstack/react-router';
-import { TooltipLink } from '@/components/tooltip-link/tooltip-link';
-import { DynamicBreadcrumb } from '@/components/dynamic-breadcrumb/dynamic-breadcrumb';
-import { ProgressStatus } from '@/components/progress-status';
+import { Home, LineChart, PanelLeft, Save, Settings, Users2 } from 'lucide-react';
+
+const now = new Date().toLocaleDateString('pt-br', { dateStyle: 'full' });
 
 export default function MainLayout() {
+  const save = async () => {
+    await saveRegisters(getAll());
+  };
+
   return (
     <div className='flex min-h-screen w-full flex-col bg-muted/40'>
-      <ProgressStatus />
       <aside className='fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex'>
         <nav className='flex flex-col items-center gap-4 px-2 sm:py-5'>
           <TooltipLink
@@ -86,22 +92,28 @@ export default function MainLayout() {
             </SheetContent>
           </Sheet>
           <DynamicBreadcrumb />
-          <div className='relative ml-auto flex-1 md:grow-0'>
+          <div className='flex justify-center w-full'>
+            <h1 className='text-2xl font-semibold'>{now}</h1>
+          </div>
+          <div className='flex gap-8 justify-end'>
+            <button onClick={save}>
+              <Save />
+            </button>
             <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant='outline' size='icon' className='overflow-hidden rounded-full'>
-                <img src={UserImg} width={36} height={36} alt='Avatar' className='overflow-hidden rounded-full' />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align='end'>
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant='outline' size='icon' className='overflow-hidden rounded-full'>
+                  <img src={UserImg} width={36} height={36} alt='Avatar' className='overflow-hidden rounded-full' />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align='end'>
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Settings</DropdownMenuItem>
+                <DropdownMenuItem>Support</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Logout</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </header>
         <main className='grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3'>
