@@ -95,7 +95,6 @@ export const useGoalResult = () => {
         const incomeDone = getIncomeGoalDone(state.incomes, state.expenses, state.investments);
         const expenseDone = getExpenseGoalDone(state.incomes, state.expenses);
         const investmentDone = getInvestmentGoalDone(state.incomes, state.investments);
-        console.log(income, expense, investment, incomeDone, expenseDone, investmentDone)
         const result = getGoalResult(state.goal, incomeDone, expenseDone, investmentDone);
 
         return {

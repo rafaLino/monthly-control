@@ -17,13 +17,27 @@ import { ExpensesBalanceCard, IncomesBalanceCard, InvestmentsBalanceCard, TotalB
 import { DataTable } from '@/features/DataTable';
 import { GoalCard } from '@/features/GoalCard';
 import { createLazyFileRoute } from '@tanstack/react-router';
-import { ChevronLeft, ChevronRight, Copy, CreditCard, File, ListFilter, MoreVertical, Truck } from 'lucide-react';
+import {
+  ChevronLeft,
+  ChevronRight,
+  Copy,
+  CreditCard,
+  File,
+  ListFilter,
+  MoreVertical,
+  Search,
+  Truck,
+} from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { DataTableFilterContext } from '@/context/DataTableFilterContext';
+import { useState } from 'react';
 
 export const Route = createLazyFileRoute('/')({
   component: Index,
 });
 
 function Index() {
+  const [filter, setFilter] = useState('');
   return (
     <>
       <div className='grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2'>
@@ -36,13 +50,23 @@ function Index() {
           <ExpensesBalanceCard />
           <InvestmentsBalanceCard />
         </div>
-        <Tabs defaultValue='incomes'>
+        <Tabs defaultValue='incomes' onValueChange={() => setFilter('')}>
           <div className='flex items-center'>
             <TabsList>
               <TabsTrigger value='incomes'>Incomes</TabsTrigger>
               <TabsTrigger value='expenses'>Expenses</TabsTrigger>
               <TabsTrigger value='investments'>Investments</TabsTrigger>
             </TabsList>
+            <div className='relative ml-auto flex-1 md:grow-0'>
+              <Search className='absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground' />
+              <Input
+                type='search'
+                placeholder='Search...'
+                className='w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]'
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)}
+              />
+            </div>
             <div className='ml-auto flex items-center gap-2'>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -54,7 +78,7 @@ function Index() {
                 <DropdownMenuContent align='end'>
                   <DropdownMenuLabel>Filter by</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuCheckboxItem>Checkeds</DropdownMenuCheckboxItem>
+                  <DropdownMenuCheckboxItem checked>Checkeds</DropdownMenuCheckboxItem>
                   <DropdownMenuCheckboxItem>Uncheckeds</DropdownMenuCheckboxItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -64,15 +88,17 @@ function Index() {
               </Button>
             </div>
           </div>
-          <TabsContent value='incomes'>
-            <DataTable type='incomes' />
-          </TabsContent>
-          <TabsContent value='expenses'>
-            <DataTable type='expenses' />
-          </TabsContent>
-          <TabsContent value='investments'>
-            <DataTable type='investments' />
-          </TabsContent>
+          <DataTableFilterContext.Provider value={filter}>
+            <TabsContent value='incomes'>
+              <DataTable key='incomes' type='incomes' />
+            </TabsContent>
+            <TabsContent value='expenses'>
+              <DataTable key='expenses' type='expenses' />
+            </TabsContent>
+            <TabsContent value='investments'>
+              <DataTable key='investments' type='investments' />
+            </TabsContent>
+          </DataTableFilterContext.Provider>
         </Tabs>
       </div>
       <div>

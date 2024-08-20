@@ -10,7 +10,6 @@ export const AddInput: React.FC<AddInputProps> = ({ onAdd, ...props }) => {
     if (event.key === 'Enter' && ref.current) {
       event.preventDefault();
       onAdd(event.currentTarget.value);
-      ref.current?.blur();
       ref.current.value = '';
     }
   };

@@ -30,6 +30,7 @@ declare module '@tanstack/react-table' {
 function CheckedCell({ getValue, row: { index }, column: { id }, table }: Readonly<CellContext<Register, unknown>>) {
   return (
     <Checkbox
+      tabIndex={-1}
       checked={getValue<boolean>()}
       onCheckedChange={(checked) => table.options.meta?.updateData(index, id, checked)}
     />
@@ -39,6 +40,7 @@ function CheckedCell({ getValue, row: { index }, column: { id }, table }: Readon
 function NameCell({ getValue, row: { index }, column: { id }, table }: Readonly<CellContext<Register, unknown>>) {
   return (
     <EditableCell
+      tabIndex={-1}
       value={getValue<string>()}
       onBlur={(newValue) => {
         table.options.meta?.updateData(index, id, newValue);
@@ -145,6 +147,11 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    initialState: {
+      pagination: {
+        pageSize: 20,
+      },
+    },
     autoResetPageIndex,
     meta: {
       updateData,

@@ -1,4 +1,3 @@
-import { Input } from '@/components/ui/input';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,7 +7,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Home, LineChart, PanelLeft, Search, Users2, Settings } from 'lucide-react';
+import { Home, LineChart, PanelLeft, Users2, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import UserImg from '@/assets/placeholder-user.jpg';
 import { Link, Outlet } from '@tanstack/react-router';
@@ -88,14 +87,7 @@ export default function MainLayout() {
           </Sheet>
           <DynamicBreadcrumb />
           <div className='relative ml-auto flex-1 md:grow-0'>
-            <Search className='absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground' />
-            <Input
-              type='search'
-              placeholder='Search...'
-              className='w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]'
-            />
-          </div>
-          <DropdownMenu>
+            <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant='outline' size='icon' className='overflow-hidden rounded-full'>
                 <img src={UserImg} width={36} height={36} alt='Avatar' className='overflow-hidden rounded-full' />
@@ -110,6 +102,7 @@ export default function MainLayout() {
               <DropdownMenuItem>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          </div>
         </header>
         <main className='grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3'>
           <Outlet />

@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { Input } from '@/components/ui/input';
 
-type EditableCellProps = {
+type EditableCellProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onBlur'> & {
   value: string;
   type?: 'text' | 'number';
   onBlur?: (newValue: string, event: React.FocusEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
 };
-export const EditableCell: React.FC<EditableCellProps> = ({ value, type = 'text', onBlur, onFocus }) => {
+export const EditableCell: React.FC<EditableCellProps> = ({ value, type = 'text', onBlur, onFocus, ...props }) => {
   const [currentValue, setCurrentValue] = useState(value);
   const ref = useRef<HTMLInputElement>(null);
   useEffect(() => {
@@ -37,6 +37,7 @@ export const EditableCell: React.FC<EditableCellProps> = ({ value, type = 'text'
       onKeyDown={handleKeyDown}
       onFocus={onFocus}
       className='border-0 focus:border'
+      {...props}
     />
   );
 };
