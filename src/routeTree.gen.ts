@@ -13,41 +13,97 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as LoginImport } from './routes/login'
+import { Route as MainImport } from './routes/_main'
+import { Route as MainIndexImport } from './routes/_main/index'
 
 // Create Virtual Routes
 
-const AboutLazyImport = createFileRoute('/about')()
-const IndexLazyImport = createFileRoute('/')()
+const MainSettingsLazyImport = createFileRoute('/_main/settings')()
+const MainAnalyticsLazyImport = createFileRoute('/_main/analytics')()
+const MainAboutLazyImport = createFileRoute('/_main/about')()
 
 // Create/Update Routes
 
-const AboutLazyRoute = AboutLazyImport.update({
-  path: '/about',
+const LoginRoute = LoginImport.update({
+  path: '/login',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/about.lazy').then((d) => d.Route))
+} as any)
 
-const IndexLazyRoute = IndexLazyImport.update({
-  path: '/',
+const MainRoute = MainImport.update({
+  id: '/_main',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+} as any)
+
+const MainIndexRoute = MainIndexImport.update({
+  path: '/',
+  getParentRoute: () => MainRoute,
+} as any)
+
+const MainSettingsLazyRoute = MainSettingsLazyImport.update({
+  path: '/settings',
+  getParentRoute: () => MainRoute,
+} as any).lazy(() =>
+  import('./routes/_main/settings.lazy').then((d) => d.Route),
+)
+
+const MainAnalyticsLazyRoute = MainAnalyticsLazyImport.update({
+  path: '/analytics',
+  getParentRoute: () => MainRoute,
+} as any).lazy(() =>
+  import('./routes/_main/analytics.lazy').then((d) => d.Route),
+)
+
+const MainAboutLazyRoute = MainAboutLazyImport.update({
+  path: '/about',
+  getParentRoute: () => MainRoute,
+} as any).lazy(() => import('./routes/_main/about.lazy').then((d) => d.Route))
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexLazyImport
+    '/_main': {
+      id: '/_main'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof MainImport
       parentRoute: typeof rootRoute
     }
-    '/about': {
-      id: '/about'
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginImport
+      parentRoute: typeof rootRoute
+    }
+    '/_main/about': {
+      id: '/_main/about'
       path: '/about'
       fullPath: '/about'
-      preLoaderRoute: typeof AboutLazyImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof MainAboutLazyImport
+      parentRoute: typeof MainImport
+    }
+    '/_main/analytics': {
+      id: '/_main/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof MainAnalyticsLazyImport
+      parentRoute: typeof MainImport
+    }
+    '/_main/settings': {
+      id: '/_main/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof MainSettingsLazyImport
+      parentRoute: typeof MainImport
+    }
+    '/_main/': {
+      id: '/_main/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof MainIndexImport
+      parentRoute: typeof MainImport
     }
   }
 }
@@ -55,8 +111,13 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren({
-  IndexLazyRoute,
-  AboutLazyRoute,
+  MainRoute: MainRoute.addChildren({
+    MainAboutLazyRoute,
+    MainAnalyticsLazyRoute,
+    MainSettingsLazyRoute,
+    MainIndexRoute,
+  }),
+  LoginRoute,
 })
 
 /* prettier-ignore-end */
@@ -67,15 +128,37 @@ export const routeTree = rootRoute.addChildren({
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
-        "/about"
+        "/_main",
+        "/login"
       ]
     },
-    "/": {
-      "filePath": "index.lazy.tsx"
+    "/_main": {
+      "filePath": "_main.tsx",
+      "children": [
+        "/_main/about",
+        "/_main/analytics",
+        "/_main/settings",
+        "/_main/"
+      ]
     },
-    "/about": {
-      "filePath": "about.lazy.tsx"
+    "/login": {
+      "filePath": "login.tsx"
+    },
+    "/_main/about": {
+      "filePath": "_main/about.lazy.tsx",
+      "parent": "/_main"
+    },
+    "/_main/analytics": {
+      "filePath": "_main/analytics.lazy.tsx",
+      "parent": "/_main"
+    },
+    "/_main/settings": {
+      "filePath": "_main/settings.lazy.tsx",
+      "parent": "/_main"
+    },
+    "/_main/": {
+      "filePath": "_main/index.tsx",
+      "parent": "/_main"
     }
   }
 }

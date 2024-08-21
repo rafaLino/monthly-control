@@ -1,5 +1,5 @@
 import { Register } from '@/types/register.types';
-import { openDB, DBSchema, IDBPDatabase } from 'idb';
+import { openDB, DBSchema, IDBPDatabase, IDBPObjectStore } from 'idb';
 
 interface MyDb extends DBSchema {
     incomes: {
@@ -38,10 +38,15 @@ export class IndexedDbService {
             throw new Error('Database not initialized');
         }
 
+
         const tx = this.db.transaction(['incomes', 'expenses', 'investments'], 'readwrite');
         const incomesStore = tx.objectStore('incomes');
         const expensesStore = tx.objectStore('expenses');
         const investmentsStore = tx.objectStore('investments');
+
+        this.clearIfEmpty(incomes, incomesStore);
+        this.clearIfEmpty(expenses, expensesStore);
+        this.clearIfEmpty(investments, investmentsStore);
 
         await Promise.all([
             ...incomes.map(async (income) => {
@@ -75,7 +80,14 @@ export class IndexedDbService {
 
         return { incomes, expenses, investments };
     }
+
+    private async clearIfEmpty<T extends "incomes" | "investments" | "expenses">(data: Array<Register>, store: IDBPObjectStore<MyDb, ("incomes" | "expenses" | "investments")[], T, "readwrite">) {
+        if (!data.length) {
+            store.clear();
+        }
+    }
 }
 
 
 export const indexedDbService = new IndexedDbService();
+

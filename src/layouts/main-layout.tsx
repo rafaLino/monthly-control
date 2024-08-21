@@ -13,14 +13,26 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { saveRegisters } from '@/lib/fetchRegisters';
 import { getAll } from '@/store/store';
+import { useAuth0 } from '@auth0/auth0-react';
 import { Link, Outlet } from '@tanstack/react-router';
 import { Home, LineChart, PanelLeft, Save, Settings, Users2 } from 'lucide-react';
+import { useState } from 'react';
 
 const now = new Date().toLocaleDateString('pt-br', { dateStyle: 'full' });
 
 export default function MainLayout() {
+  const { logout } = useAuth0();
+  const [disabled, setDisabled] = useState(false);
   const save = async () => {
+    setDisabled(true);
     await saveRegisters(getAll());
+    setTimeout(() => {
+      setDisabled(false);
+    }, 5_000);
+  };
+
+  const handleLogout = async () => {
+    await logout({ logoutParams: { returnTo: window.location.origin } });
   };
 
   return (
@@ -96,7 +108,7 @@ export default function MainLayout() {
             <h1 className='text-2xl font-semibold'>{now}</h1>
           </div>
           <div className='flex gap-8 justify-end'>
-            <button onClick={save}>
+            <button onClick={save} disabled={disabled} className='disabled:text-stone-200'>
               <Save />
             </button>
             <DropdownMenu>
@@ -111,7 +123,7 @@ export default function MainLayout() {
                 <DropdownMenuItem>Settings</DropdownMenuItem>
                 <DropdownMenuItem>Support</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Logout</DropdownMenuItem>
+                <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
