@@ -14,22 +14,11 @@ import { ExpensesBalanceCard, IncomesBalanceCard, InvestmentsBalanceCard, TotalB
 import { GoalCard } from '@/features/GoalCard';
 import RegisterTabs from '@/features/Tabs/Tabs';
 import { load } from '@/store/store';
-import { createFileRoute, redirect } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 import { ChevronLeft, ChevronRight, Copy, CreditCard, MoreVertical, Truck } from 'lucide-react';
 
 export const Route = createFileRoute('/_main/')({
   component: Index,
-  beforeLoad: ({ context }) => {
-    if (context.auth.isLoading) {
-      return context.auth.isLoading;
-    }
-    if (!context.auth.isAuthenticated) {
-      throw redirect({
-        to: '/login',
-        replace: true,
-      });
-    }
-  },
   loader: async () => load(),
   staleTime: Infinity,
 });
