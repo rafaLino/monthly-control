@@ -32,7 +32,6 @@ export const Route = createFileRoute('/_main/')({
   },
   loader: async () => load(),
   staleTime: Infinity,
-  shouldReload: false,
 });
 
 function Index() {
