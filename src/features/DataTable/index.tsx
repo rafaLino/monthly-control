@@ -6,9 +6,10 @@ import { COLORS, getColor } from '@/lib/colors';
 import { useRegisters, useRegisterSum } from '@/store/store';
 import { useContext } from 'react';
 import { DataTableFilterContext } from '@/context/DataTableFilterContext';
+import { RegisterType } from '@/types/register.types';
 
 type DataTableProps = {
-  type: 'incomes' | 'expenses' | 'investments';
+  type: RegisterType;
 };
 export const DataTable: React.FC<DataTableProps> = ({ type }) => {
   const filter = useContext(DataTableFilterContext);

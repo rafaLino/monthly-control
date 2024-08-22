@@ -8,6 +8,7 @@ export async function fetchRegisters() {
 }
 
 export async function saveRegisters({ incomes, expenses, investments }: { incomes: Array<Register>, expenses: Array<Register>, investments: Array<Register> }) {
+    if(!incomes.length && !expenses.length && !investments.length) return;
     await indexedDbService.init();
     await indexedDbService.insert(incomes, expenses, investments);
 }

@@ -56,7 +56,8 @@ export const EditableNumberCell: React.FC<EditableNumberCellProps> = ({ value, f
     setIsEditing(true);
   };
   const handleBlur = (newValue: string, event: React.FocusEvent<HTMLInputElement>) => {
-    onBlur?.(parseFloat(newValue), event);
+    const num = parseFloat(newValue);
+    onBlur?.(isNaN(num) ? 0 : num, event);
     setIsEditing(false);
   };
 
@@ -71,7 +72,7 @@ export const EditableNumberCell: React.FC<EditableNumberCellProps> = ({ value, f
 };
 
 function getValue(value: number) {
-  return value ? value.toFixed(2) : '0';
+  return value ? value.toFixed(2) : '';
 }
 
 function getFormatedValue(value: number, formatter?: (value: number) => string) {
