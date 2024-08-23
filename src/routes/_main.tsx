@@ -1,17 +1,17 @@
 import MainLayout from '@/layouts/main-layout';
-import { createFileRoute, redirect } from '@tanstack/react-router';
+import { useAuth0 } from '@auth0/auth0-react';
+import { createFileRoute, Navigate } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_main')({
-  component: MainLayout,
-  beforeLoad: ({ context }) => {
-    if (context.auth.isLoading) {
-      return context.auth.isLoading;
-    }
-    if (!context.auth.isAuthenticated) {
-      throw redirect({
-        to: '/login',
-        replace: true,
-      });
-    }
-  },
+  component: Index,
 });
+
+function Index() {
+  const { isAuthenticated, isLoading } = useAuth0();
+
+  if (!isLoading && !isAuthenticated) {
+    return <Navigate to='/login' replace={true} />;
+  }
+
+  return <MainLayout pageLoading={isLoading} />;
+}

@@ -1,5 +1,6 @@
 import UserImg from '@/assets/placeholder-user.jpg';
 import { DynamicBreadcrumb } from '@/components/dynamic-breadcrumb/dynamic-breadcrumb';
+import { ProgressStatus } from '@/components/progress-status';
 import { TooltipLink } from '@/components/tooltip-link/tooltip-link';
 import { Button } from '@/components/ui/button';
 import {
@@ -11,21 +12,32 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { cn } from '@/lib/utils';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Link, Outlet } from '@tanstack/react-router';
-import { Home, LineChart, PanelLeft, Save, Settings, Users2 } from 'lucide-react';
+import { Home, LineChart, LoaderCircle, LogOut, PanelLeft, Save, Settings, Users2 } from 'lucide-react';
+import { useState } from 'react';
 
 const now = new Date().toLocaleDateString('pt-br', { dateStyle: 'full' });
-
-export default function MainLayout() {
+type MainLayoutProps = {
+  pageLoading?: boolean;
+ }
+export default function MainLayout({ pageLoading}: Readonly<MainLayoutProps>) {
   const { logout } = useAuth0();
+  const [loading, setLoading] = useState(false);
 
   const handleLogout = async () => {
-    await logout({ logoutParams: { returnTo: window.location.origin } });
+    setLoading(true);
+    try {
+      await logout({ logoutParams: { returnTo: `${window.location.origin}/login` } });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className='flex min-h-screen w-full flex-col bg-muted/40'>
+      <ProgressStatus show={pageLoading} />
       <aside className='fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex'>
         <nav className='flex flex-col items-center gap-4 px-2 sm:py-5'>
           <TooltipLink
@@ -112,7 +124,11 @@ export default function MainLayout() {
                 <DropdownMenuItem>Settings</DropdownMenuItem>
                 <DropdownMenuItem>Support</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
+                <DropdownMenuItem onClick={handleLogout}>
+                  <LogOut className='w-5 h-5 mr-2' />
+                  Logout
+                  <LoaderCircle className={cn('w-5 h-5 ml-2 animate-spin', loading ? 'visible' : 'invisible')} />
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

@@ -19,8 +19,7 @@ import { ChevronLeft, ChevronRight, Copy, CreditCard, MoreVertical, Truck } from
 
 export const Route = createFileRoute('/_main/')({
   component: Index,
-  loader: async () => load(),
-  staleTime: Infinity,
+  loader: () => load(),
 });
 
 function Index() {
@@ -31,7 +30,7 @@ function Index() {
           <TotalBalance />
           <GoalCard />
         </div>
-        <div className='grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4'>
+        <div className='grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3'>
           <IncomesBalanceCard />
           <ExpensesBalanceCard />
           <InvestmentsBalanceCard />
