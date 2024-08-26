@@ -1,40 +1,18 @@
-import UserImg from '@/assets/placeholder-user.jpg';
 import { DynamicBreadcrumb } from '@/components/dynamic-breadcrumb/dynamic-breadcrumb';
 import { ProgressStatus } from '@/components/progress-status';
 import { TooltipLink } from '@/components/tooltip-link/tooltip-link';
 import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { cn } from '@/lib/utils';
-import { useAuth0 } from '@auth0/auth0-react';
+import { SaveOnCloud } from '@/features/SaveOnCloud';
+import { UserMenu } from '@/features/UserMenu';
 import { Link, Outlet } from '@tanstack/react-router';
-import { Home, LineChart, LoaderCircle, LogOut, PanelLeft, Save, Settings, Users2 } from 'lucide-react';
-import { useState } from 'react';
+import { Home, LineChart, PanelLeft, Settings, Users2 } from 'lucide-react';
 
 const now = new Date().toLocaleDateString('pt-br', { dateStyle: 'full' });
 type MainLayoutProps = {
   pageLoading?: boolean;
- }
-export default function MainLayout({ pageLoading}: Readonly<MainLayoutProps>) {
-  const { logout } = useAuth0();
-  const [loading, setLoading] = useState(false);
-
-  const handleLogout = async () => {
-    setLoading(true);
-    try {
-      await logout({ logoutParams: { returnTo: `${window.location.origin}/login` } });
-    } finally {
-      setLoading(false);
-    }
-  };
-
+};
+export default function MainLayout({ pageLoading }: Readonly<MainLayoutProps>) {
   return (
     <div className='flex min-h-screen w-full flex-col bg-muted/40'>
       <ProgressStatus show={pageLoading} />
@@ -109,28 +87,8 @@ export default function MainLayout({ pageLoading}: Readonly<MainLayoutProps>) {
             <h1 className='text-2xl font-semibold'>{now}</h1>
           </div>
           <div className='flex gap-8 justify-end'>
-            <button className='disabled:text-stone-200'>
-              <Save />
-            </button>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant='outline' size='icon' className='overflow-hidden rounded-full'>
-                  <img src={UserImg} width={36} height={36} alt='Avatar' className='overflow-hidden rounded-full' />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align='end'>
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Settings</DropdownMenuItem>
-                <DropdownMenuItem>Support</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleLogout}>
-                  <LogOut className='w-5 h-5 mr-2' />
-                  Logout
-                  <LoaderCircle className={cn('w-5 h-5 ml-2 animate-spin', loading ? 'visible' : 'invisible')} />
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <SaveOnCloud />
+            <UserMenu />
           </div>
         </header>
         <main className='grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3'>

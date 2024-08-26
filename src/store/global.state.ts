@@ -14,5 +14,10 @@ export interface GlobalState {
         setGoal: (goal: Goal) => void;
         setLoading: (loading: boolean) => void;
         setRegisters: (incomes: Array<Register>, expenses: Array<Register>, investments: Array<Register>) => void
+        getRegisters: () => {
+            incomes: Array<Register>,
+            expenses: Array<Register>,
+            investments: Array<Register>
+        }
     }
 }
