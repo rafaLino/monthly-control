@@ -9,7 +9,7 @@ import { useShallow } from 'zustand/react/shallow'
 import { fetchRegisters } from '@/lib/fetchRegisters';
 
 //accessible only by hooks
-const useGlobalStore = create<GlobalState>()((set) => ({
+const useGlobalStore = create<GlobalState>()((set, get) => ({
     incomes: [],
     expenses: [],
     investments: [],
@@ -27,6 +27,14 @@ const useGlobalStore = create<GlobalState>()((set) => ({
         setLoading: (loading: boolean) => set({ loading }),
         setRegisters: (incomes: Array<Register>, expenses: Array<Register>, investments: Array<Register>) =>
             set({ incomes, expenses, investments }),
+        getRegisters: () => {
+            const state = get();
+            return {
+                incomes: state.incomes,
+                expenses: state.expenses,
+                investments: state.investments
+            }
+        },
     },
 }));
 
