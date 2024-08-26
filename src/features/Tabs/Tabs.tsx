@@ -12,13 +12,13 @@ export default function RegisterTabs() {
   const [saving, save] = useSave();
   return (
     <Tabs defaultValue='incomes' onValueChange={() => setFilter('')}>
-      <div className='flex items-center'>
+      <div className='flex items-center justify-between flex-wrap gap-1 sm:gap-2'>
         <TabsList>
           <TabsTrigger value='incomes'>Incomes</TabsTrigger>
           <TabsTrigger value='expenses'>Expenses</TabsTrigger>
           <TabsTrigger value='investments'>Investments</TabsTrigger>
         </TabsList>
-        <div className='relative ml-auto flex-1 md:grow-0'>
+        <div className='relative flex md:grow-0 order-3 w-full sm:w-auto'>
           <Search className='absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground' />
           <Input
             type='search'
@@ -28,7 +28,7 @@ export default function RegisterTabs() {
             onChange={(e) => setFilter(e.target.value)}
           />
         </div>
-        <div className='ml-auto flex items-center gap-2'>
+        <div className='flex items-center sm:gap-2 sm:order-3'>
           <Button
             size='sm'
             variant='link'
