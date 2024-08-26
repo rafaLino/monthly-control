@@ -82,11 +82,11 @@ export function getInvestmentGoalDone(incomes: Array<Register>, investments: Arr
     return incomesBalance > 0 ? (investmentsBalance / incomesBalance) : 0;
 }
 
-export function getGoalResult(goal: Goal, incomeDone: number, expenseDone: number, investmentDone: number): StatusGoal {
-    if (incomeDone <= goal.incomes && expenseDone <= goal.expenses && investmentDone >= goal.investments) {
+export function getGoalResult(goal: Goal, incomes: number, expenses: number, investments: number): StatusGoal {
+    if (incomes <= goal.incomes && expenses <= goal.expenses && investments >= goal.investments) {
         return 'OK'
     }
-    else if (incomeDone > goal.incomes && expenseDone <= goal.expenses && investmentDone >= goal.investments) {
+    else if (incomes > goal.incomes && expenses <= goal.expenses && investments >= goal.investments) {
         return 'WARNING'
     }
     else {
