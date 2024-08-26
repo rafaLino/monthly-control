@@ -8,13 +8,13 @@ import { UserMenu } from '@/features/UserMenu';
 import { Link, Outlet } from '@tanstack/react-router';
 import { Home, LineChart, PanelLeft, Settings, Users2 } from 'lucide-react';
 
-const now = new Date().toLocaleDateString('pt-br', { dateStyle: 'full' });
+const now = new Date().toLocaleDateString('pt-br', { month: 'long', year: 'numeric' });
 type MainLayoutProps = {
   pageLoading?: boolean;
 };
 export default function MainLayout({ pageLoading }: Readonly<MainLayoutProps>) {
   return (
-    <div className='flex min-h-screen w-full flex-col bg-muted/40'>
+    <div className='flex min-h-screen w-screen flex-col bg-muted/40'>
       <ProgressStatus show={pageLoading} />
       <aside className='fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex'>
         <nav className='flex flex-col items-center gap-4 px-2 sm:py-5'>
@@ -60,7 +60,7 @@ export default function MainLayout({ pageLoading }: Readonly<MainLayoutProps>) {
         <header className='sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6'>
           <Sheet>
             <SheetTrigger asChild>
-              <Button size='icon' variant='outline' className='sm:hidden'>
+              <Button size='icon' variant='ghost' className='sm:hidden'>
                 <PanelLeft className='h-5 w-5' />
                 <span className='sr-only'>Toggle Menu</span>
               </Button>
@@ -84,14 +84,14 @@ export default function MainLayout({ pageLoading }: Readonly<MainLayoutProps>) {
           </Sheet>
           <DynamicBreadcrumb />
           <div className='flex justify-center w-full'>
-            <h1 className='text-2xl font-semibold'>{now}</h1>
+            <h1 className='sm:text-2xl font-semibold whitespace-nowrap'>{now}</h1>
           </div>
           <div className='flex gap-8 justify-end'>
             <SaveOnCloud />
             <UserMenu />
           </div>
         </header>
-        <main className='grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3'>
+        <main className='grid flex-1 items-start gap-4 p-2 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3'>
           <Outlet />
         </main>
       </div>
