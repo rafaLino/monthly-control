@@ -26,6 +26,7 @@ jobs:
         with:
           node-version: 20
           cache: "pnpm"
+          token: ${{ secrets.GITHUB_TOKEN }}
           registry-url: https://npm.pkg.github.com/
 
       - name: Install dependencies
