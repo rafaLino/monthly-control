@@ -16,7 +16,7 @@ import RegisterTabs from '@/features/Tabs/Tabs';
 import { load } from '@/store/store';
 import { createFileRoute } from '@tanstack/react-router';
 import { ChevronLeft, ChevronRight, Copy, CreditCard, MoreVertical, Truck } from 'lucide-react';
-
+import { Calculator } from '@rafael-lino/react-quick-calculator';
 export const Route = createFileRoute('/_main/')({
   component: Index,
   loader: () => load(),
@@ -38,6 +38,7 @@ function Index() {
         <RegisterTabs />
       </div>
       <div>
+        <Calculator className='absolute' />
         <Card className='overflow-hidden' x-chunk='dashboard-05-chunk-4'>
           <CardHeader className='flex flex-row items-start bg-muted/50'>
             <div className='grid gap-0.5'>
