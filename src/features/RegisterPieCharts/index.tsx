@@ -1,7 +1,7 @@
 import { PizzaChart } from '@/components/PizzaChart';
 import { formatCurrency } from '@/lib/utils';
 import { useExpensesBalance, useIncomesBalance, useInvestmentsBalance, useRegisters } from '@/store/store';
-import { TrendingDown, TrendingUp } from 'lucide-react';
+import { TrendingUp } from 'lucide-react';
 import { useMemo } from 'react';
 
 export function IncomesPieChart() {
@@ -13,7 +13,7 @@ export function IncomesPieChart() {
   return (
     <PizzaChart key='incomes' data={data}>
       Remaining {formatCurrency(remain)}
-      {remain >= 0 ? <TrendingUp className='h-4 w-4 mx-2' /> : <TrendingDown className='h-4 w-4 mx-2' />}
+      <TrendingUp className='h-4 w-4 mx-2' />
     </PizzaChart>
   );
 }
@@ -26,8 +26,7 @@ export function ExpensesPieChart() {
   const data = filtered.length === 0 ? expenses : filtered;
   return (
     <PizzaChart key='expenses' data={data}>
-      Remaining {formatCurrency(remain)}
-      {remain >= 0 ? <TrendingUp className='h-4 w-4 mx-2' /> : <TrendingDown className='h-4 w-4 mx-2' />}
+      Remaining {formatCurrency(remain)} <TrendingUp className='h-4 w-4 mx-2' />
     </PizzaChart>
   );
 }
@@ -40,8 +39,7 @@ export function InvestmentsPieChart() {
   const data = filtered.length === 0 ? investments : filtered;
   return (
     <PizzaChart key='investments' data={data}>
-      Remaining {formatCurrency(remain)}
-      {remain >= 0 ? <TrendingUp className='h-4 w-4 mx-2' /> : <TrendingDown className='h-4 w-4 mx-2' />}
+      Remaining {formatCurrency(remain)} <TrendingUp className='h-4 w-4 mx-2' />
     </PizzaChart>
   );
 }
