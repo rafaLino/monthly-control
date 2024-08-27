@@ -26,10 +26,9 @@ jobs:
         with:
           node-version: 20
           cache: "pnpm"
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install dependencies
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: pnpm install
 
       - name: Build
