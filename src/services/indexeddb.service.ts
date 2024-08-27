@@ -1,4 +1,4 @@
-import { Register } from '@/types/register.types';
+import { Register, RegisterType } from '@/types/register.types';
 import { openDB, DBSchema, IDBPDatabase, IDBPObjectStore } from 'idb';
 
 interface MyDb extends DBSchema {
@@ -44,10 +44,7 @@ export class IndexedDbService {
         const expensesStore = tx.objectStore('expenses');
         const investmentsStore = tx.objectStore('investments');
 
-        this.clearIfEmpty(incomes, incomesStore);
-        this.clearIfEmpty(expenses, expensesStore);
-        this.clearIfEmpty(investments, investmentsStore);
-
+        await this.clear(incomesStore, expensesStore, investmentsStore);
         await Promise.all([
             ...incomes.map(async (income) => {
                 await incomesStore.put(income, income.id);
@@ -81,10 +78,13 @@ export class IndexedDbService {
         return { incomes, expenses, investments };
     }
 
-    private async clearIfEmpty<T extends "incomes" | "investments" | "expenses">(data: Array<Register>, store: IDBPObjectStore<MyDb, ("incomes" | "expenses" | "investments")[], T, "readwrite">) {
-        if (!data.length) {
-            store.clear();
-        }
+
+    private async clear(incomesStore: IDBPObjectStore<MyDb, RegisterType[], "incomes", "readwrite">, expensesStore: IDBPObjectStore<MyDb, RegisterType[], "expenses", "readwrite">, investmentsStore: IDBPObjectStore<MyDb, RegisterType[], "investments", "readwrite">) {
+        await Promise.all([
+            incomesStore.clear(),
+            expensesStore.clear(),
+            investmentsStore.clear(),
+        ]);
     }
 }
 

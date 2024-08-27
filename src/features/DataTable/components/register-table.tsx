@@ -7,6 +7,7 @@ import {
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
+  HeaderContext,
   RowData,
   useReactTable,
 } from '@tanstack/react-table';
@@ -24,7 +25,20 @@ declare module '@tanstack/react-table' {
   interface TableMeta<TData extends RowData> {
     updateData: (rowIndex: number, columnId: string, value: unknown) => void;
     removeData: (rowIndex: number) => void;
+    checkAllData: (value: boolean | 'indeterminate') => void;
   }
+}
+
+function CheckedHeaderCell({ table }: Readonly<HeaderContext<Register, unknown>>) {
+  const rows = table.getRowModel().flatRows;
+  const value = useMemo(() => {
+    if(rows.length === 0) return false;
+    const allChecked = rows.every((row) => row.original.checked);
+    if (allChecked) return allChecked;
+    return rows.some((row) => row.original.checked) ? 'indeterminate' : false;
+  }, [rows]);
+
+  return <Checkbox tabIndex={-1} checked={value} onCheckedChange={(value) => table.options.meta?.checkAllData(value)} className='-mr-3' />;
 }
 
 function CheckedCell({ getValue, row: { index }, column: { id }, table }: Readonly<CellContext<Register, unknown>>) {
@@ -74,7 +88,8 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
   const columns = useMemo<ColumnDef<Register>[]>(
     () => [
       {
-        header: '',
+        header: CheckedHeaderCell,
+        id: 'checked',
         accessorKey: 'checked',
         cell: CheckedCell,
       },
@@ -141,6 +156,17 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
     [data, onChange, skipAutoResetPageIndex]
   );
 
+  const checkAllData = useCallback((value: boolean | 'indeterminate') => {
+    skipAutoResetPageIndex();
+    const newData = data.map((row) => {
+        return {
+          ...row,
+          checked: value === 'indeterminate' ? true : value,
+        };
+    });
+    onChange?.(newData);
+  },[data, onChange, skipAutoResetPageIndex]);
+
   const table = useReactTable({
     data,
     columns,
@@ -156,6 +182,7 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
     meta: {
       updateData,
       removeData,
+      checkAllData,
     },
   });
 
