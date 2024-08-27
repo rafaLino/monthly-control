@@ -93,8 +93,8 @@ dependencies:
     specifier: ^1.1.2
     version: 1.1.2(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)
   '@rafael-lino/react-quick-calculator':
-    specifier: 1.1.1
-    version: 1.1.1(react-dom@18.3.1)(react@18.3.1)
+    specifier: ^1.2.1
+    version: 1.2.1(react-dom@18.3.1)(react@18.3.1)
   '@tanstack/react-router':
     specifier: ^1.48.1
     version: 1.48.1(react-dom@18.3.1)(react@18.3.1)
@@ -2280,8 +2280,8 @@ packages:
     resolution: {integrity: sha512-A9+lCBZoaMJlVKcRBz2YByCG+Cp2t6nAnMnNba+XiWxnj6r4JUFqfsgwocMBZU9LPtdxC6wB56ySYpc7LQIoJg==}
     dev: false
 
-  /@rafael-lino/react-quick-calculator@1.1.1(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-GqLm30MRQ5sDYSV10APwOmU3SGzvCIT/UOyU2WzNNpt69LvHxwU/IWDL2kYOX0s3KA5Qeh5mJMaQggMXEFuc/A==, tarball: https://npm.pkg.github.com/download/@rafael-lino/react-quick-calculator/1.1.1/8bfca7480bb8ce579c7fa0ede1e3881efbe73fa0}
+  /@rafael-lino/react-quick-calculator@1.2.1(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-THeHW3Kdes9jtdT9GSCcQblJ8tL3b1F10UDl+U/fximtIIEI2gjBXx+vFNDjQbdZMhbThE1MsD3FtwASHaMaqg==, tarball: https://npm.pkg.github.com/download/@rafael-lino/react-quick-calculator/1.2.1/e07b7a015c07a4dc607ea243c682cc60050546ae}
     peerDependencies:
       react: '>=18.2.0'
       react-dom: '>=18.2.0'
