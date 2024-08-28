@@ -33,10 +33,10 @@ export const SaveOnCloud = () => {
   };
   return (
     <div className='flex'>
-      <Button variant='ghost' className='disabled:text-stone-200' disabled={downloading} onClick={handleDowload}>
+      <Button variant='ghost' className='disabled:text-stone-200 px-2 md:px-4' disabled={downloading} onClick={handleDowload}>
         <Download />
       </Button>
-      <Button variant='ghost' className='disabled:text-stone-200' disabled={uploading} onClick={handleUpload}>
+      <Button variant='ghost' className='disabled:text-stone-200 px-2 md:px-4' disabled={uploading} onClick={handleUpload}>
         <Upload />
       </Button>
     </div>

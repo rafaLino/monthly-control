@@ -24,7 +24,7 @@ export default function MainLayout({ pageLoading }: Readonly<MainLayoutProps>) {
             <div className='flex justify-center w-full'>
               <h1 className='sm:text-2xl font-semibold whitespace-nowrap'>{t('date', { date: NOW })}</h1>
             </div>
-            <div className='flex gap-8 justify-end'>
+            <div className='flex gap-0 sm:gap-8 justify-end'>
               <SaveOnCloud />
               <LanguageSelector />
               <UserMenu />
