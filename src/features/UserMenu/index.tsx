@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,15 +8,14 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
 import { LoaderCircle, LogOut } from 'lucide-react';
-import UserImg from '@/assets/placeholder-user.jpg';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Thumbnail } from '@/components/Thumbnail';
 export const UserMenu = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'userMenu' });
   const { logout, user } = useAuth0();
   const [loading, setLoading] = useState(false);
-
   const handleLogout = async () => {
     setLoading(true);
     try {
@@ -30,15 +28,7 @@ export const UserMenu = () => {
     <div className='flex'>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant='outline' size='icon' className='overflow-hidden rounded-full'>
-            <img
-              src={user?.picture ?? UserImg}
-              width={36}
-              height={36}
-              alt='Avatar'
-              className='overflow-hidden rounded-full'
-            />
-          </Button>
+          <Thumbnail src={user?.picture} />
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>{t('myAccount')}</DropdownMenuLabel>

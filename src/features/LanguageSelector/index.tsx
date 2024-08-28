@@ -12,7 +12,7 @@ export function LanguageSelector() {
   return (
     <Menubar className='border-0 bg-stale-200 w-14'>
       <MenubarMenu>
-        <MenubarTrigger>
+        <MenubarTrigger className='cursor-pointer'>
           <LanguageIcon name={language} className='h-6 w-6' />
         </MenubarTrigger>
         <MenubarContent className='min-w-8'>
