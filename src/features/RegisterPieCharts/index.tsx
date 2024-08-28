@@ -1,10 +1,12 @@
 import { PizzaChart } from '@/components/PizzaChart';
-import { formatCurrency } from '@/lib/utils';
 import { useExpensesBalance, useIncomesBalance, useInvestmentsBalance, useRegisters } from '@/store/store';
+import { t } from 'i18next';
 import { TrendingUp } from 'lucide-react';
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export function IncomesPieChart() {
+  const { t } = useTranslation();
   const [incomes] = useRegisters('incomes');
   const filtered = useMemo(() => incomes.filter((item) => item.checked), [incomes]);
   const balance = useIncomesBalance();
@@ -12,8 +14,7 @@ export function IncomesPieChart() {
   const data = filtered.length === 0 ? incomes : filtered;
   return (
     <PizzaChart key='incomes' data={data}>
-      Remaining {formatCurrency(remain)}
-      <TrendingUp className='h-4 w-4 mx-2' />
+      {t('remaining', { value: remain })} <TrendingUp className='h-4 w-4 mx-2' />
     </PizzaChart>
   );
 }
@@ -26,7 +27,7 @@ export function ExpensesPieChart() {
   const data = filtered.length === 0 ? expenses : filtered;
   return (
     <PizzaChart key='expenses' data={data}>
-      Remaining {formatCurrency(remain)} <TrendingUp className='h-4 w-4 mx-2' />
+      {t('remaining', { value: remain })} <TrendingUp className='h-4 w-4 mx-2' />
     </PizzaChart>
   );
 }
@@ -39,7 +40,7 @@ export function InvestmentsPieChart() {
   const data = filtered.length === 0 ? investments : filtered;
   return (
     <PizzaChart key='investments' data={data}>
-      Remaining {formatCurrency(remain)} <TrendingUp className='h-4 w-4 mx-2' />
+      {t('remaining', { value: remain })} <TrendingUp className='h-4 w-4 mx-2' />
     </PizzaChart>
   );
 }

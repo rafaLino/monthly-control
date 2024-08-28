@@ -7,22 +7,24 @@ import { useState } from 'react';
 import { DataTable } from '../DataTable';
 import { useSave } from './hooks/useSave';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 export default function RegisterTabs() {
+  const { t } = useTranslation('translation', { keyPrefix: 'registerTabs' });
   const [filter, setFilter] = useState('');
   const [saving, save] = useSave();
   return (
     <Tabs defaultValue='incomes' onValueChange={() => setFilter('')}>
       <div className='flex items-center justify-between flex-wrap gap-1 sm:gap-2'>
         <TabsList>
-          <TabsTrigger value='incomes'>Incomes</TabsTrigger>
-          <TabsTrigger value='expenses'>Expenses</TabsTrigger>
-          <TabsTrigger value='investments'>Investments</TabsTrigger>
+          <TabsTrigger value='incomes'>{t('incomes')}</TabsTrigger>
+          <TabsTrigger value='expenses'>{t('expenses')}</TabsTrigger>
+          <TabsTrigger value='investments'>{t('investments')}</TabsTrigger>
         </TabsList>
         <div className='relative flex md:grow-0 order-3 w-full sm:w-auto'>
           <Search className='absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground' />
           <Input
             type='search'
-            placeholder='Search...'
+            placeholder={t('search')}
             className='w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]'
             value={filter}
             onChange={(e) => setFilter(e.target.value)}

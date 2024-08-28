@@ -1,6 +1,6 @@
 import { Link, useLocation } from '@tanstack/react-router';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from '../ui/breadcrumb';
-import { capitalize } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 function getPathToGo(pathnames: string[], index: number) {
   const pathname = pathnames.slice(0, index + 1).join('/');
@@ -8,6 +8,7 @@ function getPathToGo(pathnames: string[], index: number) {
 }
 
 export const DynamicBreadcrumb = () => {
+  const { t } = useTranslation('translation', { keyPrefix: 'sidebar' });
   const pathnames = useLocation({
     select: (location) => location.pathname.split('/').filter(Boolean),
   });
@@ -18,7 +19,7 @@ export const DynamicBreadcrumb = () => {
         {pathnames.length === 0 ? (
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link to='/'>Home</Link>
+              <Link to='/'>{t('home')}</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
         ) : (
@@ -30,7 +31,7 @@ export const DynamicBreadcrumb = () => {
                   activeOptions={{ exact: true }}
                   className='[&.active]:font-bold'
                 >
-                  {capitalize(name)}
+                  {t(name)}
                 </Link>
               </BreadcrumbLink>
               {length - 1 !== index && <BreadcrumbSeparator />}

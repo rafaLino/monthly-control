@@ -1,0 +1,67 @@
+{
+  "date": "{{date, DATE_FORMAT, capitalize}}",
+  "currency": "{{value, CURRENCY_FORMAT}}",
+  "percentage": "{{value, PERCENTAGE_FORMAT}}",
+  "remaining": "Remaining {{value, CURRENCY_FORMAT}}",
+  "breadcrumb": {
+    "home": "Home",
+    "users": "Users",
+    "analytics": "Analytics",
+    "settings": "Settings"
+  },
+  "balanceCard": {
+    "incomes": "Incomes",
+    "expenses": "Expenses",
+    "balance": "Balance:",
+    "done": "Completed:"
+  },
+  "goalCard": {
+    "OK": "IDEAL PLAN",
+    "WARNING": "ALMOST THERE",
+    "NOK": "REVIEW"
+  },
+  "incomesBalanceCard": {
+    "planned": "Planned:",
+    "done": "Received:"
+  },
+  "expensesBalanceCard": {
+    "planned": "Planned:",
+    "done": "Paid:"
+  },
+  "investmentsBalanceCard": {
+    "planned": "Planned:",
+    "done": "Invested:"
+  },
+  "registerTabs": {
+    "incomes": "Incomes",
+    "expenses": "Expenses",
+    "investments": "Investments",
+    "search": "Search..."
+  },
+  "registerTable": {
+    "name": "Name",
+    "value": "Value",
+    "addNewRegister": "add a new record..."
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "sidebar": {
+    "home": "Home",
+    "users": "Users",
+    "analytics": "Analytics",
+    "settings": "Settings",
+    "toggleMenu": "Toggle menu"
+  },
+  "userMenu": {
+    "myAccount": "My account",
+    "settings": "Settings",
+    "support": "Support",
+    "logout": "Logout"
+  },
+  "login": {
+    "welcome": "Welcome",
+    "signin": "Sign in"
+  }
+}

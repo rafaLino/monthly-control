@@ -5,6 +5,7 @@ import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '
 import { Register } from '@/types/register.types';
 import randomColor from 'randomcolor';
 import { PropsWithChildren, useMemo } from 'react';
+import { sum } from '@/lib/utils';
 
 type PizzaChartProps = PropsWithChildren<{
   data: Array<Register>;
@@ -55,9 +56,7 @@ export function PizzaChart({ data, children }: Readonly<PizzaChartProps>) {
     );
   }, [chartData, colors]);
 
-  const total = useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.value, 0);
-  }, [chartData]);
+  const total = useMemo(() => sum(data), [data]);
 
   return (
     <Card className='flex flex-col mb-1.5'>

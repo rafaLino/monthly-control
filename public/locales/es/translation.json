@@ -1,0 +1,67 @@
+{
+  "date": "{{date, DATE_FORMAT, capitalize}}",
+  "currency": "{{value, CURRENCY_FORMAT}}",
+  "percentage": "{{value, PERCENTAGE_FORMAT}}",
+  "remaining": "Restante {{value, CURRENCY_FORMAT}}",
+  "breadcrumb": {
+    "home": "Inicio",
+    "users": "Usuarios",
+    "analytics": "Analíticas",
+    "settings": "Configuraciones"
+  },
+  "balanceCard": {
+    "incomes": "Ingresos",
+    "expenses": "Gastos",
+    "balance": "Saldo:",
+    "done": "Realizado:"
+  },
+  "goalCard": {
+    "OK": "PLAN IDEAL",
+    "WARNING": "CASI AHÍ",
+    "NOK": "REVISAR"
+  },
+  "incomesBalanceCard": {
+    "planned": "Planificado:",
+    "done": "Recibido:"
+  },
+  "expensesBalanceCard": {
+    "planned": "Planificado:",
+    "done": "Pagado:"
+  },
+  "investmentsBalanceCard": {
+    "planned": "Planificado:",
+    "done": "Invertido:"
+  },
+  "registerTabs": {
+    "incomes": "Ingresos",
+    "expenses": "Gastos",
+    "investments": "Inversiones",
+    "search": "Buscar..."
+  },
+  "registerTable": {
+    "name": "Nombre",
+    "value": "Valor",
+    "addNewRegister": "añade un nuevo registro..."
+  },
+  "pagination": {
+    "previous": "Anterior",
+    "next": "Siguiente"
+  },
+  "sidebar": {
+    "home": "Inicio",
+    "users": "Usuarios",
+    "analytics": "Analíticas",
+    "settings": "Configuraciones",
+    "toggleMenu": "Alternar menú"
+  },
+  "userMenu": {
+    "myAccount": "Mi cuenta",
+    "settings": "Configuraciones",
+    "support": "Soporte",
+    "logout": "Cerrar sesión"
+  },
+  "login": {
+    "welcome": "Bienvenido",
+    "signin": "Iniciar sesión"
+  }
+}
