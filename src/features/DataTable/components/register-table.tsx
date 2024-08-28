@@ -7,6 +7,7 @@ import {
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
+  HeaderContext,
   RowData,
   useReactTable,
 } from '@tanstack/react-table';
@@ -24,7 +25,24 @@ declare module '@tanstack/react-table' {
   interface TableMeta<TData extends RowData> {
     updateData: (rowIndex: number, columnId: string, value: unknown) => void;
     removeData: (rowIndex: number) => void;
+    checkAllData: (value: boolean | 'indeterminate') => void;
   }
+}
+
+function CheckedHeaderCell({ table }: Readonly<HeaderContext<Register, unknown>>) {
+  const rows = table.getRowModel().flatRows;
+  const value = useMemo(() => {
+    if (rows.length === 0) return false;
+    const allChecked = rows.every((row) => row.original.checked);
+    if (allChecked) return allChecked;
+    return rows.some((row) => row.original.checked) ? 'indeterminate' : false;
+  }, [rows]);
+
+  return (
+    <div className='text-center pr-2.5'>
+      <Checkbox tabIndex={-1} checked={value} onCheckedChange={(value) => table.options.meta?.checkAllData(value)} />
+    </div>
+  );
 }
 
 function CheckedCell({ getValue, row: { index }, column: { id }, table }: Readonly<CellContext<Register, unknown>>) {
@@ -61,7 +79,7 @@ function ValueCell({ getValue, row: { index }, column: { id }, table }: Readonly
 
 function DeleteCell({ row: { index }, table }: Readonly<CellContext<Register, unknown>>) {
   return (
-    <button className='invisible group-hover:visible' onClick={() => table.options.meta?.removeData(index)}>
+    <button className='sm:invisible group-hover:visible' onClick={() => table.options.meta?.removeData(index)}>
       <CircleX size={20} />
     </button>
   );
@@ -74,7 +92,8 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
   const columns = useMemo<ColumnDef<Register>[]>(
     () => [
       {
-        header: '',
+        header: CheckedHeaderCell,
+        id: 'checked',
         accessorKey: 'checked',
         cell: CheckedCell,
       },
@@ -141,6 +160,20 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
     [data, onChange, skipAutoResetPageIndex]
   );
 
+  const checkAllData = useCallback(
+    (value: boolean | 'indeterminate') => {
+      skipAutoResetPageIndex();
+      const newData = data.map((row) => {
+        return {
+          ...row,
+          checked: value === 'indeterminate' ? true : value,
+        };
+      });
+      onChange?.(newData);
+    },
+    [data, onChange, skipAutoResetPageIndex]
+  );
+
   const table = useReactTable({
     data,
     columns,
@@ -156,6 +189,7 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
     meta: {
       updateData,
       removeData,
+      checkAllData,
     },
   });
 
@@ -168,7 +202,7 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id} colSpan={header.colSpan}>
+                  <TableHead key={header.id} colSpan={header.colSpan} className='px-4'>
                     {header.isPlaceholder ? null : (
                       <div>{flexRender(header.column.columnDef.header, header.getContext())}</div>
                     )}

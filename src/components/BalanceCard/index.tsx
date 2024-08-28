@@ -13,27 +13,27 @@ export const BalanceCard: React.FC<BalanceCardProps> = memo(
   ({ incomesDone, incomesBalance, expensesDone, expensesBalance }) => {
     return (
       <Card className={'sm:col-span-2'}>
-        <div className={'flex justify-between'}>
+        <div className={'flex justify-evenly sm:justify-between'}>
           <CardHeader className='flex flex-col gap-2'>
             <CardTitle className='text-gray-500'>Incomes</CardTitle>
-            <div className='flex flex-row sm:gap-1'>
+            <div className='flex flex-col sm:flex-row sm:gap-1'>
               <span>Balance: </span>
               <CardTitle className='text-base'>{formatCurrency(incomesBalance)}</CardTitle>
             </div>
 
-            <div className='flex flex-row sm:gap-1'>
+            <div className='flex flex-col sm:flex-row sm:gap-1'>
               <span>Done: </span>
               <CardTitle className='text-base'>{formatCurrency(incomesDone)}</CardTitle>
             </div>
           </CardHeader>
           <CardHeader className='flex flex-col gap-2'>
             <CardTitle className='text-gray-500'>Expenses</CardTitle>
-            <div className='flex flex-row sm:gap-1'>
+            <div className='flex flex-col sm:flex-row sm:gap-1'>
               <span>Balance: </span>
               <CardTitle className='text-base'>{formatCurrency(expensesBalance)}</CardTitle>
             </div>
 
-            <div className='flex flex-row sm:gap-1'>
+            <div className='flex flex-col sm:flex-row sm:gap-1'>
               <span>Done: </span>
               <CardTitle className='text-base'>{formatCurrency(expensesDone)}</CardTitle>
             </div>

@@ -26,7 +26,9 @@ jobs:
           cache: "pnpm"
 
       - name: Install dependencies
-        run: pnpm install
+        run: |
+          pnpm config set '//npm.pkg.github.com/:_authToken' ${{ secrets.NPM_TOKEN }} 
+          pnpm install
 
       - name: Build
         run: npm run build
