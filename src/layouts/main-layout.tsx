@@ -5,6 +5,7 @@ import { UserMenu } from '@/features/UserMenu';
 import { Outlet } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 import { SideBar } from './sidebar';
+import { LanguageSelector } from '@/features/LanguageSelector';
 
 const NOW = new Date();
 
@@ -25,6 +26,7 @@ export default function MainLayout({ pageLoading }: Readonly<MainLayoutProps>) {
             </div>
             <div className='flex gap-8 justify-end'>
               <SaveOnCloud />
+              <LanguageSelector />
               <UserMenu />
             </div>
           </>

@@ -3,10 +3,10 @@ import { initReactI18next } from 'react-i18next';
 
 import Backend from 'i18next-http-backend';
 import { format, Locale } from 'date-fns';
-import { enUS, ptBR } from 'date-fns/locale';
+import { enUS, ptBR, es } from 'date-fns/locale';
 import { capitalize } from './lib/utils';
 
-const locales: Record<string, Locale> = { en: enUS, br: ptBR };
+const locales: Record<string, Locale> = { en: enUS, br: ptBR, es: es };
 const currencies: Record<string, { locale: string, currency: string }> = {
     br: {
         locale: 'pt-br',
@@ -14,15 +14,12 @@ const currencies: Record<string, { locale: string, currency: string }> = {
     }, en: {
         locale: 'en-US',
         currency: 'USD'
+    },
+    es: {
+        locale: 'es-ES',
+        currency: 'EUR'
     }
 };
-
-declare module 'i18next' {
-    interface CustomTypeOptions {
-        returnNull: false;
-        returnUndefined: false;
-    }
-}
 
 i18n
     .use(Backend)
@@ -34,6 +31,7 @@ i18n
         fallbackLng: 'br',
         debug: false,
         returnNull: false,
+        supportedLngs: ['br', 'en', 'es'],
         interpolation: {
             escapeValue: false, // not needed for react as it escapes by default
         },

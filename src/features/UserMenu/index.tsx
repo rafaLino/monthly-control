@@ -27,30 +27,32 @@ export const UserMenu = () => {
     }
   };
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant='outline' size='icon' className='overflow-hidden rounded-full'>
-          <img
-            src={user?.picture ?? UserImg}
-            width={36}
-            height={36}
-            alt='Avatar'
-            className='overflow-hidden rounded-full'
-          />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align='end'>
-        <DropdownMenuLabel>{t('myAccount')}</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>{t('settings')}</DropdownMenuItem>
-        <DropdownMenuItem>{t('support')}</DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleLogout}>
-          <LogOut className='w-5 h-5 mr-2' />
-          {t('logout')}
-          <LoaderCircle className={cn('w-5 h-5 ml-2 animate-spin', loading ? 'visible' : 'invisible')} />
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <div className='flex'>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant='outline' size='icon' className='overflow-hidden rounded-full'>
+            <img
+              src={user?.picture ?? UserImg}
+              width={36}
+              height={36}
+              alt='Avatar'
+              className='overflow-hidden rounded-full'
+            />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align='end'>
+          <DropdownMenuLabel>{t('myAccount')}</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem>{t('settings')}</DropdownMenuItem>
+          <DropdownMenuItem>{t('support')}</DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={handleLogout}>
+            <LogOut className='w-5 h-5 mr-2' />
+            {t('logout')}
+            <LoaderCircle className={cn('w-5 h-5 ml-2 animate-spin', loading ? 'visible' : 'invisible')} />
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
 };
