@@ -47,7 +47,6 @@ export const EditableCell: React.FC<EditableCellProps> = ({ value, type = 'text'
 type EditableNumberCellProps = Omit<React.PropsWithoutRef<EditableCellProps>, 'value' | 'onBlur'> & {
   value: number;
   onBlur?: (newValue: number, event: React.FocusEvent<HTMLInputElement>) => void;
-  formatter?: (value: number) => string;
 };
 
 export const EditableNumberCell: React.FC<EditableNumberCellProps> = ({ value, onBlur }) => {
