@@ -25,12 +25,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure pnpm Auth for private registry
+        run: pnpm config set //npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}
 
       - name: Install dependencies
         run: pnpm install
-        env:
-          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build
         run: npm run build
