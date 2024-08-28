@@ -12,7 +12,9 @@ import { LoaderCircle, LogOut } from 'lucide-react';
 import UserImg from '@/assets/placeholder-user.jpg';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 export const UserMenu = () => {
+  const { t } = useTranslation('translation', { keyPrefix: 'userMenu' });
   const { logout, user } = useAuth0();
   const [loading, setLoading] = useState(false);
 
@@ -28,18 +30,24 @@ export const UserMenu = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant='outline' size='icon' className='overflow-hidden rounded-full'>
-          <img src={user?.picture ?? UserImg} width={36} height={36} alt='Avatar' className='overflow-hidden rounded-full' />
+          <img
+            src={user?.picture ?? UserImg}
+            width={36}
+            height={36}
+            alt='Avatar'
+            className='overflow-hidden rounded-full'
+          />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel>{t('myAccount')}</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Settings</DropdownMenuItem>
-        <DropdownMenuItem>Support</DropdownMenuItem>
+        <DropdownMenuItem>{t('settings')}</DropdownMenuItem>
+        <DropdownMenuItem>{t('support')}</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout}>
           <LogOut className='w-5 h-5 mr-2' />
-          Logout
+          {t('logout')}
           <LoaderCircle className={cn('w-5 h-5 ml-2 animate-spin', loading ? 'visible' : 'invisible')} />
         </DropdownMenuItem>
       </DropdownMenuContent>

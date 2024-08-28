@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Input } from '@/components/ui/input';
+import { useTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
 
 type EditableCellProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onBlur'> & {
   value: string;
@@ -48,9 +50,10 @@ type EditableNumberCellProps = Omit<React.PropsWithoutRef<EditableCellProps>, 'v
   formatter?: (value: number) => string;
 };
 
-export const EditableNumberCell: React.FC<EditableNumberCellProps> = ({ value, formatter, onBlur }) => {
+export const EditableNumberCell: React.FC<EditableNumberCellProps> = ({ value, onBlur }) => {
+  const { t } = useTranslation();
   const [isEditing, setIsEditing] = useState(false);
-  const formattedValue = isEditing ? getValue(value) : getFormatedValue(value, formatter);
+  const formattedValue = isEditing ? getValue(value) : getFormatedValue(value, t);
 
   const handleFocus = () => {
     setIsEditing(true);
@@ -75,6 +78,6 @@ function getValue(value: number) {
   return value ? value.toFixed(2) : '';
 }
 
-function getFormatedValue(value: number, formatter?: (value: number) => string) {
-  return formatter?.(value) ?? getValue(value);
+function getFormatedValue(value: number, formatter?: TFunction<'translation', undefined>) {
+  return formatter?.('currency', { value }) ?? getValue(value);
 }

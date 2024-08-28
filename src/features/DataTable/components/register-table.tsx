@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { formatCurrency, generateId } from '@/lib/utils';
+import { generateId } from '@/lib/utils';
 import {
   CellContext,
   ColumnDef,
@@ -20,6 +20,7 @@ import CustomPagination from './pagination';
 import { AddInput } from '@/components/AddInput';
 import { Checkbox } from '@/components/ui/checkbox';
 import { CircleX } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 declare module '@tanstack/react-table' {
   interface TableMeta<TData extends RowData> {
@@ -71,7 +72,6 @@ function ValueCell({ getValue, row: { index }, column: { id }, table }: Readonly
   return (
     <EditableNumberCell
       value={getValue<number>()}
-      formatter={formatCurrency}
       onBlur={(newValue) => table.options.meta?.updateData(index, id, newValue)}
     />
   );
@@ -89,6 +89,7 @@ type RegisterTableProps = {
   onChange?: (newData: Array<Register>) => void;
 };
 export default function RegisterTable({ data, onChange }: Readonly<RegisterTableProps>) {
+  const { t } = useTranslation('translation', { keyPrefix: 'registerTable' });
   const columns = useMemo<ColumnDef<Register>[]>(
     () => [
       {
@@ -98,12 +99,12 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
         cell: CheckedCell,
       },
       {
-        header: 'Name',
+        header: t('name'),
         accessorKey: 'name',
         cell: NameCell,
       },
       {
-        header: 'Value',
+        header: t('value'),
         accessorKey: 'value',
         cell: ValueCell,
       },
@@ -113,7 +114,7 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
         cell: DeleteCell,
       },
     ],
-    []
+    [t]
   );
 
   const [autoResetPageIndex, skipAutoResetPageIndex] = useSkipper();
@@ -230,7 +231,7 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
       </Table>
       <div className='flex py-2'>
         <AddInput
-          placeholder='add new register...'
+          placeholder={t('addNewRegister')}
           type='text'
           className='placeholder:text-stone-300'
           onAdd={addData}

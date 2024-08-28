@@ -1,9 +1,10 @@
 import { Auth0Provider } from '@auth0/auth0-react';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import './index.css';
-import env from './lib/env';
 import { AppRoute } from './router';
+import env from './lib/env';
+import './i18n';
+import './index.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

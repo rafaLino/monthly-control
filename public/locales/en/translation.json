@@ -1,0 +1,4 @@
+{
+  "date": "{{date, DATE_FORMAT}}",
+  "currency": "{{value, CURRENCY_FORMAT}}"
+}
