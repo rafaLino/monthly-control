@@ -59,5 +59,9 @@
     "settings": "Settings",
     "support": "Support",
     "logout": "Logout"
+  },
+  "login": {
+    "welcome": "Welcome",
+    "signin": "Sign in"
   }
 }

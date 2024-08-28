@@ -59,5 +59,9 @@
     "settings": "Configuraciones",
     "support": "Soporte",
     "logout": "Cerrar sesión"
+  },
+  "login": {
+    "welcome": "Bienvenido",
+    "signin": "Iniciar sesión"
   }
 }

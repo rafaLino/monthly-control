@@ -59,5 +59,9 @@
     "settings": "Configurações",
     "support": "Suporte",
     "logout": "Sair"
+  },
+  "login": {
+    "welcome": "Bem vindo!",
+    "signin": "Entrar"
   }
 }
