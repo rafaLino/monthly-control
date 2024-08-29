@@ -1,19 +1,16 @@
 import { DynamicBreadcrumb } from '@/components/dynamic-breadcrumb/dynamic-breadcrumb';
 import { ProgressStatus } from '@/components/progress-status';
+import { LanguageSelector } from '@/features/LanguageSelector';
+import { ReferenceDate } from '@/features/ReferenceDate';
 import { SaveOnCloud } from '@/features/SaveOnCloud';
 import { UserMenu } from '@/features/UserMenu';
 import { Outlet } from '@tanstack/react-router';
-import { useTranslation } from 'react-i18next';
 import { SideBar } from './sidebar';
-import { LanguageSelector } from '@/features/LanguageSelector';
-
-const NOW = new Date();
 
 type MainLayoutProps = {
   pageLoading?: boolean;
 };
 export default function MainLayout({ pageLoading }: Readonly<MainLayoutProps>) {
-  const { t } = useTranslation('translation');
   return (
     <div className='flex min-h-screen w-screen flex-col bg-muted/40'>
       <ProgressStatus show={pageLoading} />
@@ -21,9 +18,7 @@ export default function MainLayout({ pageLoading }: Readonly<MainLayoutProps>) {
         header={
           <>
             <DynamicBreadcrumb />
-            <div className='flex justify-center w-full'>
-              <h1 className='sm:text-2xl font-semibold whitespace-nowrap'>{t('date', { date: NOW })}</h1>
-            </div>
+            <ReferenceDate />
             <div className='flex gap-0 sm:gap-8 justify-end'>
               <SaveOnCloud />
               <LanguageSelector />
