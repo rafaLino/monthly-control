@@ -39,7 +39,7 @@ To run the project in development mode, use:
 npm run dev
 ```
 
-This will start the Vite development server, and you can view your project at `http://localhost:3000`.
+This will start the Vite development server, and you can view your project at `http://localhost:5173`.
 
 ### Building for Production
 

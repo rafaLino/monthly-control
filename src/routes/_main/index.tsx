@@ -26,8 +26,8 @@ function Index() {
         <RegisterTabs />
       </div>
       <div>
-        <div className='hidden sm:block'>
-          <Calculator />
+        <div className='hidden sm:block relative'>
+          <Calculator className='right-3/4 top-20' />
         </div>
         <IncomesPieChart />
         <ExpensesPieChart />
