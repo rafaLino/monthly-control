@@ -11,7 +11,7 @@ import { LoaderCircle, LogOut } from 'lucide-react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Thumbnail } from '@/components/Thumbnail';
+import { Thumbnail } from '@/components/thumbnail';
 export const UserMenu = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'userMenu' });
   const { logout, user } = useAuth0();

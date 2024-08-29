@@ -1,4 +1,4 @@
-import { SummarizedCard } from '@/components/SummarizedCard';
+import { SummarizedCard } from '@/components/summarized-card';
 import { useExpensesBalance } from '@/store/store';
 import { useTranslation } from 'react-i18next';
 

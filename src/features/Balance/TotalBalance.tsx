@@ -1,4 +1,4 @@
-import { BalanceCard } from '@/components/BalanceCard';
+import { BalanceCard } from '@/components/balance-card';
 import { useTotalBalance } from '@/store/store';
 
 export function TotalBalance() {

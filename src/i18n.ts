@@ -28,7 +28,7 @@ i18n
         backend: {
             loadPath: '/locales/{{lng}}/{{ns}}.json',
         },
-        fallbackLng: 'br',
+        fallbackLng: localStorage?.getItem('i18nextLng') ?? 'br',
         debug: false,
         returnNull: false,
         supportedLngs: ['br', 'en', 'es'],
