@@ -11,7 +11,7 @@ export default defineConfig({
     VitePWA({
       manifest: {
         name: 'Monthly Control',
-        short_name: 'monthly-control',
+        short_name: 'Monthly Control',
         icons: [
           {
             src: 'icon-192x192.png',
