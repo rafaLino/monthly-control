@@ -5,18 +5,11 @@ import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '
 import { Register } from '@/types/register.types';
 import randomColor from 'randomcolor';
 import { PropsWithChildren, useMemo } from 'react';
-import { sum } from '@/lib/utils';
+import { removeAccents, sum } from '@/lib/utils';
 
 type PizzaChartProps = PropsWithChildren<{
   data: Array<Register>;
 }>;
-
-function removeAccents(texto: string) {
-  return texto
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/\s+/g, '_');
-}
 
 const LabelContent = ({ viewBox, total }: { viewBox?: { cx: number; cy: number }; total: number }) => {
   if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
@@ -64,16 +57,14 @@ export function PizzaChart({ data, children }: Readonly<PizzaChartProps>) {
         <ChartContainer config={chartConfig} className='mx-auto aspect-square max-h-[250px] z-0'>
           <PieChart>
             <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-            <Pie data={chartData} dataKey='value'  nameKey='name' innerRadius={60} strokeWidth={5}>
+            <Pie data={chartData} dataKey='value' nameKey='name' innerRadius={60} strokeWidth={5}>
               <Label content={<LabelContent total={total} />} />
             </Pie>
           </PieChart>
         </ChartContainer>
       </CardContent>
       <CardFooter className='flex-col gap-0 text-sm p-2'>
-        <div className='flex items-center gap-0 font-medium leading-none'>
-          {children}
-        </div>
+        <div className='flex items-center gap-0 font-medium leading-none'>{children}</div>
       </CardFooter>
     </Card>
   );
