@@ -1,6 +1,5 @@
-import { PizzaChart } from '@/components/PizzaChart';
+import { PizzaChart } from '@/components/pizza-chart';
 import { useExpensesBalance, useIncomesBalance, useInvestmentsBalance, useRegisters } from '@/store/store';
-import { t } from 'i18next';
 import { TrendingUp } from 'lucide-react';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -20,6 +19,7 @@ export function IncomesPieChart() {
 }
 
 export function ExpensesPieChart() {
+  const { t } = useTranslation();
   const [expenses] = useRegisters('expenses');
   const filtered = useMemo(() => expenses.filter((item) => item.checked), [expenses]);
   const balance = useExpensesBalance();
@@ -33,6 +33,7 @@ export function ExpensesPieChart() {
 }
 
 export function InvestmentsPieChart() {
+  const { t } = useTranslation();
   const [investments] = useRegisters('investments');
   const filtered = useMemo(() => investments.filter((item) => item.checked), [investments]);
   const balance = useInvestmentsBalance();

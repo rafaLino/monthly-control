@@ -18,3 +18,10 @@ export function generateId() {
 export function sum(list: Register[]) {
   return list.reduce((acc, { value }) => acc + value, 0)
 }
+
+export function removeAccents(texto: string) {
+  return texto
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/\s+/g, '_');
+}

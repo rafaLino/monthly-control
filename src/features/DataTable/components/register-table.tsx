@@ -17,7 +17,7 @@ import { EditableCell, EditableNumberCell } from './editable-cell';
 import { Register } from '@/types/register.types';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import CustomPagination from './pagination';
-import { AddInput } from '@/components/AddInput';
+import { AddInput } from '@/components/add-input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { CircleX } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
