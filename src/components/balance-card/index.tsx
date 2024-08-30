@@ -30,7 +30,7 @@ export const BalanceCard: React.FC<BalanceCardProps> = memo(
           <CardHeader className='flex flex-col gap-2'>
             <CardTitle className='text-gray-500'>{t('balanceCard.expenses')}</CardTitle>
             <div className='flex flex-col sm:flex-row sm:gap-1'>
-              <span>{t('balanceCard.balance')}</span>
+              <span>{t('balanceCard.total')}</span>
               <CardTitle className='text-base'>{t('currency', { value: expensesBalance })}</CardTitle>
             </div>
 
