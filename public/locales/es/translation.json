@@ -13,7 +13,8 @@
     "incomes": "Ingresos",
     "expenses": "Gastos",
     "balance": "Saldo:",
-    "done": "Realizado:"
+    "done": "Realizado:",
+    "total": "Total:"
   },
   "goalCard": {
     "OK": "PLAN IDEAL",
