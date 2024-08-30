@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { generateId } from '@/lib/utils';
+import { cn, generateId } from '@/lib/utils';
 import {
   CellContext,
   ColumnDef,
@@ -7,6 +7,7 @@ import {
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
+  getSortedRowModel,
   HeaderContext,
   RowData,
   useReactTable,
@@ -19,8 +20,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import CustomPagination from './pagination';
 import { AddInput } from '@/components/add-input';
 import { Checkbox } from '@/components/ui/checkbox';
-import { CircleX } from 'lucide-react';
+import { ArrowDown, ArrowUp, CircleX } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Button } from '@/components/ui/button';
 
 declare module '@tanstack/react-table' {
   interface TableMeta<TData extends RowData> {
@@ -40,7 +42,7 @@ function CheckedHeaderCell({ table }: Readonly<HeaderContext<Register, unknown>>
   }, [rows]);
 
   return (
-    <div className='text-center pr-2.5'>
+    <div className='flex justify-center w-full pl-2.5'>
       <Checkbox tabIndex={-1} checked={value} onCheckedChange={(value) => table.options.meta?.checkAllData(value)} />
     </div>
   );
@@ -96,16 +98,20 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
         header: CheckedHeaderCell,
         id: 'checked',
         accessorKey: 'checked',
+        enableSorting: false,
         cell: CheckedCell,
       },
       {
         header: t('name'),
         accessorKey: 'name',
+        enableSorting: false,
         cell: NameCell,
       },
       {
         header: t('value'),
         accessorKey: 'value',
+        sortingFn: 'basic',
+        enableSorting: true,
         cell: ValueCell,
       },
       {
@@ -181,7 +187,14 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
     initialState: {
+      sorting: [
+        {
+          id: 'value',
+          desc: true,
+        }
+      ],
       pagination: {
         pageSize: 20,
       },
@@ -203,9 +216,24 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id} colSpan={header.colSpan} className='px-4'>
+                  <TableHead key={header.id} colSpan={header.colSpan} className={cn(header.index === 0 && 'p-0')}>
                     {header.isPlaceholder ? null : (
-                      <div>{flexRender(header.column.columnDef.header, header.getContext())}</div>
+                      <div className='flex items-center pr-3 group'>
+                        {flexRender(header.column.columnDef.header, header.getContext())}
+                        {header.column.getCanSort() && (
+                          <Button
+                            variant='link'
+                            onClick={header.column.getToggleSortingHandler()}
+                            className={cn(header.column.getIsSorted() === false && 'invisible group-hover:visible')}
+                          >
+                            {header.column.getIsSorted() === 'asc' ? (
+                              <ArrowDown className='h-4 w-4' />
+                            ) : (
+                              <ArrowUp className='h-4 w-4' />
+                            )}
+                          </Button>
+                        )}
+                      </div>
                     )}
                   </TableHead>
                 );
@@ -219,7 +247,7 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
               <TableRow key={row.id}>
                 {row.getVisibleCells().map((cell) => {
                   return (
-                    <TableCell align='center' className='group' key={cell.id}>
+                    <TableCell className='group text-center pr-3' key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   );
