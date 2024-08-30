@@ -42,7 +42,7 @@ function CheckedHeaderCell({ table }: Readonly<HeaderContext<Register, unknown>>
   }, [rows]);
 
   return (
-    <div className='flex justify-center w-full pl-2.5'>
+    <div className='flex justify-center w-full pl-3'>
       <Checkbox tabIndex={-1} checked={value} onCheckedChange={(value) => table.options.meta?.checkAllData(value)} />
     </div>
   );
