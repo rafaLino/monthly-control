@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
+          cache: "pnpm"
 
       - name: Install dependencies
         run: |
@@ -40,4 +40,4 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MONTHLY_CONTROL }}
           channelId: live
-          projectId: monthly-control
+          projectId: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PROJECTID }}
