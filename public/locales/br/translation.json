@@ -3,6 +3,8 @@
   "currency": "{{value, CURRENCY_FORMAT}}",
   "percentage": "{{value, PERCENTAGE_FORMAT}}",
   "remaining": "Restante {{value, CURRENCY_FORMAT}}",
+  "enabled": "Habilitado",
+  "save": "Salvar",
   "breadcrumb": {
     "home": "Início",
     "users": "Usuários",
@@ -64,5 +66,17 @@
   "login": {
     "welcome": "Bem vindo!",
     "signin": "Entrar"
+  },
+  "goalSettings": {
+    "title": "Metas",
+    "description": "Defina aqui suas metas",
+    "incomes": "Receitas",
+    "expenses": "Despesas",
+    "investments": "Investimentos",
+    "helper": "A soma das metas deve ser igual a 1."
+  },
+  "closingDaySettings": {
+    "title": "Dia de fechamento",
+    "description": "Defina aqui seu dia de fechamento"
   }
 }

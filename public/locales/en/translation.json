@@ -3,6 +3,8 @@
   "currency": "{{value, CURRENCY_FORMAT}}",
   "percentage": "{{value, PERCENTAGE_FORMAT}}",
   "remaining": "Remaining {{value, CURRENCY_FORMAT}}",
+  "enabled": "Enabled",
+  "save": "Save",
   "breadcrumb": {
     "home": "Home",
     "users": "Users",
@@ -64,5 +66,17 @@
   "login": {
     "welcome": "Welcome",
     "signin": "Sign in"
+  },
+  "goalSettings": {
+    "title": "Goals",
+    "description": "Set here your goals",
+    "incomes": "Incomes",
+    "expenses": "Expenses",
+    "investments": "Investments",
+    "helper": "Goals must be equal to 1."
+  },
+  "closingDaySettings": {
+    "title": "Closing day",
+    "description": "Set here your closing day"
   }
 }
