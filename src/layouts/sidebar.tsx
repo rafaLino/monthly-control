@@ -82,24 +82,24 @@ export const SideBarHeader: FC<PropsWithChildren> = ({ children }) => {
               {t('home')}
             </Link>
             <Link
-              to='/about'
+              to="/about"
               className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
             >
               <Users2 className="h-5 w-5" />
               {t('users')}
             </Link>
             <Link
-              to='/analytics'
+              to="/analytics"
               className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
             >
               <LineChart className="h-5 w-5" />
               {t('analytics')}
             </Link>
             <Link
-              to='/settings'
+              to="/settings"
               className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
             >
-              <Settings className="h-5 w-5" />
+              <LineChart className="h-5 w-5" />
               {t('settings')}
             </Link>
           </nav>
