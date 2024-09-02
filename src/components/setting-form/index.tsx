@@ -24,9 +24,10 @@ import { SettingsFormContext } from './settings-form-context';
 
 type SettingsFormProps<T extends FieldValues> = PropsWithChildren<{
   form: UseFormReturn<T>;
-  onSubmit: (data: T) => void;
+  onSubmit?: (data: T) => void;
   title: string;
   description: string;
+  disabled?: boolean;
 }>;
 export function SettingsForm<T extends FieldValues>({
   children,
@@ -34,6 +35,7 @@ export function SettingsForm<T extends FieldValues>({
   onSubmit,
   title,
   description,
+  disabled,
 }: Readonly<SettingsFormProps<T>>) {
   const { t } = useTranslation();
   const formId = useId();
@@ -42,9 +44,9 @@ export function SettingsForm<T extends FieldValues>({
   const { formState } = form;
 
   const submit = useCallback((data: T) => {
-    onSubmit(data);
+    onSubmit?.(data);
     setEnableForm(false);
-  }, []);
+  }, [onSubmit]);
 
   const contextValue = useMemo(
     () => ({
@@ -59,9 +61,10 @@ export function SettingsForm<T extends FieldValues>({
         <CardHeader>
           <CardTitle>{t(title)}</CardTitle>
           <CardDescription>{t(description)}</CardDescription>
-          <div className="flex items-center space-x-2 pt-4">
+          <div className="flex items-center space-x-2 pt-2">
             <Checkbox
               id={formId}
+              disabled={disabled}
               checked={enableForm}
               onCheckedChange={(val) => setEnableForm(!!val)}
             />
@@ -71,7 +74,7 @@ export function SettingsForm<T extends FieldValues>({
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(submit)}
-            aria-disabled={!enableForm}
+            aria-readonly={!enableForm}
           >
             <CardContent>{children}</CardContent>
             <CardFooter className="border-t px-6 py-4">

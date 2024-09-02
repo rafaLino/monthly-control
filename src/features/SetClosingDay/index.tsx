@@ -1,29 +1,39 @@
-import { Button } from '@/components/ui/button';
+import { SettingsForm } from '@/components/setting-form';
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+  FormControl,
+  FormField,
+  FormItem
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { Schema } from '@/types/goal';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 
-export const SetClosingDay = () => {
+export function SetClosingDay() {
+  const form = useForm<{ closingDay: number }>({
+    resolver: zodResolver(Schema),
+    defaultValues: { closingDay: 25 },
+  });
+
   return (
-    <Card x-chunk="dashboard-04-chunk-2">
-      <CardHeader>
-        <CardTitle>Closing day</CardTitle>
-        <CardDescription>Set here the closing day</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form className="flex flex-col gap-4">
-          <Input placeholder="Closing day" defaultValue="25" disabled />
-        </form>
-      </CardContent>
-      <CardFooter className="border-t px-6 py-4">
-        <Button disabled>Save</Button>
-      </CardFooter>
-    </Card>
+    <SettingsForm
+      disabled
+      form={form}
+      title="closingDaySettings.title"
+      description="closingDaySettings.description"
+    >
+      <FormField
+        control={form.control}
+        name="closingDay"
+        disabled={true}
+        render={({ field }) => (
+          <FormItem>
+            <FormControl>
+              <Input className="disabled:text-stone-400" {...field} />
+            </FormControl>
+          </FormItem>
+        )}
+      />
+    </SettingsForm>
   );
-};
+}

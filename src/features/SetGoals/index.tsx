@@ -20,8 +20,8 @@ export function SetGoals() {
   return (
     <SettingsForm
       form={form}
-      title="Goals"
-      description="Set here your goals"
+      title="goalSettings.title"
+      description="goalSettings.description"
       onSubmit={handleSubmit}
     >
       <GoalForm />
