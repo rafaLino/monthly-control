@@ -1,11 +1,11 @@
-import { DynamicBreadcrumb } from "@/components/dynamic-breadcrumb/dynamic-breadcrumb";
-import { ProgressStatus } from "@/components/progress-status";
-import { LanguageSelector } from "@/features/LanguageSelector";
-import { ReferenceDate } from "@/features/ReferenceDate";
-import { SaveOnCloud } from "@/features/SaveOnCloud";
-import { UserMenu } from "@/features/UserMenu";
-import { Outlet } from "@tanstack/react-router";
-import { SideBar } from "./sidebar";
+import { DynamicBreadcrumb } from '@/components/dynamic-breadcrumb/dynamic-breadcrumb';
+import { ProgressStatus } from '@/components/progress-status';
+import { LanguageSelector } from '@/features/LanguageSelector';
+import { ReferenceDate } from '@/features/ReferenceDate';
+import { SaveOnCloud } from '@/features/SaveOnCloud';
+import { UserMenu } from '@/features/UserMenu';
+import { Outlet } from '@tanstack/react-router';
+import { SideBar } from './sidebar';
 
 type MainLayoutProps = {
   pageLoading?: boolean;

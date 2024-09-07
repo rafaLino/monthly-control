@@ -2,7 +2,7 @@ import { SetClosingDay } from '@/features/SetClosingDay';
 import { SetGoals } from '@/features/SetGoals';
 import { createLazyFileRoute } from '@tanstack/react-router';
 export const Route = createLazyFileRoute('/_main/settings')({
-  component: Index,
+  component: Index
 });
 
 function Index() {

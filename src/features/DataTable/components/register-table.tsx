@@ -1,28 +1,28 @@
+import { AddInput } from '@/components/add-input';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { cn, generateId } from '@/lib/utils';
+import { Register } from '@/types/register.types';
 import {
   CellContext,
   ColumnDef,
+  HeaderContext,
+  RowData,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  HeaderContext,
-  RowData,
-  useReactTable,
+  useReactTable
 } from '@tanstack/react-table';
+import { ArrowDown, ArrowUp, CircleX } from 'lucide-react';
 import { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSkipper } from '../hooks/useSkipper';
 import { EditableCell, EditableNumberCell } from './editable-cell';
-import { Register } from '@/types/register.types';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import CustomPagination from './pagination';
-import { AddInput } from '@/components/add-input';
-import { Checkbox } from '@/components/ui/checkbox';
-import { ArrowDown, ArrowUp, CircleX } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
-import { Button } from '@/components/ui/button';
 
 declare module '@tanstack/react-table' {
   interface TableMeta<TData extends RowData> {
@@ -42,7 +42,7 @@ function CheckedHeaderCell({ table }: Readonly<HeaderContext<Register, unknown>>
   }, [rows]);
 
   return (
-    <div className='flex justify-center w-full pl-3'>
+    <div className="flex justify-center w-full pl-3">
       <Checkbox tabIndex={-1} checked={value} onCheckedChange={(value) => table.options.meta?.checkAllData(value)} />
     </div>
   );
@@ -81,7 +81,7 @@ function ValueCell({ getValue, row: { index }, column: { id }, table }: Readonly
 
 function DeleteCell({ row: { index }, table }: Readonly<CellContext<Register, unknown>>) {
   return (
-    <button className='sm:invisible group-hover:visible' onClick={() => table.options.meta?.removeData(index)}>
+    <button className="sm:invisible group-hover:visible" onClick={() => table.options.meta?.removeData(index)}>
       <CircleX size={20} />
     </button>
   );
@@ -99,26 +99,26 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
         id: 'checked',
         accessorKey: 'checked',
         enableSorting: false,
-        cell: CheckedCell,
+        cell: CheckedCell
       },
       {
         header: t('name'),
         accessorKey: 'name',
         enableSorting: false,
-        cell: NameCell,
+        cell: NameCell
       },
       {
         header: t('value'),
         accessorKey: 'value',
         sortingFn: 'basic',
         enableSorting: true,
-        cell: ValueCell,
+        cell: ValueCell
       },
       {
         header: '',
         id: 'actions',
-        cell: DeleteCell,
-      },
+        cell: DeleteCell
+      }
     ],
     [t]
   );
@@ -132,7 +132,7 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
         if (index === rowIndex) {
           return {
             ...row,
-            [columnId]: value,
+            [columnId]: value
           };
         }
         return row;
@@ -151,7 +151,7 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
         id: generateId(),
         name,
         value: 0,
-        checked: false,
+        checked: false
       });
       onChange?.(newData);
     },
@@ -173,7 +173,7 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
       const newData = data.map((row) => {
         return {
           ...row,
-          checked: value === 'indeterminate' ? true : value,
+          checked: value === 'indeterminate' ? true : value
         };
       });
       onChange?.(newData);
@@ -192,24 +192,24 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
       sorting: [
         {
           id: 'value',
-          desc: true,
+          desc: true
         }
       ],
       pagination: {
-        pageSize: 20,
-      },
+        pageSize: 20
+      }
     },
     autoResetPageIndex,
     meta: {
       updateData,
       removeData,
-      checkAllData,
-    },
+      checkAllData
+    }
   });
 
   return (
-    <div className='p-1'>
-      <div className='h-2' />
+    <div className="p-1">
+      <div className="h-2" />
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -218,18 +218,18 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
                 return (
                   <TableHead key={header.id} colSpan={header.colSpan} className={cn(header.index === 0 && 'p-0')}>
                     {header.isPlaceholder ? null : (
-                      <div className='flex items-center pr-3 group'>
+                      <div className="flex items-center pr-3 group">
                         {flexRender(header.column.columnDef.header, header.getContext())}
                         {header.column.getCanSort() && (
                           <Button
-                            variant='link'
+                            variant="link"
                             onClick={header.column.getToggleSortingHandler()}
                             className={cn(header.column.getIsSorted() === false && 'invisible group-hover:visible')}
                           >
                             {header.column.getIsSorted() === 'asc' ? (
-                              <ArrowDown className='h-4 w-4' />
+                              <ArrowDown className="h-4 w-4" />
                             ) : (
-                              <ArrowUp className='h-4 w-4' />
+                              <ArrowUp className="h-4 w-4" />
                             )}
                           </Button>
                         )}
@@ -247,7 +247,7 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
               <TableRow key={row.id}>
                 {row.getVisibleCells().map((cell) => {
                   return (
-                    <TableCell className='group text-center pr-3' key={cell.id}>
+                    <TableCell className="group text-center pr-3" key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   );
@@ -257,11 +257,11 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
           })}
         </TableBody>
       </Table>
-      <div className='flex py-2'>
+      <div className="flex py-2">
         <AddInput
           placeholder={t('addNewRegister')}
-          type='text'
-          className='placeholder:text-stone-300'
+          type="text"
+          className="placeholder:text-stone-300"
           onAdd={addData}
         />
       </div>

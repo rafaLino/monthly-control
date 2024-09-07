@@ -12,8 +12,8 @@ export function IncomesPieChart() {
   const remain = balance.planned - balance.done;
   const data = filtered.length === 0 ? incomes : filtered;
   return (
-    <PizzaChart key='incomes' data={data}>
-      {t('remaining', { value: remain })} <TrendingUp className='h-4 w-4 mx-2' />
+    <PizzaChart key="incomes" data={data}>
+      {t('remaining', { value: remain })} <TrendingUp className="h-4 w-4 mx-2" />
     </PizzaChart>
   );
 }
@@ -26,8 +26,8 @@ export function ExpensesPieChart() {
   const remain = balance.planned - balance.done;
   const data = filtered.length === 0 ? expenses : filtered;
   return (
-    <PizzaChart key='expenses' data={data}>
-      {t('remaining', { value: remain })} <TrendingUp className='h-4 w-4 mx-2' />
+    <PizzaChart key="expenses" data={data}>
+      {t('remaining', { value: remain })} <TrendingUp className="h-4 w-4 mx-2" />
     </PizzaChart>
   );
 }
@@ -40,8 +40,8 @@ export function InvestmentsPieChart() {
   const remain = balance.planned - balance.done;
   const data = filtered.length === 0 ? investments : filtered;
   return (
-    <PizzaChart key='investments' data={data}>
-      {t('remaining', { value: remain })} <TrendingUp className='h-4 w-4 mx-2' />
+    <PizzaChart key="investments" data={data}>
+      {t('remaining', { value: remain })} <TrendingUp className="h-4 w-4 mx-2" />
     </PizzaChart>
   );
 }

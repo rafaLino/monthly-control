@@ -12,7 +12,7 @@ export const TooltipLink: React.FC<React.ComponentPropsWithoutRef<typeof Link> &
         <TooltipTrigger asChild>
           <Link {...props}>{children}</Link>
         </TooltipTrigger>
-        <TooltipContent side='right'>{tooltip}</TooltipContent>
+        <TooltipContent side="right">{tooltip}</TooltipContent>
       </Tooltip>
     </TooltipProvider>
   );

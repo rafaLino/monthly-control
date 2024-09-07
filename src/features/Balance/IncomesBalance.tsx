@@ -8,7 +8,7 @@ export function IncomesBalanceCard() {
 
   return (
     <SummarizedCard
-      color='green'
+      color="green"
       plannedLabel={t('incomesBalanceCard.planned')}
       doneLabel={t('incomesBalanceCard.done')}
       planned={t('currency', { value: planned })}

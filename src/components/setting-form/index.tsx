@@ -1,21 +1,8 @@
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form } from '@/components/ui/form';
-import {
-  PropsWithChildren,
-  useCallback,
-  useId,
-  useMemo,
-  useState,
-} from 'react';
+import { PropsWithChildren, useCallback, useId, useMemo, useState } from 'react';
 import { FieldValues, UseFormReturn } from 'react-hook-form';
 
 import { Label } from '@/components/ui/label';
@@ -35,7 +22,7 @@ export function SettingsForm<T extends FieldValues>({
   onSubmit,
   title,
   description,
-  disabled,
+  disabled
 }: Readonly<SettingsFormProps<T>>) {
   const { t } = useTranslation();
   const formId = useId();
@@ -43,16 +30,19 @@ export function SettingsForm<T extends FieldValues>({
 
   const { formState } = form;
 
-  const submit = useCallback((data: T) => {
-    onSubmit?.(data);
-    setEnableForm(false);
-  }, [onSubmit]);
+  const submit = useCallback(
+    (data: T) => {
+      onSubmit?.(data);
+      setEnableForm(false);
+    },
+    [onSubmit]
+  );
 
   const contextValue = useMemo(
     () => ({
-      enabled: enableForm,
+      enabled: enableForm
     }),
-    [enableForm],
+    [enableForm]
   );
 
   return (
@@ -72,16 +62,10 @@ export function SettingsForm<T extends FieldValues>({
           </div>
         </CardHeader>
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(submit)}
-            aria-readonly={!enableForm}
-          >
+          <form onSubmit={form.handleSubmit(submit)} aria-readonly={!enableForm}>
             <CardContent>{children}</CardContent>
             <CardFooter className="border-t px-6 py-4">
-              <Button
-                type="submit"
-                disabled={!formState.isValid || !enableForm}
-              >
+              <Button type="submit" disabled={!formState.isValid || !enableForm}>
                 {t('save')}
               </Button>
             </CardFooter>
