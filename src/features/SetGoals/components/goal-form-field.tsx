@@ -1,9 +1,4 @@
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from '@/components/ui/form';
+import { FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { RegisterType } from '@/types/register.types';
 import { FC } from 'react';
@@ -22,20 +17,11 @@ export const GoalFormField: FC<GoalFormFieldProps> = ({ name, disabled }) => {
       disabled={disabled}
       render={({ field }) => (
         <FormItem>
-          <FormLabel
-            className="capitalize aria-disabled:text-stone-400/50"
-            aria-disabled={disabled}
-          >
+          <FormLabel className="capitalize aria-disabled:text-stone-400/50" aria-disabled={disabled}>
             {name}
           </FormLabel>
           <FormControl>
-            <Input
-              className="capitalize disabled:text-stone-400"
-              placeholder={name}
-              type="number"
-              step={0.01}
-              {...field}
-            />
+            <Input className="capitalize disabled:text-stone-400" placeholder={name} type="number" step={0.01} {...field} />
           </FormControl>
         </FormItem>
       )}

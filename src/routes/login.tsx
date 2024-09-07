@@ -5,20 +5,20 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 export const Route = createFileRoute('/login')({
-  component: Index,
+  component: Index
 });
 
 function Index() {
   const { t } = useTranslation('translation', { keyPrefix: 'login' });
   const { loginWithRedirect } = useAuth0();
   return (
-    <div className='flex items-center justify-center h-svh w-full'>
-      <Card className='w-full max-w-sm flex flex-col justify-evenly text-center'>
+    <div className="flex items-center justify-center h-svh w-full">
+      <Card className="w-full max-w-sm flex flex-col justify-evenly text-center">
         <CardHeader>
-          <CardTitle className='text-2xl'>{t('welcome')}</CardTitle>
+          <CardTitle className="text-2xl">{t('welcome')}</CardTitle>
         </CardHeader>
         <CardFooter>
-          <Button className='w-full' onClick={() => loginWithRedirect()}>
+          <Button className="w-full" onClick={() => loginWithRedirect()}>
             {t('signin')}
           </Button>
         </CardFooter>

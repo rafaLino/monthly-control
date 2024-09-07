@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
 import { Input } from '@/components/ui/input';
-import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
+import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type EditableCellProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onBlur'> & {
   value: string;
@@ -38,7 +38,7 @@ export const EditableCell: React.FC<EditableCellProps> = ({ value, type = 'text'
       onBlur={handleBlur}
       onKeyDown={handleKeyDown}
       onFocus={onFocus}
-      className='border-0 focus:border'
+      className="border-0 focus:border"
       {...props}
     />
   );
@@ -63,14 +63,7 @@ export const EditableNumberCell: React.FC<EditableNumberCellProps> = ({ value, o
     setIsEditing(false);
   };
 
-  return (
-    <EditableCell
-      type={isEditing ? 'number' : 'text'}
-      value={formattedValue}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
-    />
-  );
+  return <EditableCell type={isEditing ? 'number' : 'text'} value={formattedValue} onFocus={handleFocus} onBlur={handleBlur} />;
 };
 
 function getValue(value: number) {

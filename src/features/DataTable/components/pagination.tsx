@@ -7,7 +7,7 @@ import {
   PaginationLast,
   PaginationLink,
   PaginationNext,
-  PaginationPrevious,
+  PaginationPrevious
 } from '@/components/ui/pagination';
 import { useTranslation } from 'react-i18next';
 
@@ -27,7 +27,7 @@ export default function CustomPagination({
   canPreviousPage,
   goNext,
   goPrevious,
-  onChangePage,
+  onChangePage
 }: Readonly<PaginationProps>) {
   const { t } = useTranslation('translation', { keyPrefix: 'pagination' });
   const currentPage = pageIndex + 1;
@@ -35,13 +35,13 @@ export default function CustomPagination({
   const isFirstPage = pageIndex === 0;
   const thereIsMorePages = currentPage !== pageCount;
   return (
-    <Pagination className='flex justify-center sm:justify-end items-end'>
-      <PaginationContent className='gap-2 justify-between'>
+    <Pagination className="flex justify-center sm:justify-end items-end">
+      <PaginationContent className="gap-2 justify-between">
         <PaginationItem>
-          <PaginationFirst onClick={() => onChangePage(0)} disabled={isFirstPage} className='px-0' />
+          <PaginationFirst onClick={() => onChangePage(0)} disabled={isFirstPage} className="px-0" />
         </PaginationItem>
         <PaginationItem>
-          <PaginationPrevious label={t('previous')} onClick={goPrevious} disabled={!canPreviousPage} className='px-0' />
+          <PaginationPrevious label={t('previous')} onClick={goPrevious} disabled={!canPreviousPage} className="px-0" />
         </PaginationItem>
         {isLastPage && (
           <PaginationItem>
@@ -53,14 +53,14 @@ export default function CustomPagination({
         </PaginationItem>
         {thereIsMorePages && (
           <PaginationItem>
-            <PaginationEllipsis className='p-0' />
+            <PaginationEllipsis className="p-0" />
           </PaginationItem>
         )}
         <PaginationItem>
-          <PaginationNext label={t('next')} onClick={goNext} disabled={!canNextPage} className='px-0' />
+          <PaginationNext label={t('next')} onClick={goNext} disabled={!canNextPage} className="px-0" />
         </PaginationItem>
         <PaginationItem>
-          <PaginationLast onClick={() => onChangePage(pageCount - 1)} disabled={isLastPage} className='px-0' />
+          <PaginationLast onClick={() => onChangePage(pageCount - 1)} disabled={isLastPage} className="px-0" />
         </PaginationItem>
       </PaginationContent>
     </Pagination>

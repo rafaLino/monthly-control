@@ -74,31 +74,19 @@ export const SideBarHeader: FC<PropsWithChildren> = ({ children }) => {
         </SheetTrigger>
         <SheetContent side="left" className="sm:max-w-xs">
           <nav className="grid gap-6 text-lg font-medium">
-            <Link
-              to="/"
-              className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-            >
+            <Link to="/" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
               <Home className="h-5 w-5" />
               {t('home')}
             </Link>
-            <Link
-              to="/about"
-              className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-            >
+            <Link to="/about" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
               <Users2 className="h-5 w-5" />
               {t('users')}
             </Link>
-            <Link
-              to="/analytics"
-              className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-            >
+            <Link to="/analytics" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
               <LineChart className="h-5 w-5" />
               {t('analytics')}
             </Link>
-            <Link
-              to="/settings"
-              className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-            >
+            <Link to="/settings" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
               <LineChart className="h-5 w-5" />
               {t('settings')}
             </Link>

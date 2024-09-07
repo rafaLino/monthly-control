@@ -10,7 +10,7 @@ export function SetGoals() {
 
   const form = useForm<Goal>({
     resolver: zodResolver(Schema),
-    defaultValues: goals,
+    defaultValues: goals
   });
 
   const handleSubmit = (goal: Goal) => {
@@ -18,12 +18,7 @@ export function SetGoals() {
   };
 
   return (
-    <SettingsForm
-      form={form}
-      title="goalSettings.title"
-      description="goalSettings.description"
-      onSubmit={handleSubmit}
-    >
+    <SettingsForm form={form} title="goalSettings.title" description="goalSettings.description" onSubmit={handleSubmit}>
       <GoalForm />
     </SettingsForm>
   );
