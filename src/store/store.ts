@@ -69,10 +69,7 @@ export const useRegisters = (type: RegisterType) => {
   return useGlobalStore(
     useShallow(
       (state) =>
-        [
-          state[type],
-          state.actions[`set${capitalize(type)}` as 'setIncomes' | 'setExpenses' | 'setInvestments']
-        ] as const
+        [state[type], state.actions[`set${capitalize(type)}` as 'setIncomes' | 'setExpenses' | 'setInvestments']] as const
     )
   );
 };

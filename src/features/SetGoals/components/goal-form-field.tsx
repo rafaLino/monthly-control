@@ -21,13 +21,7 @@ export const GoalFormField: FC<GoalFormFieldProps> = ({ name, disabled }) => {
             {name}
           </FormLabel>
           <FormControl>
-            <Input
-              className="capitalize disabled:text-stone-400"
-              placeholder={name}
-              type="number"
-              step={0.01}
-              {...field}
-            />
+            <Input className="capitalize disabled:text-stone-400" placeholder={name} type="number" step={0.01} {...field} />
           </FormControl>
         </FormItem>
       )}

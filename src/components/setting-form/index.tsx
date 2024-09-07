@@ -52,12 +52,7 @@ export function SettingsForm<T extends FieldValues>({
           <CardTitle>{t(title)}</CardTitle>
           <CardDescription>{t(description)}</CardDescription>
           <div className="flex items-center space-x-2 pt-2">
-            <Checkbox
-              id={formId}
-              disabled={disabled}
-              checked={enableForm}
-              onCheckedChange={(val) => setEnableForm(!!val)}
-            />
+            <Checkbox id={formId} disabled={disabled} checked={enableForm} onCheckedChange={(val) => setEnableForm(!!val)} />
             <Label htmlFor={formId}>{t('enabled')}</Label>
           </div>
         </CardHeader>

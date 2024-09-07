@@ -13,9 +13,7 @@ export const ReferenceDate = memo(() => {
   const { t } = useTranslation();
   return (
     <div className="flex justify-center w-full sm:gap-1">
-      <h1
-        className={cn('sm:text-2xl font-semibold whitespace-nowrap text-zinc-600', isAfterClosingDay && 'opacity-60')}
-      >
+      <h1 className={cn('sm:text-2xl font-semibold whitespace-nowrap text-zinc-600', isAfterClosingDay && 'opacity-60')}>
         <span className="hidden sm:block">{t('date', { date: NOW })}</span>
         <span className="block sm:hidden">{t('date', { date: NOW, context: { format: 'MMM' } })}</span>
       </h1>

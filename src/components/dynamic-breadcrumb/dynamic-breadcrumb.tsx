@@ -26,11 +26,7 @@ export const DynamicBreadcrumb = () => {
           pathnames.map((name, index, { length }) => (
             <BreadcrumbItem key={name}>
               <BreadcrumbLink asChild>
-                <Link
-                  to={getPathToGo(pathnames, index)}
-                  activeOptions={{ exact: true }}
-                  className="[&.active]:font-bold"
-                >
+                <Link to={getPathToGo(pathnames, index)} activeOptions={{ exact: true }} className="[&.active]:font-bold">
                   {t(name)}
                 </Link>
               </BreadcrumbLink>

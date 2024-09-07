@@ -72,10 +72,7 @@ function NameCell({ getValue, row: { index }, column: { id }, table }: Readonly<
 
 function ValueCell({ getValue, row: { index }, column: { id }, table }: Readonly<CellContext<Register, unknown>>) {
   return (
-    <EditableNumberCell
-      value={getValue<number>()}
-      onBlur={(newValue) => table.options.meta?.updateData(index, id, newValue)}
-    />
+    <EditableNumberCell value={getValue<number>()} onBlur={(newValue) => table.options.meta?.updateData(index, id, newValue)} />
   );
 }
 
@@ -258,12 +255,7 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
         </TableBody>
       </Table>
       <div className="flex py-2">
-        <AddInput
-          placeholder={t('addNewRegister')}
-          type="text"
-          className="placeholder:text-stone-300"
-          onAdd={addData}
-        />
+        <AddInput placeholder={t('addNewRegister')} type="text" className="placeholder:text-stone-300" onAdd={addData} />
       </div>
       <CustomPagination
         pageIndex={table.getState().pagination.pageIndex}

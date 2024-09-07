@@ -63,14 +63,7 @@ export const EditableNumberCell: React.FC<EditableNumberCellProps> = ({ value, o
     setIsEditing(false);
   };
 
-  return (
-    <EditableCell
-      type={isEditing ? 'number' : 'text'}
-      value={formattedValue}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
-    />
-  );
+  return <EditableCell type={isEditing ? 'number' : 'text'} value={formattedValue} onFocus={handleFocus} onBlur={handleBlur} />;
 };
 
 function getValue(value: number) {

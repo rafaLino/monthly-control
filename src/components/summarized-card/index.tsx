@@ -10,13 +10,7 @@ type SummarizedCardProps = {
   doneLabel: string | undefined;
 };
 
-export const SummarizedCard: React.FC<SummarizedCardProps> = ({
-  realized,
-  planned,
-  color,
-  plannedLabel,
-  doneLabel
-}) => {
+export const SummarizedCard: React.FC<SummarizedCardProps> = ({ realized, planned, color, plannedLabel, doneLabel }) => {
   return (
     <Card className={cn('sm:col-span-1 border', COLORS[color].border, COLORS[color].background)}>
       <div className={'flex justify-evenly items-center h-full'}>
