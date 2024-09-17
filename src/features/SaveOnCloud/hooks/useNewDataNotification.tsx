@@ -1,8 +1,8 @@
+import { ToastAction } from '@/components/ui/toast';
 import { useToast } from '@/components/ui/use-toast';
 import { useQueue } from '@/hooks/useQueue';
-import { useCallback, useEffect, useRef } from 'react';
 import Cookies from 'js-cookie';
-import { ToastAction } from '@/components/ui/toast';
+import { useCallback, useEffect, useRef } from 'react';
 
 function incrementVersion() {
   const versionString = Cookies.get('version') ?? 0;
