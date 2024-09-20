@@ -1,8 +1,10 @@
 import { ToastAction } from '@/components/ui/toast';
 import { useToast } from '@/components/ui/use-toast';
 import { useQueue } from '@/hooks/useQueue';
+import { checkFlag } from '@/lib/feature-flag';
 import Cookies from 'js-cookie';
 import { useCallback, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function incrementVersion() {
   const versionString = Cookies.get('version') ?? 0;
@@ -12,15 +14,18 @@ function incrementVersion() {
   return newVersion;
 }
 
-export function useNewDataNotification(action: () => Promise<void>) {
+export function useOutdatedDataNotification(action: () => Promise<void>) {
+  const { t } = useTranslation();
   const [{ data, ack }, send] = useQueue();
   const { toast } = useToast();
   const currentVersionRef = useRef(Cookies.get('version') ?? '0');
 
   const publish = useCallback(async () => {
-    const version = incrementVersion();
-    currentVersionRef.current = version;
-    await send(version);
+    if (checkFlag('outdated_data')) {
+      const version = incrementVersion();
+      currentVersionRef.current = version;
+      await send(version);
+    }
   }, []);
 
   const getNewData = useCallback(async () => {
@@ -32,11 +37,11 @@ export function useNewDataNotification(action: () => Promise<void>) {
   useEffect(() => {
     if (data && currentVersionRef.current !== data) {
       toast({
-        title: 'ℹ️ New version available! ',
+        title: t('notification.title'),
         duration: Infinity,
         action: (
           <ToastAction altText="download" onClick={getNewData}>
-            Get new version
+            {t('notification.action')}
           </ToastAction>
         )
       });

@@ -1,4 +1,4 @@
-import { saveRegisters } from '@/lib/fetchRegisters';
+import { saveRegisters } from '@/lib/fetch-registers';
 import { getAll } from '@/store/store';
 import { useCallback, useEffect, useState } from 'react';
 

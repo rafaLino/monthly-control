@@ -3,7 +3,7 @@ import { apiService } from '@/services/api.service';
 import { useActions } from '@/store/store';
 import { Download, Upload } from 'lucide-react';
 import { useState } from 'react';
-import { useNewDataNotification } from './hooks/useNewDataNotification';
+import { useOutdatedDataNotification } from './hooks/useOutdatedDataNotification';
 
 export const SaveOnCloud = () => {
   const [uploading, setUploading] = useState(false);
@@ -23,7 +23,7 @@ export const SaveOnCloud = () => {
     }
   };
 
-  const { publish } = useNewDataNotification(handleDowload);
+  const { publish } = useOutdatedDataNotification(handleDowload);
 
   const handleUpload = async () => {
     setUploading(true);

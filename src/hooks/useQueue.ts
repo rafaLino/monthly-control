@@ -1,3 +1,4 @@
+import { checkFlag } from '@/lib/feature-flag';
 import { queueService } from '@/services/queue.service';
 import { AMQPMessage } from '@cloudamqp/amqp-client';
 import { useCallback, useEffect, useState } from 'react';
@@ -5,9 +6,11 @@ import { useCallback, useEffect, useState } from 'react';
 export function useQueue() {
   const [message, setMessage] = useState<AMQPMessage>();
   useEffect(() => {
-    queueService.subscribe('version', (message) => {
-      setMessage(message);
-    });
+    if (checkFlag('outdated_data')) {
+      queueService.subscribe('version', (message) => {
+        setMessage(message);
+      });
+    }
     return () => {
       queueService.unsubscribe();
     };

@@ -10,7 +10,7 @@ import {
   getPlannedBalance,
   getTotalBalance
 } from '@/lib/business-logic';
-import { fetchRegisters } from '@/lib/fetchRegisters';
+import { fetchRegisters } from '@/lib/fetch-registers';
 import { capitalize } from '@/lib/utils';
 import { Goal } from '@/types/goal';
 import { Register, RegisterType } from '@/types/register.types';
