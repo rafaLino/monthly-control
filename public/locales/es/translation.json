@@ -78,5 +78,13 @@
   "closingDaySettings": {
     "title": "Día de cierre",
     "description": "Establece aquí el día de cierre"
+  },
+  "flags": {
+    "title": "Flags",
+    "addNewFlag": "Agregar nueva flag"
+  },
+  "notification": {
+    "title": "ℹ️ ¡Nueva versión disponible!",
+    "action": "Obtener nueva versión"
   }
 }

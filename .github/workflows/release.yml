@@ -34,6 +34,11 @@ jobs:
           VITE_CLIENT_ID: ${{ secrets.CLIENT_ID }}
           VITE_API_SECRET: ${{ secrets.API_SECRET }}
           VITE_API_URL: ${{ vars.API_URL }}
+          VITE_AMQP_URL: ${{ secrets.AMQP_URL }}
+          VITE_AMQP_VHOST: ${{ secrets.AMQP_VHOST }}
+          VITE_AMQP_USER: ${{ secrets.AMQP_USER }}
+          VITE_AMQP_PASSWORD: ${{ secrets.AMQP_PASSWORD }}
+          
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:

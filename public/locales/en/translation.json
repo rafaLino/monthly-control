@@ -78,5 +78,13 @@
   "closingDaySettings": {
     "title": "Closing day",
     "description": "Set here your closing day"
+  },
+  "flags": {
+    "title": "Flags",
+    "addNewFlag": "Add new Flag"
+  },
+  "notification": {
+    "title": "ℹ️ New version available!",
+    "action": "Get new version"
   }
 }

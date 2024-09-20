@@ -25,3 +25,11 @@ export function removeAccents(texto: string) {
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/\s+/g, '_');
 }
+
+export function transformObjectIntoArray<TValue = string>(values: Object): Array<{ key: string; value: TValue }> {
+  return Object.entries(values).map(([key, value]) => ({ key, value }));
+}
+
+export function replaceSpacesWithUnderscores(text: string): string {
+  return text.replace(/\s+/g, '_');
+}
