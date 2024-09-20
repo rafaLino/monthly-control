@@ -2,8 +2,8 @@ import { Input } from '@/components/ui/input';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { replaceSpacesWithUnderscores, transformObjectIntoArray } from '@/lib/utils';
 import { KeyboardEvent, MouseEvent, useMemo, useRef } from 'react';
-import { FlagItem } from './flag-item';
 import { useTranslation } from 'react-i18next';
+import { FlagItem } from './flag-item';
 
 export const FeatureFlags = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'flags' });
