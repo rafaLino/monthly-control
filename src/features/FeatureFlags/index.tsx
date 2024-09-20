@@ -7,7 +7,7 @@ import { FlagItem } from './flag-item';
 
 export const FeatureFlags = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'flags' });
-  const [flags, setFlags] = useLocalStorage<Record<string, string>>('flags');
+  const [flags, setFlags] = useLocalStorage<Record<string, string>>('flags', {});
   const inputRef = useRef<HTMLInputElement>(null);
   const flagAsList = useMemo(() => transformObjectIntoArray(flags), [flags]);
 
