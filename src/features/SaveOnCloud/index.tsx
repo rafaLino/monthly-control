@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import { saveRegisters } from '@/lib/fetch-registers';
 import { apiService } from '@/services/api.service';
 import { useActions } from '@/store/store';
 import { Download, Upload } from 'lucide-react';
@@ -17,6 +18,7 @@ export const SaveOnCloud = () => {
 
       if (data) {
         setRegisters(data.incomes, data.expenses, data.investments);
+        await saveRegisters(data);
       }
     } finally {
       setDownloading(false);

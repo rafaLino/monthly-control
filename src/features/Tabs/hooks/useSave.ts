@@ -1,18 +1,17 @@
 import { saveRegisters } from '@/lib/fetch-registers';
-import { getAll } from '@/store/store';
-import { useCallback, useEffect, useState } from 'react';
+import { getAll, useSync } from '@/store/store';
+import { useCallback, useEffect } from 'react';
 
 const THREE_SECONDS = 3_000;
 const FIVE_MINUTES = 5 * 60 * 1000;
 export function useSave() {
-  const [saving, setSaving] = useState(false);
-
+  const [syncing, setSyncing] = useSync();
   const save = useCallback(async () => {
-    setSaving(true);
+    setSyncing(true);
     await saveRegisters(getAll());
 
     setTimeout(() => {
-      setSaving(false);
+      setSyncing(false);
     }, THREE_SECONDS);
   }, []);
 
@@ -24,5 +23,5 @@ export function useSave() {
     return () => clearInterval(intervalId);
   }, [save]);
 
-  return [saving, save] as const;
+  return [syncing, save] as const;
 }

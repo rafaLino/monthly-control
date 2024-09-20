@@ -18,6 +18,7 @@ import { create } from 'zustand';
 import { useShallow } from 'zustand/react/shallow';
 import { GlobalState } from './global.state';
 
+const THREE_SECONDS = 3_000;
 //accessible only by hooks
 const useGlobalStore = create<GlobalState>()((set, get) => ({
   incomes: [],
@@ -29,14 +30,22 @@ const useGlobalStore = create<GlobalState>()((set, get) => ({
     investments: 0.3
   },
   loading: false,
+  syncing: false,
   actions: {
     setIncomes: (incomes) => set({ incomes }),
     setExpenses: (expenses) => set({ expenses }),
     setInvestments: (investments) => set({ investments }),
     setGoal: (goal: Goal) => set({ goal }),
     setLoading: (loading: boolean) => set({ loading }),
-    setRegisters: (incomes: Array<Register>, expenses: Array<Register>, investments: Array<Register>) =>
-      set({ incomes, expenses, investments }),
+    setRegisters: (incomes: Array<Register>, expenses: Array<Register>, investments: Array<Register>) => {
+      set({ syncing: true, incomes, expenses, investments });
+      setTimeout(() => {
+        set({ syncing: false });
+      }, THREE_SECONDS);
+    },
+    setSyncing: (syncing: boolean) => {
+      set({ syncing });
+    },
     getRegisters: () => {
       const state = get();
       return {
@@ -128,4 +137,8 @@ export const useGoals = () => {
   return useGlobalStore((state) => {
     return [state.goal, state.actions.setGoal] as const;
   });
+};
+
+export const useSync = () => {
+  return useGlobalStore((state) => [state.syncing, state.actions.setSyncing] as const);
 };
