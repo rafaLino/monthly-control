@@ -13,19 +13,19 @@ function mustNotify(serverVersion: number | undefined, localVersion: number) {
 
 export function useOutdatedDataNotification(action: () => Promise<void>) {
   const { t } = useTranslation();
-  const [localVersion, setLocalVersion] = useLocalStorage<number>('version');
+  const [localVersion, setLocalVersion] = useLocalStorage<number>('version', 0);
   const [serverVersion, setServerVersion] = useServerVersion();
   const { toast } = useToast();
 
   const dispatchNewVersion = useCallback(async () => {
     await versionService.increment();
-    setLocalVersion((val) => val + 1);
     setServerVersion((val) => val + 1);
+    setLocalVersion((val) => val + 1);
   }, []);
 
   const updateVersion = useCallback(async () => {
     await action();
-    setServerVersion(localVersion);
+    setLocalVersion(serverVersion!);
   }, []);
 
   useEffect(() => {
