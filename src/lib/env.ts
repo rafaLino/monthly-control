@@ -8,7 +8,8 @@ const envSchema = z.object({
   VITE_AMQP_URL: z.string(),
   VITE_AMQP_VHOST: z.string(),
   VITE_AMQP_USER: z.string(),
-  VITE_AMQP_PASSWORD: z.string()
+  VITE_AMQP_PASSWORD: z.string(),
+  VITE_PARAMS_API_URL: z.string(),
 });
 
 export default envSchema.parse(import.meta.env);

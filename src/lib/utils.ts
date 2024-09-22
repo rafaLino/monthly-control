@@ -33,3 +33,11 @@ export function transformObjectIntoArray<TValue = string>(values: Object): Array
 export function replaceSpacesWithUnderscores(text: string): string {
   return text.replace(/\s+/g, '_');
 }
+
+export function isFalsy(value: unknown): boolean {
+  return (value === null || value === undefined);
+}
+
+export function isTruthy(value: unknown) {
+  return !isFalsy(value);
+}
