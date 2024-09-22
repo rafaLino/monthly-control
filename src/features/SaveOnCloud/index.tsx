@@ -25,14 +25,14 @@ export const SaveOnCloud = () => {
     }
   };
 
-  const { publish } = useOutdatedDataNotification(handleDowload);
+  const { dispatchNewVersion } = useOutdatedDataNotification(handleDowload);
 
   const handleUpload = async () => {
     setUploading(true);
     const data = getRegisters();
     try {
       await apiService.save(data);
-      await publish();
+      dispatchNewVersion();
     } finally {
       setUploading(false);
     }

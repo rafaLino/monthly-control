@@ -1,52 +1,46 @@
 import { ToastAction } from '@/components/ui/toast';
 import { useToast } from '@/components/ui/use-toast';
-import { useQueue } from '@/hooks/useQueue';
-import { checkFlag } from '@/lib/feature-flag';
-import Cookies from 'js-cookie';
-import { useCallback, useEffect, useRef } from 'react';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { useServerVersion } from '@/hooks/useServerVersion';
+import { isTruthy } from '@/lib/utils';
+import { versionService } from '@/services/version.service';
+import { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-function incrementVersion() {
-  const versionString = Cookies.get('version') ?? 0;
-  const versionAsNumber = Number(versionString);
-  const newVersion = String(versionAsNumber + 1);
-  Cookies.set('version', newVersion, { expires: 20 });
-  return newVersion;
+function mustNotify(serverVersion: number | undefined, localVersion: number) {
+  return isTruthy(serverVersion) && serverVersion !== localVersion;
 }
 
 export function useOutdatedDataNotification(action: () => Promise<void>) {
   const { t } = useTranslation();
-  const [{ data, ack }, send] = useQueue();
+  const [localVersion, setLocalVersion] = useLocalStorage<number>('version');
+  const [serverVersion, setServerVersion] = useServerVersion();
   const { toast } = useToast();
-  const currentVersionRef = useRef(Cookies.get('version') ?? '0');
 
-  const publish = useCallback(async () => {
-    if (checkFlag('outdated_data')) {
-      const version = incrementVersion();
-      currentVersionRef.current = version;
-      await send(version);
-    }
+  const dispatchNewVersion = useCallback(async () => {
+    await versionService.increment();
+    setLocalVersion((val) => val + 1);
+    setServerVersion((val) => val + 1);
   }, []);
 
-  const getNewData = useCallback(async () => {
+  const updateVersion = useCallback(async () => {
     await action();
-    ack?.();
-    Cookies.set('version', data!);
+    setServerVersion(localVersion);
   }, []);
 
   useEffect(() => {
-    if (data && currentVersionRef.current !== data) {
+    if (mustNotify(serverVersion, localVersion)) {
       toast({
         title: t('notification.title'),
         duration: Infinity,
         action: (
-          <ToastAction altText="download" onClick={getNewData}>
+          <ToastAction altText="download" onClick={updateVersion}>
             {t('notification.action')}
           </ToastAction>
         )
       });
     }
-  }, [data]);
+  }, [serverVersion]);
 
-  return { publish };
+  return { dispatchNewVersion };
 }
