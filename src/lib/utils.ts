@@ -35,7 +35,7 @@ export function replaceSpacesWithUnderscores(text: string): string {
 }
 
 export function isFalsy(value: unknown): boolean {
-  return (value === null || value === undefined);
+  return value === null || value === undefined;
 }
 
 export function isTruthy(value: unknown) {
