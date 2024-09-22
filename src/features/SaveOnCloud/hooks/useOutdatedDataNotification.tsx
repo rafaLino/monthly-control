@@ -30,17 +30,20 @@ export function useOutdatedDataNotification(action: () => Promise<void>) {
 
   useEffect(() => {
     if (mustNotify(serverVersion, localVersion)) {
-      toast({
-        title: t('notification.title'),
-        duration: Infinity,
-        action: (
-          <ToastAction altText="download" onClick={updateVersion}>
-            {t('notification.action')}
-          </ToastAction>
-        )
-      });
+      const timeout = setTimeout(() => {
+        toast({
+          title: t('notification.title'),
+          duration: Infinity,
+          action: (
+            <ToastAction altText="download" onClick={updateVersion}>
+              {t('notification.action')}
+            </ToastAction>
+          )
+        });
+      }, 1_000);
+      return () => clearTimeout(timeout);
     }
-  }, [serverVersion]);
+  }, [serverVersion, localVersion, toast]);
 
   return { dispatchNewVersion };
 }
