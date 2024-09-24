@@ -2,7 +2,7 @@ import { TooltipLink } from '@/components/tooltip-link/tooltip-link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Link } from '@tanstack/react-router';
-import { Home, LineChart, PanelLeft, Settings, Users2 } from 'lucide-react';
+import { Home, LineChart, PanelLeft, Settings } from 'lucide-react';
 import { FC, PropsWithChildren, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
