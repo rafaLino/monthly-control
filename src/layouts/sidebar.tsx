@@ -2,7 +2,7 @@ import { TooltipLink } from '@/components/tooltip-link/tooltip-link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Link } from '@tanstack/react-router';
-import { Home, LineChart, PanelLeft, Settings, Users2 } from 'lucide-react';
+import { Home, LineChart, PanelLeft, Settings } from 'lucide-react';
 import { FC, PropsWithChildren, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -22,15 +22,6 @@ export const SideBar: FC<SideBarProps> = ({ header, children }) => {
           >
             <Home className="h-5 w-5" />
             <span className="sr-only">{t('home')}</span>
-          </TooltipLink>
-
-          <TooltipLink
-            tooltip={t('users')}
-            to="/about"
-            className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8 [&.active]:bg-stone-200"
-          >
-            <Users2 className="h-5 w-5" />
-            <span className="sr-only">{t('users')}</span>
           </TooltipLink>
 
           <TooltipLink
@@ -77,10 +68,6 @@ export const SideBarHeader: FC<PropsWithChildren> = ({ children }) => {
             <Link to="/" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
               <Home className="h-5 w-5" />
               {t('home')}
-            </Link>
-            <Link to="/about" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
-              <Users2 className="h-5 w-5" />
-              {t('users')}
             </Link>
             <Link to="/analytics" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
               <LineChart className="h-5 w-5" />

@@ -11,9 +11,11 @@ import {
   getTotalBalance
 } from '@/lib/business-logic';
 import { fetchRegisters } from '@/lib/fetch-registers';
-import { capitalize } from '@/lib/utils';
+import { capitalize, updateItemOfArray } from '@/lib/utils';
+import { ExtractionLog } from '@/types/extraction-log.types';
 import { Goal } from '@/types/goal';
 import { Register, RegisterType } from '@/types/register.types';
+import { compareDesc } from 'date-fns';
 import { create } from 'zustand';
 import { useShallow } from 'zustand/react/shallow';
 import { GlobalState } from './global.state';
@@ -31,6 +33,7 @@ const useGlobalStore = create<GlobalState>()((set, get) => ({
   },
   loading: false,
   syncing: false,
+  extractionLogs: [],
   actions: {
     setIncomes: (incomes) => set({ incomes }),
     setExpenses: (expenses) => set({ expenses }),
@@ -53,6 +56,22 @@ const useGlobalStore = create<GlobalState>()((set, get) => ({
         expenses: state.expenses,
         investments: state.investments
       };
+    },
+    loadExtractionLogs: (extractionLogs: Array<ExtractionLog>) => {
+      set({ extractionLogs });
+    },
+    addExtractionLogs: (log: ExtractionLog) => {
+      set((state) => ({ extractionLogs: [...state.extractionLogs, log] }));
+    },
+    setExtractionLogNote: (id: string, notes: string) => {
+      set((state) => {
+        const currentIndex = state.extractionLogs.findIndex((item) => item.id === id);
+        const extractionLogs = updateItemOfArray(state.extractionLogs, currentIndex, { id, notes });
+        return { extractionLogs };
+      });
+    },
+    removeExtractionLog: (logId: string) => {
+      set((state) => ({ extractionLogs: state.extractionLogs.filter((item) => item.id === logId) }));
     }
   }
 }));
@@ -141,4 +160,12 @@ export const useGoals = () => {
 
 export const useSync = () => {
   return useGlobalStore((state) => [state.syncing, state.actions.setSyncing] as const);
+};
+
+export const useLastExtraction = () => {
+  return useGlobalStore((state) => state.extractionLogs.toSorted((a, b) => compareDesc(a.createdAt, b.createdAt)).at(0));
+};
+
+export const useExtractions = () => {
+  return useGlobalStore((state) => state.extractionLogs.toSorted((a, b) => compareDesc(a.createdAt, b.createdAt)));
 };
