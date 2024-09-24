@@ -25,15 +25,6 @@ export const SideBar: FC<SideBarProps> = ({ header, children }) => {
           </TooltipLink>
 
           <TooltipLink
-            tooltip={t('users')}
-            to="/about"
-            className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8 [&.active]:bg-stone-200"
-          >
-            <Users2 className="h-5 w-5" />
-            <span className="sr-only">{t('users')}</span>
-          </TooltipLink>
-
-          <TooltipLink
             tooltip={t('analytics')}
             to="/analytics"
             className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8 [&.active]:bg-stone-200"
@@ -77,10 +68,6 @@ export const SideBarHeader: FC<PropsWithChildren> = ({ children }) => {
             <Link to="/" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
               <Home className="h-5 w-5" />
               {t('home')}
-            </Link>
-            <Link to="/about" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
-              <Users2 className="h-5 w-5" />
-              {t('users')}
             </Link>
             <Link to="/analytics" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
               <LineChart className="h-5 w-5" />

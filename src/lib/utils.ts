@@ -41,3 +41,11 @@ export function isFalsy(value: unknown): boolean {
 export function isTruthy(value: unknown) {
   return !isFalsy(value);
 }
+
+export function updateItemOfArray<T>(array: Array<T>, index: number, item: Partial<T>): Array<T> {
+  return replaceItemOfArray(array, index, ({ ...array[index], ...item }));
+};
+
+export function replaceItemOfArray<T>(array: Array<T>, index: number, item: T): Array<T> {
+  return [...array.slice(0, index), item, ...array.slice(index + 1)];
+};
