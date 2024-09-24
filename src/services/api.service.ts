@@ -41,13 +41,14 @@ export class ApiService {
     return responseData.data.records;
   }
 
-  public async downloadUrl() {
+  public async downloadUrl(signal?: AbortSignal) {
     const response = await fetch(`${env.VITE_API_URL}/extract`, {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
         'x-api-secret': env.VITE_API_SECRET
-      })
+      }),
+      signal
     });
 
     if (!response.ok) return;

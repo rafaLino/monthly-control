@@ -17,7 +17,7 @@ export const ExtractionLogs = () => {
     await indexedDbService.updateExtractionLogs(logId, notes);
   };
   return (
-    <ScrollArea className="h-72 w-96 rounded-md border">
+    <ScrollArea className="h-72 w-full rounded-md border">
       {logs.length > 0 ? (
         <div className="p-4">
           <h4 className="mb-4 text-sm font-medium leading-none">{t('logs.title')}</h4>
