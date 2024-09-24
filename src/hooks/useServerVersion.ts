@@ -1,28 +1,21 @@
 import { versionService } from '@/services/version.service';
 import Cookies from 'js-cookie';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useLocalStorage } from './useLocalStorage';
 
 export function useServerVersion() {
-  const [version, setVersion] = useState<number | undefined>(() => {
-    const val = Cookies.get('version');
-    return val ? Number(val) : undefined;
-  });
-
-  const set = useCallback((value: number | ((prev: number) => number)) => {
-    const nextState = typeof value === 'function' ? value(version!) : value;
-    setVersion(nextState);
-    Cookies.set('version', String(nextState), { expires: 1 });
-  }, []);
+  const [version, setVersion] = useLocalStorage<number>('server-version', 0);
 
   useEffect(() => {
     async function get() {
-      if (!Cookies.get('version')) {
+      if (!Cookies.get('fetch-version')) {
         const version = await versionService.get();
-        set(version);
+        setVersion(version);
+        Cookies.set('fetch-version', String(version), { expires: 1 });
       }
     }
     get();
   }, []);
 
-  return [version, set] as const;
+  return [version, setVersion] as const;
 }
