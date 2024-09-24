@@ -52,7 +52,7 @@ export class ApiService {
 
     if (!response.ok) return;
 
-    const responseData = (await response.json()) as ({ data: string });
+    const responseData = (await response.json()) as { data: string };
 
     return responseData.data;
   }

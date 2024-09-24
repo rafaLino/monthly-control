@@ -9,7 +9,7 @@ export interface GlobalState {
   goal: Goal;
   loading: boolean;
   syncing: boolean;
-  extractionLogs: Array<ExtractionLog>
+  extractionLogs: Array<ExtractionLog>;
   actions: {
     setIncomes: (incomes: Array<Register>) => void;
     setExpenses: (expenses: Array<Register>) => void;

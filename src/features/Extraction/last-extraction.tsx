@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 import { useLastExtraction } from '@/store/store';
 import { HardDriveDownload, LoaderCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useExtractionLogic } from './hooks/useExtractionLogic';
-import { cn } from '@/lib/utils';
 
 /**
  * https://date-fns.org/v4.1.0/docs/format
@@ -20,7 +20,7 @@ export const LastExtraction = () => {
   return (
     <Card x-chunk="last_extraction" className="grid grid-cols-2 w-96">
       <CardHeader className="flex flex-col justify-between space-y-0 pb-2 p-4">
-        <CardTitle className="text-sm font-medium">Última extração</CardTitle>
+        <CardTitle className="text-sm font-medium">{t('logs.lastExtraction')}</CardTitle>
         <p className="text-xs text-muted-foreground whitespace-nowrap">
           {lastLog ? t('date', { date: lastLog.createdAt, context: { format: DATE_FORMAT } }) : '--'}
         </p>

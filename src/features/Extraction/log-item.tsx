@@ -51,7 +51,7 @@ export const LogItem: FC<LogItemProps> = memo(({ log, onChange }) => {
         <div className="flex flex-col gap-3">
           <Textarea rows={10} value={notes} onChange={handleNotesChange} onKeyDown={handleKeyDown} />
           <div className="flex justify-end">
-            <Button onClick={handleSaveClick}>Save</Button>
+            <Button onClick={handleSaveClick}>{t('logs.save')}</Button>
           </div>
         </div>
       </PopoverContent>

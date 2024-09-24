@@ -20,7 +20,7 @@ export const ExtractionLogs = () => {
     <ScrollArea className="h-72 w-96 rounded-md border">
       {logs.length > 0 ? (
         <div className="p-4">
-          <h4 className="mb-4 text-sm font-medium leading-none">Logs</h4>
+          <h4 className="mb-4 text-sm font-medium leading-none">{t('logs.title')}</h4>
           {logs.map((log) => (
             <Fragment key={log.id}>
               <LogItem log={log} onChange={handleChange} />
@@ -29,7 +29,7 @@ export const ExtractionLogs = () => {
           ))}
         </div>
       ) : (
-        <div className="flex items-center justify-center h-64 font-bold">no data</div>
+        <div className="flex items-center justify-center h-64 font-bold">{t('logs.noData')}</div>
       )}
     </ScrollArea>
   );

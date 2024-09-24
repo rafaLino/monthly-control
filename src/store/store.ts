@@ -64,14 +64,14 @@ const useGlobalStore = create<GlobalState>()((set, get) => ({
       set((state) => ({ extractionLogs: [...state.extractionLogs, log] }));
     },
     setExtractionLogNote: (id: string, notes: string) => {
-      set(state => {
-        const currentIndex = state.extractionLogs.findIndex(item => item.id === id);
-        const extractionLogs = updateItemOfArray(state.extractionLogs, currentIndex, ({ id, notes }));
+      set((state) => {
+        const currentIndex = state.extractionLogs.findIndex((item) => item.id === id);
+        const extractionLogs = updateItemOfArray(state.extractionLogs, currentIndex, { id, notes });
         return { extractionLogs };
-      })
+      });
     },
     removeExtractionLog: (logId: string) => {
-      set((state) => ({ extractionLogs: state.extractionLogs.filter(item => item.id === logId) }));
+      set((state) => ({ extractionLogs: state.extractionLogs.filter((item) => item.id === logId) }));
     }
   }
 }));
@@ -164,8 +164,8 @@ export const useSync = () => {
 
 export const useLastExtraction = () => {
   return useGlobalStore((state) => state.extractionLogs.toSorted((a, b) => compareDesc(a.createdAt, b.createdAt)).at(0));
-}
+};
 
 export const useExtractions = () => {
   return useGlobalStore((state) => state.extractionLogs.toSorted((a, b) => compareDesc(a.createdAt, b.createdAt)));
-}
+};

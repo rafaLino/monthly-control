@@ -17,8 +17,8 @@ interface MyDb extends DBSchema {
   };
   extractions: {
     key: string;
-    value: ExtractionLog
-  }
+    value: ExtractionLog;
+  };
 }
 
 export class IndexedDbService {
@@ -38,8 +38,7 @@ export class IndexedDbService {
         if (oldVersion < 2) {
           db.createObjectStore('extractions');
         }
-      },
-
+      }
     });
     this.initiated = true;
   }
@@ -142,7 +141,6 @@ export class IndexedDbService {
     await tx.done;
   }
 
-
   private async clear(
     incomesStore: IDBPObjectStore<MyDb, RegisterType[], 'incomes', 'readwrite'>,
     expensesStore: IDBPObjectStore<MyDb, RegisterType[], 'expenses', 'readwrite'>,
@@ -150,7 +148,6 @@ export class IndexedDbService {
   ) {
     await Promise.all([incomesStore.clear(), expensesStore.clear(), investmentsStore.clear()]);
   }
-
 }
 
 export const indexedDbService = new IndexedDbService();

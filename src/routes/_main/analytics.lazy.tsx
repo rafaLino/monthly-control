@@ -1,6 +1,6 @@
-import { createLazyFileRoute } from '@tanstack/react-router';
 import { ExtractionLogs } from '@/features/Extraction/extraction-logs';
 import { LastExtraction } from '@/features/Extraction/last-extraction';
+import { createLazyFileRoute } from '@tanstack/react-router';
 
 export const Route = createLazyFileRoute('/_main/analytics')({
   component: Index
