@@ -1,23 +1,22 @@
 services:
+  app:
+    build:
+      context: .
+    ports:
+      - '3000:80'
+    networks:
+      - app-network
+    depends_on:
+      - api
   api:
     build:
       context: './docker/api'
     ports:
-      - '6060:6060'
+      - '4000:4000'
+    env_file:
+      - docker/.env.docker
     networks:
       - app-network
-  app:
-    build:
-      context: .
-
-    ports:
-      - '8000:80'
-    networks:
-      - app-network
-    env_file: 
-      - ./docker/.env.docker
-    depends_on:
-      - api
 
 networks:
   app-network:

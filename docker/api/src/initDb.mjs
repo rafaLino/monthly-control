@@ -28,5 +28,6 @@ export default async function initDb() {
   await db.query(sql`
   CREATE TABLE IF NOT EXISTS version (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    value INTEGER);`);
+    value INTEGER DEFAULT 0
+    );`);
 }

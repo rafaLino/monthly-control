@@ -3,11 +3,8 @@ import env from '@/lib/env';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Navigate, createFileRoute } from '@tanstack/react-router';
 
-const local = env.MODE === 'local';
-console.log(env.MODE);
-console.log(env.VITE_API_URL);
 export const Route = createFileRoute('/_main')({
-  component: local ? DockerIndex : Index,
+  component: env.VITE_AUTH ? Index : NoAuthIndex,
 });
 
 function Index() {
@@ -20,6 +17,6 @@ function Index() {
   return <MainLayout pageLoading={isLoading} />;
 }
 
-function DockerIndex() {
+function NoAuthIndex() {
   return <MainLayout />;
 }

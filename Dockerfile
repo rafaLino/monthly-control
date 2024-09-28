@@ -3,24 +3,14 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
-ARG MODE
-ARG VITE_DOMAIN
-ARG VITE_CLIENT_ID
-ARG VITE_API_SECRET
-ARG VITE_API_URL
-ARG VITE_PARAMS_API_URL
-
-ENV MODE=${MODE}
-ENV VITE_DOMAIN=${VITE_DOMAIN}
-ENV VITE_CLIENT_ID=${VITE_CLIENT_ID}
-ENV VITE_API_SECRET=${VITE_API_SECRET}
-ENV VITE_API_URL=${VITE_API_URL}
-ENV VITE_PARAMS_API_URL=${VITE_PARAMS_API_URL}
-
-
 COPY . /app
 WORKDIR /app
+
+
 COPY . .
+
+COPY docker/.env.docker .env
+
 FROM base AS prod-deps
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
 
