@@ -8,7 +8,7 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
       domain={env.VITE_DOMAIN}
       clientId={env.VITE_CLIENT_ID}
       authorizationParams={{
-        redirect_uri: window.location.origin,
+        redirect_uri: window.location.origin
       }}
     >
       {children}

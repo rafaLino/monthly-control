@@ -1,8 +1,8 @@
-import Fastify from 'fastify';
-import cors from '@fastify/cors';
-import connect, { sql } from '@databases/sqlite';
-import initDb from './initDb.mjs';
-
+import Fastify from "fastify";
+import cors from "@fastify/cors";
+import connect, { sql } from "@databases/sqlite";
+import initDb from "./initDb.mjs";
+import crypto from "node:crypto";
 const PORT = process.env.PORT || 4000;
 
 const fastify = Fastify({
@@ -12,8 +12,20 @@ const fastify = Fastify({
 await fastify.register(cors, {
   origin: true,
 });
-let db = connect('./db.sqlite');
-fastify.get('/record', async function handler() {
+
+fastify.addHook("preParsing", (request, reply, payload, done) => {
+  if (
+    ["POST", "DELETE"].includes(request.method) &&
+    request.headers["content-type"] == "application/json" &&
+    request.headers["content-length"] == "0"
+  ) {
+    delete request.headers["content-type"];
+  }
+
+  done();
+});
+let db = connect("./db.sqlite");
+fastify.get("/record", async function handler() {
   const currentDate = getDate();
   const result = await db.query(sql`
     SELECT 
@@ -27,40 +39,40 @@ fastify.get('/record', async function handler() {
 FROM 
     registers r
 LEFT JOIN 
-    records rec ON r.id = rec.referenceDate
+    records rec ON r.referenceDate = rec.referenceDate
 WHERE 
     r.referenceDate = ${currentDate}
 LIMIT 1
     `);
 
   const incomes = result
-    .filter((record) => record.type === 'incomes')
+    .filter((record) => record.type === "incomes")
     .map((record) => {
       return {
         id: record.record_id,
         name: record.name,
         value: record.value,
-        checked: record.checked,
+        checked: record.checked ? true : false,
       };
     });
   const expenses = result
-    .filter((record) => record.type === 'expenses')
+    .filter((record) => record.type === "expenses")
     .map((record) => {
       return {
         id: record.record_id,
         name: record.name,
         value: record.value,
-        checked: record.checked,
+        checked: record.checked ? true : false,
       };
     });
   const investments = result
-    .filter((record) => record.type === 'investments')
+    .filter((record) => record.type === "investments")
     .map((record) => {
       return {
         id: record.record_id,
         name: record.name,
         value: record.value,
-        checked: record.checked,
+        checked: record.checked ? true : false,
       };
     });
 
@@ -80,13 +92,18 @@ LIMIT 1
   return response;
 });
 
-fastify.post('/record', async function handler(request, reply) {
+fastify.post("/record", async function handler(request, reply) {
   const currentDate = getDate();
   const recordData = request.body;
 
   // Validate that necessary fields are present
-  if (!recordData || !recordData.incomes || !recordData.expenses || !recordData.investments) {
-    return reply.status(400).send({ error: 'Invalid data structure' });
+  if (
+    !recordData ||
+    !recordData.incomes ||
+    !recordData.expenses ||
+    !recordData.investments
+  ) {
+    return reply.status(400).send({ error: "Invalid data structure" });
   }
 
   try {
@@ -108,10 +125,20 @@ fastify.post('/record', async function handler(request, reply) {
       )
     );
 
+    // delete first
+    const deleteRegisters = db.query(
+      sql`DELETE FROM registers WHERE referenceDate = ${currentDate}`
+    );
+    const deleteRecords = db.query(
+      sql`DELETE FROM records WHERE referenceDate = ${currentDate}`
+    );
+
+    await Promise.all([deleteRegisters, deleteRecords]);
+
     // Insert into registers
     await db.query(sql`
-          INSERT INTO registers (referenceDate)
-          VALUES (${currentDate})
+          INSERT INTO registers (id, referenceDate)
+          VALUES (${crypto.randomUUID()}, ${currentDate})
       `);
 
     // Insert into records
@@ -124,57 +151,47 @@ fastify.post('/record', async function handler(request, reply) {
   } catch (error) {
     // Log the error for debugging purposes
     fastify.log.error(error);
-    return reply.status(500).send({ error: 'Database operation failed' });
+    return reply.status(500).send({ error: "Database operation failed" });
   }
 });
 
-fastify.get('/extract', async function handler() {
+fastify.get("/extract", async function handler() {
   return {
-    data: 'https://www.reddit.com/r/learnpython/comments/bfz8l2/what_are_your_favorite_free_public_apifree_ones.csv',
+    data: "https://www.reddit.com/r/learnpython/comments/bfz8l2/what_are_your_favorite_free_public_apifree_ones.csv",
   };
 });
 
-fastify.get('/version', async function handler() {
+fastify.get("/version", async function handler() {
   const result = await db.query(sql`
     SELECT 1 FROM version
     `);
   return { data: result[0] };
 });
 
-fastify.post(
-  '/version',
-  {
-    preHandler: (request) => {
-      if (request.headers['content-type'] === 'application/json' && !request.body) {
-        request.body = {}; // Set to an empty object
-      }
-    },
-  },
-  async function handler() {
-    const result = await db.query(sql`
+fastify.post("/version", async function handler() {
+  const result = await db.query(sql`
     SELECT value FROM version LIMIT 1
     `);
-    const value = result[0];
-    const incrementedValue = (value ?? 0) + 1;
+  const value = result[0];
+  const incrementedValue = (value ?? 0) + 1;
 
-    await db.query(sql`
+  await db.query(sql`
     INSERT INTO version (value) VALUES (${incrementedValue})
     `);
-    return { ok: true };
-  }
-);
+  return { ok: true };
+});
 
-fastify.get('/ping', async function handler() {
-  return { data: 'pong' };
+fastify.get("/ping", async function handler() {
+  return { data: "pong" };
 });
 
 function getDate() {
-  const date = new Date().toISOString().split('-');
+  const date = new Date().toISOString().split("-");
   return `${date[0]}-${date[1]}`;
 }
 const start = async () => {
   try {
-    await fastify.listen({ port: PORT, host: '0.0.0.0' });
+    await fastify.listen({ port: PORT, host: "0.0.0.0" });
     await initDb(db);
     fastify.log.info(`server listening on ${PORT}`);
   } catch (err) {
