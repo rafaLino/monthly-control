@@ -1,0 +1,25 @@
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "3000:80"
+    networks:
+      - app-network
+    depends_on:
+      - api
+  api:
+    build:
+      context: "./docker/api"
+    volumes:
+      - ./sqlite_data:/data
+    ports:
+      - "4000:4000"
+    env_file:
+      - docker/.env.docker
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
