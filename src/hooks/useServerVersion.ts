@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useLocalStorage } from './useLocalStorage';
 
 export function useServerVersion() {
-  const [version, setVersion] = useLocalStorage<number>('server-version');
+  const [version, setVersion] = useLocalStorage<number>('server-version', 0);
 
   useEffect(() => {
     async function get() {
