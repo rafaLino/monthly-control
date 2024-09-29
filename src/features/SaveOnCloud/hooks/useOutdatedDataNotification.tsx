@@ -2,13 +2,12 @@ import { ToastAction } from '@/components/ui/toast';
 import { useToast } from '@/components/ui/use-toast';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useServerVersion } from '@/hooks/useServerVersion';
-import { isTruthy } from '@/lib/utils';
 import { versionService } from '@/services/version.service';
 import { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 function mustNotify(serverVersion: number | undefined, localVersion: number) {
-  return isTruthy(serverVersion) && serverVersion !== localVersion;
+  return serverVersion && serverVersion !== localVersion;
 }
 
 export function useOutdatedDataNotification(action: () => Promise<void>) {
@@ -19,14 +18,14 @@ export function useOutdatedDataNotification(action: () => Promise<void>) {
 
   const dispatchNewVersion = useCallback(async () => {
     await versionService.increment();
-    setServerVersion((val) => val + 1);
-    setLocalVersion((val) => val + 1);
-  }, []);
+    setServerVersion(serverVersion + 1);
+    setLocalVersion(serverVersion + 1);
+  }, [serverVersion]);
 
   const updateVersion = useCallback(async () => {
     await action();
     setLocalVersion(serverVersion!);
-  }, []);
+  }, [serverVersion]);
 
   useEffect(() => {
     if (mustNotify(serverVersion, localVersion)) {

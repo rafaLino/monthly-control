@@ -34,14 +34,6 @@ export function replaceSpacesWithUnderscores(text: string): string {
   return text.replace(/\s+/g, '_');
 }
 
-export function isFalsy(value: unknown): boolean {
-  return value == null || value == undefined;
-}
-
-export function isTruthy(value: unknown) {
-  return !isFalsy(value);
-}
-
 export function updateItemOfArray<T>(array: Array<T>, index: number, item: Partial<T>): Array<T> {
   return replaceItemOfArray(array, index, { ...array[index], ...item });
 }
