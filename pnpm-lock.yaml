@@ -69,8 +69,8 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@rafael-lino/react-quick-calculator':
-        specifier: ^1.2.1
-        version: 1.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^1.3.0
+        version: 1.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tanstack/react-router':
         specifier: ^1.48.1
         version: 1.48.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1608,8 +1608,8 @@ packages:
   '@radix-ui/rect@1.1.0':
     resolution: {integrity: sha512-A9+lCBZoaMJlVKcRBz2YByCG+Cp2t6nAnMnNba+XiWxnj6r4JUFqfsgwocMBZU9LPtdxC6wB56ySYpc7LQIoJg==}
 
-  '@rafael-lino/react-quick-calculator@1.2.1':
-    resolution: {integrity: sha512-THeHW3Kdes9jtdT9GSCcQblJ8tL3b1F10UDl+U/fximtIIEI2gjBXx+vFNDjQbdZMhbThE1MsD3FtwASHaMaqg==, tarball: https://npm.pkg.github.com/download/@rafael-lino/react-quick-calculator/1.2.1/e07b7a015c07a4dc607ea243c682cc60050546ae}
+  '@rafael-lino/react-quick-calculator@1.3.0':
+    resolution: {integrity: sha512-GeMAEKFBpEft99DSZRZTogRNBIWQ64N6EoIy+orVr/cUEGuoKHIPa1GCZhrCfqCoK8NOLSNNXVe7MJu9AoLL7A==, tarball: https://npm.pkg.github.com/download/@rafael-lino/react-quick-calculator/1.3.0/8de9650cdeefd2b627ea0de13140b32c85d196b3}
     peerDependencies:
       react: '>=18.2.0'
       react-dom: '>=18.2.0'
@@ -5512,9 +5512,8 @@ snapshots:
 
   '@radix-ui/rect@1.1.0': {}
 
-  '@rafael-lino/react-quick-calculator@1.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@rafael-lino/react-quick-calculator@1.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      lodash: 4.17.21
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       react-draggable: 4.4.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
