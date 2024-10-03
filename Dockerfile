@@ -5,17 +5,18 @@ RUN corepack enable
 
 COPY . /app
 WORKDIR /app
-
-
-COPY . .
-
+    
 COPY docker/.env.docker .env
 
+
+
 FROM base AS prod-deps
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store
+RUN --mount=type=secret,id=npmrc,target=/root/.npmrc pnpm install --prod --frozen-lockfile
 
 FROM base AS build
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store   
+RUN --mount=type=secret,id=npmrc,target=/root/.npmrc pnpm install --frozen-lockfile
 RUN pnpm run build
 
 FROM base AS final
