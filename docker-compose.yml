@@ -2,6 +2,8 @@ services:
   app:
     build:
       context: .
+      secrets:
+        - npmrc
     ports:
       - "3000:80"
     networks:
@@ -23,3 +25,7 @@ services:
 networks:
   app-network:
     driver: bridge
+
+secrets:
+  npmrc:
+    file: $HOME/.npmrc
