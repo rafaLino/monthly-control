@@ -28,4 +28,4 @@ networks:
 
 secrets:
   npmrc:
-    file: $HOME/.npmrc
+    file: ~/.npmrc
