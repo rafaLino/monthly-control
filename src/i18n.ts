@@ -54,9 +54,17 @@ i18n.services.formatter?.addCached('CURRENCY_FORMAT', (lng) => {
   };
 });
 
-i18n.services.formatter?.add('PERCENTAGE_FORMAT', (value) => {
-  if (!value) return '0.00%';
-  return (value * 100).toFixed(2) + '%';
+i18n.services.formatter?.addCached('PERCENTAGE_FORMAT', (lng) => {
+  const currencyFormat = currencies[lng ?? 'en'];
+  const formatter = Intl.NumberFormat(currencyFormat.locale, {
+    style: 'percent',
+    maximumFractionDigits: 2
+  });
+  return (value) => {
+    if (!value) return formatter.format(0);
+
+    return formatter.format(value);
+  };
 });
 
 i18n.services.formatter?.add('capitalize', (value) => {
