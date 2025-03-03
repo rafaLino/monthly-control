@@ -56,15 +56,15 @@ i18n.services.formatter?.addCached('CURRENCY_FORMAT', (lng) => {
 
 i18n.services.formatter?.addCached('PERCENTAGE_FORMAT', (lng) => {
   const currencyFormat = currencies[lng ?? 'en'];
-  const formatter = Intl.NumberFormat(currencyFormat.locale, { 
-    style: 'percent', 
+  const formatter = Intl.NumberFormat(currencyFormat.locale, {
+    style: 'percent',
     maximumFractionDigits: 2
   });
   return (value) => {
-    if(!value) return formatter.format(0);
+    if (!value) return formatter.format(0);
 
     return formatter.format(value);
-  }
+  };
 });
 
 i18n.services.formatter?.add('capitalize', (value) => {

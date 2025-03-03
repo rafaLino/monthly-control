@@ -1,4 +1,5 @@
 import { AddInput } from '@/components/add-input';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -23,7 +24,6 @@ import { useTranslation } from 'react-i18next';
 import { useSkipper } from '../hooks/useSkipper';
 import { EditableCell, EditableNumberCell } from './editable-cell';
 import CustomPagination from './pagination';
-import { Badge } from '@/components/ui/badge';
 
 declare module '@tanstack/react-table' {
   interface TableMeta<TData extends RowData> {
