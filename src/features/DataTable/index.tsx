@@ -15,7 +15,7 @@ export const DataTable: React.FC<DataTableProps> = ({ type }) => {
   const { t } = useTranslation();
   const filter = useContext(DataTableFilterContext);
   const [data, setData] = useRegisters(type);
-  const sum = useRegisterSum<string>(type);
+  const sum = useRegisterSum<number>(type);
   const { text, border } = COLORS[getColor(type)];
   const filteredData = data.filter((item) => item.name.includes(filter));
   return (
@@ -24,7 +24,7 @@ export const DataTable: React.FC<DataTableProps> = ({ type }) => {
         <CardTitle className={text}>{t('currency', { value: sum })}</CardTitle>
       </CardHeader>
       <CardContent className="pb-4">
-        <RegisterTable data={filteredData} onChange={setData} />
+        <RegisterTable data={filteredData} onChange={setData} total={sum} />
       </CardContent>
     </Card>
   );

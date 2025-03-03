@@ -23,12 +23,14 @@ import { useTranslation } from 'react-i18next';
 import { useSkipper } from '../hooks/useSkipper';
 import { EditableCell, EditableNumberCell } from './editable-cell';
 import CustomPagination from './pagination';
+import { Badge } from '@/components/ui/badge';
 
 declare module '@tanstack/react-table' {
   interface TableMeta<TData extends RowData> {
     updateData: (rowIndex: number, columnId: string, value: unknown) => void;
     removeData: (rowIndex: number) => void;
     checkAllData: (value: boolean | 'indeterminate') => void;
+    total: number;
   }
 }
 
@@ -83,11 +85,24 @@ function DeleteCell({ row: { index }, table }: Readonly<CellContext<Register, un
     </button>
   );
 }
+
+function PercentCell({ getValue, table }: Readonly<CellContext<Register, unknown>>) {
+  const { t } = useTranslation();
+  const total = table.options.meta?.total ?? 0;
+  const value = getValue<number>();
+  const percentage = value / total;
+  return (
+    <div>
+      <Badge>{t('percentage', { value: percentage })}</Badge>
+    </div>
+  );
+}
 type RegisterTableProps = {
   data: Array<Register>;
   onChange?: (newData: Array<Register>) => void;
+  total: number;
 };
-export default function RegisterTable({ data, onChange }: Readonly<RegisterTableProps>) {
+export default function RegisterTable({ data, total, onChange }: Readonly<RegisterTableProps>) {
   const { t } = useTranslation('translation', { keyPrefix: 'registerTable' });
   const columns = useMemo<ColumnDef<Register>[]>(
     () => [
@@ -110,6 +125,12 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
         sortingFn: 'basic',
         enableSorting: true,
         cell: ValueCell
+      },
+      {
+        header: '',
+        id: 'percetage',
+        accessorKey: 'value',
+        cell: PercentCell
       },
       {
         header: '',
@@ -186,12 +207,6 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     initialState: {
-      sorting: [
-        {
-          id: 'value',
-          desc: true
-        }
-      ],
       pagination: {
         pageSize: 20
       }
@@ -200,7 +215,8 @@ export default function RegisterTable({ data, onChange }: Readonly<RegisterTable
     meta: {
       updateData,
       removeData,
-      checkAllData
+      checkAllData,
+      total
     }
   });
 
