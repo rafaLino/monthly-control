@@ -73,6 +73,5 @@
     "vite": "^5.4.1",
     "vite-plugin-node-polyfills": "^0.22.0",
     "vite-plugin-pwa": "^0.20.2"
-  },
-  "packageManager": "pnpm@9.7.1"
+  }
 }
