@@ -214,9 +214,15 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
       }
     },
     initialState: {
+      sorting: [
+        {
+          id: 'value',
+          desc: true
+        }
+      ],
       pagination: {
         pageSize: 20
-      }
+      },
     },
     autoResetPageIndex,
     meta: {
