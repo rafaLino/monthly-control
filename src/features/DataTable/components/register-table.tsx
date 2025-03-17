@@ -222,7 +222,7 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
       ],
       pagination: {
         pageSize: 20
-      },
+      }
     },
     autoResetPageIndex,
     meta: {
