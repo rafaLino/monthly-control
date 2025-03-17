@@ -3,6 +3,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { MediaQueries, useMediaQuery } from '@/hooks/useMediaQuery';
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { cn, generateId } from '@/lib/utils';
 import { Register } from '@/types/register.types';
@@ -104,6 +105,7 @@ type RegisterTableProps = {
 };
 export default function RegisterTable({ data, total, onChange }: Readonly<RegisterTableProps>) {
   const { t } = useTranslation('translation', { keyPrefix: 'registerTable' });
+  const matches = useMediaQuery(MediaQueries.md);
   const columns = useMemo<ColumnDef<Register>[]>(
     () => [
       {
@@ -128,7 +130,7 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
       },
       {
         header: '',
-        id: 'percetage',
+        id: 'percentage',
         accessorKey: 'value',
         cell: PercentCell
       },
@@ -206,6 +208,11 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    state: {
+      columnVisibility: {
+        percentage: matches
+      }
+    },
     initialState: {
       pagination: {
         pageSize: 20
