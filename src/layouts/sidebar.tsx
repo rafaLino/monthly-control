@@ -44,7 +44,7 @@ export const SideBar: FC<SideBarProps> = ({ header, children }) => {
           </TooltipLink>
         </nav>
       </aside>
-      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
+      <div className="flex flex-col sm:gap-3 sm:py-4 sm:pl-14">
         <SideBarHeader>{header}</SideBarHeader>
         {children}
       </div>

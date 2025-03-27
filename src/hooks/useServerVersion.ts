@@ -1,3 +1,4 @@
+import env from '@/lib/env';
 import { versionService } from '@/services/version.service';
 import Cookies from 'js-cookie';
 import { useEffect } from 'react';
@@ -8,7 +9,7 @@ export function useServerVersion() {
 
   useEffect(() => {
     async function get() {
-      if (!Cookies.get('fetch-version')) {
+      if (!Cookies.get('fetch-version') && env.VITE_AUTH) {
         const version = await versionService.get();
         setVersion(version);
         Cookies.set('fetch-version', String(version), { expires: 1 });

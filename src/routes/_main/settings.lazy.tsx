@@ -8,8 +8,8 @@ export const Route = createLazyFileRoute('/_main/settings')({
 
 function Index() {
   return (
-    <div className="flex min-h-screen w-full flex-col">
-      <main className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 px-4 sm:p-4 md:gap-4 md:p-6">
+    <div className="flex w-full flex-col">
+      <main className="flex flex-1 flex-col gap-4 px-4 sm:p-4 md:gap-4 md:p-6">
         <div className="mx-auto grid w-full items-start gap-6 md:grid-cols-[180px_1fr] 2xl:grid-cols-[300px_1fr]">
           <div>
             <FeatureFlags />
