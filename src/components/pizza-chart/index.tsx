@@ -47,7 +47,7 @@ export function PizzaChart({ data, children }: Readonly<PizzaChartProps>) {
           </PieChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col gap-0 text-sm p-2">
+      <CardFooter className="flex-col gap-0 text-sm p-0 pb-1.5">
         <div className="flex items-center gap-0 font-medium leading-none">{children}</div>
       </CardFooter>
     </Card>
