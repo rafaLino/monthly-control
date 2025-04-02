@@ -12,9 +12,9 @@
     "settings": "Settings"
   },
   "balanceCard": {
-    "incomes": "Incomes",
+    "incomes": "Balance",
     "expenses": "Expenses",
-    "balance": "Balance:",
+    "balance": "Total:",
     "done": "Completed:",
     "total": "Total:"
   },

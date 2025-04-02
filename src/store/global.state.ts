@@ -2,6 +2,12 @@ import { ExtractionLog } from '@/types/extraction-log.types';
 import { Goal } from '@/types/goal';
 import { Register } from '@/types/register.types';
 
+export type SetRegistersActionType =
+  | { type: 'add'; payload: { name: string } }
+  | { type: 'update'; payload: { id: string; value: Partial<Register> } }
+  | { type: 'remove'; payload: { id: string } }
+  | { type: 'checkAll'; payload: { value: boolean | 'indeterminate' } };
+
 export interface GlobalState {
   incomes: Array<Register>;
   expenses: Array<Register>;
@@ -11,9 +17,9 @@ export interface GlobalState {
   syncing: boolean;
   extractionLogs: Array<ExtractionLog>;
   actions: {
-    setIncomes: (incomes: Array<Register>) => void;
-    setExpenses: (expenses: Array<Register>) => void;
-    setInvestments: (investments: Array<Register>) => void;
+    setIncomes: (action: SetRegistersActionType) => void;
+    setExpenses: (action: SetRegistersActionType) => void;
+    setInvestments: (action: SetRegistersActionType) => void;
     setGoal: (goal: Goal) => void;
     setLoading: (loading: boolean) => void;
     setSyncing: (syncing: boolean) => void;
