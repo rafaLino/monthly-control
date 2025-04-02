@@ -23,7 +23,7 @@ export const LastExtraction = () => {
   };
 
   return (
-    <Card x-chunk="last_extraction" className="grid grid-cols-2 w-96 w-full">
+    <Card x-chunk="last_extraction" className="grid grid-cols-2 w-full">
       <CardHeader className="flex flex-col justify-between space-y-0 pb-2 p-4">
         <CardTitle className="text-sm font-medium flex flex-row items-center gap-2">
           {t('logs.lastExtraction')}

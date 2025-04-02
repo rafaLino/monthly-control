@@ -61,3 +61,4 @@ export function createNewRegister(name: string): Register {
     checked: false
   };
 }
+
