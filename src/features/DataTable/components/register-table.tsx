@@ -1,17 +1,12 @@
 import { AddInput } from '@/components/add-input';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { MediaQueries, useMediaQuery } from '@/hooks/useMediaQuery';
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { cn, generateId } from '@/lib/utils';
+import { cn } from '@/lib/utils';
+import { SetRegistersActionType } from '@/store/global.state';
 import { Register } from '@/types/register.types';
 import {
-  CellContext,
   ColumnDef,
-  HeaderContext,
-  RowData,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -19,88 +14,21 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table';
-import { ArrowDown, ArrowUp, CircleX } from 'lucide-react';
+import { ArrowDown, ArrowUp } from 'lucide-react';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSkipper } from '../hooks/useSkipper';
-import { EditableCell, EditableNumberCell } from './editable-cell';
+import { CheckedCell } from './checked-cell';
+import { CheckedHeaderCell } from './checked-header-cell';
+import { DeleteCell } from './delete-cell';
+import { NameCell } from './name-cell';
 import CustomPagination from './pagination';
+import { PercentCell } from './percent-cell';
+import { ValueCell } from './value-cell';
 
-declare module '@tanstack/react-table' {
-  interface TableMeta<TData extends RowData> {
-    updateData: (rowIndex: number, columnId: string, value: unknown) => void;
-    removeData: (rowIndex: number) => void;
-    checkAllData: (value: boolean | 'indeterminate') => void;
-    total: number;
-  }
-}
-
-function CheckedHeaderCell({ table }: Readonly<HeaderContext<Register, unknown>>) {
-  const rows = table.getRowModel().flatRows;
-  const value = useMemo(() => {
-    if (rows.length === 0) return false;
-    const allChecked = rows.every((row) => row.original.checked);
-    if (allChecked) return allChecked;
-    return rows.some((row) => row.original.checked) ? 'indeterminate' : false;
-  }, [rows]);
-
-  return (
-    <div className="flex justify-center w-full pl-3">
-      <Checkbox tabIndex={-1} checked={value} onCheckedChange={(value) => table.options.meta?.checkAllData(value)} />
-    </div>
-  );
-}
-
-function CheckedCell({ getValue, row: { index }, column: { id }, table }: Readonly<CellContext<Register, unknown>>) {
-  return (
-    <Checkbox
-      tabIndex={-1}
-      checked={getValue<boolean>()}
-      onCheckedChange={(checked) => table.options.meta?.updateData(index, id, checked)}
-    />
-  );
-}
-
-function NameCell({ getValue, row: { index }, column: { id }, table }: Readonly<CellContext<Register, unknown>>) {
-  return (
-    <EditableCell
-      tabIndex={-1}
-      value={getValue<string>()}
-      onBlur={(newValue) => {
-        table.options.meta?.updateData(index, id, newValue);
-      }}
-    />
-  );
-}
-
-function ValueCell({ getValue, row: { index }, column: { id }, table }: Readonly<CellContext<Register, unknown>>) {
-  return (
-    <EditableNumberCell value={getValue<number>()} onBlur={(newValue) => table.options.meta?.updateData(index, id, newValue)} />
-  );
-}
-
-function DeleteCell({ row: { index }, table }: Readonly<CellContext<Register, unknown>>) {
-  return (
-    <button className="sm:invisible group-hover:visible" onClick={() => table.options.meta?.removeData(index)}>
-      <CircleX size={20} />
-    </button>
-  );
-}
-
-function PercentCell({ getValue, table }: Readonly<CellContext<Register, unknown>>) {
-  const { t } = useTranslation();
-  const total = table.options.meta?.total ?? 0;
-  const value = getValue<number>();
-  const percentage = value / total;
-  return (
-    <div>
-      <Badge>{t('percentage', { value: percentage })}</Badge>
-    </div>
-  );
-}
 type RegisterTableProps = {
   data: Array<Register>;
-  onChange?: (newData: Array<Register>) => void;
+  onChange?: (action: SetRegistersActionType) => void;
   total: number;
 };
 export default function RegisterTable({ data, total, onChange }: Readonly<RegisterTableProps>) {
@@ -146,18 +74,13 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
   const [autoResetPageIndex, skipAutoResetPageIndex] = useSkipper();
 
   const updateData = useCallback(
-    (rowIndex: number, columnId: string, value: unknown) => {
+    (index: number, columnId: string, value: unknown) => {
       skipAutoResetPageIndex();
-      const newData = data.map((row, index) => {
-        if (index === rowIndex) {
-          return {
-            ...row,
-            [columnId]: value
-          };
-        }
-        return row;
-      });
-      onChange?.(newData);
+      const newValue: Partial<Register> = {
+        [columnId]: value
+      };
+      const id = data[index].id;
+      onChange?.({ type: 'update', payload: { id, value: newValue } });
     },
     [data, onChange, skipAutoResetPageIndex]
   );
@@ -166,23 +89,16 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
     (name: string | undefined) => {
       if (!name) return;
       skipAutoResetPageIndex();
-      const newData = [...data];
-      newData.push({
-        id: generateId(),
-        name,
-        value: 0,
-        checked: false
-      });
-      onChange?.(newData);
+      onChange?.({ type: 'add', payload: { name } });
     },
-    [data, onChange, skipAutoResetPageIndex]
+    [onChange, skipAutoResetPageIndex]
   );
 
   const removeData = useCallback(
-    (rowIndex: number) => {
+    (index: number) => {
       skipAutoResetPageIndex();
-      const newData = data.filter((_, index) => index !== rowIndex);
-      onChange?.(newData);
+      const id = data[index].id;
+      onChange?.({ type: 'remove', payload: { id } });
     },
     [data, onChange, skipAutoResetPageIndex]
   );
@@ -190,15 +106,9 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
   const checkAllData = useCallback(
     (value: boolean | 'indeterminate') => {
       skipAutoResetPageIndex();
-      const newData = data.map((row) => {
-        return {
-          ...row,
-          checked: value === 'indeterminate' ? true : value
-        };
-      });
-      onChange?.(newData);
+      onChange?.({ type: 'checkAll', payload: { value } });
     },
-    [data, onChange, skipAutoResetPageIndex]
+    [onChange, skipAutoResetPageIndex]
   );
 
   const table = useReactTable({

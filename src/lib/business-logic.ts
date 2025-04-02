@@ -1,6 +1,7 @@
+import { SetRegistersActionType } from '@/store/global.state';
 import { Goal, StatusGoal } from '@/types/goal';
 import { Register } from '@/types/register.types';
-import { sum } from './utils';
+import { addNewItemToArray, createNewRegister, removeItemFromArray, sum, updateItemOfArray } from './utils';
 
 export function getPlannedBalance(registers: Array<Register>) {
   return sum(registers);
@@ -87,5 +88,25 @@ export function getGoalResult(goal: Goal, incomes: number, expenses: number, inv
     return 'WARNING';
   } else {
     return 'NOK';
+  }
+}
+
+export function setRegisters(data: Array<Register>, action: SetRegistersActionType): Array<Register> {
+  const { type, payload } = action;
+  switch (type) {
+    case 'add':
+      return addNewItemToArray(data, createNewRegister(payload.name));
+    case 'update': {
+      return updateItemOfArray(data, payload.value, (item) => item.id === payload.id);
+    }
+    case 'remove': {
+      return removeItemFromArray(data, (item) => item.id === payload.id);
+    }
+    case 'checkAll': {
+      return data.map((item) => ({
+        ...item,
+        checked: payload.value === 'indeterminate' ? true : payload.value
+      }));
+    }
   }
 }

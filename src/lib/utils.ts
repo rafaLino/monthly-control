@@ -34,10 +34,30 @@ export function replaceSpacesWithUnderscores(text: string): string {
   return text.replace(/\s+/g, '_');
 }
 
-export function updateItemOfArray<T>(array: Array<T>, index: number, item: Partial<T>): Array<T> {
-  return replaceItemOfArray(array, index, { ...array[index], ...item });
+export function updateItemOfArray<T>(array: Array<T>, item: Partial<T>, predicate: (item: T) => boolean): Array<T> {
+  const index = array.findIndex(predicate);
+  return replaceItemOfArray(array, { ...array[index], ...item }, index);
 }
 
-export function replaceItemOfArray<T>(array: Array<T>, index: number, item: T): Array<T> {
+export function replaceItemOfArray<T>(array: Array<T>, item: T, predicate: number | ((item: T) => boolean)): Array<T> {
+  const index = typeof predicate === 'number' ? predicate : array.findIndex(predicate);
   return [...array.slice(0, index), item, ...array.slice(index + 1)];
+}
+
+export function addNewItemToArray<T>(array: Array<T>, item: T): Array<T> {
+  return [...array, item];
+}
+
+export function removeItemFromArray<T>(array: Array<T>, predicate: (item: T) => boolean): Array<T> {
+  const index = array.findIndex(predicate);
+  return [...array.slice(0, index), ...array.slice(index + 1)];
+}
+
+export function createNewRegister(name: string): Register {
+  return {
+    id: generateId(),
+    name,
+    value: 0,
+    checked: false
+  };
 }

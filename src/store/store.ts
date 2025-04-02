@@ -8,17 +8,18 @@ import {
   getInvestmentGoal,
   getInvestmentGoalDone,
   getPlannedBalance,
-  getTotalBalance
+  getTotalBalance,
+  setRegisters
 } from '@/lib/business-logic';
 import { fetchRegisters } from '@/lib/fetch-registers';
-import { capitalize, updateItemOfArray } from '@/lib/utils';
+import { addNewItemToArray, capitalize, removeItemFromArray, updateItemOfArray } from '@/lib/utils';
 import { ExtractionLog } from '@/types/extraction-log.types';
 import { Goal } from '@/types/goal';
 import { Register, RegisterType } from '@/types/register.types';
 import { compareDesc } from 'date-fns';
 import { create } from 'zustand';
 import { useShallow } from 'zustand/react/shallow';
-import { GlobalState } from './global.state';
+import { GlobalState, SetRegistersActionType } from './global.state';
 
 const THREE_SECONDS = 3_000;
 //accessible only by hooks
@@ -35,9 +36,21 @@ const useGlobalStore = create<GlobalState>()((set, get) => ({
   syncing: false,
   extractionLogs: [],
   actions: {
-    setIncomes: (incomes) => set({ incomes }),
-    setExpenses: (expenses) => set({ expenses }),
-    setInvestments: (investments) => set({ investments }),
+    setIncomes: (action) =>
+      set((state) => {
+        const incomes = setRegisters(state.incomes, action);
+        return { incomes };
+      }),
+    setExpenses: (action) =>
+      set((state) => {
+        const expenses = setRegisters(state.expenses, action);
+        return { expenses };
+      }),
+    setInvestments: (action) =>
+      set((state) => {
+        const investments = setRegisters(state.investments, action);
+        return { investments };
+      }),
     setGoal: (goal: Goal) => set({ goal }),
     setLoading: (loading: boolean) => set({ loading }),
     setRegisters: (incomes: Array<Register>, expenses: Array<Register>, investments: Array<Register>) => {
@@ -61,17 +74,16 @@ const useGlobalStore = create<GlobalState>()((set, get) => ({
       set({ extractionLogs });
     },
     addExtractionLogs: (log: ExtractionLog) => {
-      set((state) => ({ extractionLogs: [...state.extractionLogs, log] }));
+      set((state) => ({ extractionLogs: addNewItemToArray(state.extractionLogs, log) }));
     },
     setExtractionLogNote: (id: string, notes: string) => {
       set((state) => {
-        const currentIndex = state.extractionLogs.findIndex((item) => item.id === id);
-        const extractionLogs = updateItemOfArray(state.extractionLogs, currentIndex, { id, notes });
+        const extractionLogs = updateItemOfArray(state.extractionLogs, { id, notes }, (item) => item.id === id);
         return { extractionLogs };
       });
     },
     removeExtractionLog: (logId: string) => {
-      set((state) => ({ extractionLogs: state.extractionLogs.filter((item) => item.id === logId) }));
+      set((state) => ({ extractionLogs: removeItemFromArray(state.extractionLogs, (item) => item.id === logId) }));
     }
   }
 }));
@@ -93,7 +105,7 @@ export const getAll = () => {
 };
 
 //hooks
-export const useRegisters = (type: RegisterType) => {
+export const useRegisters = (type: RegisterType): [Register[], (action: SetRegistersActionType) => void] => {
   return useGlobalStore(
     useShallow(
       (state) =>
