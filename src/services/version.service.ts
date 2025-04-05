@@ -15,7 +15,8 @@ export class VersionService {
       method: 'GET',
       headers: new Headers({
         'Content-Type': 'application/json',
-        'x-api-key': env.VITE_API_SECRET
+        'x-api-key': env.VITE_API_SECRET,
+        'x-proj-key': 'mcproj'
       })
     });
     if (!response.ok) return 0;
@@ -30,7 +31,8 @@ export class VersionService {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
-        'x-api-key': env.VITE_API_SECRET
+        'x-api-key': env.VITE_API_SECRET,
+        'x-proj-key': 'mcproj'
       })
     });
   }
