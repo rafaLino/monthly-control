@@ -1,0 +1,26 @@
+import { BaseBarChart, BaseBarChartProps } from "@/modules/data-analysis/components/base-bar-chart/base-bar-chart";
+import { useCallback } from "react";
+import { useTranslation } from "react-i18next";
+import { NameType, Payload, ValueType } from "recharts/types/component/DefaultTooltipContent";
+import { PerMonthChartToolTipContent } from "./per-month-tooltip-content";
+
+type Props<T> = Omit<BaseBarChartProps<T>, 'tickFormatter' | 'chartTooltipContentFormatter'>
+
+
+export const PerYearBarChart = <T,>({ config, data, dataKey }: Props<T>) => {
+    const { t } = useTranslation();
+
+
+    const chartTooltipContentFormatter = useCallback((value: ValueType, name: NameType, item: Payload<ValueType, NameType>, index: number) => {
+        return <PerMonthChartToolTipContent config={config} t={t} value={value} name={name} item={item} index={index} />
+    }, [config, t])
+
+    return (
+        <BaseBarChart
+            config={config}
+            data={data}
+            dataKey={dataKey}
+            chartTooltipContentFormatter={chartTooltipContentFormatter}
+        />
+    )
+}

@@ -50,7 +50,7 @@
     "react-dropzone": "^14.3.8",
     "react-hook-form": "^7.52.2",
     "react-i18next": "^15.0.1",
-    "recharts": "^2.12.7",
+    "recharts": "3.0.0-alpha.9",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8",

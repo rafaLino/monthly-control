@@ -1,7 +1,7 @@
 import { CsvDropZone } from "@/modules/data-analysis/components/csv-drop-zone/csv-drop-zone";
 import { Button } from "@/components/ui/button";
 import { useCsvFileHandler } from "./hooks/useCsvFileHandler";
-import { Dashboard } from "./features/Dashboard/dashboard";
+import { Dashboard } from "./features/dashboard/dashboard";
 
 export const DataAnalysis = () => {
     const { csv, cacheFile, retrieveFile } = useCsvFileHandler();
@@ -11,7 +11,7 @@ export const DataAnalysis = () => {
                 <Button onClick={retrieveFile}>Download</Button>
             </div>
 
-            {csv ? <div>
+            {csv ? <div className="w-full">
                 <Dashboard data={csv} />
             </div>
                 : <CsvDropZone onDrop={cacheFile} />}
