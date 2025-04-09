@@ -14,8 +14,8 @@ export const CsvDropZone: FC<Props> = ({ onDrop }) => {
                 <section className='flex-1 w-full'>
                     <div {...getRootProps()}>
                         <input {...getInputProps()} />
-                        <div className='flex w-full justify-center border-2 border-dashed p-10 border-gray-950 rounded-lg'>
-                            <span>Drop your csv file here or <span className="text-blue-600">click to select</span></span>
+                        <div className='flex w-full justify-center border-2 border-dashed p-10 border-gray-500 text-gray-800 rounded-lg'>
+                            <span>Drop your csv file here or <span className="text-blue-700 cursor-pointer">click to select</span></span>
                         </div>
                     </div>
                 </section>
