@@ -23,10 +23,10 @@ const METADATAS_FN = [
     createGroupPerMonthMetadata,
     createGroupPerYearMetadata,
     createIncomesEvolutionMetadata,
-    createExpensesEvolutionMetadata,
-    createInvestmentsEvolutionMetadata,
     createIncomesEvolutionPerYearMetadata,
+    createExpensesEvolutionMetadata,
     createExpensesEvolutionPerYearMetadata,
+    createInvestmentsEvolutionMetadata,
     createInvestmentsEvolutionPerYearMetadata
 ]
 
