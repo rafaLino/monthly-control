@@ -7,7 +7,7 @@ export const DataAnalysis = () => {
     const { csv, cacheFile, retrieveFile } = useCsvFileHandler();
     return (
         <>
-            <div className="flex w-full justify-end content-center px-2 py-6">
+            <div className="flex w-full justify-end content-center px-2 py-4">
                 <Button onClick={retrieveFile}>Download</Button>
             </div>
 

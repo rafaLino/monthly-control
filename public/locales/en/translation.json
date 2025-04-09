@@ -92,5 +92,16 @@
     "noData": "No data",
     "save": "Save",
     "lastExtraction": "Last extraction"
+  },
+  "dashboard": {
+    "total": "Total",
+    "balance": "Balance",
+    "incomes": "Incomes",
+    "expenses": "Expenses",
+    "investments": "Investments",
+    "perMonthTitle": "Monthly review",
+    "perYearTitle": "Yearly review",
+    "monthEvolution": "Monthly evolution",
+    "yearEvolution": "Yearly evolution"
   }
 }

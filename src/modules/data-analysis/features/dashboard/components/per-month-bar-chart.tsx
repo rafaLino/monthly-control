@@ -17,11 +17,12 @@ export const PerMonthBarChart = <T,>({ config, data, dataKey }: Props<T>) => {
     }, [t]);
 
     const chartTooltipContentFormatter = useCallback((value: ValueType, name: NameType, item: Payload<ValueType, NameType>, index: number) => {
-        return <PerMonthChartToolTipContent config={config} t={t} value={value} name={name} item={item} index={index} />
+        return <PerMonthChartToolTipContent config={config} value={value} name={name} item={item} index={index} />
     }, [config, t])
 
     return (
         <BaseBarChart
+            title={t('dashboard.perMonthTitle')}
             config={config}
             data={data}
             dataKey={dataKey}

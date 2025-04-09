@@ -92,5 +92,16 @@
     "noData": "Sem dados",
     "save": "Salvar",
     "lastExtraction": "Última extração"
+  },
+  "dashboard": {
+    "total": "Total",
+    "balance": "Saldo",
+    "incomes": "Receitas",
+    "expenses": "Despesas",
+    "investments": "Investimentos",
+    "perMonthTitle": "Revisão mensal",
+    "perYearTitle": "Revisão anual",
+    "monthEvolution": "Evolução mensal",
+    "yearEvolution": "Evolução anual"
   }
 }

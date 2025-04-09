@@ -1,8 +1,8 @@
-import { LoaderIcon } from "lucide-react";
 import { FC, useEffect, useState, useTransition } from "react";
 import { Metadata } from "../../types/metadata";
 import { generateMetadata } from "../../utils/generate-metadata";
 import { DashboardBarCharts } from "./components/dashboard-bar-charts";
+import { DashboardSkeleton } from "./components/dashboard-skeleton";
 
 type Props = {
     data: string
@@ -13,22 +13,23 @@ export const Dashboard: FC<Props> = ({ data }) => {
     const [isPending, startTransition] = useTransition()
 
     const transformDataAction = async () => {
-        const groupPerMonthMetadata = await generateMetadata(data)
-        setMetadata(groupPerMonthMetadata);
+        setMetadata(generateMetadata(data));
     }
 
     useEffect(() => {
-        const init = async () => {
+        const run = () => {
             startTransition(() => {
                 transformDataAction();
             })
         }
-        init();
+        run();
     }, [])
 
-    return <div className="flex w-full justify-center">
-        {isPending && (<LoaderIcon className="animate-spin" />)}
+    if (isPending) {
+        return <DashboardSkeleton />
+    }
 
+    return <div className="grid grid-cols-2 w-full gap-2">
         {metadata.map(item => (
             <DashboardBarCharts key={item.type} {...item} />
         ))}

@@ -12,7 +12,6 @@ type Records = {
 
 type Items = Records & { date: Date }
 
-
 function getDate(refDate: string) {
     const [year, month] = refDate.split('-')
 
@@ -20,12 +19,25 @@ function getDate(refDate: string) {
 }
 
 
+const METADATAS_FN = [
+    createGroupPerMonthMetadata,
+    createGroupPerYearMetadata,
+    createIncomesEvolutionMetadata,
+    createExpensesEvolutionMetadata,
+    createInvestmentsEvolutionMetadata,
+    createIncomesEvolutionPerYearMetadata,
+    createExpensesEvolutionPerYearMetadata,
+    createInvestmentsEvolutionPerYearMetadata
+]
 
 export function generateMetadata(csv: string) {
     const items = convertToObject(csv);
-    const groupPerMonthMetadaDataPromise = groupPerMonth(items)
-    const groupPerYearMetadataPromise = groupPerYear(items);
-    return Promise.all([groupPerMonthMetadaDataPromise, groupPerYearMetadataPromise])
+    const result = [];
+    for (const fn of METADATAS_FN) {
+        result.push(fn(items))
+    }
+
+    return result;
 }
 
 
@@ -37,7 +49,7 @@ function convertToObject(csv: string): Array<Items> {
     }));
 }
 
-async function groupPerMonth(items: Items[]): Promise<Metadata<{ incomes: number, expenses: number, investments: number, date: Date }>> {
+function createGroupPerMonthMetadata(items: Items[]): Metadata<{ incomes: number, expenses: number, investments: number, date: Date }> {
     const data = items.map((item) => ({
         incomes: sum(item.incomes),
         expenses: sum(item.expenses),
@@ -47,15 +59,15 @@ async function groupPerMonth(items: Items[]): Promise<Metadata<{ incomes: number
 
     const config = {
         incomes: {
-            "label": "Incomes",
+            "label": "incomes",
             "color": "hsl(var(--chart-2))"
         },
         expenses: {
-            "label": "Expenses",
+            "label": "expenses",
             "color": "hsl(var(--chart-1))"
         },
         investments: {
-            "label": "Investments",
+            "label": "investments",
             "color": "hsl(var(--chart-4))"
         },
 
@@ -69,7 +81,7 @@ async function groupPerMonth(items: Items[]): Promise<Metadata<{ incomes: number
     }
 }
 
-async function groupPerYear(items: Items[]): Promise<Metadata<{ incomes: number, expenses: number, investments: number, year: string }>> {
+function createGroupPerYearMetadata(items: Items[]): Metadata<{ incomes: number, expenses: number, investments: number, year: string }> {
     const monthly = items.map((item) => {
         return ({
             incomes: sum(item.incomes),
@@ -100,15 +112,15 @@ async function groupPerYear(items: Items[]): Promise<Metadata<{ incomes: number,
 
     const config = {
         incomes: {
-            "label": "Incomes",
+            "label": "incomes",
             "color": "hsl(var(--chart-2))"
         },
         expenses: {
-            "label": "Expenses",
+            "label": "expenses",
             "color": "hsl(var(--chart-1))"
         },
         investments: {
-            "label": "Investments",
+            "label": "investments",
             "color": "hsl(var(--chart-4))"
         },
 
@@ -119,5 +131,171 @@ async function groupPerYear(items: Items[]): Promise<Metadata<{ incomes: number,
         config,
         dataKey: 'year',
         type: 'groupPerYear'
+    }
+}
+
+function createIncomesEvolutionMetadata(items: Items[]): Metadata<{ incomes: number, date: Date }> {
+    const data = items.map((item) => ({
+        incomes: sum(item.incomes),
+        date: item.date
+    })).toSorted((a, b) => a.date.getTime() - b.date.getTime())
+
+    const config = {
+        incomes: {
+            "label": "incomes",
+            "color": "hsl(var(--chart-2))"
+        }
+    } satisfies ChartConfig
+
+    return {
+        data,
+        config,
+        dataKey: 'date',
+        type: 'incomesMonthEvolution'
+    }
+}
+
+function createExpensesEvolutionMetadata(items: Items[]): Metadata<{ expenses: number, date: Date }> {
+    const data = items.map((item) => ({
+        expenses: sum(item.expenses),
+        date: item.date
+    })).toSorted((a, b) => a.date.getTime() - b.date.getTime())
+
+    const config = {
+        expenses: {
+            "label": "expenses",
+            "color": "hsl(var(--chart-1))"
+        }
+    } satisfies ChartConfig
+
+    return {
+        data,
+        config,
+        dataKey: 'date',
+        type: 'expensesMonthEvolution'
+    }
+}
+
+function createInvestmentsEvolutionMetadata(items: Items[]): Metadata<{ investments: number, date: Date }> {
+    const data = items.map((item) => ({
+        investments: sum(item.investments),
+        date: item.date
+    })).toSorted((a, b) => a.date.getTime() - b.date.getTime())
+
+    const config = {
+        investments: {
+            "label": "investments",
+            "color": "hsl(var(--chart-4))"
+        }
+    } satisfies ChartConfig
+
+    return {
+        data,
+        config,
+        dataKey: 'date',
+        type: 'investmentsMonthEvolution'
+    }
+}
+
+
+function createIncomesEvolutionPerYearMetadata(items: Items[]): Metadata<{ incomes: number, year: string }> {
+    const monthly = items.map((item) => {
+        return ({
+            incomes: sum(item.incomes),
+            year: getYear(item.date)
+        })
+    })
+
+    const group = Object.groupBy(monthly, ({ year }) => year)
+
+    const data = Object.entries(group).map(([year, values]) => {
+        const incomes = values!.reduce((acc, curr) => acc + curr.incomes, 0)
+
+        return {
+            year,
+            incomes,
+        }
+    })
+
+    const config = {
+        incomes: {
+            "label": "incomes",
+            "color": "hsl(var(--chart-2))"
+        }
+    } satisfies ChartConfig
+
+    return {
+        data,
+        config,
+        dataKey: 'year',
+        type: 'incomesYearEvolution'
+    }
+}
+
+function createExpensesEvolutionPerYearMetadata(items: Items[]): Metadata<{ expenses: number, year: string }> {
+    const monthly = items.map((item) => {
+        return ({
+            expenses: sum(item.expenses),
+            year: getYear(item.date)
+        })
+    })
+
+    const group = Object.groupBy(monthly, ({ year }) => year)
+
+    const data = Object.entries(group).map(([year, values]) => {
+        const expenses = values!.reduce((acc, curr) => acc + curr.expenses, 0)
+
+        return {
+            year,
+            expenses,
+        }
+    })
+
+    const config = {
+        expenses: {
+            "label": "expenses",
+            "color": "hsl(var(--chart-1))"
+        }
+    } satisfies ChartConfig
+
+    return {
+        data,
+        config,
+        dataKey: 'year',
+        type: 'expensesYearEvolution'
+    }
+}
+
+function createInvestmentsEvolutionPerYearMetadata(items: Items[]): Metadata<{ investments: number, year: string }> {
+    const monthly = items.map((item) => {
+        return ({
+            investments: sum(item.investments),
+            year: getYear(item.date)
+        })
+    })
+
+    const group = Object.groupBy(monthly, ({ year }) => year)
+
+    const data = Object.entries(group).map(([year, values]) => {
+        const investments = values!.reduce((acc, curr) => acc + curr.investments, 0)
+
+        return {
+            year,
+            investments,
+        }
+    })
+
+    const config = {
+        investments: {
+            "label": "investments",
+            "color": "hsl(var(--chart-4))"
+        }
+    } satisfies ChartConfig
+
+    return {
+        data,
+        config,
+        dataKey: 'year',
+        type: 'investmentsYearEvolution'
     }
 }
