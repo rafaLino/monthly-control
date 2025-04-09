@@ -1,35 +1,33 @@
-import { BaseBarChartProps } from "@/modules/data-analysis/components/base-bar-chart/base-bar-chart"
-import { MetadataType } from "@/modules/data-analysis/types/metadata"
-import { PerMonthBarChart } from "./per-month-bar-chart"
-import { PerYearBarChart } from "./per-year-bar-chart"
-import { PerMonthLinearChart } from "./per-month-linear-chart"
-import { PerYearLinearChart } from "./per-year-linear-chart"
-
+import { BaseBarChartProps } from '@/modules/data-analysis/components/base-bar-chart/base-bar-chart';
+import { MetadataType } from '@/modules/data-analysis/types/metadata';
+import { PerMonthBarChart } from './per-month-bar-chart';
+import { PerYearBarChart } from './per-year-bar-chart';
+import { PerMonthLinearChart } from './per-month-linear-chart';
+import { PerYearLinearChart } from './per-year-linear-chart';
 
 type Props<T> = {
-    type: MetadataType,
-} & BaseBarChartProps<T>
+  type: MetadataType;
+} & BaseBarChartProps<T>;
 
 export const DashboardBarCharts = <T,>({ type, ...props }: Readonly<Props<T>>) => {
-    switch (type) {
-        case 'groupPerMonth':
-            return <PerMonthBarChart {...props} />
+  switch (type) {
+    case 'groupPerMonth':
+      return <PerMonthBarChart {...props} />;
 
-        case 'groupPerYear':
-            return <PerYearBarChart {...props} />
+    case 'groupPerYear':
+      return <PerYearBarChart {...props} />;
 
-        case 'incomesMonthEvolution':
-        case "expensesMonthEvolution":
-        case "investmentsMonthEvolution":
-            return <PerMonthLinearChart {...props} />
+    case 'incomesMonthEvolution':
+    case 'expensesMonthEvolution':
+    case 'investmentsMonthEvolution':
+      return <PerMonthLinearChart {...props} />;
 
-        case "incomesYearEvolution":
-        case "expensesYearEvolution":
-        case "investmentsYearEvolution":
-            return <PerYearLinearChart {...props} />
+    case 'incomesYearEvolution':
+    case 'expensesYearEvolution':
+    case 'investmentsYearEvolution':
+      return <PerYearLinearChart {...props} />;
 
-        default:
-            <>No data</>
-    }
-
-}
+    default:
+      return <>No data</>;
+  }
+};

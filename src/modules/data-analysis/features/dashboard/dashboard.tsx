@@ -1,38 +1,19 @@
-import { FC, useEffect, useState, useTransition } from "react";
-import { Metadata } from "../../types/metadata";
-import { generateMetadata } from "../../utils/generate-metadata";
-import { DashboardBarCharts } from "./components/dashboard-bar-charts";
-import { DashboardSkeleton } from "./components/dashboard-skeleton";
+import { FC, useState } from 'react';
+import { SwapContainer } from '../../components/swap-container/swap-container';
+import { generateMetadata } from '../../utils/generate-metadata';
+import { DashboardBarCharts } from './components/dashboard-bar-charts';
+import { Metadata } from '../../types/metadata';
 
 type Props = {
-    data: string
-}
+  data: string;
+};
 
 export const Dashboard: FC<Props> = ({ data }) => {
-    const [metadata, setMetadata] = useState<Metadata[]>([])
-    const [isPending, startTransition] = useTransition()
+  const [metadatas] = useState<Metadata[]>(generateMetadata(data));
 
-    const transformDataAction = async () => {
-        setMetadata(generateMetadata(data));
-    }
-
-    useEffect(() => {
-        const run = () => {
-            startTransition(() => {
-                transformDataAction();
-            })
-        }
-        run();
-    }, [])
-
-    if (isPending) {
-        return <DashboardSkeleton />
-    }
-
-    return <div className="grid grid-cols-2 w-full gap-2">
-        {metadata.map(item => (
-            <DashboardBarCharts key={item.type} {...item} />
-        ))}
-    </div>
-
-}
+  return (
+    <SwapContainer data={metadatas} swapyKey='type' className='grid grid-cols-2 w-full gap-2 bg-gray-100 p-4 rounded-md'>
+      {(item) => <DashboardBarCharts {...item} />}
+    </SwapContainer>
+  );
+};

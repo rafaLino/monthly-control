@@ -8,7 +8,7 @@ import { PerMonthChartToolTipContent } from "./per-month-tooltip-content"
 type Props<T> = Omit<BaseBarChartProps<T>, 'tickFormatter' | 'chartTooltipContentFormatter'>
 
 
-export const PerMonthBarChart = <T,>({ config, data, dataKey }: Props<T>) => {
+export const PerMonthBarChart = <T,>({ config, data, dataKey, ...props }: Props<T>) => {
     const { t } = useTranslation();
 
     const tickFormatter = useCallback((value: Date) => {
@@ -28,5 +28,6 @@ export const PerMonthBarChart = <T,>({ config, data, dataKey }: Props<T>) => {
             dataKey={dataKey}
             tickFormatter={tickFormatter}
             chartTooltipContentFormatter={chartTooltipContentFormatter}
+            {...props}
         />)
 }
