@@ -96,6 +96,11 @@
     "perMonthTitle": "Revisão mensal",
     "perYearTitle": "Revisão anual",
     "monthEvolution": "Evolução mensal",
-    "yearEvolution": "Evolução anual"
+    "yearEvolution": "Evolução anual",
+    "disableAutoDownload": "Desabilitar auto download",
+    "clearData": "Apagar dados locais",
+    "gridLayout": "Disposição do painel",
+    "generateData": "Gerar dados",
+    "dropZoneDescription": "Arraste seu arquivo csv aqui ou <italic>clique para selecionar</italic>"
   }
 }

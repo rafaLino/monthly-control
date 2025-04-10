@@ -10,8 +10,10 @@ import { Dashboard } from './features/dashboard/dashboard';
 import { GenerateDataButton } from './features/generate-data-button/generate-data-button';
 import { downloadMetadata } from './utils/data-analysis.logic';
 import { saveFile } from './utils/save-file';
+import { useTranslation } from 'react-i18next';
 
 export const DataAnalysis = () => {
+  const { t } = useTranslation('translation', { keyPrefix: 'dashboard' });
   const [disableAutoDownload, setLocalParam] = useLocalParams<boolean>('disable_automatic_download');
   const queryClient = useQueryClient();
   const { data, isLoading, isRefetching, refetch, isSuccess } = useQuery({
@@ -22,7 +24,7 @@ export const DataAnalysis = () => {
 
   const handleSaveFile = () => {
     if (!data) return;
-    saveFile('result.csv', data.csv);
+    saveFile(data.csv);
   };
 
   const handleDisableAutoDownload = (checked: CheckedState) => {
@@ -38,16 +40,16 @@ export const DataAnalysis = () => {
       <div className='flex w-full px-16 justify-between'>
         <div className='flex items-center'>
           <CheckBoxWithLabel
-            label='Disable automatic download'
+            label={t('disableAutoDownload')}
             checked={disableAutoDownload}
             onCheckedChange={handleDisableAutoDownload}
           />
-          <GridButton />
+          <GridButton title={t('gridLayout')} />
         </div>
         <div className='flex items-center gap-8 pb-4'>
           <DownloadButton isSuccess={isSuccess} fetching={isRefetching} onClick={refetch} onSaveFile={handleSaveFile} />
           <GenerateDataButton />
-          <ClearDataButton onClick={handleClearData} helperText='Clear local metadata' />
+          <ClearDataButton onClick={handleClearData} helperText={t('clearData')} />
         </div>
       </div>
       <div className='flex items-center justify-end w-full space-x-2'></div>

@@ -51,7 +51,7 @@ export const GenerateDataButton = () => {
         onClick={() => mutation.mutate()}
         disabled={disabled}
       >
-        Generate data
+        {t('dashboard.generateData')}
         {mutation.isPending && <CirclePause className="h-4 w-4" />}
       </Button>
       {query.data && (

@@ -96,6 +96,11 @@
     "perMonthTitle": "Monthly review",
     "perYearTitle": "Yearly review",
     "monthEvolution": "Monthly evolution",
-    "yearEvolution": "Yearly evolution"
+    "yearEvolution": "Yearly evolution",
+    "disableAutoDownload": "Disable auto download",
+    "clearData": "Clear local data",
+    "gridLayout": "Grid layout",
+    "generateData": "Generate data",
+    "dropZoneDescription": "Drop your csv file here or <italic>click to select</italic>"
   }
 }

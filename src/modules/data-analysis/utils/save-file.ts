@@ -1,4 +1,4 @@
-export const saveFile = async (fileName: string, content: string) => {
+export const saveFile = async (content: string, fileName = 'result.csv') => {
   const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
 
   const supportsFileSystemAccess = 'showSaveFilePicker' in window;
