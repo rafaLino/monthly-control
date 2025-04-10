@@ -7,6 +7,7 @@ import { CsvDropZone } from '../../components/csv-drop-zone/csv-drop-zone';
 import { useQueryClient } from '@tanstack/react-query';
 import { resolveCsv } from '../../utils/resolve-csv';
 import { generateMetadata } from '../../utils/generate-metadata';
+import { QueryKeys } from '@/types/queryKeys';
 
 type Props = {
   data?: Metadata[];
@@ -20,7 +21,7 @@ export const Dashboard: FC<Props> = ({ data, loading }) => {
     if (!file) return;
     const csv = await resolveCsv(file);
     const metadata = generateMetadata(csv);
-    queryClient.setQueryData(['dowloadCsv'], metadata);
+    queryClient.setQueryData([QueryKeys.generateMetadata], { metadata, csv });
   };
 
   if (loading) return <DashboardSkeleton />;

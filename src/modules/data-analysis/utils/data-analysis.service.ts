@@ -2,6 +2,7 @@ import { apiService } from '@/services/api.service'
 import { generateMetadata } from './generate-metadata'
 import { paramsService } from '@/services/params.service'
 import { toDate } from 'date-fns'
+import { QueryKeys } from '@/types/queryKeys'
 
 
 export const downloadMetadata = async (signal: AbortSignal) => {
@@ -20,7 +21,7 @@ export const downloadMetadata = async (signal: AbortSignal) => {
     }
     const csv = await response.text()
 
-    return generateMetadata(csv);
+    return { metadata: generateMetadata(csv), csv };
 }
 
 export const createMetadata = async () => {
@@ -39,13 +40,13 @@ export const createMetadata = async () => {
 
     const metadata = generateMetadata(csv);
 
-    paramsService.saveParams({ name: 'generated-metadata-timestamp', value: Date.now().toString(), type: 'timestamp' })
+    paramsService.saveParams({ name: QueryKeys.generatedMetadataTimestamp, value: Date.now().toString(), type: 'timestamp' })
 
-    return metadata;
+    return { metadata, csv };
 }
 
 export const fetchGeneratedMetadataTimestamp = async () => {
-    const param = await paramsService.getParams('generated-metadata-timestamp')
+    const param = await paramsService.getParams(QueryKeys.generatedMetadataTimestamp)
 
     if (!param) {
         return;

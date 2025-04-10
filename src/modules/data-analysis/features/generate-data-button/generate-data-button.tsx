@@ -1,11 +1,12 @@
 import { Button } from '@/components/ui/button';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { cn } from '@/lib/utils';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { addDays, isPast } from 'date-fns';
 import { CirclePause } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { createMetadata, fetchGeneratedMetadataTimestamp } from '../../utils/data-analysis.service';
+import { QueryKeys } from '@/types/queryKeys';
 
 /**
  * https://date-fns.org/v4.1.0/docs/format
@@ -22,29 +23,37 @@ function isAllowedForGenerateCsv(lastTimeGeneratedData: Date | undefined, days: 
 export const GenerateDataButton = () => {
   const { t } = useTranslation();
   const [days] = useLocalStorage('default_waiting_time_for_generate_csv', 10);
-
-  const { data, isFetching } = useQuery({
-    queryKey: ['generated-metadata-timestamp'],
+  const queryClient = useQueryClient();
+  const query = useQuery({
+    queryKey: [QueryKeys.generatedMetadataTimestamp],
     queryFn: fetchGeneratedMetadataTimestamp,
   });
 
-  const { mutate, isPending } = useMutation({ mutationFn: createMetadata });
+  const mutation = useMutation({
+    mutationFn: createMetadata,
+    onSuccess: (data) => {
+      queryClient.setQueryData([QueryKeys.generatedMetadataTimestamp], Date.now());
+      queryClient.setQueryData([QueryKeys.generateMetadata], data);
+    },
+  });
 
-  const disabled = isPending || isFetching || !isAllowedForGenerateCsv(data, days);
+  const disabled = mutation.isPending || query.isFetching || !isAllowedForGenerateCsv(query.data, days);
 
   return (
     <div>
       <Button
-        variant={isPending ? 'destructive' : 'default'}
+        variant={mutation.isPending ? 'destructive' : 'default'}
         size='default'
-        className={cn('flex items-center gap-2 relative', isPending && 'animate-pulse')}
-        onClick={() => mutate()}
+        className={cn('flex items-center gap-2 relative', mutation.isPending && 'animate-pulse')}
+        onClick={() => mutation.mutate()}
         disabled={disabled}
       >
         Generate data
-        {isPending && <CirclePause className='h-4 w-4' />}
+        {mutation.isPending && <CirclePause className='h-4 w-4' />}
       </Button>
-      {data && <span className='text-[10px]'>{t('date', { date: data, context: { format: DATE_FORMAT } })}</span>}
+      {query.data && (
+        <span className='text-[10px]'>{t('date', { date: query.data, context: { format: DATE_FORMAT } })}</span>
+      )}
     </div>
   );
 };
