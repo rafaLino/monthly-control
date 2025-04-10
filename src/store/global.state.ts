@@ -1,4 +1,3 @@
-import { ExtractionLog } from '@/types/extraction-log.types';
 import { Goal } from '@/types/goal';
 import { Register } from '@/types/register.types';
 
@@ -15,7 +14,6 @@ export interface GlobalState {
   goal: Goal;
   loading: boolean;
   syncing: boolean;
-  extractionLogs: Array<ExtractionLog>;
   actions: {
     setIncomes: (action: SetRegistersActionType) => void;
     setExpenses: (action: SetRegistersActionType) => void;
@@ -29,9 +27,5 @@ export interface GlobalState {
       expenses: Array<Register>;
       investments: Array<Register>;
     };
-    loadExtractionLogs: (extractionLogs: Array<ExtractionLog>) => void;
-    addExtractionLogs: (log: ExtractionLog) => void;
-    setExtractionLogNote: (logId: string, notes: string) => void;
-    removeExtractionLog: (logId: string) => void;
   };
 }

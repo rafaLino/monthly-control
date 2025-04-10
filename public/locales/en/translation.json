@@ -87,12 +87,6 @@
     "title": "ℹ️ New version available!",
     "action": "Get new version"
   },
-  "logs": {
-    "title": "Logs",
-    "noData": "No data",
-    "save": "Save",
-    "lastExtraction": "Last extraction"
-  },
   "dashboard": {
     "total": "Total",
     "balance": "Balance",

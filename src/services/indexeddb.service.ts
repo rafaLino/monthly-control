@@ -1,4 +1,3 @@
-import { ExtractionLog } from '@/types/extraction-log.types';
 import { Register, RegisterType } from '@/types/register.types';
 import { DBSchema, IDBPDatabase, IDBPObjectStore, openDB } from 'idb';
 
@@ -15,10 +14,6 @@ interface MyDb extends DBSchema {
     key: string;
     value: Register;
   };
-  extractions: {
-    key: string;
-    value: ExtractionLog;
-  };
 }
 
 export class IndexedDbService {
@@ -34,9 +29,6 @@ export class IndexedDbService {
           db.createObjectStore('incomes');
           db.createObjectStore('expenses');
           db.createObjectStore('investments');
-        }
-        if (oldVersion < 2) {
-          db.createObjectStore('extractions');
         }
       }
     });
@@ -85,60 +77,6 @@ export class IndexedDbService {
     await tx.done;
 
     return { incomes, expenses, investments };
-  }
-
-  public async addExtractionLog(log: ExtractionLog) {
-    if (!this.db || !this.initiated) {
-      throw new Error('Database not initialized');
-    }
-
-    const tx = this.db.transaction(['extractions'], 'readwrite');
-    const extractionStore = tx.objectStore('extractions');
-    await extractionStore.add(log, log.id);
-  }
-
-  public async getExtractionLogs() {
-    if (!this.db || !this.initiated) {
-      throw new Error('Database not initialized');
-    }
-
-    const tx = this.db.transaction(['extractions'], 'readwrite');
-    const extractionStore = tx.objectStore('extractions');
-
-    const list = await extractionStore.getAll();
-
-    await tx.done;
-    return list;
-  }
-
-  public async removeExtractionLogs(id: string) {
-    if (!this.db || !this.initiated) {
-      throw new Error('Database not initialized');
-    }
-
-    const tx = this.db.transaction(['extractions'], 'readwrite');
-    const extractionStore = tx.objectStore('extractions');
-
-    await extractionStore.delete(id);
-
-    await tx.done;
-  }
-
-  public async updateExtractionLogs(id: string, notes: string) {
-    if (!this.db || !this.initiated) {
-      throw new Error('Database not initialized');
-    }
-
-    const tx = this.db.transaction(['extractions'], 'readwrite');
-    const extractionStore = tx.objectStore('extractions');
-    const item = await extractionStore.get(id);
-    if (!item) {
-      return;
-    }
-    item.notes = notes;
-    await extractionStore.put(item, id);
-
-    await tx.done;
   }
 
   private async clear(
