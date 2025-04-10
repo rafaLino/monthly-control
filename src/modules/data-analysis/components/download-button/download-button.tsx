@@ -13,20 +13,20 @@ type Props = {
 export const DownloadButton: FC<Props> = memo(({ fetching, isSuccess, onClick, onSaveFile, title = 'Donwload' }) => {
   const handleClick = () => onClick();
   return (
-    <div className='flex gap-1'>
+    <div className="flex gap-1">
       {isSuccess && (
-        <Button variant='ghost' size='icon' onClick={onSaveFile}>
-          <FileDown className='h-4 w-4' />
+        <Button variant="ghost" size="icon" onClick={onSaveFile}>
+          <FileDown className="h-4 w-4" />
         </Button>
       )}
       <Button
         variant={fetching ? 'destructive' : 'outline'}
-        size='default'
+        size="default"
         className={cn('flex items-center gap-2', fetching && 'opacity-75')}
         onClick={handleClick}
       >
         {title}
-        {fetching ? <LoaderCircleIcon className='h-4 w-4 animate-spin' /> : <HardDriveDownload className='h-4 w-4' />}
+        {fetching ? <LoaderCircleIcon className="h-4 w-4 animate-spin" /> : <HardDriveDownload className="h-4 w-4" />}
       </Button>
     </div>
   );

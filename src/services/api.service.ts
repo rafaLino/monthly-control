@@ -64,7 +64,7 @@ export class ApiService {
       headers: new Headers({
         'Content-Type': 'application/json',
         'x-api-secret': env.VITE_API_SECRET
-      }),
+      })
     });
 
     if (!response.ok) return;

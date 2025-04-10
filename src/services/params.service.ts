@@ -9,16 +9,16 @@ type Parameter = {
   name: string;
   type: string;
   value: string;
-}
+};
 
 type ResponseParamsData<T = Parameter> = {
-  data: T
-}
+  data: T;
+};
 
 type Options = {
   param?: string;
   query?: string;
-}
+};
 export class ParamsService {
   private readonly url: string;
 
@@ -48,7 +48,6 @@ export class ParamsService {
       'x-proj-key': 'mcproj'
     });
   }
-
 
   public async getVersion(): Promise<number> {
     const response = await fetch(this.getVersionUrl(), {
@@ -92,11 +91,9 @@ export class ParamsService {
   public async deleteParams(id: number): Promise<void> {
     fetch(this.getParamsUrl({ param: String(id) }), {
       method: 'DELETE',
-      headers: this.getHeaders(),
+      headers: this.getHeaders()
     });
   }
 }
-
-
 
 export const paramsService = new ParamsService();

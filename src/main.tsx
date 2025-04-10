@@ -16,9 +16,9 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
       retry: false,
       staleTime: Infinity,
-      gcTime: sevenDays,
-    },
-  },
+      gcTime: sevenDays
+    }
+  }
 });
 
 const persister = createIDBPersister();

@@ -1,7 +1,7 @@
 import { DataAnalysis } from '@/modules/data-analysis/data-analysis';
 import { createLazyFileRoute } from '@tanstack/react-router';
 export const Route = createLazyFileRoute('/_main/analytics')({
-  component: Index,
+  component: Index
 });
 
 function Index() {

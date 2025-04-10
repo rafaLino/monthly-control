@@ -33,7 +33,7 @@ export const Dashboard: FC<Props> = ({ data, loading }) => {
   return data ? (
     <SwapContainer
       data={data}
-      swapyKey='type'
+      swapyKey="type"
       className={cn('grid w-full gap-3 bg-gray-100 p-4 rounded-md', gridOptionsMap[gridCol])}
     >
       {(item) => <DashboardBarCharts {...item} />}

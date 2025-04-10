@@ -1,13 +1,12 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useLocalParams } from '@/store';
+import { QueryKeys } from '@/types/queryKeys';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { addDays, isPast } from 'date-fns';
 import { CirclePause } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { createMetadata, fetchGeneratedMetadataTimestamp } from '../../utils/data-analysis.logic';
-import { QueryKeys } from '@/types/queryKeys';
-import { useLocalParams } from '@/store';
-
 
 /**
  * https://date-fns.org/v4.1.0/docs/format
@@ -38,7 +37,7 @@ export const GenerateDataButton = () => {
     onSuccess: (data) => {
       queryClient.setQueryData([QueryKeys.generatedMetadataTimestamp], Date.now());
       queryClient.setQueryData([QueryKeys.generateMetadata], data);
-    },
+    }
   });
 
   const disabled = mutation.isPending || query.isFetching || !isAllowedForGenerateCsv(query.data, days);
@@ -47,16 +46,16 @@ export const GenerateDataButton = () => {
     <div>
       <Button
         variant={mutation.isPending ? 'destructive' : 'default'}
-        size='default'
+        size="default"
         className={cn('flex items-center gap-2 relative', mutation.isPending && 'animate-pulse')}
         onClick={() => mutation.mutate()}
         disabled={disabled}
       >
         Generate data
-        {mutation.isPending && <CirclePause className='h-4 w-4' />}
+        {mutation.isPending && <CirclePause className="h-4 w-4" />}
       </Button>
       {query.data && (
-        <span className='text-[10px] absolute'>{t('date', { date: query.data, context: { format: DATE_FORMAT } })}</span>
+        <span className="text-[10px] absolute">{t('date', { date: query.data, context: { format: DATE_FORMAT } })}</span>
       )}
     </div>
   );

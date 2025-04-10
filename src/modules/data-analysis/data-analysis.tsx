@@ -16,7 +16,7 @@ export const DataAnalysis = () => {
   const { data, isLoading, isRefetching, refetch, isSuccess } = useQuery({
     queryKey: [QueryKeys.generateMetadata],
     queryFn: async ({ signal }) => downloadMetadata(signal),
-    enabled: !disableAutoDownload,
+    enabled: !disableAutoDownload
   });
 
   const handleSaveFile = async () => {
@@ -30,27 +30,23 @@ export const DataAnalysis = () => {
 
   return (
     <>
-      <div className='flex w-full px-16 justify-between'>
-        <div className='flex items-center space-x-2'>
+      <div className="flex w-full px-16 justify-between">
+        <div className="flex items-center space-x-2">
           <label
-            htmlFor='disableAutoDownload'
-            className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
+            htmlFor="disableAutoDownload"
+            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
             Disable automatic download
           </label>
-          <Checkbox
-            id='disableAutoDownload'
-            checked={disableAutoDownload}
-            onCheckedChange={handleDisableAutoDownload}
-          />
+          <Checkbox id="disableAutoDownload" checked={disableAutoDownload} onCheckedChange={handleDisableAutoDownload} />
           <GridButton />
         </div>
-        <div className='flex items-center gap-8 pb-4'>
+        <div className="flex items-center gap-8 pb-4">
           <DownloadButton isSuccess={isSuccess} fetching={isRefetching} onClick={refetch} onSaveFile={handleSaveFile} />
           <GenerateDataButton />
         </div>
       </div>
-      <div className='flex items-center justify-end w-full space-x-2'></div>
+      <div className="flex items-center justify-end w-full space-x-2"></div>
 
       <Dashboard loading={isLoading} data={data?.metadata} />
     </>

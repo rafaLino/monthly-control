@@ -1,11 +1,9 @@
-import {
-  setRegisters
-} from '@/lib/business-logic';
+import { setRegisters } from '@/lib/business-logic';
 import { Goal } from '@/types/goal';
 import { Register } from '@/types/register.types';
-import { create, StateCreator } from 'zustand';
-import { DataAnalysisSlice, GlobalState, PlannerSlice } from './global.state';
+import { StateCreator, create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { DataAnalysisSlice, GlobalState, PlannerSlice } from './global.state';
 const THREE_SECONDS = 3_000;
 
 const createPlannerSlice: StateCreator<GlobalState, [], [], PlannerSlice> = (set, get) => ({
@@ -53,18 +51,18 @@ const createPlannerSlice: StateCreator<GlobalState, [], [], PlannerSlice> = (set
         expenses: state.expenses,
         investments: state.investments
       };
-    },
+    }
   }
 });
 
 const createDataAnalysisSlice: StateCreator<GlobalState, [], [], DataAnalysisSlice> = (set) => ({
   params: {
-    'default_waiting_time_for_generate_csv': 10,
-    'disable_automatic_download': false,
-    'grid_col': 2,
+    default_waiting_time_for_generate_csv: 10,
+    disable_automatic_download: false,
+    grid_col: 2
   },
   dataAnalysisActions: {
-    setParams: (params) => set((prev) => ({ params: { ...prev.params, ...params } })),
+    setParams: (params) => set((prev) => ({ params: { ...prev.params, ...params } }))
   }
 });
 
@@ -74,9 +72,10 @@ export const useGlobalStore = create<GlobalState>()(
     (...args) => ({
       ...createPlannerSlice(...args),
       ...createDataAnalysisSlice(...args)
-    }), {
-    name: 'local_params',
-    partialize: (state) => ({ params: state.params })
-  }));
-
-
+    }),
+    {
+      name: 'local_params',
+      partialize: (state) => ({ params: state.params })
+    }
+  )
+);

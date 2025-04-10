@@ -8,7 +8,6 @@ export type SetRegistersActionType =
   | { type: 'remove'; payload: { id: string } }
   | { type: 'checkAll'; payload: { value: boolean | 'indeterminate' } };
 
-
 export interface PlannerSlice {
   incomes: Array<Register>;
   expenses: Array<Register>;
@@ -36,7 +35,7 @@ export interface DataAnalysisSlice {
   params: LocalParams;
   dataAnalysisActions: {
     setParams: (params: Partial<LocalParams>) => void;
-  }
+  };
 }
 
 export type GlobalState = PlannerSlice & DataAnalysisSlice;

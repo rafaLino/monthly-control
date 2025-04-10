@@ -26,13 +26,13 @@ export const BaseBarChart = <T,>({
   const bars = useMemo(() => Object.keys(config), [config]);
   return (
     <ChartCard title={title} {...props}>
-      <ChartContainer config={config} className='h-[300px] w-full' translate='yes'>
+      <ChartContainer config={config} className="h-[300px] w-full" translate="yes">
         <BarChart accessibilityLayer data={data}>
           <CartesianGrid vertical={false} />
           <XAxis dataKey={dataKey} tickLine={false} tickMargin={10} axisLine={true} tickFormatter={tickFormatter} />
           <ChartTooltip
             cursor={false}
-            content={<ChartTooltipContent indicator='line' hideLabel formatter={chartTooltipContentFormatter} />}
+            content={<ChartTooltipContent indicator="line" hideLabel formatter={chartTooltipContentFormatter} />}
           />
 
           {bars.map((key) => (

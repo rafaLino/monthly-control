@@ -11,7 +11,7 @@ export function useLocalStorage<T = string>(
   const setState = useCallback(
     (value: T | ((prev: T) => T)) => {
       try {
-        const nextState = getState(value, store && JSON.parse(store))
+        const nextState = getState(value, store && JSON.parse(store));
 
         if (nextState === undefined || nextState === null) {
           removeLocalStorageItem(key);
@@ -30,7 +30,7 @@ export function useLocalStorage<T = string>(
       setLocalStorageItem(key, initialState);
     }
   }, [key, initialState]);
-  
+
   return [store ? JSON.parse(store) : initialState, setState] as const;
 }
 
@@ -60,4 +60,4 @@ const dispatchStorageEvent = (key: string, newValue: string | null | undefined) 
 
 const getState = (state: any, value: any) => {
   return typeof state === 'function' ? state(value) : state;
-}
+};

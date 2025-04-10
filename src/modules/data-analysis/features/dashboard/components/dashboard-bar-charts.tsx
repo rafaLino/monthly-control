@@ -1,8 +1,8 @@
 import { BaseBarChartProps } from '@/modules/data-analysis/components/base-bar-chart/base-bar-chart';
 import { MetadataType } from '@/modules/data-analysis/types/metadata';
 import { PerMonthBarChart } from './per-month-bar-chart';
-import { PerYearBarChart } from './per-year-bar-chart';
 import { PerMonthLinearChart } from './per-month-linear-chart';
+import { PerYearBarChart } from './per-year-bar-chart';
 import { PerYearLinearChart } from './per-year-linear-chart';
 
 type Props<T> = {
