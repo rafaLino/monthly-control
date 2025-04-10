@@ -4,7 +4,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { Navigate, createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_main')({
-  component: env.VITE_AUTH ? Index : NoAuthIndex
+  component: env.VITE_ONLINE ? Index : NoAuthIndex
 });
 
 function Index() {

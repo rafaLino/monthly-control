@@ -3,7 +3,7 @@ import { FC, PropsWithChildren } from 'react';
 import env from './lib/env';
 
 export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
-  return env.VITE_AUTH ? (
+  return env.VITE_ONLINE ? (
     <Auth0Provider
       domain={env.VITE_DOMAIN}
       clientId={env.VITE_CLIENT_ID}

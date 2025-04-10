@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { useOutdatedDataNotification } from './hooks/useOutdatedDataNotification';
 
 export const SaveOnCloud = () => {
-  if (!env.VITE_AUTH) return;
+  if (!env.VITE_ONLINE) return;
   const [uploading, setUploading] = useState(false);
   const [downloading, setDownloading] = useState(false);
   const { setRegisters, getRegisters } = useActions();

@@ -9,7 +9,7 @@ export function useServerVersion() {
 
   useEffect(() => {
     async function get() {
-      if (!Cookies.get('fetch-version') && env.VITE_AUTH) {
+      if (!Cookies.get('fetch-version') && env.VITE_ONLINE) {
         const version = await paramsService.getVersion();
         setVersion(version);
         Cookies.set('fetch-version', String(version), { expires: 1 });

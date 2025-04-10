@@ -6,7 +6,7 @@ const envSchema = z.object({
   VITE_API_SECRET: z.string(),
   VITE_API_URL: z.string(),
   VITE_PARAMS_API_URL: z.string(),
-  VITE_AUTH: z
+  VITE_ONLINE: z
     .string()
     .nullish()
     .transform((val) => (val ? val === 'on' : true))

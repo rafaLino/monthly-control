@@ -19,7 +19,7 @@ export const Thumbnail: ForwardRefExoticComponent<ThumbnailProps> = forwardRef<H
         className="overflow-hidden rounded-full focus-visible:ring-inset"
       >
         <img
-          src={env.VITE_AUTH ? src : placeholderUser}
+          src={env.VITE_ONLINE ? src : placeholderUser}
           width={36}
           height={36}
           alt="Avatar"
