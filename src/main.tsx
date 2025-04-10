@@ -8,7 +8,7 @@ import { AppRoute } from './router';
 import './i18n';
 import './index.css';
 
-const twentyDays = 1000 * 60 * 60 * 24 * 20; // 20 days
+const sevenDays = 1000 * 60 * 60 * 24 * 7;
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,7 +16,7 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
       retry: false,
       staleTime: Infinity,
-      gcTime: twentyDays,
+      gcTime: sevenDays,
     },
   },
 });
@@ -25,7 +25,7 @@ const persister = createIDBPersister();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <PersistQueryClientProvider client={queryClient} persistOptions={{ persister, maxAge: twentyDays }}>
+    <PersistQueryClientProvider client={queryClient} persistOptions={{ persister, maxAge: sevenDays }}>
       <AuthProvider>
         <AppRoute />
       </AuthProvider>

@@ -1,12 +1,13 @@
 import { Button } from '@/components/ui/button';
-import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { cn } from '@/lib/utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { addDays, isPast } from 'date-fns';
 import { CirclePause } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { createMetadata, fetchGeneratedMetadataTimestamp } from '../../utils/data-analysis.service';
+import { createMetadata, fetchGeneratedMetadataTimestamp } from '../../utils/data-analysis.logic';
 import { QueryKeys } from '@/types/queryKeys';
+import { useLocalParams } from '../../hooks/useLocalParams';
+
 
 /**
  * https://date-fns.org/v4.1.0/docs/format
@@ -14,7 +15,9 @@ import { QueryKeys } from '@/types/queryKeys';
  */
 const DATE_FORMAT = 'PPPpaaa';
 
-function isAllowedForGenerateCsv(lastTimeGeneratedData: Date | undefined, days: number) {
+const oneDay = 1000 * 60 * 60 * 24;
+
+function isAllowedForGenerateCsv(lastTimeGeneratedData: Date | null | undefined, days: number) {
   if (!lastTimeGeneratedData) return true;
   const date = addDays(lastTimeGeneratedData, days);
   return isPast(date);
@@ -22,11 +25,12 @@ function isAllowedForGenerateCsv(lastTimeGeneratedData: Date | undefined, days: 
 
 export const GenerateDataButton = () => {
   const { t } = useTranslation();
-  const [days] = useLocalStorage('default_waiting_time_for_generate_csv', 10);
+  const [days] = useLocalParams<number>('default_waiting_time_for_generate_csv');
   const queryClient = useQueryClient();
   const query = useQuery({
     queryKey: [QueryKeys.generatedMetadataTimestamp],
     queryFn: fetchGeneratedMetadataTimestamp,
+    staleTime: oneDay
   });
 
   const mutation = useMutation({
@@ -52,7 +56,7 @@ export const GenerateDataButton = () => {
         {mutation.isPending && <CirclePause className='h-4 w-4' />}
       </Button>
       {query.data && (
-        <span className='text-[10px]'>{t('date', { date: query.data, context: { format: DATE_FORMAT } })}</span>
+        <span className='text-[10px] absolute'>{t('date', { date: query.data, context: { format: DATE_FORMAT } })}</span>
       )}
     </div>
   );

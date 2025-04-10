@@ -49,7 +49,7 @@ export const fetchGeneratedMetadataTimestamp = async () => {
     const param = await paramsService.getParams(QueryKeys.generatedMetadataTimestamp)
 
     if (!param) {
-        return;
+        return null;
     }
 
     if (param.type !== 'timestamp') {
