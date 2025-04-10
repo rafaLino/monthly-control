@@ -26,7 +26,7 @@ export function useExtractionLogic() {
     try {
       controller = new AbortController();
       setFetching(true);
-      const promise = apiService.downloadUrl(controller.signal);
+      const promise = apiService.download(controller.signal);
       addExtractionLogs(log);
       await indexedDbService.init();
       await indexedDbService.addExtractionLog(log);

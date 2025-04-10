@@ -41,14 +41,30 @@ export class ApiService {
     return responseData.data.records;
   }
 
-  public async downloadUrl(signal?: AbortSignal) {
+  public async download(signal?: AbortSignal) {
+    const response = await fetch(`${env.VITE_API_URL}/extract`, {
+      method: 'GET',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'x-api-secret': env.VITE_API_SECRET
+      }),
+      signal
+    });
+
+    if (!response.ok) return;
+
+    const responseData = (await response.json()) as { data: string };
+
+    return responseData.data;
+  }
+
+  public async generate() {
     const response = await fetch(`${env.VITE_API_URL}/extract`, {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
         'x-api-secret': env.VITE_API_SECRET
       }),
-      signal
     });
 
     if (!response.ok) return;

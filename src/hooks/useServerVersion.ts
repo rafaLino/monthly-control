@@ -1,5 +1,5 @@
 import env from '@/lib/env';
-import { versionService } from '@/services/version.service';
+import { paramsService } from '@/services/params.service';
 import Cookies from 'js-cookie';
 import { useEffect } from 'react';
 import { useLocalStorage } from './useLocalStorage';
@@ -10,7 +10,7 @@ export function useServerVersion() {
   useEffect(() => {
     async function get() {
       if (!Cookies.get('fetch-version') && env.VITE_AUTH) {
-        const version = await versionService.get();
+        const version = await paramsService.getVersion();
         setVersion(version);
         Cookies.set('fetch-version', String(version), { expires: 1 });
       }

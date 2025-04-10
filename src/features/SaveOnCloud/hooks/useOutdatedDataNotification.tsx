@@ -2,7 +2,7 @@ import { ToastAction } from '@/components/ui/toast';
 import { useToast } from '@/components/ui/use-toast';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useServerVersion } from '@/hooks/useServerVersion';
-import { versionService } from '@/services/version.service';
+import { paramsService } from '@/services/params.service';
 import { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -17,7 +17,7 @@ export function useOutdatedDataNotification(action: () => Promise<void>) {
   const { toast } = useToast();
 
   const dispatchNewVersion = useCallback(async () => {
-    await versionService.increment();
+    await paramsService.incrementVersion();
     setServerVersion(serverVersion + 1);
     setLocalVersion(serverVersion + 1);
   }, [serverVersion]);
