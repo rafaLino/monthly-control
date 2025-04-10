@@ -1,0 +1,93 @@
+import { fetchRegisters } from '@/lib/fetch-registers';
+import { useGlobalStore } from './store';
+import { Register, RegisterType } from '@/types/register.types';
+import { SetRegistersActionType } from './global.state';
+import { useShallow } from 'zustand/react/shallow';
+import { capitalize } from '@/lib/utils';
+import { getBalance, getExpenseGoal, getExpenseGoalDone, getGoalResult, getIncomeGoal, getIncomeGoalDone, getInvestmentGoal, getInvestmentGoalDone, getPlannedBalance, getTotalBalance } from '@/lib/business-logic';
+
+//services
+export const load = async () => {
+    const { setRegisters } = useGlobalStore.getState().plannerActions;
+
+    const collection = await fetchRegisters();
+    setRegisters(collection.incomes, collection.expenses, collection.investments);
+};
+export const getAll = () => {
+    const state = useGlobalStore.getState();
+    return {
+        incomes: state.incomes,
+        expenses: state.expenses,
+        investments: state.investments
+    };
+};
+
+//hooks
+export const useRegisters = (type: RegisterType): [Register[], (action: SetRegistersActionType) => void] => {
+    return useGlobalStore(
+        useShallow(
+            (state) =>
+                [state[type], state.plannerActions[`set${capitalize(type)}` as 'setIncomes' | 'setExpenses' | 'setInvestments']] as const
+        )
+    );
+};
+
+export const useRegisterSum = <T>(type: RegisterType, selector?: (val: number) => T) => {
+    return useGlobalStore((state) => {
+        const value = getPlannedBalance(state[type]);
+        return selector ? selector(value) : value;
+    });
+};
+
+export const useActions = () => {
+    return useGlobalStore((state) => state.plannerActions);
+};
+
+export const useIncomesBalance = () => {
+    return useGlobalStore(useShallow((state) => getBalance(state.incomes)));
+};
+
+export const useExpensesBalance = () => {
+    return useGlobalStore(useShallow((state) => getBalance(state.expenses)));
+};
+
+export const useInvestmentsBalance = () => {
+    return useGlobalStore(useShallow((state) => getBalance(state.investments)));
+};
+
+export const useTotalBalance = () => {
+    return useGlobalStore(useShallow((state) => getTotalBalance(state.incomes, state.expenses, state.investments)));
+};
+
+export const useGoalResult = () => {
+    return useGlobalStore((state) => {
+        const income = getIncomeGoal(state.incomes, state.expenses, state.investments);
+        const expense = getExpenseGoal(state.incomes, state.expenses);
+        const investment = getInvestmentGoal(state.incomes, state.investments);
+        const result = getGoalResult(state.goal, income, expense, investment);
+
+        const incomeDone = getIncomeGoalDone(state.incomes, state.expenses, state.investments);
+        const expenseDone = getExpenseGoalDone(state.incomes, state.expenses);
+        const investmentDone = getInvestmentGoalDone(state.incomes, state.investments);
+
+        return {
+            income,
+            expense,
+            investment,
+            incomeDone,
+            expenseDone,
+            investmentDone,
+            result
+        };
+    });
+};
+
+export const useGoals = () => {
+    return useGlobalStore((state) => {
+        return [state.goal, state.plannerActions.setGoal] as const;
+    });
+};
+
+export const useSync = () => {
+    return useGlobalStore((state) => [state.syncing, state.plannerActions.setSyncing] as const);
+};

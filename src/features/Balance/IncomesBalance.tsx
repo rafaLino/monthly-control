@@ -1,5 +1,5 @@
 import { SummarizedCard } from '@/components/summarized-card';
-import { useIncomesBalance } from '@/store/store';
+import { useIncomesBalance } from '@/store';
 import { useTranslation } from 'react-i18next';
 
 export function IncomesBalanceCard() {

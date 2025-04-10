@@ -1,4 +1,5 @@
 import { Goal } from '@/types/goal';
+import { LocalParams } from '@/types/local-params';
 import { Register } from '@/types/register.types';
 
 export type SetRegistersActionType =
@@ -7,14 +8,15 @@ export type SetRegistersActionType =
   | { type: 'remove'; payload: { id: string } }
   | { type: 'checkAll'; payload: { value: boolean | 'indeterminate' } };
 
-export interface GlobalState {
+
+export interface PlannerSlice {
   incomes: Array<Register>;
   expenses: Array<Register>;
   investments: Array<Register>;
   goal: Goal;
   loading: boolean;
   syncing: boolean;
-  actions: {
+  plannerActions: {
     setIncomes: (action: SetRegistersActionType) => void;
     setExpenses: (action: SetRegistersActionType) => void;
     setInvestments: (action: SetRegistersActionType) => void;
@@ -29,3 +31,12 @@ export interface GlobalState {
     };
   };
 }
+
+export interface DataAnalysisSlice {
+  params: LocalParams;
+  dataAnalysisActions: {
+    setParams: (params: Partial<LocalParams>) => void;
+  }
+}
+
+export type GlobalState = PlannerSlice & DataAnalysisSlice;

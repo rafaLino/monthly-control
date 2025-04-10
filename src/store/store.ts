@@ -1,27 +1,14 @@
 import {
-  getBalance,
-  getExpenseGoal,
-  getExpenseGoalDone,
-  getGoalResult,
-  getIncomeGoal,
-  getIncomeGoalDone,
-  getInvestmentGoal,
-  getInvestmentGoalDone,
-  getPlannedBalance,
-  getTotalBalance,
   setRegisters
 } from '@/lib/business-logic';
-import { fetchRegisters } from '@/lib/fetch-registers';
-import { capitalize } from '@/lib/utils';
 import { Goal } from '@/types/goal';
-import { Register, RegisterType } from '@/types/register.types';
-import { create } from 'zustand';
-import { useShallow } from 'zustand/react/shallow';
-import { GlobalState, SetRegistersActionType } from './global.state';
-
+import { Register } from '@/types/register.types';
+import { create, StateCreator } from 'zustand';
+import { DataAnalysisSlice, GlobalState, PlannerSlice } from './global.state';
+import { persist } from 'zustand/middleware';
 const THREE_SECONDS = 3_000;
-//accessible only by hooks
-const useGlobalStore = create<GlobalState>()((set, get) => ({
+
+const createPlannerSlice: StateCreator<GlobalState, [], [], PlannerSlice> = (set, get) => ({
   incomes: [],
   expenses: [],
   investments: [],
@@ -32,7 +19,7 @@ const useGlobalStore = create<GlobalState>()((set, get) => ({
   },
   loading: false,
   syncing: false,
-  actions: {
+  plannerActions: {
     setIncomes: (action) =>
       set((state) => {
         const incomes = setRegisters(state.incomes, action);
@@ -68,91 +55,28 @@ const useGlobalStore = create<GlobalState>()((set, get) => ({
       };
     },
   }
-}));
+});
 
-//services
-export const load = async () => {
-  const { setRegisters } = useGlobalStore.getState().actions;
+const createDataAnalysisSlice: StateCreator<GlobalState, [], [], DataAnalysisSlice> = (set) => ({
+  params: {
+    'default_waiting_time_for_generate_csv': 10,
+    'disable_automatic_download': false,
+    'grid_col': 2,
+  },
+  dataAnalysisActions: {
+    setParams: (params) => set((prev) => ({ params: { ...prev.params, ...params } })),
+  }
+});
 
-  const collection = await fetchRegisters();
-  setRegisters(collection.incomes, collection.expenses, collection.investments);
-};
-export const getAll = () => {
-  const state = useGlobalStore.getState();
-  return {
-    incomes: state.incomes,
-    expenses: state.expenses,
-    investments: state.investments
-  };
-};
+//accessible only by hooks
+export const useGlobalStore = create<GlobalState>()(
+  persist(
+    (...args) => ({
+      ...createPlannerSlice(...args),
+      ...createDataAnalysisSlice(...args)
+    }), {
+    name: 'local_params',
+    partialize: (state) => ({ params: state.params })
+  }));
 
-//hooks
-export const useRegisters = (type: RegisterType): [Register[], (action: SetRegistersActionType) => void] => {
-  return useGlobalStore(
-    useShallow(
-      (state) =>
-        [state[type], state.actions[`set${capitalize(type)}` as 'setIncomes' | 'setExpenses' | 'setInvestments']] as const
-    )
-  );
-};
-
-export const useRegisterSum = <T>(type: RegisterType, selector?: (val: number) => T) => {
-  return useGlobalStore((state) => {
-    const value = getPlannedBalance(state[type]);
-    return selector ? selector(value) : value;
-  });
-};
-
-export const useActions = () => {
-  return useGlobalStore((state) => state.actions);
-};
-
-export const useIncomesBalance = () => {
-  return useGlobalStore(useShallow((state) => getBalance(state.incomes)));
-};
-
-export const useExpensesBalance = () => {
-  return useGlobalStore(useShallow((state) => getBalance(state.expenses)));
-};
-
-export const useInvestmentsBalance = () => {
-  return useGlobalStore(useShallow((state) => getBalance(state.investments)));
-};
-
-export const useTotalBalance = () => {
-  return useGlobalStore(useShallow((state) => getTotalBalance(state.incomes, state.expenses, state.investments)));
-};
-
-export const useGoalResult = () => {
-  return useGlobalStore((state) => {
-    const income = getIncomeGoal(state.incomes, state.expenses, state.investments);
-    const expense = getExpenseGoal(state.incomes, state.expenses);
-    const investment = getInvestmentGoal(state.incomes, state.investments);
-    const result = getGoalResult(state.goal, income, expense, investment);
-
-    const incomeDone = getIncomeGoalDone(state.incomes, state.expenses, state.investments);
-    const expenseDone = getExpenseGoalDone(state.incomes, state.expenses);
-    const investmentDone = getInvestmentGoalDone(state.incomes, state.investments);
-
-    return {
-      income,
-      expense,
-      investment,
-      incomeDone,
-      expenseDone,
-      investmentDone,
-      result
-    };
-  });
-};
-
-export const useGoals = () => {
-  return useGlobalStore((state) => {
-    return [state.goal, state.actions.setGoal] as const;
-  });
-};
-
-export const useSync = () => {
-  return useGlobalStore((state) => [state.syncing, state.actions.setSyncing] as const);
-};
 

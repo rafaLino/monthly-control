@@ -6,7 +6,7 @@ import { CirclePause } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { createMetadata, fetchGeneratedMetadataTimestamp } from '../../utils/data-analysis.logic';
 import { QueryKeys } from '@/types/queryKeys';
-import { useLocalParams } from '../../hooks/useLocalParams';
+import { useLocalParams } from '@/store';
 
 
 /**

@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 import { DataTableFilterContext } from '@/context/DataTableFilterContext';
 import { COLORS, getColor } from '@/lib/colors';
-import { useRegisterSum, useRegisters } from '@/store/store';
+import { useRegisterSum, useRegisters } from '@/store';
 import { RegisterType } from '@/types/register.types';
 import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';

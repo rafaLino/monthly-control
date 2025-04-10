@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import env from '@/lib/env';
 import { saveRegisters } from '@/lib/fetch-registers';
 import { apiService } from '@/services/api.service';
-import { useActions } from '@/store/store';
+import { useActions } from '@/store';
 import { Download, Upload } from 'lucide-react';
 import { useState } from 'react';
 import { useOutdatedDataNotification } from './hooks/useOutdatedDataNotification';

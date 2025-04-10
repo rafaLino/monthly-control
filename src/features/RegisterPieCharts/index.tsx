@@ -1,5 +1,5 @@
 import { PizzaChart } from '@/components/pizza-chart';
-import { useExpensesBalance, useIncomesBalance, useInvestmentsBalance, useRegisters } from '@/store/store';
+import { useExpensesBalance, useIncomesBalance, useInvestmentsBalance, useRegisters } from '@/store';
 import { TrendingUp } from 'lucide-react';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
