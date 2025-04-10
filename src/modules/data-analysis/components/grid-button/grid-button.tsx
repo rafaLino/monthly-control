@@ -19,7 +19,7 @@ export const GridButton = () => {
       <Menubar className="border-0 bg-stale-200 w-14">
         <MenubarMenu value={String(gridCol)}>
           <MenubarTrigger className="cursor-pointer" asChild>
-            <Button variant="outline" className="rounded-md gap-1">
+            <Button variant="ghost" className="rounded-md gap-1">
               Grid Layout
               <LayoutGrid className="h-4 w-4" />
             </Button>

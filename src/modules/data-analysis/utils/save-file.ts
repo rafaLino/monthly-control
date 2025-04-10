@@ -4,14 +4,22 @@ export const saveFile = async (fileName: string, content: string) => {
   const supportsFileSystemAccess = 'showSaveFilePicker' in window;
   // If the File System Access API is supported…
   if (supportsFileSystemAccess) {
-    const handle = await window.showSaveFilePicker({
-      suggestedName: fileName
-    });
+    try {
+      const handle = await window.showSaveFilePicker({
+        suggestedName: fileName
+      });
 
-    const writable = await handle.createWritable();
-    await writable.write(blob);
-    await writable.close();
-    return;
+      const writable = await handle.createWritable();
+      await writable.write(blob);
+      await writable.close();
+      return;
+
+    } catch (error) {
+      if (error instanceof Error && error.name === 'AbortError') {
+        console.info('canceled by user');
+        return;
+      }
+    }
   }
 
   const url = URL.createObjectURL(blob);
