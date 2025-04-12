@@ -1,5 +1,5 @@
 import { SettingsForm } from '@/components/setting-form';
-import { useGoals } from '@/store/store';
+import { useGoals } from '@/store';
 import { Goal, Schema } from '@/types/goal';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';

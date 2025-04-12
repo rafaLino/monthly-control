@@ -1,5 +1,5 @@
 import { saveRegisters } from '@/lib/fetch-registers';
-import { getAll, useSync } from '@/store/store';
+import { getAll, useSync } from '@/store';
 import { useCallback, useEffect } from 'react';
 
 const THREE_SECONDS = 3_000;

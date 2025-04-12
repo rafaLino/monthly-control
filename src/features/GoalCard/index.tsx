@@ -1,7 +1,7 @@
 import { Card, CardTitle } from '@/components/ui/card';
 import { COLORS, getGoalCardColor } from '@/lib/colors';
 import { cn } from '@/lib/utils';
-import { useGoalResult } from '@/store/store';
+import { useGoalResult } from '@/store';
 import { useTranslation } from 'react-i18next';
 
 export const GoalCard: React.FC = () => {

@@ -1,20 +1,15 @@
-import { ExtractionLogs } from '@/features/Extraction/extraction-logs';
-import { LastExtraction } from '@/features/Extraction/last-extraction';
+import { DataAnalysis } from '@/modules/data-analysis/data-analysis';
 import { createLazyFileRoute } from '@tanstack/react-router';
-
 export const Route = createLazyFileRoute('/_main/analytics')({
   component: Index
 });
 
 function Index() {
   return (
-    <div className="flex w-full flex-col">
-      <main className="flex w-full items-center flex-col gap-4 mt-12 px-4 sm:p-4 md:gap-4 md:p-6">
-        <div className="grid gap-6 w-full justify-center">
-          <LastExtraction />
-          <ExtractionLogs />
-        </div>
-      </main>
-    </div>
+    <main className="grid flex-1 items-start gap-4 p-2 sm:py-0 md:gap-8">
+      <div className="flex flex-1 flex-col gap-4 p-1 sm:p-4 md:gap-4 md:p-6">
+        <DataAnalysis />
+      </div>
+    </main>
   );
 }

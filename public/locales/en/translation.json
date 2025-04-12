@@ -87,10 +87,27 @@
     "title": "ℹ️ New version available!",
     "action": "Get new version"
   },
-  "logs": {
-    "title": "Logs",
-    "noData": "No data",
-    "save": "Save",
-    "lastExtraction": "Last extraction"
+  "dashboard": {
+    "total": "Total",
+    "balance": "Balance",
+    "incomes": "Incomes",
+    "expenses": "Expenses",
+    "investments": "Investments",
+    "perMonthTitle": "Monthly review",
+    "perYearTitle": "Yearly review",
+    "monthEvolution": "Monthly evolution",
+    "yearEvolution": "Yearly evolution",
+    "disableAutoDownload": "Disable auto download",
+    "clearData": "Clear local data",
+    "gridLayout": "Grid layout",
+    "generateData": "Generate data",
+    "dropZoneDescription": "Drop your csv file here or <italic>click to select</italic>"
+  },
+  "paramsSettings": {
+    "title": "Parameters",
+    "description": "Set here your parameters",
+    "disableAutoDownload": "Disable automatic download",
+    "defaultWaitingTime": "Default waiting time for generate csv",
+    "gridCol": "Grid col"
   }
 }

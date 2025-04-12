@@ -2,13 +2,13 @@ import { Button } from '@/components/ui/button';
 import env from '@/lib/env';
 import { saveRegisters } from '@/lib/fetch-registers';
 import { apiService } from '@/services/api.service';
-import { useActions } from '@/store/store';
+import { useActions } from '@/store';
 import { Download, Upload } from 'lucide-react';
 import { useState } from 'react';
 import { useOutdatedDataNotification } from './hooks/useOutdatedDataNotification';
 
 export const SaveOnCloud = () => {
-  if (!env.VITE_AUTH) return;
+  if (!env.VITE_ONLINE) return;
   const [uploading, setUploading] = useState(false);
   const [downloading, setDownloading] = useState(false);
   const { setRegisters, getRegisters } = useActions();

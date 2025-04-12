@@ -1,5 +1,5 @@
 import { BalanceCard } from '@/components/balance-card';
-import { useTotalBalance } from '@/store/store';
+import { useTotalBalance } from '@/store';
 
 export function TotalBalance() {
   const [incomes, expenses] = useTotalBalance();

@@ -87,10 +87,27 @@
     "title": "ℹ️ ¡Nueva versión disponible!",
     "action": "Obtener nueva versión"
   },
-  "logs": {
-    "title": "Logs",
-    "noData": "Sin datos",
-    "save": "Guardar",
-    "lastExtraction": "Última extracción"
+  "dashboard": {
+    "total": "Total",
+    "balance": "Saldo",
+    "incomes": "Ingresos",
+    "expenses": "Gastos",
+    "investments": "Inversiones",
+    "perMonthTitle": "Revisión mensual",
+    "perYearTitle": "Revisión anual",
+    "monthEvolution": "Evolución mensual",
+    "yearEvolution": "Evolución anual",
+    "disableAutoDownload": "Desactivar auto descarga",
+    "clearData": "Borrar datos locales",
+    "gridLayout": "Disposición del panel",
+    "generateData": "Generar datos",
+    "dropZoneDescription": "Arrastre su archivo csv aquí o <italic>clique para seleccionar</italic>"
+  },
+  "paramsSettings": {
+    "title": "Parámetros",
+    "description": "Establezca aquí sus parámetros",
+    "disableAutoDownload": "Desactivar la descarga automática",
+    "defaultWaitingTime": "Tiempo de espera predeterminado para generar el archivo CSV",
+    "gridCol": "Columna de la cuadrícula"
   }
 }

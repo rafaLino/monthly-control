@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
 import { useAuth0 } from '@auth0/auth0-react';
+import { Link } from '@tanstack/react-router';
 import { LoaderCircle, LogOut } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -33,7 +34,9 @@ export const UserMenu = () => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>{t('myAccount')}</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>{t('settings')}</DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link to="/settings">{t('settings')}</Link>
+          </DropdownMenuItem>
           <DropdownMenuItem>{t('support')}</DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={handleLogout}>
