@@ -19,12 +19,12 @@ export const GridButton: FC<Props> = ({ title }) => {
   };
 
   return (
-    <div className='flex gap-0.5 flex-row justify-end px-12'>
-      <Menubar className='border-0 bg-stale-200 w-14'>
+    <div className='flex sm:gap-0.5 flex-row justify-end sm:px-12'>
+      <Menubar className='border-0 bg-stale-200 sm:w-14'>
         <MenubarMenu value={String(gridCol)}>
           <MenubarTrigger className='cursor-pointer' asChild>
-            <Button variant='ghost' className='rounded-md gap-1'>
-              {title}
+            <Button variant='ghost' className='rounded-md gap-1 px-0 sm:px-3'>
+              <span className='hidden sm:block'>{title}</span>
               <LayoutGrid className='h-4 w-4' />
             </Button>
           </MenubarTrigger>

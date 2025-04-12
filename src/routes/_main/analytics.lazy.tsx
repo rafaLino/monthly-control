@@ -6,10 +6,10 @@ export const Route = createLazyFileRoute('/_main/analytics')({
 
 function Index() {
   return (
-    <div className="flex w-full flex-col">
-      <main className="flex w-full items-center flex-col gap-4 mt-8 px-4 sm:p-2 md:gap-4 md:p-4">
+    <main className="grid flex-1 items-start gap-4 p-2 sm:py-0 md:gap-8">
+      <div className="flex flex-1 flex-col gap-4 p-1 sm:p-4 md:gap-4 md:p-6">
         <DataAnalysis />
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }

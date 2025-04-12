@@ -10,7 +10,7 @@ function Index() {
   return (
     <div className='flex w-full flex-col'>
       <main className='flex flex-1 flex-col gap-4 px-4 sm:p-4 md:gap-4 md:p-6'>
-        <div className='mx-auto grid w-full items-start gap-6 md:grid-cols-[180px_1fr] 2xl:grid-cols-2 mt-2 sm:mt-0'>
+        <div className='mx-auto grid w-full items-start gap-6 md:grid-cols-2 mt-2 sm:mt-0'>
           <SetGoals />
           <SetClosingDay />
           <SetLocalParams />

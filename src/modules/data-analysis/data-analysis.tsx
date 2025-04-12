@@ -37,22 +37,28 @@ export const DataAnalysis = () => {
 
   return (
     <>
-      <div className='flex w-full px-16 justify-between'>
-        <div className='flex items-center'>
+      <div className='flex flex-col sm:flex-row gap-2 w-full px-0 sm:px-16 sm:justify-between'>
+        <div className='flex w-full justify-between sm:justify-start items-center gap-2'>
           <CheckBoxWithLabel
             label={t('disableAutoDownload')}
-            checked={disableAutoDownload}
+            checked={Boolean(disableAutoDownload)}
             onCheckedChange={handleDisableAutoDownload}
           />
           <GridButton title={t('gridLayout')} />
         </div>
-        <div className='flex items-center gap-8 pb-4'>
-          <DownloadButton isSuccess={isSuccess} fetching={isRefetching} onClick={refetch} onSaveFile={handleSaveFile} />
+        <div className='flex flex-row justify-end sm:items-center gap-2 sm:gap-4 pb-4'>
+          <div className='flex-1'>
+            <DownloadButton
+              isSuccess={isSuccess}
+              fetching={isRefetching}
+              onClick={refetch}
+              onSaveFile={handleSaveFile}
+            />
+          </div>
           <GenerateDataButton />
           <ClearDataButton onClick={handleClearData} helperText={t('clearData')} />
         </div>
       </div>
-      <div className='flex items-center justify-end w-full space-x-2'></div>
 
       <Dashboard loading={isLoading} data={data?.metadata} />
     </>
