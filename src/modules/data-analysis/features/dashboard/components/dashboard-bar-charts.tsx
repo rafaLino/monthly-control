@@ -4,6 +4,7 @@ import { PerMonthBarChart } from './per-month-bar-chart';
 import { PerMonthLinearChart } from './per-month-linear-chart';
 import { PerYearBarChart } from './per-year-bar-chart';
 import { PerYearLinearChart } from './per-year-linear-chart';
+import { WhereIsMyMoneyPieChart } from './where-is-my-money-pie-chart';
 
 type Props<T> = {
   type: MetadataType;
@@ -26,6 +27,16 @@ export const DashboardBarCharts = <T,>({ type, ...props }: Readonly<Props<T>>) =
     case 'expensesYearEvolution':
     case 'investmentsYearEvolution':
       return <PerYearLinearChart {...props} />;
+
+    case 'whereIsMyIncomes':
+    case 'whereIsMyExpenses':
+    case 'whereIsMyInvestments':
+      return (
+        <WhereIsMyMoneyPieChart
+          data={props.data as Array<{ name: string; value: number; fill: string }>}
+          config={props.config}
+        />
+      );
 
     default:
       return <>No data</>;
