@@ -102,5 +102,12 @@
     "gridLayout": "Grid layout",
     "generateData": "Generate data",
     "dropZoneDescription": "Drop your csv file here or <italic>click to select</italic>"
+  },
+  "paramsSettings": {
+    "title": "Parameters",
+    "description": "Set here your parameters",
+    "disableAutoDownload": "Disable automatic download",
+    "defaultWaitingTime": "Default waiting time for generate csv",
+    "gridCol": "Grid col"
   }
 }

@@ -1,28 +1,32 @@
 import { LocalParams } from '@/types/local-params';
-import { useCallback, useMemo } from 'react';
 import { useGlobalStore } from './store';
 
 type TKey = keyof LocalParams;
 type TValue = LocalParams[TKey];
 
 export function useLocalParams<E extends TValue>(param: TKey) {
-  const [local, setLocalParams] = useGlobalStore((state) => [state.params, state.dataAnalysisActions.setParams]);
+  return useGlobalStore((state) => {
+    const params = state.params;
+    const setParams = state.dataAnalysisActions.setParams;
+    const get = (key: TKey) => {
+      if (!key) {
+        return null;
+      }
+      return params[key] as E;
+    };
 
-  const get = useCallback(
-    (key: TKey) => {
-      return local[key] as E;
-    },
-    [local]
-  );
+    const set = (key: TKey, newValue: TValue) => {
+      if (key && newValue) {
+        setParams({ [key]: newValue });
+      }
+    };
 
-  const set = useCallback(
-    (key: TKey, newValue: TValue) => {
-      setLocalParams({ [key]: newValue });
-    },
-    [setLocalParams]
-  );
+    const value = get(param);
 
-  const value = useMemo(() => get(param), [param, local]);
+    return [value, set, get] as const;
+  });
+}
 
-  return [value, set, get] as const;
+export function useLocalParamsAll() {
+  return useGlobalStore((state) => [state.params, state.dataAnalysisActions.setParams] as const);
 }

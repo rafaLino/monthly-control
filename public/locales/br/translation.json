@@ -97,10 +97,17 @@
     "perYearTitle": "Revisão anual",
     "monthEvolution": "Evolução mensal",
     "yearEvolution": "Evolução anual",
-    "disableAutoDownload": "Desabilitar auto download",
+    "disableAutoDownload": "Desabilitar download automático",
     "clearData": "Apagar dados locais",
     "gridLayout": "Disposição do painel",
     "generateData": "Gerar dados",
     "dropZoneDescription": "Arraste seu arquivo csv aqui ou <italic>clique para selecionar</italic>"
+  },
+  "paramsSettings": {
+    "title": "Parâmetros",
+    "description": "Defina aqui os parâmetros",
+    "disableAutoDownload": "Desabilitar download automático",
+    "defaultWaitingTime": "Tempo de espera padrão para gerar csv",
+    "gridCol": "Disposição padrão do painel"
   }
 }
