@@ -23,21 +23,17 @@ export const ParamsFormField: FC<ParamsFormFieldProps> = ({ label, name, disable
       render={({ field }) => (
         <FormItem>
           {type === 'checkbox' ? (
-            <div className='flex items-center space-x-2'>
+            <div className="flex items-center space-x-2">
               <FormControl>
                 <Checkbox id={name} disabled={disabled} checked={field.value} onCheckedChange={field.onChange} />
               </FormControl>
-              <FormLabel
-                htmlFor={name}
-                className='capitalize aria-disabled:text-stone-400/50'
-                aria-disabled={disabled}
-              >
+              <FormLabel htmlFor={name} className="capitalize aria-disabled:text-stone-400/50" aria-disabled={disabled}>
                 {label}
               </FormLabel>
             </div>
           ) : (
             <>
-              <FormLabel htmlFor={name} className='capitalize aria-disabled:text-stone-400/50' aria-disabled={disabled}>
+              <FormLabel htmlFor={name} className="capitalize aria-disabled:text-stone-400/50" aria-disabled={disabled}>
                 {label}
               </FormLabel>
               <FormControl>

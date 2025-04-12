@@ -13,7 +13,6 @@ export const saveFile = async (content: string, fileName = 'result.csv') => {
       await writable.write(blob);
       await writable.close();
       return;
-
     } catch (error) {
       if (error instanceof Error && error.name === 'AbortError') {
         console.info('canceled by user');

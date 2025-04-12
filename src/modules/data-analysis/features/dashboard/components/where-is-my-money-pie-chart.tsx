@@ -12,10 +12,10 @@ export const WhereIsMyMoneyPieChart: FC<Props> = ({ data, config }) => {
   const total = useMemo(() => data.reduce((acc, curr) => acc + curr.value, 0), [data]);
   return (
     <ChartCard>
-      <ChartContainer config={config} className='mx-auto aspect-square max-h-[250px] z-0'>
+      <ChartContainer config={config} className="mx-auto aspect-square max-h-[250px] z-0">
         <PieChart>
-          <ChartTooltip cursor={false} content={<ChartTooltipContent nameKey='name' />} />
-          <Pie data={data} dataKey='value' nameKey='name' innerRadius={60} strokeWidth={5}>
+          <ChartTooltip cursor={false} content={<ChartTooltipContent nameKey="name" />} />
+          <Pie data={data} dataKey="value" nameKey="name" innerRadius={60} strokeWidth={5}>
             <Label content={<LabelContent total={total} />} />
           </Pie>
         </PieChart>

@@ -1,4 +1,4 @@
-import { LocalParams } from '@/types/local-params';
+import { DEFAULT_LOCAL_PARAMS, LocalParams } from '@/types/local-params';
 import { useGlobalStore } from './store';
 
 type TKey = keyof LocalParams;
@@ -10,7 +10,7 @@ export function useLocalParams<E extends TValue>(param: TKey) {
     const setParams = state.dataAnalysisActions.setParams;
     const get = (key: TKey) => {
       if (!key) {
-        return null;
+        return DEFAULT_LOCAL_PARAMS[param] as E;
       }
       return params[key] as E;
     };

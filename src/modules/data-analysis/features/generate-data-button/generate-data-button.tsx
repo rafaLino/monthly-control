@@ -40,7 +40,7 @@ export const GenerateDataButton = () => {
     }
   });
 
-  const disabled = mutation.isPending || query.isFetching || !isAllowedForGenerateCsv(query.data, days);
+  const disabled = mutation.isPending || query.isFetching || !isAllowedForGenerateCsv(query.data, days ?? 0);
 
   return (
     <div>

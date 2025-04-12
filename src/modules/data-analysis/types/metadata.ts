@@ -11,7 +11,7 @@ export type MetadataType =
   | 'investmentsYearEvolution'
   | 'whereIsMyIncomes'
   | 'whereIsMyExpenses'
-  | 'whereIsMyInvestments'
+  | 'whereIsMyInvestments';
 
 export interface Metadata<T = any> {
   data: Array<T>;

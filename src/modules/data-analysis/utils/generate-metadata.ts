@@ -1,11 +1,11 @@
 import { ChartConfig } from '@/components/ui/chart';
+import { getColor } from '@/lib/colors';
 import { capitalize, removeAccents, sum } from '@/lib/utils';
 import { Register, RegisterType } from '@/types/register.types';
 import { getYear, toDate } from 'date-fns';
+import randomColor from 'randomcolor';
 import { Metadata, MetadataType } from '../types/metadata';
 import { CSVtoObject } from './csv-to-object';
-import randomColor from 'randomcolor';
-import { getColor } from '@/lib/colors';
 
 type Records = {
   incomes: Register[];
@@ -32,7 +32,7 @@ const METADATAS_FN = [
   createInvestmentsEvolutionPerYearMetadata,
   createWhereDoesMyIncomeComesFromMetadata,
   createWhereDoMyExpensesGoMetadata,
-  createWhereDoMyInvestmentsGoMetadata,
+  createWhereDoMyInvestmentsGoMetadata
 ];
 
 export function generateMetadata(csv: string) {
@@ -316,14 +316,16 @@ function createInvestmentsEvolutionPerYearMetadata(items: Items[]): Metadata<{ i
   };
 }
 
-
-function createWhereIsMyMoneyMetadata(type: RegisterType, items: Items[]): Metadata<{ name: string; value: number, fill: string }> {
-  const registers = items
-    .flatMap((item) => item[type].map((register) =>
-    ({
+function createWhereIsMyMoneyMetadata(
+  type: RegisterType,
+  items: Items[]
+): Metadata<{ name: string; value: number; fill: string }> {
+  const registers = items.flatMap((item) =>
+    item[type].map((register) => ({
       name: removeAccents(register.name),
       value: register.value
-    })))
+    }))
+  );
 
   const group = Object.groupBy(registers, ({ name }) => name);
 
@@ -334,20 +336,22 @@ function createWhereIsMyMoneyMetadata(type: RegisterType, items: Items[]): Metad
       name,
       value,
       fill: `var(--color-${name})`
-    }
+    };
   });
 
   const colors = randomColor({ count: data.length, luminosity: 'bright', format: 'hsl', hue: getColor(type) });
 
-  const config = data.reduce((acc, curr, index) => {
-    acc[curr.name] = {
-      label: curr.name,
-      color: colors[index]
-    };
-    return acc;
-  }, { total: { label: 'Total' } } as ChartConfig);
+  const config = data.reduce(
+    (acc, curr, index) => {
+      acc[curr.name] = {
+        label: curr.name,
+        color: colors[index]
+      };
+      return acc;
+    },
+    { total: { label: 'Total' } } as ChartConfig
+  );
 
-  
   return {
     data,
     config,
@@ -356,15 +360,14 @@ function createWhereIsMyMoneyMetadata(type: RegisterType, items: Items[]): Metad
   };
 }
 
-function createWhereDoesMyIncomeComesFromMetadata(items: Items[]): Metadata<{ name: string; value: number, fill: string }> {
+function createWhereDoesMyIncomeComesFromMetadata(items: Items[]): Metadata<{ name: string; value: number; fill: string }> {
   return createWhereIsMyMoneyMetadata('incomes', items);
 }
 
-function createWhereDoMyExpensesGoMetadata(items: Items[]): Metadata<{ name: string; value: number, fill: string }> {
+function createWhereDoMyExpensesGoMetadata(items: Items[]): Metadata<{ name: string; value: number; fill: string }> {
   return createWhereIsMyMoneyMetadata('expenses', items);
 }
 
-function createWhereDoMyInvestmentsGoMetadata(items: Items[]): Metadata<{ name: string; value: number, fill: string }> {
+function createWhereDoMyInvestmentsGoMetadata(items: Items[]): Metadata<{ name: string; value: number; fill: string }> {
   return createWhereIsMyMoneyMetadata('investments', items);
 }
-

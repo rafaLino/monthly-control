@@ -10,7 +10,7 @@ export function SetLocalParams() {
 
   const form = useForm<LocalParams>({
     resolver: zodResolver(Schema),
-    defaultValues: params,
+    defaultValues: params
   });
 
   const handleSubmit = (params: LocalParams) => {
@@ -18,7 +18,7 @@ export function SetLocalParams() {
   };
 
   return (
-    <SettingsForm form={form} title='paramsSettings.title' description='paramsSettings.description' onSubmit={handleSubmit}>
+    <SettingsForm form={form} title="paramsSettings.title" description="paramsSettings.description" onSubmit={handleSubmit}>
       <ParamsForm />
     </SettingsForm>
   );

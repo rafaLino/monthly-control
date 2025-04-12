@@ -47,7 +47,7 @@ export function SettingsForm<T extends FieldValues>({
 
   return (
     <SettingsFormContext.Provider value={contextValue}>
-      <Card >
+      <Card>
         <CardHeader>
           <CardTitle>{t(title)}</CardTitle>
           <CardDescription>{t(description)}</CardDescription>
@@ -58,7 +58,7 @@ export function SettingsForm<T extends FieldValues>({
         </CardHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(submit)} aria-readonly={!enableForm}>
-            <CardContent className='min-h-32'>{children}</CardContent>
+            <CardContent className="min-h-32">{children}</CardContent>
             <CardFooter className="border-t px-6 py-4">
               <Button type="submit" disabled={!formState.isValid || !enableForm}>
                 {t('save')}

@@ -11,13 +11,13 @@ type Props = {
 export const ClearDataButton: FC<Props> = ({ helperText, onClick }) => {
   return (
     <TooltipProvider>
-      <Tooltip >
+      <Tooltip>
         <TooltipTrigger asChild>
-          <Button variant='destructive' size='icon' onClick={onClick}>
-            <OctagonX className='w-4 h-4' />
+          <Button variant="destructive" size="icon" onClick={onClick}>
+            <OctagonX className="w-4 h-4" />
           </Button>
         </TooltipTrigger>
-        <TooltipContent side='bottom' align='start' className='shadow-lg rounded-lg'>
+        <TooltipContent side="bottom" align="start" className="shadow-lg rounded-lg">
           {helperText}
         </TooltipContent>
       </Tooltip>

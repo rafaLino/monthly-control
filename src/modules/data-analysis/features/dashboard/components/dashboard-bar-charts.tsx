@@ -32,10 +32,7 @@ export const DashboardBarCharts = <T,>({ type, ...props }: Readonly<Props<T>>) =
     case 'whereIsMyExpenses':
     case 'whereIsMyInvestments':
       return (
-        <WhereIsMyMoneyPieChart
-          data={props.data as Array<{ name: string; value: number; fill: string }>}
-          config={props.config}
-        />
+        <WhereIsMyMoneyPieChart data={props.data as Array<{ name: string; value: number; fill: string }>} config={props.config} />
       );
 
     default:
