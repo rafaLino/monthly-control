@@ -11,7 +11,7 @@ type Props = {
 };
 export const WhereIsMyMoneyPieChart: FC<Props> = ({ data, config }) => {
   const total = useMemo(() => data.reduce((acc, curr) => acc + curr.value, 0), [data]);
-  const { t } = useTranslation('translation', { keyPrefix: 'dashboard' })
+  const { t } = useTranslation('translation', { keyPrefix: 'dashboard' });
   return (
     <ChartCard title={t('whereDoesMyMoneygo')}>
       <ChartContainer config={config} className="mx-auto aspect-square max-h-[250px] z-0">
