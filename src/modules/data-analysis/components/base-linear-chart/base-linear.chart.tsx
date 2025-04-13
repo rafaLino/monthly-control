@@ -46,7 +46,7 @@ export const BaseLinearChart = <T,>({ config, data, dataKey, title, tickFormatte
               dot={false}
             >
               <LabelList
-                formatter={(label) => t('currency', { value: label?.toString() })}
+                formatter={(label: unknown) => t('currency', { value: label?.toString() })}
                 position="top"
                 offset={12}
                 className="fill-foreground"
