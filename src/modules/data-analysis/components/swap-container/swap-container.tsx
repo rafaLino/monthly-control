@@ -25,7 +25,7 @@ export const SwapContainer = <T,>({ data, children, swapyKey, ...props }: Readon
     <div ref={containerRef} {...props}>
       {data.map((item) => (
         <div key={item[swapyKey] as string} data-swapy-slot={item[swapyKey]}>
-          <div key={item[swapyKey] as string} data-swapy-item={item[swapyKey]}>
+          <div key={item[swapyKey] as string} data-swapy-item={item[swapyKey]} className="h-full">
             {typeof children === 'function' ? children(item) : children}
           </div>
         </div>

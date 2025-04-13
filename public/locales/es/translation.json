@@ -101,7 +101,8 @@
     "clearData": "Borrar datos locales",
     "gridLayout": "Disposición del panel",
     "generateData": "Generar datos",
-    "dropZoneDescription": "Arrastre su archivo csv aquí o <italic>clique para seleccionar</italic>"
+    "dropZoneDescription": "Arrastre su archivo csv aquí o <italic>clique para seleccionar</italic>",
+    "whereDoesMyMoneygo": "¿A dónde va mi dinero?"
   },
   "paramsSettings": {
     "title": "Parámetros",

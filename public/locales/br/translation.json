@@ -101,7 +101,8 @@
     "clearData": "Apagar dados locais",
     "gridLayout": "Disposição do painel",
     "generateData": "Gerar dados",
-    "dropZoneDescription": "Arraste seu arquivo csv aqui ou <italic>clique para selecionar</italic>"
+    "dropZoneDescription": "Arraste seu arquivo csv aqui ou <italic>clique para selecionar</italic>",
+    "whereDoesMyMoneygo": "Onde está indo meu dinheiro?"
   },
   "paramsSettings": {
     "title": "Parâmetros",

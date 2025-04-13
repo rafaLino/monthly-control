@@ -2,6 +2,7 @@ import { LabelContent } from '@/components/pizza-chart/label-content';
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { ChartCard } from '@/modules/data-analysis/components/chart-card/chart.card';
 import { FC, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Label, Pie, PieChart } from 'recharts';
 
 type Props = {
@@ -10,8 +11,9 @@ type Props = {
 };
 export const WhereIsMyMoneyPieChart: FC<Props> = ({ data, config }) => {
   const total = useMemo(() => data.reduce((acc, curr) => acc + curr.value, 0), [data]);
+  const { t } = useTranslation('translation', { keyPrefix: 'dashboard' });
   return (
-    <ChartCard>
+    <ChartCard title={t('whereDoesMyMoneygo')}>
       <ChartContainer config={config} className="mx-auto aspect-square max-h-[250px] z-0">
         <PieChart>
           <ChartTooltip cursor={false} content={<ChartTooltipContent nameKey="name" />} />
