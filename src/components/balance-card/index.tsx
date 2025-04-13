@@ -18,24 +18,32 @@ export const BalanceCard: React.FC<BalanceCardProps> = memo(({ incomesDone, inco
           <CardTitle className="text-gray-500">{t('balanceCard.incomes')}</CardTitle>
           <div className="flex flex-col sm:flex-row sm:gap-1">
             <span>{t('balanceCard.balance')}</span>
-            <CardTitle className="text-base">{t('currency', { value: incomesBalance })}</CardTitle>
+            <CardTitle className="text-base" data-testid="balance_card:balance">
+              {t('currency', { value: incomesBalance })}
+            </CardTitle>
           </div>
 
           <div className="flex flex-col sm:flex-row sm:gap-1">
             <span>{t('balanceCard.done')}</span>
-            <CardTitle className="text-base">{t('currency', { value: incomesDone })}</CardTitle>
+            <CardTitle className="text-base" data-testid="balance_card:done">
+              {t('currency', { value: incomesDone })}
+            </CardTitle>
           </div>
         </CardHeader>
         <CardHeader className="flex flex-col gap-2">
           <CardTitle className="text-gray-500">{t('balanceCard.expenses')}</CardTitle>
           <div className="flex flex-col sm:flex-row sm:gap-1">
             <span>{t('balanceCard.total')}</span>
-            <CardTitle className="text-base">{t('currency', { value: expensesBalance })}</CardTitle>
+            <CardTitle className="text-base" data-testid="balance_card:cost">
+              {t('currency', { value: expensesBalance })}
+            </CardTitle>
           </div>
 
           <div className="flex flex-col sm:flex-row sm:gap-1">
             <span>{t('balanceCard.done')}</span>
-            <CardTitle className="text-base">{t('currency', { value: expensesDone })}</CardTitle>
+            <CardTitle className="text-base" data-testid="balance_card:cost_done">
+              {t('currency', { value: expensesDone })}
+            </CardTitle>
           </div>
         </CardHeader>
       </div>

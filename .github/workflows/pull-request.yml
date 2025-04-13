@@ -34,3 +34,33 @@ jobs:
 
       - name: Lint
         run: npm run lint
+
+  test:
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: 9
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: |
+          pnpm config set '//npm.pkg.github.com/:_authToken' ${{ secrets.NPM_TOKEN }} 
+          pnpm install
+
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install --with-deps
+
+      - name: 🧪 Run tests
+        run: pnpm run test

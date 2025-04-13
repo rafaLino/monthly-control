@@ -82,7 +82,7 @@ export function getInvestmentGoalDone(incomes: Array<Register>, investments: Arr
 }
 
 export function getGoalResult(goal: Goal, incomes: number, expenses: number, investments: number): StatusGoal {
-  if (incomes <= goal.incomes && expenses <= goal.expenses && investments >= goal.investments) {
+  if (incomes >= 0 && incomes <= goal.incomes && expenses <= goal.expenses && investments >= goal.investments) {
     return 'OK';
   } else if (incomes > goal.incomes && expenses <= goal.expenses && investments >= goal.investments) {
     return 'WARNING';

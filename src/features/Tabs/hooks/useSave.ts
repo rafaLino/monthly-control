@@ -16,10 +16,8 @@ export function useSave() {
   }, []);
 
   useEffect(() => {
-    const intervalId = setInterval(async () => {
-      await save();
-    }, FIVE_MINUTES);
-
+    if (import.meta.env.MODE === 'test') return;
+    const intervalId = setInterval(save, FIVE_MINUTES);
     return () => clearInterval(intervalId);
   }, [save]);
 

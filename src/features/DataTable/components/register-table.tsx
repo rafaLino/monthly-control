@@ -180,10 +180,10 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
         <TableBody>
           {table.getRowModel().rows.map((row) => {
             return (
-              <TableRow key={row.id}>
+              <TableRow key={row.id} data-testid={row.id}>
                 {row.getVisibleCells().map((cell) => {
                   return (
-                    <TableCell className="group text-center pr-3" key={cell.id}>
+                    <TableCell className="group text-center pr-3" key={cell.id} data-testid={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   );

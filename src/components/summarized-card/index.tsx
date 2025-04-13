@@ -16,11 +16,15 @@ export const SummarizedCard: React.FC<SummarizedCardProps> = ({ realized, planne
       <div className={'flex justify-evenly items-center h-full'}>
         <CardHeader className="flex flex-col gap-2">
           <CardDescription className="font-semibold">{plannedLabel}</CardDescription>
-          <CardTitle className="text-base">{planned}</CardTitle>
+          <CardTitle className="text-base" data-testid="planned_value">
+            {planned}
+          </CardTitle>
         </CardHeader>
         <CardHeader className="flex flex-col gap-2">
           <CardDescription className="font-semibold">{doneLabel}</CardDescription>
-          <CardTitle className="text-base">{realized}</CardTitle>
+          <CardTitle className="text-base" data-testid="received_value">
+            {realized}
+          </CardTitle>
         </CardHeader>
       </div>
     </Card>

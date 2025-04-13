@@ -16,9 +16,15 @@ export default function RegisterTabs() {
     <Tabs defaultValue="incomes" onValueChange={() => setFilter('')}>
       <div className="flex items-center justify-between flex-wrap gap-1 sm:gap-2">
         <TabsList>
-          <TabsTrigger value="incomes">{t('incomes')}</TabsTrigger>
-          <TabsTrigger value="expenses">{t('expenses')}</TabsTrigger>
-          <TabsTrigger value="investments">{t('investments')}</TabsTrigger>
+          <TabsTrigger aria-label="incomes" value="incomes">
+            {t('incomes')}
+          </TabsTrigger>
+          <TabsTrigger aria-label="expenses" value="expenses">
+            {t('expenses')}
+          </TabsTrigger>
+          <TabsTrigger aria-label="investments" value="investments">
+            {t('investments')}
+          </TabsTrigger>
         </TabsList>
         <div className="relative flex md:grow-0 order-3 w-full sm:w-auto">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
