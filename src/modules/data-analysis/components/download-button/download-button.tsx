@@ -15,7 +15,7 @@ export const DownloadButton: FC<Props> = memo(({ fetching, isSuccess, onClick, o
   return (
     <div className="flex gap-1">
       {isSuccess && (
-        <Button variant="ghost" size="icon" onClick={onSaveFile} className="hidden sm:block">
+        <Button variant="ghost" size="icon" onClick={onSaveFile} className="hidden sm:block px-3">
           <FileDown className="h-4 w-4" />
         </Button>
       )}
