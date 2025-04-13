@@ -16,7 +16,7 @@ export function useLocalParams<E extends TValue>(param: TKey) {
     };
 
     const set = (key: TKey, newValue: TValue) => {
-      if (key && newValue) {
+      if (key) {
         setParams({ [key]: newValue });
       }
     };

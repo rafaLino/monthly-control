@@ -7,7 +7,7 @@ type Props = PropsWithChildren<{
   PropsWithoutRef<HTMLAttributes<HTMLDivElement>>;
 export const ChartCard: FC<Props> = ({ title, children, ...props }) => {
   return (
-    <Card className="mb-1" {...props}>
+    <Card className="mb-1 h-full" {...props}>
       <CardHeader className="items-center">
         <CardTitle>{title}</CardTitle>
       </CardHeader>

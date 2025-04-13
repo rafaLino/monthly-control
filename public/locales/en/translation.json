@@ -101,7 +101,8 @@
     "clearData": "Clear local data",
     "gridLayout": "Grid layout",
     "generateData": "Generate data",
-    "dropZoneDescription": "Drop your csv file here or <italic>click to select</italic>"
+    "dropZoneDescription": "Drop your csv file here or <italic>click to select</italic>",
+    "whereDoesMyMoneygo": "Where does my money go?"
   },
   "paramsSettings": {
     "title": "Parameters",
