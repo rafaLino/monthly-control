@@ -38,9 +38,9 @@ jobs:
   test:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/playwright:v1.51.1-noble
-      options: --user 1001
+    # container:
+    #   image: mcr.microsoft.com/playwright:v1.51.1-noble
+    #   options: --user 1001
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -71,8 +71,14 @@ jobs:
       #     restore-keys: |
       #       playwright-${{ runner.os }}-
 
-      # - name: Install Playwright Browsers
-      #   run: pnpm exec playwright install chromium --with-deps --only-shell
-
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install chromium --with-deps --only-shell
+      
       - name: 🧪 Run tests
         run: pnpm run test
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 3
