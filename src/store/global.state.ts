@@ -3,7 +3,7 @@ import { LocalParams } from '@/types/local-params';
 import { Register } from '@/types/register.types';
 
 export type SetRegistersActionType =
-  | { type: 'add'; payload: { name: string } }
+  | { type: 'add'; payload: { name: string; value: number } }
   | { type: 'update'; payload: { id: string; value: Partial<Register> } }
   | { type: 'remove'; payload: { id: string } }
   | { type: 'checkAll'; payload: { value: boolean | 'indeterminate' } };

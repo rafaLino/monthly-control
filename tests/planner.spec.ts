@@ -21,6 +21,14 @@ test.describe('add new registers', () => {
         await addNewRegister(page, { type: 'investments', name: 'new investment', value: 300 })
         await expect(page.getByTestId('data_table:total')).toContainText('R$ 300,00');
     });
+
+    test('add new item with value', async ({ page }) => {
+        const input = page.getByTestId('add_new')
+        await input.click();
+        await input.fill('my new bonus 352.50');
+        await input.press('Enter');
+        await expect(page.getByTestId('data_table:total')).toContainText('R$ 352,50');
+    })
 })
 
 
