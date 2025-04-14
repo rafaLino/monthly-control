@@ -5,27 +5,23 @@ test.beforeEach(async ({ page }) => {
     await page.goto('/');
 });
 
-test('test passed!', () => {
-    expect(1).toBe(1);
+
+test.describe('add new registers', () => {
+    test('add new income', async ({ page }) => {
+        await addNewRegister(page, { type: 'incomes', name: 'new income', value: 1000 })
+        await expect(page.getByTestId('data_table:total')).toContainText('R$ 1.000,00');
+    });
+
+    test('add new expense', async ({ page }) => {
+        await addNewRegister(page, { type: 'expenses', name: 'new expense', value: 500 })
+        await expect(page.getByTestId('data_table:total')).toContainText('R$ 500,00');
+    });
+
+    test('add new investment', async ({ page }) => {
+        await addNewRegister(page, { type: 'investments', name: 'new investment', value: 300 })
+        await expect(page.getByTestId('data_table:total')).toContainText('R$ 300,00');
+    });
 })
-
-// test.describe('add new registers', () => {
-//     test('add new income', async ({ page }) => {
-//         await addNewRegister(page, { type: 'incomes', name: 'new income', value: 1000 })
-//         await expect(page.getByTestId('data_table:total')).toContainText('R$ 1.000,00');
-//     });
-
-
-//     test('add new expense', async ({ page }) => {
-//         await addNewRegister(page, { type: 'expenses', name: 'new expense', value: 500 })
-//         await expect(page.getByTestId('data_table:total')).toContainText('R$ 500,00');
-//     });
-
-//     test('add new investment', async ({ page }) => {
-//         await addNewRegister(page, { type: 'investments', name: 'new investment', value: 300 })
-//         await expect(page.getByTestId('data_table:total')).toContainText('R$ 300,00');
-//     });
-// })
 
 
 // test.describe('check received values', () => {
