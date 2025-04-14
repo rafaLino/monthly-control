@@ -51,8 +51,8 @@ jobs:
       image: mcr.microsoft.com/playwright:v1.51.1-noble
       options: --user 1001
     steps:
-      - run: cp .env.test ./.env
-      
+      - run: cp ./.env.test ./.env
+
       - name: Checkout
         uses: actions/checkout@v4
 
