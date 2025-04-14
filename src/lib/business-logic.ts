@@ -95,7 +95,7 @@ export function setRegisters(data: Array<Register>, action: SetRegistersActionTy
   const { type, payload } = action;
   switch (type) {
     case 'add':
-      return addNewItemToArray(data, createNewRegister(payload.name));
+      return addNewItemToArray(data, createNewRegister(payload.name, payload.value));
     case 'update': {
       return updateItemOfArray(data, payload.value, (item) => item.id === payload.id);
     }

@@ -1,6 +1,6 @@
-import { AddInput } from '@/components/add-input';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { AddInput } from '@/features/add-input';
 import { MediaQueries, useMediaQuery } from '@/hooks/useMediaQuery';
 import { cn } from '@/lib/utils';
 import { SetRegistersActionType } from '@/store/global.state';
@@ -86,10 +86,10 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
   );
 
   const addData = useCallback(
-    (name: string | undefined) => {
+    (name: string | undefined, value: number) => {
       if (!name) return;
       skipAutoResetPageIndex();
-      onChange?.({ type: 'add', payload: { name } });
+      onChange?.({ type: 'add', payload: { name, value } });
     },
     [onChange, skipAutoResetPageIndex]
   );

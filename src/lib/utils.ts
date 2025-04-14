@@ -53,11 +53,11 @@ export function removeItemFromArray<T>(array: Array<T>, predicate: (item: T) => 
   return [...array.slice(0, index), ...array.slice(index + 1)];
 }
 
-export function createNewRegister(name: string): Register {
+export function createNewRegister(name: string, value: number): Register {
   return {
     id: generateId(),
+    checked: false,
     name,
-    value: 0,
-    checked: false
+    value
   };
 }
