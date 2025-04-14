@@ -36,7 +36,7 @@ jobs:
         run: npm run lint
 
   test:
-    timeout-minutes: 4
+    timeout-minutes: 3
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
     # container:
@@ -58,22 +58,13 @@ jobs:
           node-version: 20
           cache: "pnpm"
 
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install chromium --with-deps --only-shell
+
       - name: Install dependencies
         run: |
           pnpm config set '//npm.pkg.github.com/:_authToken' ${{ secrets.NPM_TOKEN }} 
           pnpm install
-
-      # - name: Cache Playwright browsers
-      #   id: playwright-cache
-      #   uses: actions/cache@v4
-      #   with:
-      #     path: ~/.cache/ms-playwright
-      #     key: playwright-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-      #     restore-keys: |
-      #       playwright-${{ runner.os }}-
-
-      - name: Install Playwright Browsers
-        run: pnpm exec playwright install chromium --with-deps --only-shell
       
       - name: 🧪 Run tests
         run: pnpm exec playwright test
