@@ -39,6 +39,14 @@ jobs:
     timeout-minutes: 3
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
+    env: 
+      VITE_DOMAIN: local
+      VITE_CLIENT_ID: local
+      VITE_API_SECRET: local
+      VITE_API_URL: local
+      VITE_PARAMS_API_URL: local
+      VITE_ONLINE: off
+      MODE: test
     container:
       image: mcr.microsoft.com/playwright:v1.51.1-noble
       options: --user 1001
