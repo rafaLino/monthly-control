@@ -39,9 +39,9 @@ jobs:
     timeout-minutes: 3
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
-    # container:
-    #   image: mcr.microsoft.com/playwright:v1.51.1-noble
-    #   options: --user 1001
+    container:
+      image: mcr.microsoft.com/playwright:v1.51.1-noble
+      options: --user 1001
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -58,13 +58,13 @@ jobs:
           node-version: 20
           cache: "pnpm"
 
-      - name: Install Playwright Browsers
-        run: pnpm exec playwright install chromium --with-deps --only-shell
-
       - name: Install dependencies
         run: |
           pnpm config set '//npm.pkg.github.com/:_authToken' ${{ secrets.NPM_TOKEN }} 
           pnpm install
+
+      # - name: Install Playwright Browsers
+      #   run: pnpm exec playwright install chromium --with-deps --only-shell
       
       - name: 🧪 Run tests
         run: pnpm exec playwright test
