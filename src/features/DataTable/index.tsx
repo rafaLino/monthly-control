@@ -21,7 +21,9 @@ export const DataTable: React.FC<DataTableProps> = ({ type }) => {
   return (
     <Card className={border}>
       <CardHeader className="px-7 pb-0">
-        <CardTitle className={text}>{t('currency', { value: sum })}</CardTitle>
+        <CardTitle data-testid="data_table:total" className={text}>
+          {t('currency', { value: sum })}
+        </CardTitle>
       </CardHeader>
       <CardContent className="pb-4">
         <RegisterTable data={filteredData} onChange={setData} total={sum} />

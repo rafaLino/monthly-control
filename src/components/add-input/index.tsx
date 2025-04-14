@@ -13,5 +13,5 @@ export const AddInput: React.FC<AddInputProps> = ({ onAdd, ...props }) => {
       ref.current.value = '';
     }
   };
-  return <Input {...props} ref={ref} onKeyDown={onPress} />;
+  return <Input {...props} ref={ref} onKeyDown={onPress} data-testid="add_new" />;
 };
