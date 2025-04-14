@@ -5,38 +5,38 @@ permissions:
   contents: read
   pull-requests: write
 jobs:
-  # build_and_lint:
-  #   if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
+  build_and_lint:
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  #     - uses: pnpm/action-setup@v4
-  #       name: Install pnpm
-  #       with:
-  #         version: 9
-  #         run_install: false
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: 9
+          run_install: false
 
-  #     - name: Install Node.js
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: 20
-  #         cache: "pnpm"
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
 
-  #     - name: Install dependencies
-  #       run: |
-  #         pnpm config set '//npm.pkg.github.com/:_authToken' ${{ secrets.NPM_TOKEN }} 
-  #         pnpm install
+      - name: Install dependencies
+        run: |
+          pnpm config set '//npm.pkg.github.com/:_authToken' ${{ secrets.NPM_TOKEN }} 
+          pnpm install
 
-  #     - name: Build
-  #       run: npm run build
+      - name: Build
+        run: npm run build
 
-  #     - name: Lint
-  #       run: npm run lint
+      - name: Lint
+        run: npm run lint
 
   test:
-    timeout-minutes: 3
+    timeout-minutes: 5
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
     env: 
