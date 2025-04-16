@@ -32,9 +32,6 @@ export default defineConfig({
         theme_color: '#6b7280'
       },
       registerType: 'autoUpdate',
-      workbox: {
-        maximumFileSizeToCacheInBytes: 3 * 1024 * 1024, // 3MB
-      }
     })
   ],
   resolve: {
