@@ -31,15 +31,15 @@ export default defineConfig({
         background_color: '#f1f5f9',
         theme_color: '#6b7280'
       },
-      registerType: 'autoUpdate'
+      registerType: 'autoUpdate',
     })
   ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src')
-    }
+    },
   },
   build: {
-    chunkSizeWarningLimit: 1500
-  }
+    chunkSizeWarningLimit: 1500,
+  },
 });
