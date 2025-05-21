@@ -32,7 +32,7 @@ To get started with the Monthly Control project
 @rafael-lino=https://npm.pkg.github.com
 //npm.pkg.github.com/:_authToken=GITHUB_TOKEN
 ```
-It's needed for the [Quick calculator](https://github.com/rafael-lino/react-quick-calculator)
+It's needed for [Quick calculator](https://github.com/rafael-lino/react-quick-calculator)
 
  #### Clone the repository and install the dependencies:
 
@@ -64,7 +64,7 @@ To run the project, use:
 docker compose up -d
 ```
 
-This will start the container, and you can view at `http://localhost:5000`.
+This will start the container, and you can view it at `http://localhost:5000`.
 
 
 ## Dependencies
@@ -81,7 +81,8 @@ Refer to the `package.json` file for more details on specific versions.
 
 # Reminders
 Create a new branch and do your changes. \
-After finishing, commit and tagged it! 
+
+After finishing, commit and tag it! 
 
 ```bash
 npm version [major|minor|patch]
