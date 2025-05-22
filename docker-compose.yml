@@ -5,13 +5,7 @@ services:
       secrets:
         - npmrc
     ports:
-      - "3000:80"
-    networks:
-      - app-network
-
-networks:
-  app-network:
-    driver: bridge
+      - "5000:80"
 
 secrets:
   npmrc:

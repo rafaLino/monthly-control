@@ -1,89 +1,100 @@
 # Monthly Control
+ 
+<p align="center">
+    <img src="./public/icon-192x192.png" />
+</p>
 
-Welcome to the **Monthly Control** project! This repository is designed to help you manage various tasks and activities on a monthly basis.
+Welcome to the **Monthly Control**! \
+This project is designed to help you manage your monthly income and expenses.
+
+It is a local first application, using IndexedDB for storage. \
+
+For server sync purposes, you'll need something like:
+- [monthly-control-api](https://github.com/rafaLino/monthly-control-api)
+- [params-api](https://github.com/rafaLino/params-api)
 
 ## Table of Contents
 
-- [Features](#features)
 - [Getting Started](#getting-started)
-- [Scripts](#scripts)
+- [Running the app](#running-the-app)
 - [Dependencies](#dependencies)
-- [Contributing](#contributing)
+- [Reminders](#reminders)
 - [License](#license)
 
-## Features
-
-- User authentication using Auth0
-- Responsive UI components using Radix UI
-- Internationalization with i18next and react-i18next
-- Date handling with date-fns
-- Form handling with React Hook Form
-- State management using Zustand
-- Lightweight animations with Tailwind CSS & Tailwind Merge
 
 ## Getting Started
 
-To get started with the Monthly Control project, clone the repository and install the dependencies:
+To get started with the Monthly Control project
+
+#### Insert it into your `.npmrc` to add the new registry:
+
+```
+@rafael-lino=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=GITHUB_TOKEN
+```
+It's needed for [Quick calculator](https://github.com/rafael-lino/react-quick-calculator)
+
+ #### Clone the repository and install the dependencies:
 
 ```bash
-git clone https://github.com/yourusername/monthly-control.git
+git clone https://github.com/rafaLino/monthly-control
 cd monthly-control
-npm install
+pnpm install
 ```
 
-### Running the Project
 
-To run the project in development mode, use:
+### Test with playwright
+
+Install the dependencies: 
 
 ```bash
-npm run dev
+pnpm exec playwright install --with-deps
 ```
 
-This will start the Vite development server, and you can view your project at `http://localhost:5173`.
-
-### Building for Production
-
-To build the project for production, run:
+And run:
 
 ```bash
-npm run build
+pnpm run test
 ```
 
-### Previewing the Production Build
-
-To preview the production build, use:
+## Running The App
+To run the project, use:
 
 ```bash
-npm run preview
+docker compose up -d
 ```
 
-## Scripts
+This will start the container, and you can view it at `http://localhost:5000`.
 
-The following scripts are available in this project:
-
-- `dev`: Start the development server with Vite.
-- `build`: Build the project using TypeScript and Vite.
-- `lint`: Lint the project using ESLint.
-- `preview`: Preview the production build locally.
 
 ## Dependencies
 
-This project utilizes a variety of libraries, including:
-
-- **React** and **React-DOM** for building user interfaces.
-- **Radix UI** components for accessible UI primitives.
-- **React Hook Form** for form management.
-- **i18next** for internationalization.
-- **Zustand** for state management.
+- TanStack [Router](https://tanstack.com/router/latest), [Table](https://tanstack.com/table/latest) and [Query](https://tanstack.com/query/latest)
+- State management using [Zustand](https://zustand-demo.pmnd.rs/)
+- Storage with [idb](https://github.com/jakearchibald/idb)
+- Responsive UI using [shadcn](https://ui.shadcn.com/)
+- Style with [Tailwindcss](https://tailwindcss.com/)
+- Date handling with [date-fns](https://date-fns.org/docs/Getting-Started)
+- Internationalization with [react-i18next](https://react.i18next.com/)
 
 Refer to the `package.json` file for more details on specific versions.
 
-## Contributing
+# Reminders
+Create a new branch and do your changes. \
 
-Contributions are welcome! Please fork the repository and create a pull request for any enhancements or fixes.
+After finishing, commit and tag it! 
+
+```bash
+npm version [major|minor|patch]
+```
+
+```bash
+git push --follow-tags
+```
+
+Use the tags to make a release.
 
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
 
----
