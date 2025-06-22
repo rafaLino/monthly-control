@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import env from '@/lib/env';
 import { cn } from '@/lib/utils';
 import { useLocalParams } from '@/store';
 import { QueryKeys } from '@/types/queryKeys';
@@ -7,7 +8,6 @@ import { addDays, isPast } from 'date-fns';
 import { CirclePause } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { createMetadata, fetchGeneratedMetadataTimestamp } from '../../utils/data-analysis.logic';
-import env from '@/lib/env';
 
 /**
  * https://date-fns.org/v4.1.0/docs/format
@@ -31,7 +31,7 @@ export const GenerateDataButton = () => {
   const query = useQuery({
     queryKey: [QueryKeys.generatedMetadataTimestamp],
     queryFn: fetchGeneratedMetadataTimestamp,
-    staleTime: oneDay,
+    staleTime: oneDay
   });
 
   const mutation = useMutation({

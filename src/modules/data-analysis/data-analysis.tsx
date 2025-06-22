@@ -1,4 +1,5 @@
 import { CheckBoxWithLabel } from '@/components/checkbox-label/checkbox-label';
+import env from '@/lib/env';
 import { useLocalParams } from '@/store';
 import { QueryKeys } from '@/types/queryKeys';
 import { CheckedState } from '@radix-ui/react-checkbox';
@@ -11,7 +12,6 @@ import { Dashboard } from './features/dashboard/dashboard';
 import { GenerateDataButton } from './features/generate-data-button/generate-data-button';
 import { downloadMetadata } from './utils/data-analysis.logic';
 import { saveFile } from './utils/save-file';
-import env from '@/lib/env';
 
 export const DataAnalysis = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'dashboard' });
