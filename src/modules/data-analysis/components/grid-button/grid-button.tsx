@@ -31,7 +31,7 @@ export const GridButton: FC<Props> = ({ title }) => {
           <MenubarContent className="min-w-8 flex" side="right" hideWhenDetached>
             <ToggleGroup type="single" value={String(gridCol)} onValueChange={handleChangeValue}>
               {gridOptionsArray.map((col, index) => (
-                <ToggleGroupItem key={col} size="sm" value={String(index)}>
+                <ToggleGroupItem key={col} size="sm" value={String(index + 1)}>
                   {index + 1}
                 </ToggleGroupItem>
               ))}

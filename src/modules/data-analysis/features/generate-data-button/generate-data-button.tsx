@@ -7,6 +7,7 @@ import { addDays, isPast } from 'date-fns';
 import { CirclePause } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { createMetadata, fetchGeneratedMetadataTimestamp } from '../../utils/data-analysis.logic';
+import env from '@/lib/env';
 
 /**
  * https://date-fns.org/v4.1.0/docs/format
@@ -23,13 +24,14 @@ function isAllowedForGenerateCsv(lastTimeGeneratedData: Date | null | undefined,
 }
 
 export const GenerateDataButton = () => {
+  if (!env.VITE_ONLINE) return null;
   const { t } = useTranslation();
   const [days] = useLocalParams<number>('default_waiting_time_for_generate_csv');
   const queryClient = useQueryClient();
   const query = useQuery({
     queryKey: [QueryKeys.generatedMetadataTimestamp],
     queryFn: fetchGeneratedMetadataTimestamp,
-    staleTime: oneDay
+    staleTime: oneDay,
   });
 
   const mutation = useMutation({

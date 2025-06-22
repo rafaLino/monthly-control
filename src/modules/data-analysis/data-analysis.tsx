@@ -11,6 +11,7 @@ import { Dashboard } from './features/dashboard/dashboard';
 import { GenerateDataButton } from './features/generate-data-button/generate-data-button';
 import { downloadMetadata } from './utils/data-analysis.logic';
 import { saveFile } from './utils/save-file';
+import env from '@/lib/env';
 
 export const DataAnalysis = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'dashboard' });
@@ -32,6 +33,7 @@ export const DataAnalysis = () => {
   };
 
   const handleClearData = () => {
+    if (!data) return;
     queryClient.setQueryData([QueryKeys.generateMetadata], null);
   };
 
@@ -43,6 +45,7 @@ export const DataAnalysis = () => {
             label={t('disableAutoDownload')}
             checked={disableAutoDownload}
             onCheckedChange={handleDisableAutoDownload}
+            disabled={!env.VITE_ONLINE}
           />
           <GridButton title={t('gridLayout')} />
         </div>
