@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import env from '@/lib/env';
 import { cn } from '@/lib/utils';
 import { useLocalParams } from '@/store';
 import { QueryKeys } from '@/types/queryKeys';
@@ -23,6 +24,7 @@ function isAllowedForGenerateCsv(lastTimeGeneratedData: Date | null | undefined,
 }
 
 export const GenerateDataButton = () => {
+  if (!env.VITE_ONLINE) return null;
   const { t } = useTranslation();
   const [days] = useLocalParams<number>('default_waiting_time_for_generate_csv');
   const queryClient = useQueryClient();

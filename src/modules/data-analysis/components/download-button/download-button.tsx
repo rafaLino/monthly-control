@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import env from '@/lib/env';
 import { cn } from '@/lib/utils';
 import { FileDown, HardDriveDownload, LoaderCircleIcon } from 'lucide-react';
 import { FC, memo } from 'react';
@@ -11,7 +12,7 @@ type Props = {
   onSaveFile?: () => void;
 };
 export const DownloadButton: FC<Props> = memo(({ fetching, isSuccess, onClick, onSaveFile, title = 'Download' }) => {
-  const handleClick = () => onClick();
+  if (!env.VITE_ONLINE) return null;
   return (
     <div className="flex gap-1">
       {isSuccess && (
@@ -23,7 +24,7 @@ export const DownloadButton: FC<Props> = memo(({ fetching, isSuccess, onClick, o
         variant={fetching ? 'destructive' : 'outline'}
         size="default"
         className={cn('flex items-center gap-2', fetching && 'opacity-75')}
-        onClick={handleClick}
+        onClick={onClick}
       >
         <span className="hidden sm:block">{title}</span>
         {fetching ? <LoaderCircleIcon className="h-4 w-4 animate-spin" /> : <HardDriveDownload className="h-4 w-4" />}

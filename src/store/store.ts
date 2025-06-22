@@ -1,5 +1,6 @@
 import { setRegisters } from '@/lib/business-logic';
 import { Goal } from '@/types/goal';
+import { DEFAULT_LOCAL_PARAMS } from '@/types/local-params';
 import { Register } from '@/types/register.types';
 import { StateCreator, create } from 'zustand';
 import { persist } from 'zustand/middleware';
@@ -56,11 +57,7 @@ const createPlannerSlice: StateCreator<GlobalState, [], [], PlannerSlice> = (set
 });
 
 const createDataAnalysisSlice: StateCreator<GlobalState, [], [], DataAnalysisSlice> = (set) => ({
-  params: {
-    default_waiting_time_for_generate_csv: 10,
-    disable_automatic_download: false,
-    grid_col: 2
-  },
+  params: DEFAULT_LOCAL_PARAMS,
   dataAnalysisActions: {
     setParams: (params) => set((prev) => ({ params: { ...prev.params, ...params } }))
   }

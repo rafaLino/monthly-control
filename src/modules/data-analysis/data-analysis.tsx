@@ -1,4 +1,5 @@
 import { CheckBoxWithLabel } from '@/components/checkbox-label/checkbox-label';
+import env from '@/lib/env';
 import { useLocalParams } from '@/store';
 import { QueryKeys } from '@/types/queryKeys';
 import { CheckedState } from '@radix-ui/react-checkbox';
@@ -32,6 +33,7 @@ export const DataAnalysis = () => {
   };
 
   const handleClearData = () => {
+    if (!data) return;
     queryClient.setQueryData([QueryKeys.generateMetadata], null);
   };
 
@@ -43,6 +45,7 @@ export const DataAnalysis = () => {
             label={t('disableAutoDownload')}
             checked={disableAutoDownload}
             onCheckedChange={handleDisableAutoDownload}
+            disabled={!env.VITE_ONLINE}
           />
           <GridButton title={t('gridLayout')} />
         </div>
