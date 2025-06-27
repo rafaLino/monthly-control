@@ -1,6 +1,6 @@
 import { Input } from '@/components/ui/input';
 import { TFunction } from 'i18next';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useTransition } from 'react';
 import { useTranslation } from 'react-i18next';
 
 type EditableCellProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onBlur'> & {
@@ -52,18 +52,29 @@ type EditableNumberCellProps = Omit<React.PropsWithoutRef<EditableCellProps>, 'v
 export const EditableNumberCell: React.FC<EditableNumberCellProps> = ({ value, onBlur }) => {
   const { t } = useTranslation();
   const [isEditing, setIsEditing] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const formattedValue = isEditing ? getValue(value) : getFormatedValue(value, t);
 
   const handleFocus = () => {
-    setIsEditing(true);
+    startTransition(() => {
+      setIsEditing(true);
+    });
   };
+
   const handleBlur = (newValue: string, event: React.FocusEvent<HTMLInputElement>) => {
     const num = parseFloat(newValue);
     onBlur?.(isNaN(num) ? 0 : num, event);
     setIsEditing(false);
   };
 
-  return <EditableCell type={isEditing ? 'number' : 'text'} value={formattedValue} onFocus={handleFocus} onBlur={handleBlur} />;
+  return (
+    <EditableCell
+      type={isEditing ? 'number' : 'text'}
+      value={isPending ? '' : formattedValue}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+    />
+  );
 };
 
 function getValue(value: number) {
