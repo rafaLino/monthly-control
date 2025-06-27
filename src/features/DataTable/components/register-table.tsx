@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { DataTableFilterContext } from '@/context/DataTableFilterContext';
 import { AddInput } from '@/features/add-input';
 import { MediaQueries, useMediaQuery } from '@/hooks/useMediaQuery';
 import { cn } from '@/lib/utils';
@@ -15,7 +16,7 @@ import {
   useReactTable
 } from '@tanstack/react-table';
 import { ArrowDown, ArrowUp } from 'lucide-react';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSkipper } from '../hooks/useSkipper';
 import { CheckedCell } from './checked-cell';
@@ -31,9 +32,11 @@ type RegisterTableProps = {
   onChange?: (action: SetRegistersActionType) => void;
   total: number;
 };
+
 export default function RegisterTable({ data, total, onChange }: Readonly<RegisterTableProps>) {
   const { t } = useTranslation('translation', { keyPrefix: 'registerTable' });
   const matches = useMediaQuery(MediaQueries.md);
+  const filter = useContext(DataTableFilterContext);
   const columns = useMemo<ColumnDef<Register>[]>(
     () => [
       {
@@ -121,7 +124,8 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
     state: {
       columnVisibility: {
         percentage: matches
-      }
+      },
+      globalFilter: filter
     },
     initialState: {
       sorting: [
