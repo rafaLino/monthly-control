@@ -4,7 +4,7 @@ import { GoalCard } from '@/features/GoalCard';
 import { ExpensesPieChart, IncomesPieChart, InvestmentsPieChart } from '@/features/RegisterPieCharts';
 import RegisterTabs from '@/features/Tabs/Tabs';
 import { load } from '@/store';
-import { Calculator } from '@rafael-lino/react-quick-calculator';
+import { Calculator } from '@rafalino/react-quick-calculator';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_main/')({
