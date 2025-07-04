@@ -71,9 +71,9 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: ^1.1.2
         version: 1.1.2(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@rafael-lino/react-quick-calculator':
-        specifier: ^2.3.3
-        version: 2.3.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@rafalino/react-quick-calculator':
+        specifier: 2.4.0
+        version: 2.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tanstack/react-query':
         specifier: ^5.72.2
         version: 5.72.2(react@18.3.1)
@@ -1773,8 +1773,8 @@ packages:
   '@radix-ui/rect@1.1.0':
     resolution: {integrity: sha512-A9+lCBZoaMJlVKcRBz2YByCG+Cp2t6nAnMnNba+XiWxnj6r4JUFqfsgwocMBZU9LPtdxC6wB56ySYpc7LQIoJg==}
 
-  '@rafael-lino/react-quick-calculator@2.3.3':
-    resolution: {integrity: sha512-qfuUWkoATwSMEEL04mrC27UuHGT6LnKt8+9JPfMO4SKLLXY8Et48AmdTtEd4JWnI5S/p3XsC6OWUZKaV3K1BKQ==, tarball: https://npm.pkg.github.com/download/@rafael-lino/react-quick-calculator/2.3.3/ade78001be9b13cd55bbe40c6db6d927f11089f2}
+  '@rafalino/react-quick-calculator@2.4.0':
+    resolution: {integrity: sha512-91aCmtJsUvVPb2YixGbutXE3o0SpuKKEB9AYqCnMvMBRVl7WxiprynmC5ZdaTuz3XRftK0DJuDFTQPC4uDYw+Q==, tarball: https://npm.pkg.github.com/download/@rafalino/react-quick-calculator/2.4.0/f00d44a00a65a9b7ac751a7ba31f7b56ff32a16b}
     peerDependencies:
       react: '>=18.2.0'
       react-dom: '>=18.2.0'
@@ -6111,7 +6111,7 @@ snapshots:
 
   '@radix-ui/rect@1.1.0': {}
 
-  '@rafael-lino/react-quick-calculator@2.3.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@rafalino/react-quick-calculator@2.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       math-expression-evaluator: 2.0.6
       react: 18.3.1
