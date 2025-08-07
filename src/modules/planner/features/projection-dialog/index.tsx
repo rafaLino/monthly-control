@@ -1,8 +1,8 @@
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 import { useKeyDown } from '@/hooks/useKeyDown';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ProjectionContent } from './components/projection-content';
-import { useState } from 'react';
 
 const disableClose = (event: Event) => event.preventDefault();
 

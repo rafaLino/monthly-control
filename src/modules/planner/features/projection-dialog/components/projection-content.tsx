@@ -1,4 +1,5 @@
 import { Input } from '@/components/ui/input';
+import { useKeyDown } from '@/hooks/useKeyDown';
 import { sum } from '@/lib/utils';
 import { ProjectionTable } from '@/modules/planner/features/projection-dialog/components/projection-table';
 import { getAll } from '@/store';
@@ -8,7 +9,6 @@ import { useTranslation } from 'react-i18next';
 import { useFilterInput } from '../hooks/useFilterInput';
 import { reducer } from '../utils/projection-reducer';
 import { ProjectionResultCard } from './projection-result-card';
-import { useKeyDown } from '@/hooks/useKeyDown';
 
 export const ProjectionContent = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'projectionDialog' });
