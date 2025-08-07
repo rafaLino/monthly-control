@@ -2,7 +2,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { COLORS, getColor } from '@/lib/colors';
 import { cn } from '@/lib/utils';
 import { Register, RegisterType } from '@/types/register.types';
-import { FC, memo } from 'react';
+import { FC, memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 type ProjectionTableProps = {
@@ -16,6 +16,15 @@ const SPACE_BAR = ' ';
 export const ProjectionTable: FC<ProjectionTableProps> = memo(({ records, type, onCheck }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'projectionDialog' });
   const color = COLORS[getColor(type)];
+
+  const onClickOrKeyDown = useCallback(
+    (id: string) => (e: React.KeyboardEvent | React.MouseEvent<HTMLTableRowElement>) => {
+      if (e.type === 'click' || (e as React.KeyboardEvent).key == SPACE_BAR) {
+        onCheck(id, type);
+      }
+    },
+    [onCheck, type]
+  );
 
   return (
     <Table parentClassName={cn('border rounded-sm shadow-md h-full min-h-96', color.border)}>
@@ -32,8 +41,8 @@ export const ProjectionTable: FC<ProjectionTableProps> = memo(({ records, type, 
             tabIndex={0}
             data-state={record.checked ? 'selected' : 'unselected'}
             className={cn('focus:outline-none focus:bg-black/10 data-[state=selected]:bg-gray-300')}
-            onClick={() => onCheck(record.id, type)}
-            onKeyDown={(e) => e.key === SPACE_BAR && onCheck(record.id, type)}
+            onClick={onClickOrKeyDown(record.id)}
+            onKeyDown={onClickOrKeyDown(record.id)}
           >
             <TableCell className="p-2 pl-5 font-medium">{record.name}</TableCell>
             <TableCell className="p-2 pl-5">{record.value}</TableCell>
