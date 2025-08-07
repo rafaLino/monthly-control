@@ -110,5 +110,12 @@
     "disableAutoDownload": "Disable automatic download",
     "defaultWaitingTime": "Default waiting time for generate csv",
     "gridCol": "Grid col"
+  },
+  "projectionDialog": {
+    "title": "Projection",
+    "description": "Projection of incomes, expenses and investments",
+    "search": "Search...",
+    "name": "Name",
+    "value": "Value"
   }
 }

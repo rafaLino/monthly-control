@@ -110,5 +110,12 @@
     "disableAutoDownload": "Desactivar la descarga automática",
     "defaultWaitingTime": "Tiempo de espera predeterminado para generar el archivo CSV",
     "gridCol": "Columna de la cuadrícula"
+  },
+  "projectionDialog": {
+    "title": "Proyección",
+    "description": "Proyección de ingresos, gastos e inversiones",
+    "search": "Buscar...",
+    "name": "Nombre",
+    "value": "Valor"
   }
 }
