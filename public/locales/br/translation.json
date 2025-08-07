@@ -110,5 +110,12 @@
     "disableAutoDownload": "Desabilitar download automático",
     "defaultWaitingTime": "Tempo de espera padrão para gerar csv",
     "gridCol": "Disposição padrão do painel"
+  },
+  "projectionDialog": {
+    "title": "Projeção",
+    "description": "Projeção de receitas, despesas e investimentos",
+    "search": "Pesquisar...",
+    "name": "Nome",
+    "value": "Valor"
   }
 }
