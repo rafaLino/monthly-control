@@ -24,7 +24,7 @@ export const ProjectionResultCard: FC<ProjectionResultCardProps> = ({ value, err
   return (
     <Card className={cn('text-center text-md p-2 min-w-28 sm:min-w-32', bgColor)}>
       <Translation>
-        {(t) => <CardTitle className={cn(textColor, error && 'text-red-500')}>{t('currency', { value: 10000 })}</CardTitle>}
+        {(t) => <CardTitle className={cn(textColor, error && 'text-red-500')}>{t('currency', { value })}</CardTitle>}
       </Translation>
     </Card>
   );
