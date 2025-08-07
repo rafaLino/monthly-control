@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ProjectionContent } from './components/projection-content';
 
+const disableClose = (event: Event) => event.preventDefault();
+
 export const ProjectionDialog = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'projectionDialog' });
   const [open, setOpen] = useState(false);
@@ -11,10 +13,6 @@ export const ProjectionDialog = () => {
   useKeyDown('alt.q', () => {
     setOpen((prev) => !prev);
   });
-
-  const disableClose = (event: Event) => {
-    event.preventDefault();
-  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
