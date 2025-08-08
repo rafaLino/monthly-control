@@ -116,6 +116,7 @@
     "description": "Projeção de receitas, despesas e investimentos",
     "search": "Pesquisar...",
     "name": "Nome",
-    "value": "Valor"
+    "value": "Valor",
+    "clear": "Limpar"
   }
 }
