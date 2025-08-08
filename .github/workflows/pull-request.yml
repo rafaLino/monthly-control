@@ -1,4 +1,4 @@
-name: Build Application
+name: Build
 on: pull_request
 permissions:
   checks: write
