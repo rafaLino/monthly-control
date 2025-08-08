@@ -1,7 +1,7 @@
 # Monthly Control
  
- [![Build](https://github.com/rafaLino/monthly-control/actions/workflows/pull-request.yml/badge.svg)](https://github.com/rafaLino/monthly-control/actions/workflows/pull-request.yml)
- [![Deploy](https://github.com/rafaLino/monthly-control/actions/workflows/release.yml/badge.svg)](https://github.com/rafaLino/monthly-control/actions/workflows/release.yml)
+[![Build](https://github.com/rafaLino/monthly-control/actions/workflows/pull-request.yml/badge.svg?event=pull_request)](https://github.com/rafaLino/monthly-control/actions/workflows/pull-request.yml)
+[![Deploy](https://github.com/rafaLino/monthly-control/actions/workflows/release.yml/badge.svg?event=release)](https://github.com/rafaLino/monthly-control/actions/workflows/release.yml)
 
 <p align="center">
     <img src="./public/icon-192x192.png" />
