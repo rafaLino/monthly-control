@@ -39,7 +39,7 @@ export const ProjectionContent = () => {
 
   return (
     <>
-      <div className="flex flex-row items-center justify-evenly gap-1 w-full sm:w-1/2 sm:justify-self-center mt-8 sm:m-0">
+      <div className="flex flex-row flex-wrap items-center justify-evenly gap-1 w-full sm:w-1/2 sm:justify-self-center mt-8 sm:m-0">
         <ProjectionResultCard value={incomes} variant="success" />
         <p className="font-medium">-</p>
         <ProjectionResultCard value={costs} variant="warning" />
@@ -50,7 +50,7 @@ export const ProjectionContent = () => {
         <Button tabIndex={-1} variant="secondary" className="border hover:bg-gray-200" onClick={handleClear}>
           {t('clear')}
         </Button>
-        <div className="flex items-center w-full sm:w-1/3">
+        <div className="flex items-center w-full sm:w-2/4">
           <Input tabIndex={-1} placeholder={t('search')} value={filterValue} onChange={onFilter} />
         </div>
         <div />
