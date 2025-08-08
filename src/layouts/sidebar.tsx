@@ -1,14 +1,15 @@
 import { TooltipLink } from '@/components/tooltip-link/tooltip-link';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Link } from '@tanstack/react-router';
 import { Home, LineChart, PanelLeft, Settings } from 'lucide-react';
-import { FC, PropsWithChildren, ReactNode } from 'react';
+import { FC, PropsWithChildren, ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 type SideBarProps = PropsWithChildren<{
   header: ReactNode;
 }>;
+
 export const SideBar: FC<SideBarProps> = ({ header, children }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'sidebar' });
   return (
@@ -54,9 +55,13 @@ export const SideBar: FC<SideBarProps> = ({ header, children }) => {
 
 export const SideBarHeader: FC<PropsWithChildren> = ({ children }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'sidebar' });
+  const [open, setOpen] = useState(false);
+  const close = () => setOpen(false);
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-      <Sheet>
+      <Sheet open={open} onOpenChange={setOpen}>
+        <SheetTitle hidden>Sidebar</SheetTitle>
+        <SheetDescription hidden>Sidebar description</SheetDescription>
         <SheetTrigger asChild>
           <Button size="icon" variant="ghost" className="sm:hidden">
             <PanelLeft className="h-5 w-5" />
@@ -65,16 +70,24 @@ export const SideBarHeader: FC<PropsWithChildren> = ({ children }) => {
         </SheetTrigger>
         <SheetContent side="left" className="sm:max-w-xs">
           <nav className="grid gap-6 text-lg font-medium">
-            <Link to="/" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
+            <Link to="/" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground" onClick={close}>
               <Home className="h-5 w-5" />
               {t('home')}
             </Link>
-            <Link to="/analytics" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
+            <Link
+              to="/analytics"
+              className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+              onClick={close}
+            >
               <LineChart className="h-5 w-5" />
               {t('analytics')}
             </Link>
-            <Link to="/settings" className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground">
-              <LineChart className="h-5 w-5" />
+            <Link
+              to="/settings"
+              className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+              onClick={close}
+            >
+              <Settings className="h-5 w-5" />
               {t('settings')}
             </Link>
           </nav>

@@ -116,6 +116,7 @@
     "description": "Proyección de ingresos, gastos e inversiones",
     "search": "Buscar...",
     "name": "Nombre",
-    "value": "Valor"
+    "value": "Valor",
+    "clear": "Limpiar"
   }
 }

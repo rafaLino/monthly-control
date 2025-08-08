@@ -1,13 +1,28 @@
 import { Register, RegisterType } from '@/types/register.types';
 
-export function reducer(
-  state: { incomes: Register[]; expenses: Register[]; investments: Register[] },
-  action: { id: string; type: RegisterType }
-) {
+type ProjectionState = {
+  incomes: Register[];
+  expenses: Register[];
+  investments: Register[];
+};
+type ProjectionAction =
+  | {
+      action?: never;
+      id: string;
+      type: RegisterType;
+    }
+  | { action: 'clear'; id?: never; type?: never };
+
+export function reducer(state: ProjectionState, { action, id, type }: ProjectionAction) {
+  if (action === 'clear') {
+    return {
+      incomes: state.incomes.map((i) => ({ ...i, checked: false })),
+      expenses: state.expenses.map((e) => ({ ...e, checked: false })),
+      investments: state.investments.map((i) => ({ ...i, checked: false }))
+    };
+  }
   return {
     ...state,
-    [action.type]: state[action.type].map((record) =>
-      record.id === action.id ? { ...record, checked: !record.checked } : record
-    )
+    [type]: state[type].map((record) => (record.id === id ? { ...record, checked: !record.checked } : record))
   };
 }

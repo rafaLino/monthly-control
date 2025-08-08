@@ -116,6 +116,7 @@
     "description": "Projection of incomes, expenses and investments",
     "search": "Search...",
     "name": "Name",
-    "value": "Value"
+    "value": "Value",
+    "clear": "Clear"
   }
 }
