@@ -93,6 +93,10 @@ git push --follow-tags
 ```
 
 Use the tags to make a release.
+update the tag if it is the case:
+```bash
+git tag -fa ${tagname}
+```
 
 ## License
 
