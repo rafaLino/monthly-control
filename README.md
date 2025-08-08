@@ -1,8 +1,12 @@
 # Monthly Control
  
+ [![Build](https://github.com/rafaLino/monthly-control/actions/workflows/pull-request.yml/badge.svg)](https://github.com/rafaLino/monthly-control/actions/workflows/pull-request.yml)
+ [![Deploy](https://github.com/rafaLino/monthly-control/actions/workflows/release.yml/badge.svg)](https://github.com/rafaLino/monthly-control/actions/workflows/release.yml)
+
 <p align="center">
     <img src="./public/icon-192x192.png" />
 </p>
+
 
 Welcome to the **Monthly Control**! \
 This project is designed to help you manage your monthly income and expenses.
