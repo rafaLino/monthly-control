@@ -1,3 +1,4 @@
+import { ThemeSwitch } from '@/components/theme-switch/theme-switch';
 import { Thumbnail } from '@/components/thumbnail';
 import {
   DropdownMenu,
@@ -34,6 +35,9 @@ export const UserMenu = () => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>{t('myAccount')}</DropdownMenuLabel>
           <DropdownMenuSeparator />
+          <DropdownMenuItem>
+            <ThemeSwitch />
+          </DropdownMenuItem>
           <DropdownMenuItem asChild>
             <Link to="/settings">{t('settings')}</Link>
           </DropdownMenuItem>

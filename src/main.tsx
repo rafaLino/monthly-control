@@ -7,6 +7,7 @@ import { createIDBPersister } from './lib/idb-persister';
 import { AppRoute } from './router';
 import './i18n';
 import './index.css';
+import { ThemeProvider } from './context/ThemeProvider';
 
 const sevenDays = 1000 * 60 * 60 * 24 * 7;
 
@@ -27,7 +28,9 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <PersistQueryClientProvider client={queryClient} persistOptions={{ persister, maxAge: sevenDays }}>
       <AuthProvider>
-        <AppRoute />
+        <ThemeProvider>
+          <AppRoute />
+        </ThemeProvider>
       </AuthProvider>
     </PersistQueryClientProvider>
   </StrictMode>
