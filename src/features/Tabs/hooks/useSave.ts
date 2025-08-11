@@ -4,8 +4,10 @@ import { useCallback, useEffect } from 'react';
 
 const THREE_SECONDS = 3_000;
 const FIVE_MINUTES = 5 * 60 * 1000;
+
 export function useSave() {
   const [syncing, setSyncing] = useSync();
+
   const save = useCallback(async () => {
     setSyncing(true);
     await saveRegisters(getAll());

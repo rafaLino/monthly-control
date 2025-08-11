@@ -28,7 +28,7 @@ export const ProjectionTable: FC<ProjectionTableProps> = memo(({ records, type, 
 
   return (
     <Table parentClassName={cn('border rounded-sm shadow-md h-full min-h-96', color.border)}>
-      <TableHeader className="sticky top-0 bg-gray-200">
+      <TableHeader className="sticky top-0 bg-gray-200 dark:bg-gray-800">
         <TableRow>
           <TableHead>{t('name')}</TableHead>
           <TableHead>{t('value')}</TableHead>
@@ -40,7 +40,9 @@ export const ProjectionTable: FC<ProjectionTableProps> = memo(({ records, type, 
             key={record.id}
             tabIndex={0}
             data-state={record.checked ? 'selected' : 'unselected'}
-            className={cn('focus:outline-none focus:bg-black/10 data-[state=selected]:bg-gray-300')}
+            className={cn(
+              'focus:outline-none focus:bg-black/10 data-[state=selected]:bg-gray-300 focus:dark:bg-gray-700 data-[state=selected]:dark:bg-gray-500'
+            )}
             onClick={onClickOrKeyDown(record.id)}
             onKeyDown={onClickOrKeyDown(record.id)}
           >

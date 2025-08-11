@@ -5,19 +5,19 @@ export type ColorType = 'red' | 'green' | 'yellow';
 
 export const COLORS = {
   red: {
-    border: 'border-red-600',
-    background: 'bg-red-50',
-    text: 'text-red-500'
+    border: 'border-red-600 dark:border-red-700',
+    background: 'bg-red-50 dark:bg-red-900',
+    text: 'text-red-500 dark:text-red-400'
   },
   green: {
-    border: 'border-green-600',
-    background: 'bg-green-50',
-    text: 'text-green-500'
+    border: 'border-green-600 dark:border-green-700',
+    background: 'bg-green-50 dark:bg-green-900',
+    text: 'text-green-500 dark:text-green-400'
   },
   yellow: {
-    border: 'border-yellow-600',
-    background: 'bg-yellow-50',
-    text: 'text-yellow-500'
+    border: 'border-yellow-600 dark:border-yellow-700',
+    background: 'bg-yellow-50 dark:bg-yellow-900',
+    text: 'text-yellow-500 dark:text-yellow-400'
   }
 };
 

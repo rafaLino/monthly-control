@@ -2,16 +2,25 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { DataTableFilterContext } from '@/context/DataTableFilterContext';
+import { useKeyDown } from '@/hooks/useKeyDown';
 import { cn } from '@/lib/utils';
 import { RefreshCw, Search } from 'lucide-react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DataTable } from '../DataTable';
 import { useSave } from './hooks/useSave';
 export default function RegisterTabs() {
   const { t } = useTranslation('translation', { keyPrefix: 'registerTabs' });
+  const filterInputRef = useRef<HTMLInputElement>(null);
   const [filter, setFilter] = useState('');
   const [saving, save] = useSave();
+
+  useKeyDown('ctrl.s', save);
+
+  useKeyDown('ctrl.f', () => {
+    filterInputRef.current?.focus();
+  });
+
   return (
     <Tabs defaultValue="incomes" onValueChange={() => setFilter('')}>
       <div className="flex items-center justify-between flex-wrap gap-1 sm:gap-2">
@@ -29,6 +38,7 @@ export default function RegisterTabs() {
         <div className="relative flex md:grow-0 order-3 w-full sm:w-auto">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
+            ref={filterInputRef}
             type="search"
             placeholder={t('search')}
             className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
