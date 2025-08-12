@@ -1,6 +1,6 @@
-import { SettingsForm } from '@/components/setting-form';
 import { FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { SettingsForm } from '@/modules/settings/components/setting-form';
 import { Schema } from '@/types/goal';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';

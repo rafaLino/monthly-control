@@ -1,5 +1,5 @@
-import { useSettingsForm } from '@/components/setting-form/settings-form-hook';
 import { FormDescription } from '@/components/ui/form';
+import { useSettingsForm } from '@/modules/settings/components/setting-form/settings-form-hook';
 import { useTranslation } from 'react-i18next';
 import { GoalFormField } from './goal-form-field';
 

@@ -1,4 +1,4 @@
-import { SettingsForm } from '@/components/setting-form';
+import { SettingsForm } from '@/modules/settings/components/setting-form';
 import { useGoals } from '@/store';
 import { Goal, Schema } from '@/types/goal';
 import { zodResolver } from '@hookform/resolvers/zod';

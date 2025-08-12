@@ -1,4 +1,4 @@
-import { SettingsForm } from '@/components/setting-form';
+import { SettingsForm } from '@/modules/settings/components/setting-form';
 import { useLocalParamsAll } from '@/store';
 import { LocalParams, Schema } from '@/types/local-params';
 import { zodResolver } from '@hookform/resolvers/zod';

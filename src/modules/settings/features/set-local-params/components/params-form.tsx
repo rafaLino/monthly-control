@@ -1,4 +1,4 @@
-import { useSettingsForm } from '@/components/setting-form/settings-form-hook';
+import { useSettingsForm } from '@/modules/settings/components/setting-form/settings-form-hook';
 import { useTranslation } from 'react-i18next';
 import { ParamsFormField } from './params-form-field';
 

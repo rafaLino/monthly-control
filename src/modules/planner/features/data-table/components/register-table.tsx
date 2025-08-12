@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { DataTableFilterContext } from '@/context/DataTableFilterContext';
-import { AddInput } from '@/features/add-input';
 import { MediaQueries, useMediaQuery } from '@/hooks/useMediaQuery';
 import { cn } from '@/lib/utils';
+import { AddInput } from '@/modules/planner/components/add-input';
 import { SetRegistersActionType } from '@/store/global.state';
 import { Register } from '@/types/register.types';
 import {

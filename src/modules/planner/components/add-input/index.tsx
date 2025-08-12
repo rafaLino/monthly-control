@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef, memo } from 'react';
-import { Input } from '../../components/ui/input';
+import { Input } from '../../../../components/ui/input';
 import { useAddInput } from './hooks/useAddInput';
 
 type AddInputProps = ComponentPropsWithoutRef<typeof Input> & {

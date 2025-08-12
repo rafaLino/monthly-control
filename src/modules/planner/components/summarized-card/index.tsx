@@ -1,6 +1,6 @@
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { COLORS, ColorType } from '@/lib/colors';
 import { cn } from '@/lib/utils';
-import { Card, CardDescription, CardHeader, CardTitle } from '../ui/card';
 
 type SummarizedCardProps = {
   planned: string;
