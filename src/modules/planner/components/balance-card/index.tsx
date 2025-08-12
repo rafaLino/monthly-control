@@ -1,6 +1,6 @@
+import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, CardHeader, CardTitle } from '../ui/card';
 
 type BalanceCardProps = {
   incomesBalance: number | undefined;

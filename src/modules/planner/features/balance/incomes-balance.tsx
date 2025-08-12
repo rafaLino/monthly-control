@@ -1,4 +1,4 @@
-import { SummarizedCard } from '@/components/summarized-card';
+import { SummarizedCard } from '@/modules/planner/components/summarized-card';
 import { useIncomesBalance } from '@/store';
 import { useTranslation } from 'react-i18next';
 

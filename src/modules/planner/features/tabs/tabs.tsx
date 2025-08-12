@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { RefreshCw, Search } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DataTable } from '../DataTable';
+import { DataTable } from '../data-table';
 import { useSave } from './hooks/useSave';
 export default function RegisterTabs() {
   const { t } = useTranslation('translation', { keyPrefix: 'registerTabs' });
