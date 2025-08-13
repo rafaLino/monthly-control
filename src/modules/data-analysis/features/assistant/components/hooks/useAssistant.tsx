@@ -3,14 +3,19 @@ import { useAssistantContext } from '../../context/useAssistantContext';
 import { ChatSession } from 'firebase/ai';
 import { Message } from '../../types/message';
 import { generateId } from '@/lib/utils';
+import { useQueryClient } from '@tanstack/react-query';
+import { QueryKeys } from '@/types/queryKeys';
 
 type STATUS = 'idle' | 'loading' | 'completed';
 export function useAssistant() {
+  const model = useAssistantContext();
   const [isStarted, setIsStarted] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
-  const { model } = useAssistantContext();
   const [modelChat, setModelChat] = useState<ChatSession>();
   const [status, setStatus] = useState<STATUS>('idle');
+  const [withContext, setWithContext] = useState<boolean>(false);
+  const [responseMessage, setResponseMessage] = useState<Message>({ id: generateId(), role: 'assistant', text: '' });
+  const queryClient = useQueryClient();
 
   const getChat = useCallback(() => {
     if (isStarted) return modelChat!;
@@ -24,15 +29,17 @@ export function useAssistant() {
   const sendMessage = useCallback(
     async (message: Message) => {
       setStatus('loading');
-      const baseMessage: Message = { id: generateId(), role: 'assistant', text: '' };
       try {
         const chat = getChat();
-        // const { totalTokens, promptTokensDetails } = await model.countTokens('Write a story about a magic backpack.');
-        // console.log(`Total tokens: ${totalTokens}, total billable characters: ${JSON.stringify(promptTokensDetails)}`);
-        const result = await chat.sendMessage(message.text);
-        const text = result.response.text();
-        // console.log(text);
-        return { ...baseMessage, text };
+        const requestMessage = withContext
+          ? [message.text, queryClient.getQueryData<{ csv: string }>([QueryKeys.generateMetadata])?.csv || '']
+          : [message.text];
+
+        const result = await chat.sendMessageStream(requestMessage);
+
+        for await (const chunk of result.stream) {
+          setResponseMessage((prev) => ({ ...prev, text: `${prev.text} ${chunk.text()}` }));
+        }
       } catch (error) {
         if (error instanceof Error) {
           setError(error.message);
@@ -41,8 +48,12 @@ export function useAssistant() {
         setStatus('completed');
       }
     },
-    [getChat]
+    [getChat, withContext]
   );
+
+  const resetMessage = useCallback(() => {
+    setResponseMessage({ id: generateId(), role: 'assistant', text: '' });
+  }, []);
 
   const statusValue = useMemo(() => {
     return {
@@ -55,6 +66,10 @@ export function useAssistant() {
     error,
     status,
     sendMessage,
+    setWithContext,
+    resetMessage,
+    responseMessage,
+    withContext,
     ...statusValue
   };
 }

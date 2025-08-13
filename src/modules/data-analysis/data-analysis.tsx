@@ -12,6 +12,7 @@ import { Dashboard } from './features/dashboard/dashboard';
 import { GenerateDataButton } from './features/generate-data-button/generate-data-button';
 import { downloadMetadata } from './utils/data-analysis.logic';
 import { saveFile } from './utils/save-file';
+import { Assistant } from './features/assistant/assistant';
 
 export const DataAnalysis = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'dashboard' });
@@ -39,6 +40,7 @@ export const DataAnalysis = () => {
 
   return (
     <>
+      <Assistant />
       <div className="flex flex-col sm:flex-row gap-2 w-full px-0 sm:px-16 sm:justify-between">
         <div className="flex w-full justify-between sm:justify-start items-center gap-2">
           <CheckBoxWithLabel

@@ -17,7 +17,6 @@ import { Route as MainIndexRouteImport } from './routes/_main/index'
 
 const MainSettingsLazyRouteImport = createFileRoute('/_main/settings')()
 const MainAnalyticsLazyRouteImport = createFileRoute('/_main/analytics')()
-const MainAboutLazyRouteImport = createFileRoute('/_main/about')()
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -47,22 +46,15 @@ const MainAnalyticsLazyRoute = MainAnalyticsLazyRouteImport.update({
 } as any).lazy(() =>
   import('./routes/_main/analytics.lazy').then((d) => d.Route),
 )
-const MainAboutLazyRoute = MainAboutLazyRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => MainRoute,
-} as any).lazy(() => import('./routes/_main/about.lazy').then((d) => d.Route))
 
 export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
-  '/about': typeof MainAboutLazyRoute
   '/analytics': typeof MainAnalyticsLazyRoute
   '/settings': typeof MainSettingsLazyRoute
   '/': typeof MainIndexRoute
 }
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
-  '/about': typeof MainAboutLazyRoute
   '/analytics': typeof MainAnalyticsLazyRoute
   '/settings': typeof MainSettingsLazyRoute
   '/': typeof MainIndexRoute
@@ -71,21 +63,19 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_main': typeof MainRouteWithChildren
   '/login': typeof LoginRoute
-  '/_main/about': typeof MainAboutLazyRoute
   '/_main/analytics': typeof MainAnalyticsLazyRoute
   '/_main/settings': typeof MainSettingsLazyRoute
   '/_main/': typeof MainIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/login' | '/about' | '/analytics' | '/settings' | '/'
+  fullPaths: '/login' | '/analytics' | '/settings' | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/login' | '/about' | '/analytics' | '/settings' | '/'
+  to: '/login' | '/analytics' | '/settings' | '/'
   id:
     | '__root__'
     | '/_main'
     | '/login'
-    | '/_main/about'
     | '/_main/analytics'
     | '/_main/settings'
     | '/_main/'
@@ -133,25 +123,16 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MainAnalyticsLazyRouteImport
       parentRoute: typeof MainRoute
     }
-    '/_main/about': {
-      id: '/_main/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof MainAboutLazyRouteImport
-      parentRoute: typeof MainRoute
-    }
   }
 }
 
 interface MainRouteChildren {
-  MainAboutLazyRoute: typeof MainAboutLazyRoute
   MainAnalyticsLazyRoute: typeof MainAnalyticsLazyRoute
   MainSettingsLazyRoute: typeof MainSettingsLazyRoute
   MainIndexRoute: typeof MainIndexRoute
 }
 
 const MainRouteChildren: MainRouteChildren = {
-  MainAboutLazyRoute: MainAboutLazyRoute,
   MainAnalyticsLazyRoute: MainAnalyticsLazyRoute,
   MainSettingsLazyRoute: MainSettingsLazyRoute,
   MainIndexRoute: MainIndexRoute,
