@@ -1,10 +1,10 @@
+import { generateId } from '@/lib/utils';
+import { QueryKeys } from '@/types/queryKeys';
+import { useQueryClient } from '@tanstack/react-query';
+import { ChatSession } from 'firebase/ai';
 import { useCallback, useMemo, useState } from 'react';
 import { useAssistantContext } from '../../context/useAssistantContext';
-import { ChatSession } from 'firebase/ai';
 import { Message } from '../../types/message';
-import { generateId } from '@/lib/utils';
-import { useQueryClient } from '@tanstack/react-query';
-import { QueryKeys } from '@/types/queryKeys';
 
 type STATUS = 'idle' | 'loading' | 'completed';
 export function useAssistant() {

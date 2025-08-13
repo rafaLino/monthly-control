@@ -1,5 +1,5 @@
 import { GenerativeModel } from 'firebase/ai';
-import { createContext, PropsWithChildren, useEffect, useRef } from 'react';
+import { PropsWithChildren, createContext, useEffect, useRef } from 'react';
 import initConfig from '../config/initConfig';
 
 export type AssistantContext = {

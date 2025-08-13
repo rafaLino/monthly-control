@@ -1,5 +1,5 @@
 import env from '@/lib/env';
-import { AI, getAI, getGenerativeModel, GoogleAIBackend } from 'firebase/ai';
+import { AI, GoogleAIBackend, getAI, getGenerativeModel } from 'firebase/ai';
 import { FirebaseApp, initializeApp } from 'firebase/app';
 
 const getAiModelName = () => localStorage.getItem('ai_model') ?? env.VITE_AI_MODEL ?? 'gemini-2.5-flash';
