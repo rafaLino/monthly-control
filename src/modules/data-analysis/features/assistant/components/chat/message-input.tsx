@@ -4,13 +4,13 @@ import { Toggle } from '@/components/ui/toggle';
 import { Loader2Icon, Paperclip } from 'lucide-react';
 import { FC, KeyboardEvent, memo, useRef } from 'react';
 
-type ChatInputProps = {
+type MessageInputProps = {
   onInputValue: (value: string) => void;
   onAttachmentChange?: (pressed: boolean) => void;
   attachmentEnabled?: boolean;
   loading?: boolean;
 };
-export const MessageInput: FC<ChatInputProps> = memo(({ onInputValue, onAttachmentChange, attachmentEnabled, loading }) => {
+export const MessageInput: FC<MessageInputProps> = memo(({ onInputValue, onAttachmentChange, attachmentEnabled, loading }) => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const handleKeyDown = (event: KeyboardEvent) => {
