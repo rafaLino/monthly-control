@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { ClearDataButton } from './components/clear-data-button/clear-data-button';
 import { DownloadButton } from './components/download-button/download-button';
 import { GridButton } from './components/grid-button/grid-button';
+import { Assistant } from './features/assistant';
 import { Dashboard } from './features/dashboard/dashboard';
 import { GenerateDataButton } from './features/generate-data-button/generate-data-button';
 import { downloadMetadata } from './utils/data-analysis.logic';
@@ -39,6 +40,7 @@ export const DataAnalysis = () => {
 
   return (
     <>
+      <Assistant />
       <div className="flex flex-col sm:flex-row gap-2 w-full px-0 sm:px-16 sm:justify-between">
         <div className="flex w-full justify-between sm:justify-start items-center gap-2">
           <CheckBoxWithLabel

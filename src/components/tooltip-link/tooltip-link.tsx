@@ -4,9 +4,10 @@ import { Link } from '@tanstack/react-router';
 export const TooltipLink: React.FC<React.ComponentPropsWithoutRef<typeof Link> & { tooltip: string }> = ({
   tooltip,
   children,
+  hidden,
   ...props
 }) => {
-  return (
+  return hidden ? null : (
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>

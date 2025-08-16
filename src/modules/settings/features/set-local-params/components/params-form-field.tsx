@@ -8,12 +8,13 @@ import { useFormContext } from 'react-hook-form';
 
 type ParamsFormFieldProps = {
   name: LocalParamsKeys;
-  label: string;
-  type?: 'number' | 'checkbox';
+  label?: string;
+  type?: 'number' | 'checkbox' | 'text';
   maxLength?: number;
   disabled?: boolean;
+  placeholder?: string;
 };
-export const ParamsFormField: FC<ParamsFormFieldProps> = ({ label, name, disabled, maxLength, type = 'number' }) => {
+export const ParamsFormField: FC<ParamsFormFieldProps> = ({ label = '', name, disabled, maxLength, type = 'number' }) => {
   const { control } = useFormContext();
   return (
     <FormField
@@ -27,19 +28,19 @@ export const ParamsFormField: FC<ParamsFormFieldProps> = ({ label, name, disable
               <FormControl>
                 <Checkbox id={name} disabled={disabled} checked={field.value} onCheckedChange={field.onChange} />
               </FormControl>
-              <FormLabel htmlFor={name} className="capitalize aria-disabled:text-stone-400/50" aria-disabled={disabled}>
+              <FormLabel htmlFor={name} className="aria-disabled:text-stone-400/50" aria-disabled={disabled}>
                 {label}
               </FormLabel>
             </div>
           ) : (
             <>
-              <FormLabel htmlFor={name} className="capitalize aria-disabled:text-stone-400/50" aria-disabled={disabled}>
+              <FormLabel htmlFor={name} className="aria-disabled:text-stone-400/50" aria-disabled={disabled}>
                 {label}
               </FormLabel>
               <FormControl>
                 <Input
                   id={name}
-                  className={cn('capitalize disabled:text-stone-400')}
+                  className={cn('disabled:text-stone-400')}
                   placeholder={name}
                   type={type}
                   max={maxLength}
