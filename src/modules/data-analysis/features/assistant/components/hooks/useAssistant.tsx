@@ -5,9 +5,11 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useCallback, useMemo, useState } from 'react';
 import { useAssistantContext } from '../../context/useAssistantContext';
 import { COMMANDS } from '../../types/commands';
+import { useTranslation } from 'react-i18next';
 
 type STATUS = 'idle' | 'loading' | 'completed';
 export function useAssistant() {
+  const { t } = useTranslation('translation', { keyPrefix: 'assistant' });
   const model = useAssistantContext();
 
   const [chat, setChat] = useChatSession();
@@ -81,7 +83,7 @@ export function useAssistant() {
         case COMMANDS.help: {
           setMessages(generateId(), {
             role: 'assistant',
-            text: `Available commands: \n **/clear** - clear chat \n **/exit** - end chat`
+            text: t('commands')
           });
           break;
         }
