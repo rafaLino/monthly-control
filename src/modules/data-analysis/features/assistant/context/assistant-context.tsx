@@ -11,13 +11,5 @@ export const AssistantContext = createContext<GenerativeModel | undefined>(undef
 export const AssistantProvider = ({ children }: PropsWithChildren) => {
   const model = useRef<{ model: GenerativeModel } | undefined>(initConfig());
 
-  // useEffect(() => {
-  //   const config = initConfig();
-  //   if (!config?.model) {
-  //     return;
-  //   }
-  //   model.current = config.model;
-  // }, []);
-
   return <AssistantContext.Provider value={model.current?.model}>{children}</AssistantContext.Provider>;
 };

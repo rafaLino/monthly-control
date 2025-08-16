@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
+import { Message } from '@/types/message';
 import { FC, useEffect, useRef } from 'react';
 import { MarkdownHooks } from 'react-markdown';
-import { Message } from '../../../../../../types/message';
 type MessageBoxProps = {
   messages: Array<Message>;
 };
