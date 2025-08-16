@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import { FC, useEffect, useRef } from 'react';
-import Markdown from 'react-markdown';
-import { Message } from '../../types/message';
+import { MarkdownHooks } from 'react-markdown';
+import { Message } from '../../../../../../types/message';
 type MessageBoxProps = {
   messages: Array<Message>;
 };
@@ -23,7 +23,7 @@ export const MessageBox: FC<MessageBoxProps> = ({ messages: talks }) => {
             talk.role === 'user' ? 'bg-sky-100 dark:bg-sky-800 self-end text-right' : 'bg-neutral-100 dark:bg-neutral-700'
           )}
         >
-          <Markdown>{talk.text}</Markdown>
+          <MarkdownHooks>{talk.text}</MarkdownHooks>
         </div>
       ))}
       <i aria-label="endOfSection" ref={endOfSectionRef} />

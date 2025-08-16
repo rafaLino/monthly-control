@@ -3,6 +3,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Toggle } from '@/components/ui/toggle';
 import { Loader2Icon, Paperclip } from 'lucide-react';
 import { FC, KeyboardEvent, memo, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type MessageInputProps = {
   onInputValue: (value: string) => void;
@@ -11,6 +12,7 @@ type MessageInputProps = {
   loading?: boolean;
 };
 export const MessageInput: FC<MessageInputProps> = memo(({ onInputValue, onAttachmentChange, attachmentEnabled, loading }) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'assistant' });
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const handleKeyDown = (event: KeyboardEvent) => {
@@ -27,7 +29,8 @@ export const MessageInput: FC<MessageInputProps> = memo(({ onInputValue, onAttac
     <div className="my-2">
       <Textarea
         ref={inputRef}
-        placeholder="Ask to assistant..."
+        disabled={loading}
+        placeholder={t('inputPlaceholder')}
         className="resize-none min-h-5 h-12 text-zinc-500 dark:text-zinc-100"
         onKeyDown={handleKeyDown}
       />

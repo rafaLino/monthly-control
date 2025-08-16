@@ -5,6 +5,7 @@ import { Register } from '@/types/register.types';
 import { StateCreator, create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { DataAnalysisSlice, GlobalState, PlannerSlice } from './global.state';
+import { Message, MessageInput } from '@/types/message';
 const THREE_SECONDS = 3_000;
 
 const createPlannerSlice: StateCreator<GlobalState, [], [], PlannerSlice> = (set, get) => ({
@@ -58,8 +59,28 @@ const createPlannerSlice: StateCreator<GlobalState, [], [], PlannerSlice> = (set
 
 const createDataAnalysisSlice: StateCreator<GlobalState, [], [], DataAnalysisSlice> = (set) => ({
   params: DEFAULT_LOCAL_PARAMS,
+  messages: new Map<string, Message>(),
+  chatSession: undefined,
   dataAnalysisActions: {
-    setParams: (params) => set((prev) => ({ params: { ...prev.params, ...params } }))
+    setParams: (params) => set((prev) => ({ params: { ...prev.params, ...params } })),
+    setChatSession: (session) => set({ chatSession: session }),
+    setMessages: (id: string, message: MessageInput) =>
+      set((state) => {
+        const messages = new Map(state.messages);
+
+        if (messages.has(id)) {
+          let text = messages.get(id)!.text;
+          text += ` ${message.text}`;
+          const newMessage = { ...message, text };
+          messages.set(id, newMessage);
+
+          return { messages };
+        }
+
+        messages.set(id, message);
+        return { messages };
+      }),
+    clearMessages: () => set({ messages: new Map<string, MessageInput>() })
   }
 });
 

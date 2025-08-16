@@ -109,7 +109,9 @@
     "description": "Establezca aquí sus parámetros",
     "disableAutoDownload": "Desactivar la descarga automática",
     "defaultWaitingTime": "Tiempo de espera predeterminado para generar el archivo CSV",
-    "gridCol": "Columna de la cuadrícula"
+    "gridCol": "Columna de la cuadrícula",
+    "aiAssistant": "Asistente de IA",
+    "aiModel": "Modelo de IA"
   },
   "projectionDialog": {
     "title": "Proyección",
@@ -118,5 +120,11 @@
     "name": "Nombre",
     "value": "Valor",
     "clear": "Limpiar"
+  },
+  "assistant": {
+    "title": "Asistente de IA",
+    "description": "Haga preguntas sobre sus finanzas",
+    "inputPlaceholder": "Escriba su pregunta...",
+    "commands": "Comandos disponibles: \n **clear** - Limpiar conversación \n **exit** - Terminar conversación \n **help** - Mostrar comandos disponibles"
   }
 }

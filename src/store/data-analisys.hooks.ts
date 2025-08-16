@@ -1,5 +1,6 @@
 import { DEFAULT_LOCAL_PARAMS, LocalParams } from '@/types/local-params';
 import { useGlobalStore } from './store';
+import { Message } from '@/types/message';
 
 type TKey = keyof LocalParams;
 type TValue = LocalParams[TKey];
@@ -30,3 +31,27 @@ export function useLocalParams<E extends TValue>(param: TKey) {
 export function useLocalParamsAll() {
   return useGlobalStore((state) => [state.params, state.dataAnalysisActions.setParams] as const);
 }
+
+export function useMessages(): Message[] {
+  return useGlobalStore((state) => {
+    return Array.from(state.messages, ([key, value]) => ({ id: key, ...value }));
+  });
+}
+
+export function useChatSession() {
+  return useGlobalStore((state) => [state.chatSession, state.dataAnalysisActions.setChatSession] as const);
+}
+
+export function useSetMessages() {
+  return useGlobalStore((state) => ({
+    setMessages: state.dataAnalysisActions.setMessages,
+    clearMessages: state.dataAnalysisActions.clearMessages
+  }));
+}
+
+//services
+export const getParam = <E extends TValue = string>(name: TKey) => {
+  const params = useGlobalStore.getState().params;
+
+  return (params[name] ?? DEFAULT_LOCAL_PARAMS[name]) as E;
+};

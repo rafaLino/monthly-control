@@ -109,7 +109,9 @@
     "description": "Set here your parameters",
     "disableAutoDownload": "Disable automatic download",
     "defaultWaitingTime": "Default waiting time for generate csv",
-    "gridCol": "Grid col"
+    "gridCol": "Grid col",
+    "aiAssistant": "AI Assistant",
+    "aiModel": "AI Model"
   },
   "projectionDialog": {
     "title": "Projection",
@@ -118,5 +120,11 @@
     "name": "Name",
     "value": "Value",
     "clear": "Clear"
+  },
+  "assistant": {
+    "title": "AI Assistant",
+    "description": "Ask questions about your finances",
+    "inputPlaceholder": "Type your question...",
+    "commands": "Available commands: \n **clear** - Clear conversation \n **exit** - End conversation \n **help** - Show available commands"
   }
 }

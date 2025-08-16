@@ -24,8 +24,7 @@ const envSchema = z.object({
         messagingSenderId: values[4],
         appId: values[5]
       };
-    }),
-  VITE_AI_MODEL: z.string().optional()
+    })
 });
 
 export default envSchema.parse(import.meta.env);

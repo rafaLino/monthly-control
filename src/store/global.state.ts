@@ -1,6 +1,8 @@
+import { MessageInput } from '@/types/message';
 import { Goal } from '@/types/goal';
 import { LocalParams } from '@/types/local-params';
 import { Register } from '@/types/register.types';
+import { ChatSession } from 'firebase/ai';
 
 export type SetRegistersActionType =
   | { type: 'add'; payload: { name: string; value: number } }
@@ -33,8 +35,13 @@ export interface PlannerSlice {
 
 export interface DataAnalysisSlice {
   params: LocalParams;
+  messages: Map<string, MessageInput>;
+  chatSession: ChatSession | undefined;
   dataAnalysisActions: {
     setParams: (params: Partial<LocalParams>) => void;
+    setChatSession: (session: ChatSession | undefined) => void;
+    setMessages: (id: string, message: MessageInput) => void;
+    clearMessages: () => void;
   };
 }
 

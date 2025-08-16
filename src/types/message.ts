@@ -3,3 +3,8 @@ export interface Message {
   text: string;
   id: string;
 }
+
+export type MessageInput = {
+  role: 'user' | 'assistant';
+  text: string;
+};

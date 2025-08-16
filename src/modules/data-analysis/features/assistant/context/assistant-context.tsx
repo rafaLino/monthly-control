@@ -1,23 +1,23 @@
 import { GenerativeModel } from 'firebase/ai';
-import { PropsWithChildren, createContext, useEffect, useRef } from 'react';
+import { PropsWithChildren, createContext, useRef } from 'react';
 import initConfig from '../config/initConfig';
 
 export type AssistantContext = {
   model: GenerativeModel;
 };
 
-export const AssistantContext = createContext<GenerativeModel | null>(null);
+export const AssistantContext = createContext<GenerativeModel | undefined>(undefined);
 
 export const AssistantProvider = ({ children }: PropsWithChildren) => {
-  const model = useRef<GenerativeModel | null>(null);
+  const model = useRef<{ model: GenerativeModel } | undefined>(initConfig());
 
-  useEffect(() => {
-    const config = initConfig();
-    if (!config?.model) {
-      return;
-    }
-    model.current = config.model;
-  }, []);
+  // useEffect(() => {
+  //   const config = initConfig();
+  //   if (!config?.model) {
+  //     return;
+  //   }
+  //   model.current = config.model;
+  // }, []);
 
-  return <AssistantContext.Provider value={model.current}>{children}</AssistantContext.Provider>;
+  return <AssistantContext.Provider value={model.current?.model}>{children}</AssistantContext.Provider>;
 };

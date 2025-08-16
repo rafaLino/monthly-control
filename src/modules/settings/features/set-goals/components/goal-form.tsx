@@ -9,9 +9,9 @@ export function GoalForm() {
   return (
     <>
       <div className="flex flex-row gap-2">
-        <GoalFormField name="incomes" disabled={!enabled} />
-        <GoalFormField name="expenses" disabled={!enabled} />
-        <GoalFormField name="investments" disabled={!enabled} />
+        <GoalFormField label={t('goalSettings.incomes')} name="incomes" disabled={!enabled} />
+        <GoalFormField label={t('goalSettings.expenses')} name="expenses" disabled={!enabled} />
+        <GoalFormField label={t('goalSettings.investments')} name="investments" disabled={!enabled} />
       </div>
       <div className="mt-2">
         <FormDescription>{t('goalSettings.helper')}</FormDescription>

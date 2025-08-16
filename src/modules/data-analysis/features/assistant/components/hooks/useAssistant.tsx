@@ -1,48 +1,53 @@
 import { generateId } from '@/lib/utils';
+import { useChatSession, useSetMessages } from '@/store';
 import { QueryKeys } from '@/types/queryKeys';
 import { useQueryClient } from '@tanstack/react-query';
-import { ChatSession } from 'firebase/ai';
 import { useCallback, useMemo, useState } from 'react';
 import { useAssistantContext } from '../../context/useAssistantContext';
-import { Message } from '../../types/message';
+import { COMMANDS } from '../../types/commands';
 
 type STATUS = 'idle' | 'loading' | 'completed';
 export function useAssistant() {
   const model = useAssistantContext();
-  const [isStarted, setIsStarted] = useState<boolean>(false);
-  const [error, setError] = useState<string>('');
-  const [modelChat, setModelChat] = useState<ChatSession>();
+
+  const [chat, setChat] = useChatSession();
   const [status, setStatus] = useState<STATUS>('idle');
   const [withContext, setWithContext] = useState<boolean>(false);
-  const [responseMessage, setResponseMessage] = useState<Message>({ id: generateId(), role: 'assistant', text: '' });
+  const { setMessages, clearMessages } = useSetMessages();
   const queryClient = useQueryClient();
 
   const getChat = useCallback(() => {
-    if (isStarted) return modelChat!;
+    if (chat) return chat;
 
+    if (!model) {
+      throw new Error('Assistant model is not initialized');
+    }
     const newChat = model.startChat();
-    setModelChat(newChat);
-    setIsStarted(true);
+    setChat(newChat);
     return newChat;
-  }, [modelChat, model]);
+  }, [chat, model]);
 
   const sendMessage = useCallback(
-    async (message: Message) => {
+    async (text: string) => {
       setStatus('loading');
+
       try {
         const chat = getChat();
         const requestMessage = withContext
-          ? [message.text, queryClient.getQueryData<{ csv: string }>([QueryKeys.generateMetadata])?.csv || '']
-          : [message.text];
+          ? [text, queryClient.getQueryData<{ csv: string }>([QueryKeys.generateMetadata])?.csv || '']
+          : [text];
 
         const result = await chat.sendMessageStream(requestMessage);
-
+        const id = generateId();
         for await (const chunk of result.stream) {
-          setResponseMessage((prev) => ({ ...prev, text: `${prev.text} ${chunk.text()}` }));
+          setMessages(id, { text: chunk.text(), role: 'assistant' });
         }
       } catch (error) {
         if (error instanceof Error) {
-          setError(error.message);
+          setMessages(generateId(), {
+            text: error.message,
+            role: 'assistant'
+          });
         }
       } finally {
         setStatus('completed');
@@ -51,9 +56,39 @@ export function useAssistant() {
     [getChat, withContext]
   );
 
-  const resetMessage = useCallback(() => {
-    setResponseMessage({ id: generateId(), role: 'assistant', text: '' });
-  }, []);
+  const addMessage = useCallback(
+    async (value: string) => {
+      if (value.startsWith('/')) {
+        handleCommand(value);
+        return;
+      }
+      const text = value.trim();
+      setMessages(generateId(), { text, role: 'user' });
+      await sendMessage(text);
+    },
+    [sendMessage, setMessages]
+  );
+
+  const handleCommand = useCallback(
+    (value: string) => {
+      switch (value.trim()) {
+        case COMMANDS.clear:
+          clearMessages();
+          break;
+        case COMMANDS.exit:
+          setChat(undefined);
+          break;
+        case COMMANDS.help: {
+          setMessages(generateId(), {
+            role: 'assistant',
+            text: `Available commands: \n **/clear** - clear chat \n **/exit** - end chat`
+          });
+          break;
+        }
+      }
+    },
+    [setMessages]
+  );
 
   const statusValue = useMemo(() => {
     return {
@@ -63,13 +98,10 @@ export function useAssistant() {
   }, [status]);
 
   return {
-    error,
+    ...statusValue,
     status,
-    sendMessage,
-    setWithContext,
-    resetMessage,
-    responseMessage,
     withContext,
-    ...statusValue
+    setWithContext,
+    addMessage
   };
 }
