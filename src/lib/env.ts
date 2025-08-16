@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { parseFirebaseConfig } from './parse-firebase-config';
 
 const envSchema = z.object({
   VITE_CLIENT_ID: z.string(),
@@ -10,21 +11,7 @@ const envSchema = z.object({
     .string()
     .nullish()
     .transform((val) => (val ? val === 'on' : true)),
-  VITE_FIREBASE_CONFIG: z
-    .string()
-    .nullish()
-    .transform((val) => {
-      if (!val) return null;
-      const values = val.split(',');
-      return {
-        apiKey: values[0],
-        authDomain: values[1],
-        projectId: values[2],
-        storageBucket: values[3],
-        messagingSenderId: values[4],
-        appId: values[5]
-      };
-    })
+  VITE_FIREBASE_CONFIG: z.string().nullish().transform(parseFirebaseConfig)
 });
 
 export default envSchema.parse(import.meta.env);
