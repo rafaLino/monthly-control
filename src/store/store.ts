@@ -1,11 +1,11 @@
 import { setRegisters } from '@/lib/business-logic';
 import { Goal } from '@/types/goal';
 import { DEFAULT_LOCAL_PARAMS } from '@/types/local-params';
+import { Message, MessageInput } from '@/types/message';
 import { Register } from '@/types/register.types';
 import { StateCreator, create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { DataAnalysisSlice, GlobalState, PlannerSlice } from './global.state';
-import { Message, MessageInput } from '@/types/message';
 const THREE_SECONDS = 3_000;
 
 const createPlannerSlice: StateCreator<GlobalState, [], [], PlannerSlice> = (set, get) => ({

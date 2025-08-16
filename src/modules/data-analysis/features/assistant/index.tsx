@@ -1,6 +1,6 @@
 import env from '@/lib/env';
-import { AssistantDialog } from './assistantDialog';
 import { useLocalParams } from '@/store';
+import { AssistantDialog } from './assistantDialog';
 
 export const Assistant = () => {
   const [enabledAssistant] = useLocalParams<boolean>('ai_assistant');

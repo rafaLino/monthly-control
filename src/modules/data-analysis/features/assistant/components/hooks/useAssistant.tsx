@@ -3,9 +3,9 @@ import { useChatSession, useSetMessages } from '@/store';
 import { QueryKeys } from '@/types/queryKeys';
 import { useQueryClient } from '@tanstack/react-query';
 import { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAssistantContext } from '../../context/useAssistantContext';
 import { COMMANDS } from '../../types/commands';
-import { useTranslation } from 'react-i18next';
 
 type STATUS = 'idle' | 'loading' | 'completed';
 export function useAssistant() {

@@ -1,6 +1,6 @@
-import { MessageInput } from '@/types/message';
 import { Goal } from '@/types/goal';
 import { LocalParams } from '@/types/local-params';
+import { MessageInput } from '@/types/message';
 import { Register } from '@/types/register.types';
 import { ChatSession } from 'firebase/ai';
 

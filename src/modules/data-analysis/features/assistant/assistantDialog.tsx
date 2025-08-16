@@ -1,9 +1,9 @@
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 import { useKeyDown } from '@/hooks/useKeyDown';
-import { lazy, Suspense, useState } from 'react';
-import { AssistantProvider } from './context/assistant-context';
-import { ChatSkeleton } from './components/chat/chat-skeleton';
+import { Suspense, lazy, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ChatSkeleton } from './components/chat/chat-skeleton';
+import { AssistantProvider } from './context/assistant-context';
 
 const Chat = lazy(() => import('./components/chat').then((mod) => ({ default: mod.Chat })));
 

@@ -1,6 +1,6 @@
 import { DEFAULT_LOCAL_PARAMS, LocalParams } from '@/types/local-params';
-import { useGlobalStore } from './store';
 import { Message } from '@/types/message';
+import { useGlobalStore } from './store';
 
 type TKey = keyof LocalParams;
 type TValue = LocalParams[TKey];
