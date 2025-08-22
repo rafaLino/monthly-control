@@ -9,7 +9,7 @@ let firebaseApp: FirebaseApp;
 let ai: AI;
 export default function initConfig() {
   if (!env.VITE_FIREBASE_CONFIG || !env.VITE_ONLINE) return;
-
+  
   // Initialize Firebase
   firebaseApp ??= initializeApp(env.VITE_FIREBASE_CONFIG);
 
@@ -19,5 +19,5 @@ export default function initConfig() {
   // Create a `GenerativeModel` instance with a model that supports your use case
   const model = getGenerativeModel(ai, { model: getAiModelName() });
 
-  return { model };
+  return model;
 }
