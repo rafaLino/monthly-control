@@ -9,7 +9,7 @@ let firebaseApp: FirebaseApp;
 let ai: AI;
 export default function initConfig() {
   if (!env.VITE_FIREBASE_CONFIG || !env.VITE_ONLINE) return;
-  
+
   // Initialize Firebase
   firebaseApp ??= initializeApp(env.VITE_FIREBASE_CONFIG);
 
