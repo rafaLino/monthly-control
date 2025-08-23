@@ -27,7 +27,7 @@ export const MessageBox: FC<MessageBoxProps> = memo(({ messages }) => {
 });
 MessageBox.displayName = 'MessageBox';
 
-const MessageContent: FC<{ role: MessageRole; content: string; error?: boolean }> = memo(({ role, content }) => {
+const MessageContent: FC<{ role: MessageRole; content: string }> = memo(({ role, content }) => {
   const isUser = role === 'user';
 
   return (
@@ -55,18 +55,22 @@ const ICONS: Record<MessageRole, JSX.Element> = {
   system: <Wrench />,
   error: <Bomb />
 };
-const MessageIcon: FC<{ role: MessageRole; show: boolean }> = ({ role, show }) => {
-  return show ? (
-    <div
-      className={cn(
-        'bg-neutral-100 dark:bg-gray-700 rounded-full p-2 hidden sm:block',
-        role === 'system' && 'text-green-700 bg-green-100',
-        role === 'assistant' && 'text-orange-700 bg-orange-100',
-        role === 'user' && 'text-sky-700 bg-sky-100',
-        role === 'error' && 'text-red-700 bg-red-100'
-      )}
-    >
-      {ICONS[role]}
-    </div>
-  ) : null;
+
+const getColor = (role: MessageRole): string => {
+  switch (role) {
+    case 'user':
+      return 'text-sky-700 bg-sky-100';
+    case 'assistant':
+      return 'text-orange-700 bg-orange-100';
+    case 'system':
+      return 'text-green-700 bg-green-100';
+    case 'error':
+      return 'text-red-700 bg-red-100';
+    default:
+      return 'bg-neutral-100 dark:bg-gray-700';
+  }
 };
+const MessageIcon: FC<{ role: MessageRole; show: boolean }> = memo(({ role, show }) => {
+  return show ? <div className={cn('rounded-full p-2 hidden sm:block', getColor(role))}>{ICONS[role]}</div> : null;
+});
+MessageIcon.displayName = 'MessageIcon';

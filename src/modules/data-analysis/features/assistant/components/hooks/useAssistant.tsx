@@ -48,7 +48,7 @@ export function useAssistant() {
         if (error instanceof Error) {
           setMessages(generateId(), {
             text: error.message,
-            role: 'system'
+            role: 'error'
           });
         }
       } finally {
