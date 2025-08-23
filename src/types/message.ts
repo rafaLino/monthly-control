@@ -1,10 +1,11 @@
+export type MessageRole = 'user' | 'assistant' | 'system' | 'error';
 export interface Message {
-  role: 'user' | 'assistant';
+  role: MessageRole;
   text: string;
   id: string;
 }
 
 export type MessageInput = {
-  role: 'user' | 'assistant';
+  role: MessageRole;
   text: string;
 };

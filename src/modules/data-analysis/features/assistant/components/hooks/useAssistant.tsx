@@ -36,7 +36,7 @@ export function useAssistant() {
       try {
         const chat = getChat();
         const requestMessage = withContext
-          ? [text, queryClient.getQueryData<{ csv: string }>([QueryKeys.generateMetadata])?.csv || '']
+          ? [queryClient.getQueryData<{ csv: string }>([QueryKeys.generateMetadata])?.csv || '', text]
           : [text];
 
         const result = await chat.sendMessageStream(requestMessage);
@@ -48,7 +48,7 @@ export function useAssistant() {
         if (error instanceof Error) {
           setMessages(generateId(), {
             text: error.message,
-            role: 'assistant'
+            role: 'error'
           });
         }
       } finally {
@@ -82,7 +82,7 @@ export function useAssistant() {
           break;
         case COMMANDS.help: {
           setMessages(generateId(), {
-            role: 'assistant',
+            role: 'system',
             text: t('commands')
           });
           break;

@@ -19,5 +19,5 @@ export default function initConfig() {
   // Create a `GenerativeModel` instance with a model that supports your use case
   const model = getGenerativeModel(ai, { model: getAiModelName() });
 
-  return { model };
+  return model;
 }

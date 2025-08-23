@@ -70,7 +70,7 @@ const createDataAnalysisSlice: StateCreator<GlobalState, [], [], DataAnalysisSli
 
         if (messages.has(id)) {
           let text = messages.get(id)!.text;
-          text += ` ${message.text}`;
+          text += message.text;
           const newMessage = { ...message, text };
           messages.set(id, newMessage);
 
