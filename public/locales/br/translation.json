@@ -102,7 +102,9 @@
     "gridLayout": "Disposição do painel",
     "generateData": "Gerar dados",
     "dropZoneDescription": "Arraste seu arquivo csv aqui ou <italic>clique para selecionar</italic>",
-    "whereDoesMyMoneygo": "Onde está indo meu dinheiro?"
+    "whereDoesMyMoneygo": "Onde está indo meu dinheiro?",
+    "select": "Selecione",
+    "summary": "Resumo"
   },
   "paramsSettings": {
     "title": "Parâmetros",

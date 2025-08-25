@@ -32,7 +32,10 @@ const METADATAS_FN = [
   createInvestmentsEvolutionPerYearMetadata,
   createWhereDoesMyIncomeComesFromMetadata,
   createWhereDoMyExpensesGoMetadata,
-  createWhereDoMyInvestmentsGoMetadata
+  createWhereDoMyInvestmentsGoMetadata,
+  createIncomesPerMonthMetadata,
+  createExpensesPerMonthMetadata,
+  createInvestmentsPerMonthMetadata
 ];
 
 export function generateMetadata(csv: string) {
@@ -370,4 +373,49 @@ function createWhereDoMyExpensesGoMetadata(items: Items[]): Metadata<{ name: str
 
 function createWhereDoMyInvestmentsGoMetadata(items: Items[]): Metadata<{ name: string; value: number; fill: string }> {
   return createWhereIsMyMoneyMetadata('investments', items);
+}
+
+function createRegisterPerMonthMetadata(type: RegisterType, items: Items[]): Metadata<any> {
+  const data = items
+    .flatMap((item) =>
+      item[type].map((register) => {
+        const name = removeAccents(register.name);
+        return {
+          name,
+          [name]: register.value,
+          date: item.date,
+          fill: `var(--color-${name})`
+        };
+      })
+    )
+    .toSorted((a, b) => a.date.getTime() - b.date.getTime());
+
+  const colors = randomColor({ count: data.length, luminosity: 'bright', format: 'hsl', hue: getColor(type) });
+
+  const config = data.reduce((acc, curr, index) => {
+    acc[curr.name] = {
+      label: curr.name,
+      color: colors[index]
+    };
+    return acc;
+  }, {} as ChartConfig);
+
+  return {
+    data,
+    config,
+    dataKey: 'date',
+    type: `review${capitalize(type)}` as MetadataType
+  };
+}
+
+function createIncomesPerMonthMetadata(items: Items[]): Metadata<{ name: string; value: number; fill: string }> {
+  return createRegisterPerMonthMetadata('incomes', items);
+}
+
+function createExpensesPerMonthMetadata(items: Items[]): Metadata<{ name: string; value: number; fill: string }> {
+  return createRegisterPerMonthMetadata('expenses', items);
+}
+
+function createInvestmentsPerMonthMetadata(items: Items[]): Metadata<{ name: string; value: number; fill: string }> {
+  return createRegisterPerMonthMetadata('investments', items);
 }
