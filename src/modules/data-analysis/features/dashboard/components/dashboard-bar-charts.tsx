@@ -4,16 +4,22 @@ import { PerMonthBarChart } from './per-month-bar-chart';
 import { PerMonthLinearChart } from './per-month-linear-chart';
 import { PerYearBarChart } from './per-year-bar-chart';
 import { PerYearLinearChart } from './per-year-linear-chart';
+import { ReviewPerMonthChart } from './review-per-month-chart';
 import { WhereIsMyMoneyPieChart } from './where-is-my-money-pie-chart';
 
 type Props<T> = {
   type: MetadataType;
 } & BaseBarChartProps<T>;
 
-export const DashboardBarCharts = <T,>({ type, ...props }: Readonly<Props<T>>) => {
+export const DashboardBarCharts = <T extends object>({ type, ...props }: Readonly<Props<T>>) => {
   switch (type) {
     case 'groupPerMonth':
       return <PerMonthBarChart {...props} />;
+
+    case 'reviewIncomes':
+    case 'reviewExpenses':
+    case 'reviewInvestments':
+      return <ReviewPerMonthChart {...props} />;
 
     case 'groupPerYear':
       return <PerYearBarChart {...props} />;

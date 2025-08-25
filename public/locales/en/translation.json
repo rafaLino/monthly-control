@@ -102,7 +102,9 @@
     "gridLayout": "Grid layout",
     "generateData": "Generate data",
     "dropZoneDescription": "Drop your csv file here or <italic>click to select</italic>",
-    "whereDoesMyMoneygo": "Where does my money go?"
+    "whereDoesMyMoneygo": "Where does my money go?",
+    "select": "Select",
+    "summary": "Summary"
   },
   "paramsSettings": {
     "title": "Parameters",
