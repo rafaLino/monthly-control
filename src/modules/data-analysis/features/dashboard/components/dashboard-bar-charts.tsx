@@ -11,7 +11,7 @@ type Props<T> = {
   type: MetadataType;
 } & BaseBarChartProps<T>;
 
-export const DashboardBarCharts = <T,>({ type, ...props }: Readonly<Props<T>>) => {
+export const DashboardBarCharts = <T extends object>({ type, ...props }: Readonly<Props<T>>) => {
   switch (type) {
     case 'groupPerMonth':
       return <PerMonthBarChart {...props} />;

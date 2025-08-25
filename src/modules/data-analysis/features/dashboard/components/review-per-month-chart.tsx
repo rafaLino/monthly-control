@@ -12,7 +12,7 @@ type Props<T> = {
   config: ChartConfig;
   dataKey: string;
 };
-export const ReviewPerMonthChart = <T,>({ data, config, dataKey }: Props<T>) => {
+export const ReviewPerMonthChart = <T extends object>({ data, config, dataKey }: Props<T>) => {
   const { t } = useTranslation('translation');
   const bars = useMemo(() => Object.keys(config), [config]);
   const [activeChart, setActiveChart] = useState<keyof typeof config>('');
@@ -24,7 +24,7 @@ export const ReviewPerMonthChart = <T,>({ data, config, dataKey }: Props<T>) => 
     [t]
   );
 
-  const dataChart = useMemo(() => data.filter((x) => (x as any).name === activeChart), [activeChart]);
+  const dataChart = useMemo(() => data.filter((x) => 'name' in x && x.name === activeChart), [activeChart]);
 
   const chartTooltipContentFormatter = useCallback(
     (value: ValueType, name: NameType, item: Payload<ValueType, NameType>, index: number) => {
@@ -68,12 +68,9 @@ export const ReviewPerMonthChart = <T,>({ data, config, dataKey }: Props<T>) => 
         >
           <CartesianGrid vertical={false} />
           <XAxis dataKey={dataKey} tickLine={false} axisLine={false} tickMargin={0} tickFormatter={tickFormatter} />
-          <ChartTooltip
-            cursor={false}
-            content={<ChartTooltipContent nameKey="date" hideLabel formatter={chartTooltipContentFormatter} />}
-          />
+          <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel formatter={chartTooltipContentFormatter} />} />
 
-          <Bar dataKey={activeChart} stackId={'moth'} fill={`var(--color-${activeChart})`}>
+          <Bar dataKey={activeChart} fill={`var(--color-${activeChart})`}>
             <LabelList
               position="top"
               offset={12}
