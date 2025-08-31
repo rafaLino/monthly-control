@@ -1,7 +1,7 @@
 {
   "name": "monthly-control",
   "private": true,
-  "version": "2.6.1",
+  "version": "2.7.0",
   "type": "module",
   "scripts": {
     "start": "npm run build && vite preview --port=3000",
@@ -51,7 +51,7 @@
     "idb": "^8.0.3",
     "idb-keyval": "^6.2.2",
     "js-cookie": "^3.0.5",
-    "lucide-react": "^0.428.0",
+    "lucide-react": "^0.542.0",
     "next-themes": "^0.3.0",
     "randomcolor": "^0.6.2",
     "react": "^18.3.1",
