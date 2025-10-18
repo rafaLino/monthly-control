@@ -13,10 +13,9 @@ export function useSave() {
   const save = useCallback(async () => {
     setSyncing(true);
     await saveRegisters(getAll());
-
+    updateLocalVersion();
     setTimeout(() => {
       setSyncing(false);
-      updateLocalVersion();
     }, THREE_SECONDS);
   }, []);
 
