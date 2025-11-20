@@ -1,18 +1,18 @@
-import { DotIndicator } from '@/components/dot-indicator/dot-indicator';
 import { Button } from '@/components/ui/button';
-import { useDataVersion } from '@/hooks/useDataVersion';
+import { useCheckOutdatedData } from '@/hooks/useCheckOutdatedData';
 import { saveRegisters } from '@/lib/fetch-registers';
 import { apiService } from '@/services/api.service';
 import { useActions } from '@/store';
 import { Download, Upload } from 'lucide-react';
 import { useState } from 'react';
+import { updateLastAccess } from '../actions/update-last-access';
 import { OutdatedDataNotification } from './outdated-data-notification';
 
 export const SaveOnCloudActions = () => {
   const [uploading, setUploading] = useState(false);
   const [downloading, setDownloading] = useState(false);
   const { setRegisters, getRegisters } = useActions();
-  const { isLocalOutdated, isServerOutdated, syncServerVersion, syncLocalVersion } = useDataVersion();
+  const { isOutdated, setIsOutdated } = useCheckOutdatedData();
 
   const handleDowload = async () => {
     setDownloading(true);
@@ -22,7 +22,7 @@ export const SaveOnCloudActions = () => {
       if (data) {
         setRegisters(data.incomes, data.expenses, data.investments);
         await saveRegisters(data);
-        syncLocalVersion();
+        setIsOutdated(false);
       }
     } finally {
       setDownloading(false);
@@ -33,8 +33,7 @@ export const SaveOnCloudActions = () => {
     setUploading(true);
     const data = getRegisters();
     try {
-      await apiService.save(data);
-      syncServerVersion();
+      await Promise.all([apiService.save(data), updateLastAccess()]);
     } finally {
       setUploading(false);
     }
@@ -42,7 +41,7 @@ export const SaveOnCloudActions = () => {
 
   return (
     <div className="flex">
-      <OutdatedDataNotification show={isLocalOutdated} onAction={handleDowload} />
+      <OutdatedDataNotification show={isOutdated} onAction={handleDowload} />
       <Button variant="ghost" className="disabled:text-stone-200 px-2 md:px-4" disabled={downloading} onClick={handleDowload}>
         <Download />
       </Button>
@@ -52,7 +51,6 @@ export const SaveOnCloudActions = () => {
         disabled={uploading}
         onClick={handleUpload}
       >
-        <DotIndicator active={isServerOutdated} animate />
         <Upload />
       </Button>
     </div>

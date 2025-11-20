@@ -2,11 +2,11 @@ import { DynamicBreadcrumb } from '@/components/dynamic-breadcrumb/dynamic-bread
 import { ProgressStatus } from '@/components/progress-status';
 import { LanguageSelector } from '@/features/language-selector';
 import { ReferenceDate } from '@/features/reference-date';
+import { RegisterAccess } from '@/features/register-access';
 import { UserMenu } from '@/features/user-menu';
 import { SaveOnCloud } from '@/modules/planner/features/save-on-cloud';
 import { Outlet } from '@tanstack/react-router';
 import { SideBar } from './sidebar';
-import { RegisterAccess } from '@/features/register-access';
 
 type MainLayoutProps = {
   pageLoading?: boolean;
