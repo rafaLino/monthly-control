@@ -5,6 +5,11 @@ import { useState } from 'react';
 import { useCookiesStorage } from './useCookiesStorage';
 import { useLocalStorage } from './useLocalStorage';
 
+function checkIsOutdatedData(localAccessName: string | null, lastUpdatedAccess: string | undefined) {
+  if (!localAccessName || !lastUpdatedAccess) return false;
+  return localAccessName !== lastUpdatedAccess;
+}
+
 export function useCheckOutdatedData() {
   const [checked, setChecked] = useCookiesStorage('check-outdated-data');
   const [isOutdated, setIsOutdated] = useState(false);
@@ -13,12 +18,12 @@ export function useCheckOutdatedData() {
     async function get() {
       if (!checked && env.VITE_ONLINE) {
         const param = await paramsService.getParams('last_updated_access');
-        setIsOutdated(param?.value !== accessName);
+        setIsOutdated(checkIsOutdatedData(accessName, param?.value));
         setChecked(Date.now().toString());
       }
     }
     get();
-  }, []);
+  }, [accessName]);
 
   return { isOutdated, setIsOutdated };
 }
