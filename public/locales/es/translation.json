@@ -128,5 +128,10 @@
     "description": "Haga preguntas sobre sus finanzas",
     "inputPlaceholder": "Escriba su pregunta...",
     "commands": "Comandos disponibles: \n **clear** - Limpiar conversación \n **exit** - Terminar conversación \n **help** - Mostrar comandos disponibles"
+  },
+  "registerAccess": {
+    "title": "Ponle un nombre a este punto de acceso",
+    "placeholder": "Nombre del Acceso",
+    "save": "Guardar"
   }
 }

@@ -128,5 +128,10 @@
     "description": "Ask questions about your finances",
     "inputPlaceholder": "Type your question...",
     "commands": "Available commands: \n **clear** - Clear conversation \n **exit** - End conversation \n **help** - Show available commands"
+  },
+  "registerAccess": {
+    "title": "Give a name to this access point",
+    "placeholder": "Access Name",
+    "save": "Save"
   }
 }

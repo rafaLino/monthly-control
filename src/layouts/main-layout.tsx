@@ -2,6 +2,7 @@ import { DynamicBreadcrumb } from '@/components/dynamic-breadcrumb/dynamic-bread
 import { ProgressStatus } from '@/components/progress-status';
 import { LanguageSelector } from '@/features/language-selector';
 import { ReferenceDate } from '@/features/reference-date';
+import { RegisterAccess } from '@/features/register-access';
 import { UserMenu } from '@/features/user-menu';
 import { SaveOnCloud } from '@/modules/planner/features/save-on-cloud';
 import { Outlet } from '@tanstack/react-router';
@@ -14,6 +15,7 @@ export default function MainLayout({ pageLoading }: Readonly<MainLayoutProps>) {
   return (
     <div className="flex min-h-screen flex-col bg-muted/40">
       <ProgressStatus show={pageLoading} />
+      <RegisterAccess />
       <SideBar
         header={
           <>

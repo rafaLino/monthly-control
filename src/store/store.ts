@@ -95,5 +95,5 @@ export const useGlobalStore = create<GlobalState>()(
       name: 'local_params',
       partialize: (state) => ({ params: state.params })
     }
-  )
+  ) as StateCreator<GlobalState>
 );

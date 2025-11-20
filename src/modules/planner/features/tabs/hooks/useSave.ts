@@ -1,4 +1,3 @@
-import { useUpdateLocalVersion } from '@/hooks/useDataVersion';
 import { saveRegisters } from '@/lib/fetch-registers';
 import { getAll, useSync } from '@/store';
 import { useCallback, useEffect } from 'react';
@@ -8,12 +7,10 @@ const FIVE_MINUTES = 5 * 60 * 1000;
 
 export function useSave() {
   const [syncing, setSyncing] = useSync();
-  const { updateLocalVersion } = useUpdateLocalVersion();
 
   const save = useCallback(async () => {
     setSyncing(true);
     await saveRegisters(getAll());
-    updateLocalVersion();
     setTimeout(() => {
       setSyncing(false);
     }, THREE_SECONDS);
