@@ -6,6 +6,7 @@ import { UserMenu } from '@/features/user-menu';
 import { SaveOnCloud } from '@/modules/planner/features/save-on-cloud';
 import { Outlet } from '@tanstack/react-router';
 import { SideBar } from './sidebar';
+import { RegisterAccess } from '@/features/register-access';
 
 type MainLayoutProps = {
   pageLoading?: boolean;
@@ -14,6 +15,7 @@ export default function MainLayout({ pageLoading }: Readonly<MainLayoutProps>) {
   return (
     <div className="flex min-h-screen flex-col bg-muted/40">
       <ProgressStatus show={pageLoading} />
+      <RegisterAccess />
       <SideBar
         header={
           <>
