@@ -1,18 +1,17 @@
 import { FC } from 'react';
-import { ResultItem } from './result-item';
 import { useTranslation } from 'react-i18next';
+import { ResultItem } from './result-item';
 
 type ResultProps = {
-  show: boolean;
   column: { id: string; value: number };
   totals: Record<string, number>;
 };
-export const Result: FC<ResultProps> = ({ show, column, totals }) => {
-  const { t } = useTranslation('translation', { keyPrefix: 'projectionDialog' })
+export const Result: FC<ResultProps> = ({ column, totals }) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'projectionDialog' });
   const value = totals[column.id];
   const diff = column.value - value;
 
-  const display = show && value > 0;
+  const display = value > 0;
 
   return (
     display && (

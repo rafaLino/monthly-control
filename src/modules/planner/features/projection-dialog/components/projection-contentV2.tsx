@@ -3,45 +3,43 @@ import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import { useBoardColumns } from '../hooks/useBoardColumns';
 import { useBoardFeatures } from '../hooks/useBoardFeatures';
-import { checkSnapshotInSession, clearBoardSnapshot, setBoardSnapshot } from '../utils/board-snapshot';
+import { boardSnapshot } from '../utils/board-snapshot';
 import { Feature } from '../utils/types';
 import { CardContent, HeaderContent, MenuDropdown, MenuDropdownClickEvent, Result } from './board';
 
-
-
 export const ProjectionContent = () => {
-  const [activeSnapshot, setActiveSnapshot] = useState(checkSnapshotInSession);
+  const [activeSnapshot, setActiveSnapshot] = useState(boardSnapshot.checkSnapshotInSession);
 
-  const { columns, isNoGroupColumn, mergeGroups } = useBoardColumns();
+  const { columns, isNoGroupColumn, mergeColumns } = useBoardColumns();
   const { features, totals, setFeatures, moveFeatures } = useBoardFeatures();
 
   const menuItems = columns.filter((col) => !isNoGroupColumn(col.id));
 
-  const mergeColumns = (target: string, source: string) => {
+  const mergeGroups = (target: string, source: string) => {
     moveFeatures(target, source);
-    mergeGroups(target, source);
+    mergeColumns(target, source);
   };
 
   const clearSnapshot = () => {
-    clearBoardSnapshot();
+    boardSnapshot.clearBoardSnapshot();
     setActiveSnapshot(false);
-  }
+  };
 
   const handleMenuClick = (event: MenuDropdownClickEvent) => {
     if (event.action === 'merge-group') {
       const { target, source } = event.params;
-      mergeColumns(target, source);
+      mergeGroups(target, source);
     }
 
     if (event.action === 'clear-snapshot') {
       clearSnapshot();
     }
-  }
+  };
 
   const handleSaveSnapshot = () => {
-    setBoardSnapshot({ columns, features });
+    boardSnapshot.setBoardSnapshot({ columns, features });
     setActiveSnapshot(true);
-  }
+  };
 
   return (
     <KanbanProvider columns={columns} data={features} onDataChange={setFeatures}>
@@ -49,20 +47,13 @@ export const ProjectionContent = () => {
         <KanbanBoard id={column.id} key={column.id}>
           <KanbanHeader className={cn(isNoGroupColumn(column.id) && 'min-h-14 py-4')}>
             <HeaderContent
-              isNotGrouped={isNoGroupColumn(column.id)}
-              activeSnapshot={activeSnapshot}
+              isNoGroupColumn={isNoGroupColumn(column.id)}
+              bulletActive={activeSnapshot}
               value={column.value}
               name={column.name}
               onBulletClick={handleSaveSnapshot}
-              Menu={
-                <MenuDropdown
-                  show={!isNoGroupColumn(column.id)}
-                  columnId={column.id}
-                  items={menuItems}
-                  onClick={handleMenuClick}
-                />
-              }
-              Result={<Result show={!isNoGroupColumn(column.id)} column={column} totals={totals} />}
+              Menu={<MenuDropdown columnId={column.id} items={menuItems} onClick={handleMenuClick} />}
+              Result={<Result column={column} totals={totals} />}
             />
           </KanbanHeader>
           <KanbanCards id={column.id}>
