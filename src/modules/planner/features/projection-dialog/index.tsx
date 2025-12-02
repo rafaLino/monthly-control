@@ -2,7 +2,7 @@ import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/compone
 import { useKeyDown } from '@/hooks/useKeyDown';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ProjectionContent } from './components/projection-contentV2';
+import { ProjectionContent } from './components/projection-content';
 
 const disableClose = (event: Event) => event.preventDefault();
 
