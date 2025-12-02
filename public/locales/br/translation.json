@@ -121,7 +121,11 @@
     "search": "Pesquisar...",
     "name": "Nome",
     "value": "Valor",
-    "clear": "Limpar"
+    "clear": "Limpar",
+    "sum": "Soma",
+    "balance": "Saldo",
+    "notGrouped": "Não Agrupado",
+    "group": "Agrupar"
   },
   "assistant": {
     "title": "Assistente de IA",

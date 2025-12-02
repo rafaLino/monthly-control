@@ -1,65 +1,76 @@
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { useKeyDown } from '@/hooks/useKeyDown';
-import { sum } from '@/lib/utils';
-import { ProjectionTable } from '@/modules/planner/features/projection-dialog/components/projection-table';
-import { getAll } from '@/store';
-import { RegisterType } from '@/types/register.types';
-import { useMemo, useReducer } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useFilterInput } from '../hooks/useFilterInput';
-import { reducer } from '../utils/projection-reducer';
-import { ProjectionResultCard } from './projection-result-card';
+import { KanbanBoard, KanbanCard, KanbanCards, KanbanHeader, KanbanProvider } from '@/components/ui/shadcn-io/kanban';
+import { cn } from '@/lib/utils';
+import { useState } from 'react';
+import { useBoardColumns } from '../hooks/useBoardColumns';
+import { useBoardFeatures } from '../hooks/useBoardFeatures';
+import { boardSnapshot } from '../utils/board-snapshot';
+import { Feature } from '../utils/types';
+import { CardContent, HeaderContent, MenuDropdown, MenuDropdownClickEvent, Result } from './board';
 
 export const ProjectionContent = () => {
-  const { t } = useTranslation('translation', { keyPrefix: 'projectionDialog' });
-  const [state, dispatch] = useReducer(reducer, getAll(), getAll);
-  const [data, filterValue, onFilter] = useFilterInput(state);
+  const [activeSnapshot, setActiveSnapshot] = useState(boardSnapshot.checkSnapshotInSession);
 
-  useKeyDown('Escape', () => {
-    dispatch({ action: 'clear' });
-  });
+  const { columns, isNoGroupColumn, mergeColumns } = useBoardColumns();
+  const { features, totals, setFeatures, moveFeatures } = useBoardFeatures();
 
-  const incomes = useMemo(() => sum(state.incomes.filter((i) => i.checked)), [state.incomes]);
+  const menuItems = columns.filter((col) => !isNoGroupColumn(col.id));
 
-  const costs = useMemo(
-    () => sum(state.expenses.filter((i) => i.checked)) + sum(state.investments.filter((i) => i.checked)),
-    [state.expenses, state.investments]
-  );
-
-  const result = incomes - costs;
-
-  const handleCheck = (id: string, type: RegisterType) => {
-    dispatch({ id, type });
+  const mergeGroups = (target: string, source: string) => {
+    moveFeatures(target, source);
+    mergeColumns(target, source);
   };
 
-  const handleClear = () => {
-    dispatch({ action: 'clear' });
+  const clearSnapshot = () => {
+    boardSnapshot.clearBoardSnapshot();
+    setActiveSnapshot(false);
+  };
+
+  const handleMenuClick = (event: MenuDropdownClickEvent) => {
+    if (event.action === 'merge-group') {
+      const { target, source } = event.params;
+      mergeGroups(target, source);
+    }
+
+    if (event.action === 'clear-snapshot') {
+      clearSnapshot();
+    }
+  };
+
+  const handleSaveSnapshot = () => {
+    boardSnapshot.setBoardSnapshot({ columns, features });
+    setActiveSnapshot(true);
   };
 
   return (
-    <>
-      <div className="flex flex-row flex-wrap items-center justify-evenly gap-1 w-full sm:w-1/2 sm:justify-self-center mt-8 sm:m-0">
-        <ProjectionResultCard value={incomes} variant="success" />
-        <p className="font-medium">-</p>
-        <ProjectionResultCard value={costs} variant="warning" />
-        <p className="font-medium">=</p>
-        <ProjectionResultCard value={result} error={result < 0} />
-      </div>
-      <div className="flex items-center justify-between gap-1 sm:gap-2">
-        <Button tabIndex={-1} variant="secondary" className="border hover:bg-gray-200" onClick={handleClear}>
-          {t('clear')}
-        </Button>
-        <div className="flex items-center w-full sm:w-2/4">
-          <Input tabIndex={-1} placeholder={t('search')} value={filterValue} onChange={onFilter} />
-        </div>
-        <div />
-      </div>
-      <section className="flex flex-col sm:flex-row items-start justify-between gap-2">
-        <ProjectionTable key="incomes" records={data.incomes} type="incomes" onCheck={handleCheck} />
-        <ProjectionTable key="expenses" records={data.expenses} type="expenses" onCheck={handleCheck} />
-        <ProjectionTable key="investments" records={data.investments} type="investments" onCheck={handleCheck} />
-      </section>
-    </>
+    <KanbanProvider columns={columns} data={features} onDataChange={setFeatures}>
+      {(column) => (
+        <KanbanBoard id={column.id} key={column.id}>
+          <KanbanHeader className={cn(isNoGroupColumn(column.id) && 'min-h-14 py-4')}>
+            <HeaderContent
+              isNoGroupColumn={isNoGroupColumn(column.id)}
+              bulletActive={activeSnapshot}
+              value={column.value}
+              name={column.name}
+              onBulletClick={handleSaveSnapshot}
+              Menu={<MenuDropdown columnId={column.id} items={menuItems} onClick={handleMenuClick} />}
+              Result={<Result column={column} totals={totals} />}
+            />
+          </KanbanHeader>
+          <KanbanCards id={column.id}>
+            {(feature: Feature) => (
+              <KanbanCard
+                column={column.id}
+                id={feature.id}
+                key={feature.id}
+                name={feature.name}
+                className={cn(feature.color, 'opacity-80')}
+              >
+                <CardContent name={feature.name} value={feature.value} />
+              </KanbanCard>
+            )}
+          </KanbanCards>
+        </KanbanBoard>
+      )}
+    </KanbanProvider>
   );
 };
