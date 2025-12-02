@@ -3,25 +3,33 @@ import { useCallback, useState } from 'react';
 import { Column } from '../utils/types';
 import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
+import { getBoardSnapshot } from '../utils/board-snapshot';
 
 const NO_GROUP_ID = 'nogroup';
 
 const descending = (a: Column, b: Column) => b.value - a.value;
 const getInitialCols = (t: TFunction) => [{ id: NO_GROUP_ID, name: t('notGrouped'), value: 0 }];
 
+const getColumns = (t: TFunction) => {
+  const { incomes } = getAll();
+  const snapshot = getBoardSnapshot();
+
+  if (snapshot) {
+    return snapshot.columns;
+  }
+
+  return getInitialCols(t).concat(
+    incomes.toSorted(descending).map((item) => ({
+      id: item.id,
+      name: item.name,
+      value: item.value
+    })))
+}
+
 export function useBoardColumns() {
   const { t } = useTranslation('translation', { keyPrefix: 'projectionDialog' });
 
-  const [columns, setColumns] = useState<Column[]>(() => {
-    const { incomes } = getAll();
-    return getInitialCols(t).concat(
-      incomes.toSorted(descending).map((item) => ({
-        id: item.id,
-        name: item.name,
-        value: item.value
-      }))
-    );
-  });
+  const [columns, setColumns] = useState<Column[]>(() => getColumns(t));
 
   const isNoGroupColumn = (columnId: string) => columnId === NO_GROUP_ID;
 

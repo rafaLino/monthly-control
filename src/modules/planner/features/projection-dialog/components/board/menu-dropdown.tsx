@@ -4,6 +4,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
+  DropdownMenuItem,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSub,
@@ -11,15 +12,22 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
-import { Group, MoreHorizontalIcon } from 'lucide-react';
+import { Group, MoreHorizontalIcon, X } from 'lucide-react';
 import { FC } from 'react';
 import { Translation } from 'react-i18next';
+
+export type MenuDropdownClickEvent = {
+  action: 'merge-group';
+  params: { target: string; source: string };
+} | {
+  action: 'clear-snapshot';
+}
 
 type MenuDropdownProps = {
   show: boolean;
   items: { id: string; name: string }[];
   columnId: string;
-  onClick: (columnId: string, groupId: string) => void;
+  onClick: (event: MenuDropdownClickEvent) => void;
 };
 
 export const MenuDropdown: FC<MenuDropdownProps> = ({ show, items, columnId, onClick }) => {
@@ -39,7 +47,7 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ show, items, columnId, onC
                 <Translation>{(t) => t('projectionDialog.group')}</Translation>
               </DropdownMenuSubTrigger>
               <DropdownMenuSubContent>
-                <DropdownMenuRadioGroup value={'label'} onValueChange={(target) => onClick(target, columnId)}>
+                <DropdownMenuRadioGroup value={'label'} onValueChange={(target) => onClick({ action: 'merge-group', params: { source: columnId, target } })}>
                   {items
                     .filter((item) => item.id !== columnId)
                     .map((item) => (
@@ -50,6 +58,10 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ show, items, columnId, onC
                 </DropdownMenuRadioGroup>
               </DropdownMenuSubContent>
             </DropdownMenuSub>
+            <DropdownMenuItem className='gap-2' onClick={() => onClick({ action: 'clear-snapshot' })}>
+              <X />
+              Clear Snapshot
+            </DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>

@@ -1,27 +1,38 @@
 import { getAll } from '@/store';
 import { useCallback, useMemo, useState } from 'react';
+import { getBoardSnapshot } from '../utils/board-snapshot';
+import { Register, RegisterType } from '@/types/register.types';
+
+
+const toFeature = (type: RegisterType) => (item: Register) => ({
+  column: 'nogroup',
+  id: item.id,
+  name: item.name,
+  value: item.value,
+  color: type === 'expenses' ? 'bg-red-500' : 'bg-yellow-500'
+})
+
+const groupExpensesAndInvestments = (expenses: Register[], investments: Register[]) => {
+  return expenses.map(toFeature('expenses')).concat(investments.map(toFeature('investments')));
+}
+
+const getFeatures = () => {
+  const { expenses, investments } = getAll();
+  const snapshot = getBoardSnapshot();
+
+  if (!snapshot) {
+    return groupExpensesAndInvestments(expenses, investments);
+  }
+
+  if (snapshot.features.length !== (expenses.length + investments.length)) {
+    return groupExpensesAndInvestments(expenses, investments);
+  }
+
+  return snapshot.features;
+}
 
 export function useBoardFeatures() {
-  const [features, setFeatures] = useState(() => {
-    const { expenses, investments } = getAll();
-    const expenseFeatures = expenses.map((item) => ({
-      column: 'nogroup',
-      id: item.id,
-      name: item.name,
-      value: item.value,
-      color: 'bg-red-500'
-    }));
-
-    const investmentFeatures = investments.map((item) => ({
-      column: 'nogroup',
-      id: item.id,
-      name: item.name,
-      value: item.value,
-      color: 'bg-yellow-500'
-    }));
-
-    return expenseFeatures.concat(investmentFeatures);
-  });
+  const [features, setFeatures] = useState(() => getFeatures());
 
   const totals = useMemo(() => {
     return features.reduce(
