@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Group, MoreHorizontalIcon } from 'lucide-react';
 import { FC } from 'react';
+import { Translation } from 'react-i18next';
 
 type MenuDropdownProps = {
   show: boolean;
@@ -33,9 +34,9 @@ export const MenuDropdown: FC<MenuDropdownProps> = ({ show, items, columnId, onC
         <DropdownMenuContent align="end" className="w-52">
           <DropdownMenuGroup>
             <DropdownMenuSub>
-              <DropdownMenuSubTrigger>
+              <DropdownMenuSubTrigger className='gap-2'>
                 <Group />
-                To group into
+                <Translation>{(t) => t('projectionDialog.group')}</Translation>
               </DropdownMenuSubTrigger>
               <DropdownMenuSubContent>
                 <DropdownMenuRadioGroup value={'label'} onValueChange={(target) => onClick(target, columnId)}>

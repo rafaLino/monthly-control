@@ -1,16 +1,14 @@
 import { KanbanBoard, KanbanCard, KanbanCards, KanbanHeader, KanbanProvider } from '@/components/ui/shadcn-io/kanban';
 import { cn } from '@/lib/utils';
-import { useTranslation } from 'react-i18next';
 import { useBoardColumns } from '../hooks/useBoardColumns';
 import { useBoardFeatures } from '../hooks/useBoardFeatures';
 import { Feature } from '../utils/types';
+import { CardContent } from './board/card-content';
 import { HeaderContent } from './board/header-content';
 import { MenuDropdown } from './board/menu-dropdown';
 import { Result } from './board/result';
 
 export const ProjectionContent = () => {
-  const { t } = useTranslation('translation');
-
   const { columns, isNoGroupColumn, mergeGroups } = useBoardColumns();
 
   const { features, totals, setFeatures, moveFeatures } = useBoardFeatures();
@@ -51,12 +49,7 @@ export const ProjectionContent = () => {
                 name={feature.name}
                 className={cn(feature.color, 'opacity-80')}
               >
-                <div className="flex items-start justify-between gap-2">
-                  <div className="flex flex-row items-center justify-between w-full gap-1">
-                    <p className="m-1 flex-1 font-medium text-sm">{t('currency', { value: feature.value })}</p>
-                    {feature.name}
-                  </div>
-                </div>
+                <CardContent name={feature.name} value={feature.value} />
               </KanbanCard>
             )}
           </KanbanCards>

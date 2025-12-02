@@ -121,7 +121,11 @@
     "search": "Search...",
     "name": "Name",
     "value": "Value",
-    "clear": "Clear"
+    "clear": "Clear",
+    "sum": "Sum",
+    "balance": "Balance",
+    "notGrouped": "Not grouped",
+    "group": "To group into"
   },
   "assistant": {
     "title": "AI Assistant",

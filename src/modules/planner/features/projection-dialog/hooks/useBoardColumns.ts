@@ -1,16 +1,20 @@
 import { getAll } from '@/store';
 import { useCallback, useState } from 'react';
 import { Column } from '../utils/types';
+import { useTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
 
 const NO_GROUP_ID = 'nogroup';
-const INITIAL_COLS = [{ id: NO_GROUP_ID, name: 'Not Grouped', value: 0 }];
 
 const descending = (a: Column, b: Column) => b.value - a.value;
+const getInitialCols = (t: TFunction) => [{ id: NO_GROUP_ID, name: t('notGrouped'), value: 0 }];
 
 export function useBoardColumns() {
+  const { t } = useTranslation('translation', { keyPrefix: 'projectionDialog' });
+
   const [columns, setColumns] = useState<Column[]>(() => {
     const { incomes } = getAll();
-    return INITIAL_COLS.concat(
+    return getInitialCols(t).concat(
       incomes.toSorted(descending).map((item) => ({
         id: item.id,
         name: item.name,
@@ -30,10 +34,10 @@ export function useBoardColumns() {
         .map((col) =>
           col.id === target
             ? {
-                ...col,
-                name: `${col.name} + ${fromColumn.name}`,
-                value: (col.value ?? 0) + (fromColumn.value ?? 0)
-              }
+              ...col,
+              name: `${col.name} + ${fromColumn.name}`,
+              value: (col.value ?? 0) + (fromColumn.value ?? 0)
+            }
             : col
         )
         .filter((col) => col.id !== fromColumn.id);
