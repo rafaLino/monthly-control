@@ -21,7 +21,6 @@ export const ProjectionDialog = () => {
       <DialogContent
         className="bg-background overflow-auto sm:max-w-7xl p-4 h-full sm:h-3/4 min-h-[80dvh] "
         onInteractOutside={disableClose}
-        onEscapeKeyDown={disableClose}
         showClose={false}
       >
         <ProjectionContent />
