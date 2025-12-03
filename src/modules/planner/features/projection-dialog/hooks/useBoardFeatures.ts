@@ -2,6 +2,7 @@ import { getAll } from '@/store';
 import { Register, RegisterType } from '@/types/register.types';
 import { useCallback, useMemo, useState } from 'react';
 import { boardSnapshot } from '../utils/board-snapshot';
+import { descending } from '../utils/common';
 
 const toFeature = (type: RegisterType) => (item: Register) => ({
   column: 'nogroup',
@@ -12,7 +13,10 @@ const toFeature = (type: RegisterType) => (item: Register) => ({
 });
 
 const groupCosts = (expenses: Register[], investments: Register[]) => {
-  return expenses.map(toFeature('expenses')).concat(investments.map(toFeature('investments')));
+  return expenses
+    .toSorted(descending)
+    .map(toFeature('expenses'))
+    .concat(investments.toSorted(descending).map(toFeature('investments')));
 };
 
 const getFeatures = () => {
@@ -31,7 +35,7 @@ const getFeatures = () => {
 };
 
 export function useBoardFeatures() {
-  const [features, setFeatures] = useState(() => getFeatures());
+  const [features, setFeatures] = useState(getFeatures);
 
   const totals = useMemo(() => {
     return features.reduce(
