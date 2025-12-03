@@ -3,29 +3,10 @@ import { TFunction } from 'i18next';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { boardSnapshot } from '../utils/board-snapshot';
+import { descending } from '../utils/common';
 import { Column } from '../utils/types';
 
 const NO_GROUP_ID = 'nogroup';
-
-const descending = (a: Column, b: Column) => b.value - a.value;
-const getInitialCols = (t: TFunction) => [{ id: NO_GROUP_ID, name: t('notGrouped'), value: 0 }];
-
-const getColumns = (t: TFunction) => {
-  const { incomes } = getAll();
-  const snapshot = boardSnapshot.getBoardSnapshot();
-
-  if (snapshot) {
-    return snapshot.columns;
-  }
-
-  return getInitialCols(t).concat(
-    incomes.toSorted(descending).map((item) => ({
-      id: item.id,
-      name: item.name,
-      value: item.value
-    }))
-  );
-};
 
 export function useBoardColumns() {
   const { t } = useTranslation('translation', { keyPrefix: 'projectionDialog' });
@@ -60,3 +41,22 @@ export function useBoardColumns() {
     mergeColumns
   };
 }
+
+const getInitialCols = (t: TFunction) => [{ id: NO_GROUP_ID, name: t('notGrouped'), value: 0 }];
+
+const getColumns = (t: TFunction) => {
+  const { incomes } = getAll();
+  const snapshot = boardSnapshot.getBoardSnapshot();
+
+  if (snapshot) {
+    return snapshot.columns;
+  }
+
+  return getInitialCols(t).concat(
+    incomes.toSorted(descending).map((item) => ({
+      id: item.id,
+      name: item.name,
+      value: item.value
+    }))
+  );
+};
