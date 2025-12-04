@@ -4,12 +4,13 @@ import { useEffect, useRef, useState, useTransition } from 'react';
 import { useTranslation } from 'react-i18next';
 
 type EditableCellProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onBlur'> & {
+  id: string;
   value: string;
   type?: 'text' | 'number';
   onBlur?: (newValue: string, event: React.FocusEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
 };
-export const EditableCell: React.FC<EditableCellProps> = ({ value, type = 'text', onBlur, onFocus, ...props }) => {
+export const EditableCell: React.FC<EditableCellProps> = ({ id, value, type = 'text', onBlur, onFocus, ...props }) => {
   const [currentValue, setCurrentValue] = useState(value);
   const ref = useRef<HTMLInputElement>(null);
   useEffect(() => {
@@ -32,6 +33,7 @@ export const EditableCell: React.FC<EditableCellProps> = ({ value, type = 'text'
   return (
     <Input
       ref={ref}
+      id={id}
       type={type}
       value={currentValue}
       onChange={handleChange}
@@ -49,7 +51,7 @@ type EditableNumberCellProps = Omit<React.PropsWithoutRef<EditableCellProps>, 'v
   onBlur?: (newValue: number, event: React.FocusEvent<HTMLInputElement>) => void;
 };
 
-export const EditableNumberCell: React.FC<EditableNumberCellProps> = ({ value, onBlur }) => {
+export const EditableNumberCell: React.FC<EditableNumberCellProps> = ({ id, value, onBlur }) => {
   const { t } = useTranslation();
   const [isEditing, setIsEditing] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -70,6 +72,7 @@ export const EditableNumberCell: React.FC<EditableNumberCellProps> = ({ value, o
   return (
     <EditableCell
       type={isEditing ? 'number' : 'text'}
+      id={id}
       value={isPending ? '' : formattedValue}
       onFocus={handleFocus}
       onBlur={handleBlur}

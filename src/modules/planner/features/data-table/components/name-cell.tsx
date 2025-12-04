@@ -6,6 +6,7 @@ export function NameCell({ getValue, row: { index }, column: { id }, table }: Re
   return (
     <EditableCell
       tabIndex={-1}
+      id={`${id}-${index}`}
       value={getValue<string>()}
       onBlur={(newValue) => {
         table.options.meta?.updateData(index, id, newValue);
