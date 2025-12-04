@@ -1,4 +1,5 @@
 import { SetClosingDay } from './features/set-closing-day';
+import { SetExpensesCategory } from './features/set-expenses-category';
 import { SetGoals } from './features/set-goals';
 import { SetLocalParams } from './features/set-local-params';
 
@@ -8,6 +9,7 @@ export const Settings = () => {
       <SetGoals />
       <SetClosingDay />
       <SetLocalParams />
+      <SetExpensesCategory />
     </div>
   );
 };

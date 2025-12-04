@@ -7,7 +7,7 @@ export const Route = createLazyFileRoute('/_main/settings')({
 function Index() {
   return (
     <div className="flex w-full flex-col">
-      <main className="flex flex-1 flex-col gap-4 px-4 sm:p-4 md:gap-4 md:p-6">
+      <main className="flex flex-1 flex-col gap-4 px-4 sm:pt-4 md:gap-4">
         <Settings />
       </main>
     </div>

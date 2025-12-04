@@ -115,6 +115,12 @@
     "aiAssistant": "Asistente de IA",
     "aiModel": "Modelo de IA"
   },
+  "expensesCategorySettings": {
+    "title": "Categorías de Gastos",
+    "description": "Establezca aquí sus categorías",
+    "comboBoxEmpty": "Resultados no encontrados",
+    "comboBoxPlaceholder": "Seleccionar gastos..."
+  },
   "projectionDialog": {
     "title": "Proyección",
     "description": "Proyección de ingresos, gastos e inversiones",

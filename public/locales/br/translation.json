@@ -115,6 +115,12 @@
     "aiAssistant": "Assistente de IA",
     "aiModel": "Modelo de IA"
   },
+  "expensesCategorySettings": {
+    "title": "Categorias",
+    "description": "Configure as categorias para suas despesas",
+    "comboBoxEmpty": "Resultados não encontrados",
+    "comboBoxPlaceholder": "Selecione as despesas..."
+  },
   "projectionDialog": {
     "title": "Projeção",
     "description": "Projeção de receitas, despesas e investimentos",
