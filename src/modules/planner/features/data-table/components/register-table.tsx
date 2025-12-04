@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { DataTableFilterContext } from '@/context/DataTableFilterContext';
 import { MediaQueries, useMediaQuery } from '@/hooks/useMediaQuery';
@@ -15,7 +14,6 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table';
-import { ArrowDown, ArrowUp } from 'lucide-react';
 import { useCallback, useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSkipper } from '../hooks/useSkipper';
@@ -25,6 +23,7 @@ import { DeleteCell } from './delete-cell';
 import { NameCell } from './name-cell';
 import CustomPagination from './pagination';
 import { PercentCell } from './percent-cell';
+import { SortingButton } from './sorting-button';
 import { ValueCell } from './value-cell';
 
 type RegisterTableProps = {
@@ -160,19 +159,11 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
                     {header.isPlaceholder ? null : (
                       <div className="flex items-center pr-3 group">
                         {flexRender(header.column.columnDef.header, header.getContext())}
-                        {header.column.getCanSort() && (
-                          <Button
-                            variant="link"
-                            onClick={header.column.getToggleSortingHandler()}
-                            className={cn(header.column.getIsSorted() === false && 'invisible group-hover:visible')}
-                          >
-                            {header.column.getIsSorted() === 'asc' ? (
-                              <ArrowDown className="h-4 w-4" />
-                            ) : (
-                              <ArrowUp className="h-4 w-4" />
-                            )}
-                          </Button>
-                        )}
+                        <SortingButton
+                          canSort={header.column.getCanSort()}
+                          isSorted={header.column.getIsSorted()}
+                          toggle={header.column.getToggleSortingHandler()}
+                        />
                       </div>
                     )}
                   </TableHead>
