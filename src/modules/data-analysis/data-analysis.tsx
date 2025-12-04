@@ -16,12 +16,12 @@ import { saveFile } from './utils/save-file';
 
 export const DataAnalysis = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'dashboard' });
-  const [disableAutoDownload, setLocalParam] = useLocalParams<boolean>('disable_automatic_download');
+  const [autoDownload, setLocalParam] = useLocalParams<boolean>('automatic_download');
   const queryClient = useQueryClient();
   const { data, isLoading, isRefetching, refetch, isSuccess } = useQuery({
     queryKey: [QueryKeys.generateMetadata],
     queryFn: async ({ signal }) => downloadMetadata(signal),
-    enabled: !disableAutoDownload
+    enabled: autoDownload
   });
 
   const handleSaveFile = () => {
@@ -29,8 +29,8 @@ export const DataAnalysis = () => {
     saveFile(data.csv);
   };
 
-  const handleDisableAutoDownload = (checked: CheckedState) => {
-    setLocalParam('disable_automatic_download', checked === true);
+  const handleautoDownload = (checked: CheckedState) => {
+    setLocalParam('automatic_download', checked === false);
   };
 
   const handleClearData = () => {
@@ -44,9 +44,9 @@ export const DataAnalysis = () => {
       <div className="flex flex-col sm:flex-row gap-2 w-full px-0 sm:px-16 sm:justify-between">
         <div className="flex w-full justify-between sm:justify-start items-center gap-2">
           <CheckBoxWithLabel
-            label={t('disableAutoDownload')}
-            checked={disableAutoDownload}
-            onCheckedChange={handleDisableAutoDownload}
+            label={t('autoDownload')}
+            checked={autoDownload}
+            onCheckedChange={handleautoDownload}
             disabled={!env.VITE_ONLINE}
           />
           <GridButton title={t('gridLayout')} />

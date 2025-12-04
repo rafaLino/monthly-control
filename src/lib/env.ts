@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { parseFirebaseConfig } from './parse-firebase-config';
 
 const envSchema = z.object({
+  MODE: z.string(),
   VITE_CLIENT_ID: z.string(),
   VITE_DOMAIN: z.string(),
   VITE_API_SECRET: z.string(),
