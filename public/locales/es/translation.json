@@ -97,7 +97,7 @@
     "perYearTitle": "Revisión anual",
     "monthEvolution": "Evolución mensual",
     "yearEvolution": "Evolución anual",
-    "disableAutoDownload": "Desactivar auto descarga",
+    "autoDownload": "Desactivar auto descarga",
     "clearData": "Borrar datos locales",
     "gridLayout": "Disposición del panel",
     "generateData": "Generar datos",
@@ -109,7 +109,7 @@
   "paramsSettings": {
     "title": "Parámetros",
     "description": "Establezca aquí sus parámetros",
-    "disableAutoDownload": "Desactivar la descarga automática",
+    "autoDownload": "Desactivar la descarga automática",
     "defaultWaitingTime": "Tiempo de espera predeterminado para generar el archivo CSV",
     "gridCol": "Columna de la cuadrícula",
     "aiAssistant": "Asistente de IA",

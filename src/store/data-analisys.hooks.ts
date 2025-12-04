@@ -10,7 +10,7 @@ export function useLocalParams<E extends TValue>(param: TKey) {
     const params = state.params;
     const setParams = state.dataAnalysisActions.setParams;
     const get = (key: TKey) => {
-      if (!key) {
+      if (!params[key]) {
         return DEFAULT_LOCAL_PARAMS[param] as E;
       }
       return params[key] as E;

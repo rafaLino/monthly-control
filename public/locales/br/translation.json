@@ -97,7 +97,7 @@
     "perYearTitle": "Revisão anual",
     "monthEvolution": "Evolução mensal",
     "yearEvolution": "Evolução anual",
-    "disableAutoDownload": "Desabilitar download automático",
+    "autoDownload": "Download automático",
     "clearData": "Apagar dados locais",
     "gridLayout": "Disposição do painel",
     "generateData": "Gerar dados",
@@ -109,11 +109,12 @@
   "paramsSettings": {
     "title": "Parâmetros",
     "description": "Defina aqui os parâmetros",
-    "disableAutoDownload": "Desabilitar download automático",
+    "autoDownload": "Download automático",
     "defaultWaitingTime": "Tempo de espera padrão para gerar csv",
     "gridCol": "Disposição padrão do painel",
     "aiAssistant": "Assistente de IA",
-    "aiModel": "Modelo de IA"
+    "aiModel": "Modelo de IA",
+    "autoSave": "Salvar automático"
   },
   "projectionDialog": {
     "title": "Projeção",
