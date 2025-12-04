@@ -8,7 +8,11 @@ import { nodePolyfills } from 'vite-plugin-node-polyfills';
 export default defineConfig({
   plugins: [
     tanstackRouter(),
-    react(),
+    react({
+      babel: {
+        plugins: ['babel-plugin-react-compiler']
+      }
+    }),
     nodePolyfills(),
     VitePWA({
       manifest: {
