@@ -41,6 +41,9 @@
     "investments": "Investimentos",
     "search": "Pesquisar..."
   },
+  "dataTable": {
+    "items": "{{length}} Itens"
+  },
   "registerTable": {
     "name": "Nome",
     "value": "Valor",

@@ -41,6 +41,9 @@
     "investments": "Investments",
     "search": "Search..."
   },
+  "dataTable": {
+    "items": "{{length}} Items"
+  },
   "registerTable": {
     "name": "Name",
     "value": "Value",
@@ -109,11 +112,12 @@
   "paramsSettings": {
     "title": "Parameters",
     "description": "Set here your parameters",
-    "autoDownload": "Disable automatic download",
+    "autoDownload": "Automatic download",
     "defaultWaitingTime": "Default waiting time for generate csv",
     "gridCol": "Grid col",
     "aiAssistant": "AI Assistant",
-    "aiModel": "AI Model"
+    "aiModel": "AI Model",
+    "autoSave": "Auto save"
   },
   "projectionDialog": {
     "title": "Projection",
