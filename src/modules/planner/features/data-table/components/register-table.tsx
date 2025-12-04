@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { DataTableFilterContext } from '@/context/DataTableFilterContext';
 import { MediaQueries, useMediaQuery } from '@/hooks/useMediaQuery';
@@ -24,8 +23,8 @@ import { DeleteCell } from './delete-cell';
 import { NameCell } from './name-cell';
 import CustomPagination from './pagination';
 import { PercentCell } from './percent-cell';
+import { SortingButton } from './sorting-button';
 import { ValueCell } from './value-cell';
-import { SortingIcon } from './sorting-icon';
 
 type RegisterTableProps = {
   data: Array<Register>;
@@ -160,15 +159,11 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
                     {header.isPlaceholder ? null : (
                       <div className="flex items-center pr-3 group">
                         {flexRender(header.column.columnDef.header, header.getContext())}
-                        {header.column.getCanSort() && (
-                          <Button
-                            variant="link"
-                            onClick={header.column.getToggleSortingHandler()}
-                            className={cn(header.column.getIsSorted() === false && 'invisible group-hover:visible')}
-                          >
-                            <SortingIcon direction={header.column.getIsSorted()} />
-                          </Button>
-                        )}
+                        <SortingButton
+                          canSort={header.column.getCanSort()}
+                          isSorted={header.column.getIsSorted()}
+                          toggle={header.column.getToggleSortingHandler()}
+                        />
                       </div>
                     )}
                   </TableHead>
