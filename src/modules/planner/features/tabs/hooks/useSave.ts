@@ -8,7 +8,7 @@ const FIVE_MINUTES = 5 * 60 * 1000;
 
 export function useSave() {
   const [syncing, setSyncing] = useSync();
-  const [autoSave] = useLocalParams('auto_save')
+  const [autoSave] = useLocalParams('auto_save');
 
   const save = useCallback(async () => {
     setSyncing(true);

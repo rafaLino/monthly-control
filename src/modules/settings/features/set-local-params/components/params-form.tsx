@@ -7,7 +7,7 @@ export function ParamsForm() {
   const { enabled } = useSettingsForm();
   return (
     <div className="flex flex-col gap-4">
-      <div className='flex flex-row gap-4'>
+      <div className="flex flex-row gap-4">
         <ParamsFormField label={t('autoDownload')} name="automatic_download" disabled={!enabled} type="checkbox" />
         <ParamsFormField label={t('autoSave')} name="auto_save" disabled={!enabled} type="checkbox" />
       </div>
