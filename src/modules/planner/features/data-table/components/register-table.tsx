@@ -15,7 +15,6 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table';
-import { ArrowDown, ArrowUp } from 'lucide-react';
 import { useCallback, useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSkipper } from '../hooks/useSkipper';
@@ -26,6 +25,7 @@ import { NameCell } from './name-cell';
 import CustomPagination from './pagination';
 import { PercentCell } from './percent-cell';
 import { ValueCell } from './value-cell';
+import { SortingIcon } from './sorting-icon';
 
 type RegisterTableProps = {
   data: Array<Register>;
@@ -166,11 +166,7 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
                             onClick={header.column.getToggleSortingHandler()}
                             className={cn(header.column.getIsSorted() === false && 'invisible group-hover:visible')}
                           >
-                            {header.column.getIsSorted() === 'asc' ? (
-                              <ArrowDown className="h-4 w-4" />
-                            ) : (
-                              <ArrowUp className="h-4 w-4" />
-                            )}
+                            <SortingIcon direction={header.column.getIsSorted()} />
                           </Button>
                         )}
                       </div>
