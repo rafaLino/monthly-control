@@ -13,7 +13,7 @@ type ExpensesCategoryFormField = {
 export const ExpensesCategoryFormField: FC<ExpensesCategoryFormField> = ({ name, disabled }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'expensesCategorySettings' });
   const { control } = useFormContext();
-  const options = useReadRegisters('expenses', (items) => items.map((x) => x.name));
+  const options = useReadRegisters('expenses', (items) => items.map((x) => x.name.trim()));
 
   return (
     <FormField

@@ -10,12 +10,20 @@ const Schema = z.object({
       name: z.string().min(1),
       value: z.array(z.string()).min(1)
     })
-  )
+  ).refine(items => {
+    const names = new Set(items.map(item => item.name.trim()))
+    return names.size === items.length
+  }, { message: 'All items must be unique.' })
 });
-type ExpensesMap = z.infer<typeof Schema>;
+
+type ExpensesCategory = z.infer<typeof Schema>;
 
 export function SetExpensesCategory() {
-  const form = useForm<ExpensesMap>({
+  /**
+   * FormState is not working properly with react compiler 
+   */
+  'use no memo'
+  const form = useForm<ExpensesCategory>({
     resolver: zodResolver(Schema),
     mode: 'onChange',
     defaultValues: {
@@ -23,8 +31,17 @@ export function SetExpensesCategory() {
     }
   });
 
+  const handleSubmit = (data: ExpensesCategory) => {
+    console.log(data)
+  }
+
   return (
-    <SettingsForm form={form} title={'expensesCategorySettings.title'} description={'expensesCategorySettings.description'}>
+    <SettingsForm
+      form={form}
+      title={'expensesCategorySettings.title'}
+      description={'expensesCategorySettings.description'}
+      onSubmit={handleSubmit}
+    >
       <ExpensesCategoryForm />
     </SettingsForm>
   );

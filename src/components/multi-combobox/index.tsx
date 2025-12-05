@@ -32,16 +32,17 @@ export function MultiCombobox({
     const newValues = values.includes(value) ? values.filter((x) => x !== value) : [...values, value];
     onChange?.(newValues);
   };
+
   return (
     <div aria-disabled={disabled} className={cn('flex items-center space-x-4', disabled && 'cursor-not-allowed')}>
       <Popover open={open} onOpenChange={setOpen}>
         <div
           className={cn(
-            'flex border flex-wrap px-2 gap-1 rounded items-center justify-between w-full min-w-64',
+            'flex border px-2 gap-1 rounded items-center justify-between w-full min-w-64 relative',
             disabled && 'opacity-50'
           )}
         >
-          <div className="flex gap-1">
+          <div className="flex flex-wrap gap-1 py-2 mr-6 min-h-10">
             {values.map((value) => (
               <span key={value} className="bg-primary text-primary-foreground rounded-lg px-2 py-1 text-xs">
                 {value}
@@ -49,12 +50,12 @@ export function MultiCombobox({
             ))}
           </div>
           <PopoverTrigger asChild type="button" disabled={disabled}>
-            <Button size="sm" variant="ghost" className="hover:bg-transparent px-2">
+            <Button size="sm" variant="ghost" className="hover:bg-transparent px-2 absolute right-0 w-full justify-end">
               <ChevronDown className="w-4 h-4" />
             </Button>
           </PopoverTrigger>
         </div>
-        <PopoverContent className="p-0" side="right" align="start">
+        <PopoverContent className="p-0" side='bottom' align='start'>
           <Command>
             <CommandInput
               placeholder={placeholder}

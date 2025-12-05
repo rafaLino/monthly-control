@@ -28,7 +28,7 @@ export function SettingsForm<T extends FieldValues>({
   const formId = useId();
   const [enableForm, setEnableForm] = useState(false);
 
-  const { formState } = form;
+  const { formState: { isValid } } = form;
 
   const submit = useCallback(
     (data: T) => {
@@ -60,7 +60,7 @@ export function SettingsForm<T extends FieldValues>({
           <form onSubmit={form.handleSubmit(submit)} aria-readonly={!enableForm}>
             <CardContent className="min-h-48">{children}</CardContent>
             <CardFooter className="border-t px-6 py-4">
-              <Button type="submit" disabled={!formState.isValid || !enableForm}>
+              <Button type="submit" disabled={!isValid || !enableForm}>
                 {t('save')}
               </Button>
             </CardFooter>

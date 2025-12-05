@@ -1,3 +1,4 @@
+import { HiddenOffline } from '@/components/hidden-offline';
 import { SetClosingDay } from './features/set-closing-day';
 import { SetExpensesCategory } from './features/set-expenses-category';
 import { SetGoals } from './features/set-goals';
@@ -9,7 +10,9 @@ export const Settings = () => {
       <SetGoals />
       <SetClosingDay />
       <SetLocalParams />
-      <SetExpensesCategory />
+      <HiddenOffline>
+        <SetExpensesCategory />
+      </HiddenOffline>
     </div>
   );
 };
