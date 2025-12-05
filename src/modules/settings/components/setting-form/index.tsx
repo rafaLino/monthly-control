@@ -8,10 +8,12 @@ import { FieldValues, UseFormReturn } from 'react-hook-form';
 import { Label } from '@/components/ui/label';
 import { useTranslation } from 'react-i18next';
 import { SettingsFormContext } from './settings-form-context';
+import { Loader2 } from 'lucide-react';
 
 type SettingsFormProps<T extends FieldValues> = PropsWithChildren<{
   form: UseFormReturn<T>;
   onSubmit?: (data: T) => void;
+  onSubmitAsync?: (data: T) => Promise<void>;
   title: string;
   description: string;
   disabled?: boolean;
@@ -19,21 +21,35 @@ type SettingsFormProps<T extends FieldValues> = PropsWithChildren<{
 export function SettingsForm<T extends FieldValues>({
   children,
   form,
-  onSubmit,
   title,
   description,
-  disabled
+  disabled,
+  onSubmit,
+  onSubmitAsync
 }: Readonly<SettingsFormProps<T>>) {
   const { t } = useTranslation();
   const formId = useId();
   const [enableForm, setEnableForm] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { formState: { isValid } } = form;
 
   const submit = useCallback(
-    (data: T) => {
-      onSubmit?.(data);
-      setEnableForm(false);
+    async (data: T) => {
+      if (onSubmit) {
+        onSubmit(data)
+        setEnableForm(false);
+        return
+      }
+
+      try {
+        setLoading(true)
+        await onSubmitAsync?.(data);
+      } finally {
+        setEnableForm(false)
+        setLoading(false)
+      }
+
     },
     [onSubmit]
   );
@@ -60,8 +76,9 @@ export function SettingsForm<T extends FieldValues>({
           <form onSubmit={form.handleSubmit(submit)} aria-readonly={!enableForm}>
             <CardContent className="min-h-48">{children}</CardContent>
             <CardFooter className="border-t px-6 py-4">
-              <Button type="submit" disabled={!isValid || !enableForm}>
+              <Button type="submit" disabled={!isValid || !enableForm || loading} className='gap-2'>
                 {t('save')}
+                {loading && <Loader2 className='w-4 h-4 animate-spin' />}
               </Button>
             </CardFooter>
           </form>

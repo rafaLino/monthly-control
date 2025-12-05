@@ -2,10 +2,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { SettingsForm } from '../../components/setting-form';
 import { ExpenseCategoriesForm } from './components/expense-categories-form';
-import { ExpenseCategories, Schema } from './types/schema';
-import { useQuery } from '@tanstack/react-query';
-import { paramsService } from '@/services/params.service';
-
+import { useExpenseCategories } from './hooks/useExpenseCategories';
+import { ExpenseCategories, Schema } from '@/types/expense-categories';
 
 export function SetExpenseCategories() {
   /**
@@ -13,31 +11,27 @@ export function SetExpenseCategories() {
    */
   'use no memo'
 
-  const { data } = useQuery({
-    queryKey: ['categories'],
-    queryFn: () => paramsService.getParams('expenses_categories')
-  })
+  const { data, mutateAsync } = useExpenseCategories();
+
   const form = useForm<ExpenseCategories>({
     resolver: zodResolver(Schema),
     mode: 'onChange',
     defaultValues: {
       categories: [{ name: '', value: [] }]
-    }
+    },
+    values: data,
+    resetOptions: { keepDirtyValues: true }
   });
-
-
-  const handleSubmit = (data: ExpenseCategories) => {
-    console.log(data)
-  }
 
   return (
     <SettingsForm
       form={form}
       title={'ExpenseCategoriesSettings.title'}
       description={'ExpenseCategoriesSettings.description'}
-      onSubmit={handleSubmit}
+      onSubmitAsync={mutateAsync}
     >
       <ExpenseCategoriesForm />
     </SettingsForm>
   );
 }
+

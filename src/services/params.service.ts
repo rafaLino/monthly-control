@@ -4,7 +4,7 @@ type ResponseVersionData = {
   data: number;
 };
 
-type Parameter = {
+export type Parameter = {
   id?: number;
   name: string;
   type: string;
