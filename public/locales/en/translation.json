@@ -119,6 +119,12 @@
     "aiModel": "AI Model",
     "autoSave": "Auto save"
   },
+  "ExpenseCategoriesSettings": {
+    "title": "Expenses Categories",
+    "description": "Set here your expenses categories",
+    "comboBoxEmpty": "Results not found",
+    "comboBoxPlaceholder": "Select expenses..."
+  },
   "projectionDialog": {
     "title": "Projection",
     "description": "Projection of incomes, expenses and investments",

@@ -43,6 +43,10 @@ export const useRegisters = (type: RegisterType): [Register[], (action: SetRegis
   );
 };
 
+export const useReadRegisters = <T = Register>(type: RegisterType, selector?: (item: Register[]) => T[]): Array<T> => {
+  return useGlobalStore((state) => (selector ? selector(state[type]) : state[type]) as Array<T>);
+};
+
 export const useRegisterSum = <T = number>(type: RegisterType, selector?: (val: number) => T) => {
   return useGlobalStore((state) => {
     const value = getPlannedBalance(state[type]);
