@@ -5,21 +5,21 @@ type BoardSnapshot = {
   features: Feature[];
 };
 function getBoardSnapshot(): BoardSnapshot | null {
-  const snapshot = sessionStorage.getItem('board-snapshot');
+  const snapshot = localStorage.getItem('board-snapshot');
   return snapshot ? JSON.parse(snapshot) : null;
 }
 
 function setBoardSnapshot(data: BoardSnapshot) {
   const snapshot = JSON.stringify(data);
-  sessionStorage.setItem('board-snapshot', snapshot);
+  localStorage.setItem('board-snapshot', snapshot);
 }
 
 function clearBoardSnapshot() {
-  sessionStorage.removeItem('board-snapshot');
+  localStorage.removeItem('board-snapshot');
 }
 
 function checkSnapshotInSession() {
-  return sessionStorage.getItem('board-snapshot') !== null;
+  return localStorage.getItem('board-snapshot') !== null;
 }
 
 export const boardSnapshot = { getBoardSnapshot, setBoardSnapshot, clearBoardSnapshot, checkSnapshotInSession };
