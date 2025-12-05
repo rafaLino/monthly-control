@@ -199,6 +199,7 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
         goNext={table.nextPage}
         goPrevious={table.previousPage}
         onChangePage={table.setPageIndex}
+        length={table.getRowCount()}
       />
     </div>
   );
