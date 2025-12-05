@@ -6,12 +6,12 @@ import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-type ExpensesCategoryFormField = {
+type ExpenseCategoriesFormField = {
   name: string;
   disabled?: boolean;
 };
-export const ExpensesCategoryFormField: FC<ExpensesCategoryFormField> = ({ name, disabled }) => {
-  const { t } = useTranslation('translation', { keyPrefix: 'expensesCategorySettings' });
+export const ExpenseCategoriesFormField: FC<ExpenseCategoriesFormField> = ({ name, disabled }) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'ExpenseCategoriesSettings' });
   const { control } = useFormContext();
   const options = useReadRegisters('expenses', (items) => items.map((x) => x.name.trim()));
 

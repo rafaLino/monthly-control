@@ -119,7 +119,7 @@
     "aiModel": "Modelo de IA",
     "autoSave": "Salvar automático"
   },
-  "expensesCategorySettings": {
+  "ExpenseCategoriesSettings": {
     "title": "Categorias",
     "description": "Configure as categorias para suas despesas",
     "comboBoxEmpty": "Resultados não encontrados",

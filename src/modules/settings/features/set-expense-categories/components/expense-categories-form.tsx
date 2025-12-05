@@ -5,10 +5,10 @@ import { cn } from '@/lib/utils';
 import { useSettingsForm } from '@/modules/settings/components/setting-form/settings-form-hook';
 import { CircleMinus, CirclePlus } from 'lucide-react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { ExpensesCategoryFormField } from './expenses-category-form-field';
+import { ExpenseCategoriesFormField } from './expense-categories-form-field';
 import { MouseEvent } from 'react';
 
-export function ExpensesCategoryForm() {
+export function ExpenseCategoriesForm() {
   const { enabled } = useSettingsForm();
   const { control } = useFormContext();
 
@@ -46,7 +46,7 @@ export function ExpensesCategoryForm() {
                 </FormItem>
               )}
             />
-            <ExpensesCategoryFormField name={`categories.${index}.value`} disabled={!enabled} />
+            <ExpenseCategoriesFormField name={`categories.${index}.value`} disabled={!enabled} />
             <Button
               data-index={index}
               type="button"

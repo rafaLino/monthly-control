@@ -119,7 +119,7 @@
     "aiModel": "AI Model",
     "autoSave": "Auto save"
   },
-   "expensesCategorySettings": {
+  "ExpenseCategoriesSettings": {
     "title": "Expenses Categories",
     "description": "Set here your expenses categories",
     "comboBoxEmpty": "Results not found",
