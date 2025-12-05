@@ -1,4 +1,4 @@
-import { useCallback, useEffect, } from 'react';
+import { useCallback, useEffect } from 'react';
 
 type KeyEvent = `alt.${string}` | `ctrl.${string}` | `shift.${string}` | string;
 
