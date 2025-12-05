@@ -1,7 +1,7 @@
+import { Badge } from '@/components/ui/badge';
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationFirst,
   PaginationItem,
   PaginationLast,
@@ -16,6 +16,7 @@ type PaginationProps = {
   pageCount: number;
   canPreviousPage: boolean;
   canNextPage: boolean;
+  length: number;
   goPrevious: () => void;
   goNext: () => void;
   onChangePage: (page: number) => void;
@@ -25,6 +26,7 @@ export default function CustomPagination({
   pageCount,
   canNextPage,
   canPreviousPage,
+  length,
   goNext,
   goPrevious,
   onChangePage
@@ -33,29 +35,26 @@ export default function CustomPagination({
   const currentPage = pageIndex + 1;
   const isLastPage = currentPage === pageCount;
   const isFirstPage = pageIndex === 0;
-  const thereIsMorePages = currentPage !== pageCount;
+
   return (
-    <Pagination className="flex justify-center sm:justify-end items-end">
-      <PaginationContent className="gap-2 justify-between">
+    <Pagination className="grid grid-cols-[30px_1fr] justify-between items-center">
+      <div>
+        <Badge variant="secondary" className="font-mono tabular-nums">
+          {length}
+        </Badge>
+      </div>
+      <PaginationContent className="gap-2 justify-start sm:justify-end px-2 sm:px-0">
         <PaginationItem>
           <PaginationFirst onClick={() => onChangePage(0)} disabled={isFirstPage} className="px-0" />
         </PaginationItem>
         <PaginationItem>
           <PaginationPrevious label={t('previous')} onClick={goPrevious} disabled={!canPreviousPage} className="px-0" />
         </PaginationItem>
-        {isLastPage && (
-          <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-        )}
         <PaginationItem>
-          <PaginationLink isActive={true}>{currentPage}</PaginationLink>
+          <PaginationLink isActive={true} className="w-6 h-6 rounded-full bg-muted/40">
+            {currentPage}
+          </PaginationLink>
         </PaginationItem>
-        {thereIsMorePages && (
-          <PaginationItem>
-            <PaginationEllipsis className="p-0" />
-          </PaginationItem>
-        )}
         <PaginationItem>
           <PaginationNext label={t('next')} onClick={goNext} disabled={!canNextPage} className="px-0" />
         </PaginationItem>

@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 
-type keyEvent = `alt.${string}` | `ctrl.${string}` | `shift.${string}` | string;
+type KeyEvent = `alt.${string}` | `ctrl.${string}` | `shift.${string}` | string;
 
 function modifiedKey(event: KeyboardEvent): string {
   if (event.altKey) {
@@ -15,7 +15,7 @@ function modifiedKey(event: KeyboardEvent): string {
   return event.key;
 }
 
-export function useKeyDown(key: keyEvent, callback?: () => void) {
+export function useKeyDown(key: KeyEvent, callback?: () => void) {
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
       if (key === modifiedKey(event)) {

@@ -20,7 +20,7 @@ export const ExpenseCategoriesCard = () => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="link" className={cn('px-2 sm:px-4 aria-expanded:opacity-50', isLoading && 'animate-pulse')}>
+        <Button variant="link" className={cn('p-0 aria-expanded:opacity-50 h-0', isLoading && 'animate-pulse')}>
           <ScrollText className="w-5 h-5" />
         </Button>
       </PopoverTrigger>

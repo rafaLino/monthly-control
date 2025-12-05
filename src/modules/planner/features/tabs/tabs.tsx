@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { DataTableFilterContext } from '@/context/DataTableFilterContext';
 import { useKeyDown } from '@/hooks/useKeyDown';
-import env from '@/lib/env';
 import { cn } from '@/lib/utils';
 import { RefreshCw } from 'lucide-react';
 import { useRef, useState } from 'react';
@@ -46,10 +45,7 @@ export default function RegisterTabs() {
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         />
-        <div className={cn('flex items-center justify-between sm:gap-2 sm:order-3 rounded-md', env.VITE_ONLINE && 'bg-muted')}>
-          <HiddenOffline>
-            <ExpenseCategoriesCard />
-          </HiddenOffline>
+        <div className="flex items-center sm:gap-2 sm:order-3">
           <Button
             size="sm"
             variant="link"
@@ -66,7 +62,11 @@ export default function RegisterTabs() {
           <DataTable key="incomes" type="incomes" />
         </TabsContent>
         <TabsContent value="expenses">
-          <DataTable key="expenses" type="expenses" />
+          <DataTable key="expenses" type="expenses">
+            <HiddenOffline>
+              <ExpenseCategoriesCard />
+            </HiddenOffline>
+          </DataTable>
         </TabsContent>
         <TabsContent value="investments">
           <DataTable key="investments" type="investments" />
