@@ -1,15 +1,15 @@
+import { ExpenseCategories, Schema } from '@/types/expense-categories';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { SettingsForm } from '../../components/setting-form';
 import { ExpenseCategoriesForm } from './components/expense-categories-form';
 import { useExpenseCategories } from './hooks/useExpenseCategories';
-import { ExpenseCategories, Schema } from '@/types/expense-categories';
 
 export function SetExpenseCategories() {
   /**
-   * FormState is not working properly with react compiler 
+   * FormState is not working properly with react compiler
    */
-  'use no memo'
+  'use no memo';
 
   const { data, mutateAsync } = useExpenseCategories();
 
@@ -34,4 +34,3 @@ export function SetExpenseCategories() {
     </SettingsForm>
   );
 }
-

@@ -6,9 +6,9 @@ import { PropsWithChildren, useCallback, useId, useMemo, useState } from 'react'
 import { FieldValues, UseFormReturn } from 'react-hook-form';
 
 import { Label } from '@/components/ui/label';
+import { Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { SettingsFormContext } from './settings-form-context';
-import { Loader2 } from 'lucide-react';
 
 type SettingsFormProps<T extends FieldValues> = PropsWithChildren<{
   form: UseFormReturn<T>;
@@ -32,24 +32,25 @@ export function SettingsForm<T extends FieldValues>({
   const [enableForm, setEnableForm] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { formState: { isValid } } = form;
+  const {
+    formState: { isValid }
+  } = form;
 
   const submit = useCallback(
     async (data: T) => {
       if (onSubmit) {
-        onSubmit(data)
+        onSubmit(data);
         setEnableForm(false);
-        return
+        return;
       }
 
       try {
-        setLoading(true)
+        setLoading(true);
         await onSubmitAsync?.(data);
       } finally {
-        setEnableForm(false)
-        setLoading(false)
+        setEnableForm(false);
+        setLoading(false);
       }
-
     },
     [onSubmit]
   );
@@ -76,9 +77,9 @@ export function SettingsForm<T extends FieldValues>({
           <form onSubmit={form.handleSubmit(submit)} aria-readonly={!enableForm}>
             <CardContent className="min-h-48">{children}</CardContent>
             <CardFooter className="border-t px-6 py-4">
-              <Button type="submit" disabled={!isValid || !enableForm || loading} className='gap-2'>
+              <Button type="submit" disabled={!isValid || !enableForm || loading} className="gap-2">
                 {t('save')}
-                {loading && <Loader2 className='w-4 h-4 animate-spin' />}
+                {loading && <Loader2 className="w-4 h-4 animate-spin" />}
               </Button>
             </CardFooter>
           </form>

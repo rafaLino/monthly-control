@@ -55,7 +55,7 @@ export function MultiCombobox({
             </Button>
           </PopoverTrigger>
         </div>
-        <PopoverContent className="p-0" side='bottom' align='start'>
+        <PopoverContent className="p-0" side="bottom" align="start">
           <Command>
             <CommandInput
               placeholder={placeholder}

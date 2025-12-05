@@ -1,14 +1,18 @@
+import { HiddenOffline } from '@/components/hidden-offline';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { DataTableFilterContext } from '@/context/DataTableFilterContext';
 import { useKeyDown } from '@/hooks/useKeyDown';
+import env from '@/lib/env';
 import { cn } from '@/lib/utils';
-import { RefreshCw, Search } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DataTable } from '../data-table';
+import { ExpenseCategoriesCard } from './components/expense-categories';
+import { SearchInput } from './components/search-input';
 import { useSave } from './hooks/useSave';
+
 export default function RegisterTabs() {
   const { t } = useTranslation('translation', { keyPrefix: 'registerTabs' });
   const filterInputRef = useRef<HTMLInputElement>(null);
@@ -35,18 +39,17 @@ export default function RegisterTabs() {
             {t('investments')}
           </TabsTrigger>
         </TabsList>
-        <div className="relative flex md:grow-0 order-3 w-full sm:w-auto">
-          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-          <Input
-            ref={filterInputRef}
-            type="search"
-            placeholder={t('search')}
-            className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
-          />
-        </div>
-        <div className="flex items-center sm:gap-2 sm:order-3">
+        <SearchInput
+          ref={filterInputRef}
+          type="search"
+          placeholder={t('search')}
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+        />
+        <div className={cn('flex items-center justify-between sm:gap-2 sm:order-3 rounded-md', env.VITE_ONLINE && 'bg-muted')}>
+          <HiddenOffline>
+            <ExpenseCategoriesCard />
+          </HiddenOffline>
           <Button
             size="sm"
             variant="link"

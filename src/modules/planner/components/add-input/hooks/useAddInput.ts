@@ -11,10 +11,10 @@ export function useAddInput(fn: (name: string, value: number) => void) {
       if (nameWithValueRegex.test(event.currentTarget.value)) {
         const [name, value] = event.currentTarget.value.split(TAKE_VALUE_REGEX).filter(Boolean);
         ref.current.value = '';
-        return fn(name, parseFloat(value));
+        return fn(name.trim(), parseFloat(value));
       }
 
-      fn(event.currentTarget.value, 0);
+      fn(event.currentTarget.value.trim(), 0);
       ref.current.value = '';
     }
   };

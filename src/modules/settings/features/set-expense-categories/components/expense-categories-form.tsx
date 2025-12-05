@@ -4,9 +4,9 @@ import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { useSettingsForm } from '@/modules/settings/components/setting-form/settings-form-hook';
 import { CircleMinus, CirclePlus } from 'lucide-react';
+import { MouseEvent } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { ExpenseCategoriesFormField } from './expense-categories-form-field';
-import { MouseEvent } from 'react';
 
 export function ExpenseCategoriesForm() {
   const { enabled } = useSettingsForm();
@@ -19,9 +19,9 @@ export function ExpenseCategoriesForm() {
   };
 
   const handleRemove = (e: MouseEvent<HTMLButtonElement>) => {
-    const index = Number(e.currentTarget.dataset.index)
-    remove(index)
-  }
+    const index = Number(e.currentTarget.dataset.index);
+    remove(index);
+  };
   return (
     <div className="grid grid-cols-[50px_1fr] gap-2 items-center">
       <Button type="button" disabled={!enabled} variant="link" size="sm" onClick={handleAdd}>
@@ -37,11 +37,7 @@ export function ExpenseCategoriesForm() {
               render={({ field: { value, ...field }, fieldState: { invalid } }) => (
                 <FormItem className={cn(invalid && 'border border-red-400 rounded-md')}>
                   <FormControl>
-                    <Input
-                      {...field}
-                      value={value.toLowerCase()}
-                      className="max-w-40"
-                    />
+                    <Input {...field} value={value.toLowerCase()} className="max-w-40" />
                   </FormControl>
                 </FormItem>
               )}
@@ -54,7 +50,7 @@ export function ExpenseCategoriesForm() {
               variant="link"
               size="sm"
               onClick={handleRemove}
-              className='text-red-500'
+              className="text-red-500"
             >
               <CircleMinus />
             </Button>
