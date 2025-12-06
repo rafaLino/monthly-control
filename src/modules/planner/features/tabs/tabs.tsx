@@ -2,8 +2,9 @@ import { HiddenOffline } from '@/components/hidden-offline';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { DataTableFilterContext } from '@/context/DataTableFilterContext';
-import { useKeyDown } from '@/hooks/useKeyDown';
+import { useKeysDown } from '@/hooks/useKeyDown';
 import { cn } from '@/lib/utils';
+import { useTemporalStore } from '@/store';
 import { RefreshCw } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -15,13 +16,15 @@ import { useSave } from './hooks/useSave';
 export default function RegisterTabs() {
   const { t } = useTranslation('translation', { keyPrefix: 'registerTabs' });
   const filterInputRef = useRef<HTMLInputElement>(null);
+  const { undo, redo } = useTemporalStore((state) => state);
   const [filter, setFilter] = useState('');
   const [saving, save] = useSave();
 
-  useKeyDown('ctrl.s', save);
-
-  useKeyDown('ctrl.f', () => {
-    filterInputRef.current?.focus();
+  useKeysDown({
+    'ctrl.s': save,
+    'ctrl.f': () => filterInputRef.current?.focus(),
+    'ctrl.z': undo,
+    'ctrl.y': redo
   });
 
   return (

@@ -1,26 +1,23 @@
-import { ToastAction } from '@/components/ui/toast';
-import { useToast } from '@/components/ui/use-toast';
+import { Button } from '@/components/ui/button';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { toast } from 'sonner';
 type Props = {
   show: boolean;
   onAction: () => Promise<void>;
 };
 export function OutdatedDataNotification({ show, onAction }: Props) {
   const { t } = useTranslation();
-  const { toast } = useToast();
 
   useEffect(() => {
     if (show) {
       const timeout = setTimeout(() => {
-        toast({
-          title: t('notification.title'),
+        toast.info(t('notification.title'), {
           duration: Infinity,
           action: (
-            <ToastAction altText="download" onClick={onAction}>
+            <Button size="sm" variant="outline" aria-label="download" onClick={onAction}>
               {t('notification.action')}
-            </ToastAction>
+            </Button>
           )
         });
       }, 1_000);

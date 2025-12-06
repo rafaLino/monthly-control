@@ -46,3 +46,5 @@ export interface DataAnalysisSlice {
 }
 
 export type GlobalState = PlannerSlice & DataAnalysisSlice;
+
+export type TemporalPartializedState = Pick<GlobalState, 'incomes' | 'expenses' | 'investments'>;

@@ -87,7 +87,7 @@
     "addNewFlag": "Add new Flag"
   },
   "notification": {
-    "title": "ℹ️ New version available!",
+    "title": "New version available!",
     "action": "Get new version"
   },
   "dashboard": {

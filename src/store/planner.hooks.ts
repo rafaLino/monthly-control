@@ -13,8 +13,10 @@ import {
 import { fetchRegisters } from '@/lib/fetch-registers';
 import { capitalize } from '@/lib/utils';
 import { Register, RegisterType } from '@/types/register.types';
+import { TemporalState } from 'zundo';
+import { useStore } from 'zustand';
 import { useShallow } from 'zustand/react/shallow';
-import { SetRegistersActionType } from './global.state';
+import { SetRegistersActionType, TemporalPartializedState } from './global.state';
 import { useGlobalStore } from './store';
 
 //services
@@ -110,3 +112,6 @@ export const useGoals = () => {
 export const useSync = () => {
   return useGlobalStore(useShallow((state) => [state.syncing, state.plannerActions.setSyncing] as const));
 };
+
+export const useTemporalStore = <T>(selector: (state: TemporalState<TemporalPartializedState>) => T) =>
+  useStore(useGlobalStore.temporal, selector);

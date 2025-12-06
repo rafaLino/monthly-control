@@ -1,4 +1,4 @@
-import { Toaster } from '@/components/ui/toaster';
+import { Toaster } from '@/components/ui/sonner';
 import { Calculator } from '@rafalino/react-quick-calculator';
 import { ExpensesBalanceCard, IncomesBalanceCard, InvestmentsBalanceCard, TotalBalance } from './features/balance';
 import { GoalCard } from './features/goal-card';

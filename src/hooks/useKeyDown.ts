@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect, useEffectEvent } from 'react';
 
 type KeyEvent = `alt.${string}` | `ctrl.${string}` | `shift.${string}` | string;
 
@@ -16,20 +16,34 @@ function modifiedKey(event: KeyboardEvent): string {
 }
 
 export function useKeyDown(key: KeyEvent, callback?: () => void) {
-  const handleKeyDown = useCallback(
-    (event: KeyboardEvent) => {
-      if (key === modifiedKey(event)) {
-        event.preventDefault();
-        callback?.();
-      }
-    },
-    [key, callback]
-  );
+  const handleKeyDown = useEffectEvent((event: KeyboardEvent) => {
+    if (key === modifiedKey(event)) {
+      event.preventDefault();
+      callback?.();
+    }
+  });
 
   useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
+    globalThis.addEventListener('keydown', handleKeyDown);
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      globalThis.removeEventListener('keydown', handleKeyDown);
     };
-  }, [handleKeyDown]);
+  }, []);
+}
+
+export function useKeysDown<KE extends KeyEvent>(control: { [key in KE]: () => void }) {
+  const handleKeyDown = useEffectEvent((event: KeyboardEvent) => {
+    const mKey = modifiedKey(event) as KE;
+    if (control[mKey]) {
+      event.preventDefault();
+      control[mKey]?.();
+    }
+  });
+
+  useEffect(() => {
+    globalThis.addEventListener('keydown', handleKeyDown);
+    return () => {
+      globalThis.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 }

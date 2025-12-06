@@ -1,8 +1,10 @@
 import { setRegisters } from '@/lib/business-logic';
+import { temporalConfig } from '@/lib/temporal-config';
 import { Goal } from '@/types/goal';
 import { DEFAULT_LOCAL_PARAMS } from '@/types/local-params';
 import { Message, MessageInput } from '@/types/message';
 import { Register } from '@/types/register.types';
+import { temporal } from 'zundo';
 import { StateCreator, create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { DataAnalysisSlice, GlobalState, PlannerSlice } from './global.state';
@@ -87,13 +89,21 @@ const createDataAnalysisSlice: StateCreator<GlobalState, [], [], DataAnalysisSli
 //accessible only by hooks
 export const useGlobalStore = create<GlobalState>()(
   persist(
-    (...args) => ({
-      ...createPlannerSlice(...args),
-      ...createDataAnalysisSlice(...args)
-    }),
+    temporal(
+      (...args) => ({
+        ...createPlannerSlice(...args),
+        ...createDataAnalysisSlice(...args)
+      }),
+      {
+        limit: 10,
+        partialize: temporalConfig.partialize,
+        equality: temporalConfig.equality,
+        diff: temporalConfig.diff
+      }
+    ),
     {
       name: 'local_params',
       partialize: (state) => ({ params: state.params })
     }
-  ) as StateCreator<GlobalState>
+  )
 );
