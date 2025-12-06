@@ -22,7 +22,7 @@ export function useSave() {
     if (env.MODE === 'test' || !autoSave) return;
     const intervalId = setInterval(save, FIVE_MINUTES);
     return () => clearInterval(intervalId);
-  }, [save]);
+  }, [save, autoSave]);
 
   return [syncing, save] as const;
 }

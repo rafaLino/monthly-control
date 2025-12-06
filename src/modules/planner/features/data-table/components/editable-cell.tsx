@@ -41,6 +41,7 @@ export const EditableCell: React.FC<EditableCellProps> = ({ id, value, type = 't
       onKeyDown={handleKeyDown}
       onFocus={onFocus}
       className="border-0 focus:border"
+      autoComplete="off"
       {...props}
     />
   );

@@ -1,35 +1,32 @@
 import { DEFAULT_LOCAL_PARAMS, LocalParams } from '@/types/local-params';
 import { Message } from '@/types/message';
+import { useShallow } from 'zustand/shallow';
 import { useGlobalStore } from './store';
 
 type TKey = keyof LocalParams;
 type TValue = LocalParams[TKey];
 
 export function useLocalParams<E extends TValue>(param: TKey) {
-  return useGlobalStore((state) => {
-    const params = state.params;
-    const setParams = state.dataAnalysisActions.setParams;
-    const get = (key: TKey) => {
-      if (!params[key]) {
-        return DEFAULT_LOCAL_PARAMS[param] as E;
-      }
-      return params[key] as E;
-    };
+  const [params, setParams] = useLocalParamsAll();
 
-    const set = (key: TKey, newValue: TValue) => {
-      if (key) {
-        setParams({ [key]: newValue });
-      }
-    };
+  const get = (key: TKey) => {
+    if (!params[key]) {
+      return DEFAULT_LOCAL_PARAMS[param] as E;
+    }
+    return params[key] as E;
+  };
 
-    const value = get(param);
+  const set = (key: TKey, newValue: TValue) => {
+    if (key) {
+      setParams({ [key]: newValue });
+    }
+  };
 
-    return [value, set, get] as const;
-  });
+  return [get(param), set, get] as const;
 }
 
 export function useLocalParamsAll() {
-  return useGlobalStore((state) => [state.params, state.dataAnalysisActions.setParams] as const);
+  return useGlobalStore(useShallow((state) => [state.params, state.dataAnalysisActions.setParams] as const));
 }
 
 export function useMessages(): Message[] {
@@ -39,14 +36,16 @@ export function useMessages(): Message[] {
 }
 
 export function useChatSession() {
-  return useGlobalStore((state) => [state.chatSession, state.dataAnalysisActions.setChatSession] as const);
+  return useGlobalStore(useShallow((state) => [state.chatSession, state.dataAnalysisActions.setChatSession] as const));
 }
 
 export function useSetMessages() {
-  return useGlobalStore((state) => ({
-    setMessages: state.dataAnalysisActions.setMessages,
-    clearMessages: state.dataAnalysisActions.clearMessages
-  }));
+  return useGlobalStore(
+    useShallow((state) => ({
+      setMessages: state.dataAnalysisActions.setMessages,
+      clearMessages: state.dataAnalysisActions.clearMessages
+    }))
+  );
 }
 
 //services

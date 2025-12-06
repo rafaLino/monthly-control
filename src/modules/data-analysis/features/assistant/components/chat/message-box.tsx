@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import { Message, MessageRole } from '@/types/message';
 import { Bomb, BotIcon, UserCircle2Icon, Wrench } from 'lucide-react';
-import { FC, memo, useEffect, useRef } from 'react';
+import { FC, JSX, memo, useEffect, useRef } from 'react';
 import Markdown from 'react-markdown';
 
 type MessageBoxProps = {
