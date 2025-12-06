@@ -44,7 +44,7 @@ export const useRegisters = (type: RegisterType): [Register[], (action: SetRegis
 };
 
 export const useReadRegisters = <T = Register>(type: RegisterType, selector?: (item: Register[]) => T[]): Array<T> => {
-  return useGlobalStore((state) => (selector ? selector(state[type]) : state[type]) as Array<T>);
+  return useGlobalStore(useShallow((state) => (selector ? selector(state[type]) : state[type]) as Array<T>));
 };
 
 export const useRegisterSum = <T = number>(type: RegisterType, selector?: (val: number) => T) => {
@@ -55,7 +55,7 @@ export const useRegisterSum = <T = number>(type: RegisterType, selector?: (val: 
 };
 
 export const useActions = () => {
-  return useGlobalStore((state) => state.plannerActions);
+  return useGlobalStore(useShallow((state) => state.plannerActions));
 };
 
 export const useIncomesBalance = () => {
@@ -75,7 +75,7 @@ export const useTotalBalance = () => {
 };
 
 export const useGoalResult = () => {
-  return useGlobalStore((state) => {
+  return useGlobalStore(useShallow((state) => {
     const income = getIncomeGoal(state.incomes, state.expenses, state.investments);
     const expense = getExpenseGoal(state.incomes, state.expenses);
     const investment = getInvestmentGoal(state.incomes, state.investments);
@@ -94,15 +94,15 @@ export const useGoalResult = () => {
       investmentDone,
       result
     };
-  });
+  }));
 };
 
 export const useGoals = () => {
-  return useGlobalStore((state) => {
+  return useGlobalStore(useShallow((state) => {
     return [state.goal, state.plannerActions.setGoal] as const;
-  });
+  }));
 };
 
 export const useSync = () => {
-  return useGlobalStore((state) => [state.syncing, state.plannerActions.setSyncing] as const);
+  return useGlobalStore(useShallow((state) => [state.syncing, state.plannerActions.setSyncing] as const));
 };

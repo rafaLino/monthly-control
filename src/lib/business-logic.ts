@@ -21,16 +21,17 @@ export function getTotalBalance(incomes: Array<Register>, expenses: Array<Regist
   const expensesBalance = getBalance(expenses);
   const investmentsBalance = getBalance(investments);
 
-  const spend = expensesBalance.planned + investmentsBalance.planned;
-  const spendDone = expensesBalance.done + investmentsBalance.done;
+  const cost = expensesBalance.planned + investmentsBalance.planned;
+  const costDone = expensesBalance.done + investmentsBalance.done;
 
-  const balance = incomesBalance.planned - spend;
-  const balanceDone = incomesBalance.done - spendDone;
-
-  return [
-    { balance, done: balanceDone },
-    { balance: spend, done: spendDone }
-  ] as const;
+  const balance = incomesBalance.planned - cost;
+  const balanceDone = incomesBalance.done - costDone;
+  return {
+    balance,
+    balanceDone,
+    cost,
+    costDone
+  }
 }
 
 export function getIncomeGoal(incomes: Array<Register>, expenses: Array<Register>, investments: Array<Register>) {

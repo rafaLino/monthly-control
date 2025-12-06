@@ -2,13 +2,14 @@ import { BalanceCard } from '@/modules/planner/components/balance-card';
 import { useTotalBalance } from '@/store';
 
 export function TotalBalance() {
-  const [incomes, expenses] = useTotalBalance();
+  const { balance, balanceDone, cost, costDone } = useTotalBalance();
+
   return (
     <BalanceCard
-      incomesBalance={incomes.balance}
-      incomesDone={incomes.done}
-      expensesBalance={expenses.balance}
-      expensesDone={expenses.done}
+      incomesBalance={balance}
+      incomesDone={balanceDone}
+      expensesBalance={cost}
+      expensesDone={costDone}
     />
   );
 }
