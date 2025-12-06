@@ -75,32 +75,36 @@ export const useTotalBalance = () => {
 };
 
 export const useGoalResult = () => {
-  return useGlobalStore(useShallow((state) => {
-    const income = getIncomeGoal(state.incomes, state.expenses, state.investments);
-    const expense = getExpenseGoal(state.incomes, state.expenses);
-    const investment = getInvestmentGoal(state.incomes, state.investments);
-    const result = getGoalResult(state.goal, income, expense, investment);
+  return useGlobalStore(
+    useShallow((state) => {
+      const income = getIncomeGoal(state.incomes, state.expenses, state.investments);
+      const expense = getExpenseGoal(state.incomes, state.expenses);
+      const investment = getInvestmentGoal(state.incomes, state.investments);
+      const result = getGoalResult(state.goal, income, expense, investment);
 
-    const incomeDone = getIncomeGoalDone(state.incomes, state.expenses, state.investments);
-    const expenseDone = getExpenseGoalDone(state.incomes, state.expenses);
-    const investmentDone = getInvestmentGoalDone(state.incomes, state.investments);
+      const incomeDone = getIncomeGoalDone(state.incomes, state.expenses, state.investments);
+      const expenseDone = getExpenseGoalDone(state.incomes, state.expenses);
+      const investmentDone = getInvestmentGoalDone(state.incomes, state.investments);
 
-    return {
-      income,
-      expense,
-      investment,
-      incomeDone,
-      expenseDone,
-      investmentDone,
-      result
-    };
-  }));
+      return {
+        income,
+        expense,
+        investment,
+        incomeDone,
+        expenseDone,
+        investmentDone,
+        result
+      };
+    })
+  );
 };
 
 export const useGoals = () => {
-  return useGlobalStore(useShallow((state) => {
-    return [state.goal, state.plannerActions.setGoal] as const;
-  }));
+  return useGlobalStore(
+    useShallow((state) => {
+      return [state.goal, state.plannerActions.setGoal] as const;
+    })
+  );
 };
 
 export const useSync = () => {

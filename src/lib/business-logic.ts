@@ -31,7 +31,7 @@ export function getTotalBalance(incomes: Array<Register>, expenses: Array<Regist
     balanceDone,
     cost,
     costDone
-  }
+  };
 }
 
 export function getIncomeGoal(incomes: Array<Register>, expenses: Array<Register>, investments: Array<Register>) {

@@ -1,13 +1,13 @@
 import { DEFAULT_LOCAL_PARAMS, LocalParams } from '@/types/local-params';
 import { Message } from '@/types/message';
-import { useGlobalStore } from './store';
 import { useShallow } from 'zustand/shallow';
+import { useGlobalStore } from './store';
 
 type TKey = keyof LocalParams;
 type TValue = LocalParams[TKey];
 
 export function useLocalParams<E extends TValue>(param: TKey) {
-  const [params, setParams] = useLocalParamsAll()
+  const [params, setParams] = useLocalParamsAll();
 
   const get = (key: TKey) => {
     if (!params[key]) {
@@ -40,10 +40,12 @@ export function useChatSession() {
 }
 
 export function useSetMessages() {
-  return useGlobalStore(useShallow((state) => ({
-    setMessages: state.dataAnalysisActions.setMessages,
-    clearMessages: state.dataAnalysisActions.clearMessages
-  })));
+  return useGlobalStore(
+    useShallow((state) => ({
+      setMessages: state.dataAnalysisActions.setMessages,
+      clearMessages: state.dataAnalysisActions.clearMessages
+    }))
+  );
 }
 
 //services
