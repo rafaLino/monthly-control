@@ -1,13 +1,24 @@
 import { Toaster } from '@/components/ui/sonner';
 import { Calculator } from '@rafalino/react-quick-calculator';
+import { Suspense, lazy } from 'react';
 import { ExpensesBalanceCard, IncomesBalanceCard, InvestmentsBalanceCard, TotalBalance } from './features/balance';
 import { GoalCard } from './features/goal-card';
 import { ProjectionDialog } from './features/projection-dialog';
-import { ExpensesPieChart, IncomesPieChart, InvestmentsPieChart } from './features/register-pie-charts';
+import { PieChartsSkeleton } from './features/register-pie-charts/pie-charts-skeleton';
 import RegisterTabs from './features/tabs/tabs';
 
 const relativePositionX = window.innerWidth * 0.58;
 const relativePositionY = window.innerHeight * 0.13;
+
+const IncomesPieChart = lazy(() =>
+  import('./features/register-pie-charts').then((module) => ({ default: module.IncomesPieChart }))
+);
+const ExpensesPieChart = lazy(() =>
+  import('./features/register-pie-charts').then((module) => ({ default: module.ExpensesPieChart }))
+);
+const InvestmentsPieChart = lazy(() =>
+  import('./features/register-pie-charts').then((module) => ({ default: module.InvestmentsPieChart }))
+);
 
 export const Planner = () => {
   return (
@@ -28,9 +39,11 @@ export const Planner = () => {
         <RegisterTabs />
       </div>
       <div>
-        <IncomesPieChart />
-        <ExpensesPieChart />
-        <InvestmentsPieChart />
+        <Suspense fallback={<PieChartsSkeleton />}>
+          <IncomesPieChart />
+          <ExpensesPieChart />
+          <InvestmentsPieChart />
+        </Suspense>
       </div>
     </>
   );

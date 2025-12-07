@@ -7,8 +7,10 @@ import type { ExpenseCategories } from '@/types/expense-categories';
 import { QueryKeys } from '@/types/queryKeys';
 import { useQuery } from '@tanstack/react-query';
 import { ScrollText } from 'lucide-react';
-import { ExpenseCategoriesList } from './list';
+import { lazy } from 'react';
 import { LoaderSkeleton } from './skeleton';
+
+const ExpenseCategoriesList = lazy(() => import('./list').then((module) => ({ default: module.ExpenseCategoriesList })));
 
 export const ExpenseCategoriesCard = () => {
   const { data, isLoading } = useQuery({
@@ -25,7 +27,7 @@ export const ExpenseCategoriesCard = () => {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80 shadow-2xl bg-muted" align="start">
-        <Loading loading={isLoading} fallback={<LoaderSkeleton />}>
+        <Loading fallback={<LoaderSkeleton />} loading={isLoading}>
           <ExpenseCategoriesList list={data} />
         </Loading>
       </PopoverContent>

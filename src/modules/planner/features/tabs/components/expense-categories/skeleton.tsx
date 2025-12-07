@@ -4,11 +4,11 @@ import { Skeleton } from '@/components/ui/skeleton';
 export function LoaderSkeleton() {
   return (
     <div className="p-4">
-      <Skeleton className="h-4 w-10 rounded-lg mb-4" />
+      <Skeleton className="h-4 w-10 rounded-lg mb-4 bg-muted-foreground/10" />
       <section className="px-4">
         <div className="flex justify-between gap-2">
-          <Skeleton className="h-4 w-[250px]" />
-          <Skeleton className="h-4 w-[250px]" />
+          <Skeleton className="h-4 w-[250px] bg-muted-foreground/10" />
+          <Skeleton className="h-4 w-[250px] bg-muted-foreground/10" />
         </div>
         <Separator className="my-2" />
       </section>
