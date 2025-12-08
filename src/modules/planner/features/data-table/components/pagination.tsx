@@ -43,7 +43,7 @@ export default function CustomPagination({
           {length}
         </Badge>
       </div>
-      <PaginationContent className="gap-2 justify-start sm:justify-end px-2 sm:px-0">
+      <PaginationContent className="gap-2 justify-start sm:justify-end px-2 sm:px-0 ml-2 sm:ml-0">
         <PaginationItem>
           <PaginationFirst onClick={() => onChangePage(0)} disabled={isFirstPage} className="px-0" />
         </PaginationItem>
