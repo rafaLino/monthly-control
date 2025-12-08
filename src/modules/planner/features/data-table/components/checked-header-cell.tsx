@@ -4,7 +4,8 @@ import { HeaderContext } from '@tanstack/react-table';
 import { useMemo } from 'react';
 
 export function CheckedHeaderCell({ table }: Readonly<HeaderContext<Register, unknown>>) {
-  const rows = table.getRowModel().flatRows;
+  'use no memo';
+  const rows = table.getRowModel().rows;
   const value = useMemo(() => {
     if (rows.length === 0) return false;
     const allChecked = rows.every((row) => row.original.checked);
