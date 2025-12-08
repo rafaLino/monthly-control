@@ -6,6 +6,7 @@ import { PropsWithChildren, useCallback, useId, useMemo, useState } from 'react'
 import { FieldValues, UseFormReturn } from 'react-hook-form';
 
 import { Label } from '@/components/ui/label';
+import { cn } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { SettingsFormContext } from './settings-form-context';
@@ -17,6 +18,7 @@ type SettingsFormProps<T extends FieldValues> = PropsWithChildren<{
   title: string;
   description: string;
   disabled?: boolean;
+  contentClassName?: string;
 }>;
 export function SettingsForm<T extends FieldValues>({
   children,
@@ -24,6 +26,7 @@ export function SettingsForm<T extends FieldValues>({
   title,
   description,
   disabled,
+  contentClassName,
   onSubmit,
   onSubmitAsync
 }: Readonly<SettingsFormProps<T>>) {
@@ -75,7 +78,7 @@ export function SettingsForm<T extends FieldValues>({
         </CardHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(submit)} aria-readonly={!enableForm}>
-            <CardContent className="min-h-48">{children}</CardContent>
+            <CardContent className={cn('min-h-48', contentClassName)}>{children}</CardContent>
             <CardFooter className="border-t px-6 py-4">
               <Button type="submit" disabled={!isValid || !enableForm || loading} className="gap-2">
                 {t('save')}

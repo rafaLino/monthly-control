@@ -26,7 +26,7 @@ export const ExpenseCategoriesCard = () => {
           <ScrollText className="w-5 h-5" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-80 shadow-2xl bg-muted" align="start">
+      <PopoverContent className="w-96 shadow-2xl bg-muted" align="start" sideOffset={10}>
         <Loading fallback={<LoaderSkeleton />} loading={isLoading}>
           <ExpenseCategoriesList list={data} />
         </Loading>

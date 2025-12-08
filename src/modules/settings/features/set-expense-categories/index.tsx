@@ -29,6 +29,7 @@ export function SetExpenseCategories() {
       title={'ExpenseCategoriesSettings.title'}
       description={'ExpenseCategoriesSettings.description'}
       onSubmitAsync={mutateAsync}
+      contentClassName="p-2 sm:p-6"
     >
       <ExpenseCategoriesForm />
     </SettingsForm>
