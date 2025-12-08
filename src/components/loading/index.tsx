@@ -1,8 +1,10 @@
-import { FC, PropsWithChildren, ReactNode } from 'react';
+import { FC, PropsWithChildren, ReactNode, Suspense } from 'react';
 
 type LoadingProps = PropsWithChildren<{
   loading: boolean;
   fallback: ReactNode;
 }>;
 
-export const Loading: FC<LoadingProps> = ({ loading, fallback, children }) => (loading ? fallback : children);
+export const Loading: FC<LoadingProps> = ({ loading, fallback, children }) => {
+  return <Suspense fallback={fallback}>{loading ? fallback : children}</Suspense>;
+};

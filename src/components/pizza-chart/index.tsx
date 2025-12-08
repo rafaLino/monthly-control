@@ -36,7 +36,7 @@ export function PizzaChart({ data, children }: Readonly<PizzaChartProps>) {
   const total = useMemo(() => sum(data), [data]);
 
   return (
-    <Card className="flex flex-col mb-1.5">
+    <Card className="flex flex-col mb-1.5 animate-in">
       <CardContent className="flex-1 pb-0">
         <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[250px] z-0">
           <PieChart>

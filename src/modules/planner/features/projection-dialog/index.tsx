@@ -1,8 +1,12 @@
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 import { useKeyDown } from '@/hooks/useKeyDown';
-import { useState } from 'react';
+import { Suspense, lazy, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ProjectionContent } from './components/projection-content';
+import { ProjectionSkeleton } from './components/projection-skeleton';
+
+const ProjectionContent = lazy(() =>
+  import('./components/projection-content').then((module) => ({ default: module.ProjectionContent }))
+);
 
 const disableClose = (event: Event) => event.preventDefault();
 
@@ -23,7 +27,9 @@ export const ProjectionDialog = () => {
         onInteractOutside={disableClose}
         showClose={false}
       >
-        <ProjectionContent />
+        <Suspense fallback={<ProjectionSkeleton />}>
+          <ProjectionContent />
+        </Suspense>
       </DialogContent>
     </Dialog>
   );
