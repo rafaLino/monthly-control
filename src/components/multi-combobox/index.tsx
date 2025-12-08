@@ -34,11 +34,11 @@ export function MultiCombobox({
   };
 
   return (
-    <div aria-disabled={disabled} className={cn('flex items-center space-x-4', disabled && 'cursor-not-allowed')}>
+    <div aria-disabled={disabled} className={cn('flex items-center space-x-2 sm:space-x-4', disabled && 'cursor-not-allowed')}>
       <Popover open={open} onOpenChange={setOpen}>
         <div
           className={cn(
-            'flex border px-2 gap-1 rounded items-center justify-between w-full min-w-64 relative',
+            'flex border px-2 gap-1 rounded items-center justify-between w-full min-w-40 sm:min-w-64 relative',
             disabled && 'opacity-50'
           )}
         >

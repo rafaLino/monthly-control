@@ -23,13 +23,13 @@ export function ExpenseCategoriesForm() {
     remove(index);
   };
   return (
-    <div className="grid grid-cols-[50px_1fr] gap-2 items-center">
-      <Button type="button" disabled={!enabled} variant="link" size="sm" onClick={handleAdd}>
+    <div className="grid grid-cols-[50px_1fr] gap-0 sm:gap-4 text-center">
+      <Button type="button" disabled={!enabled} variant="link" size="sm" onClick={handleAdd} className="mt-1">
         <CirclePlus />
       </Button>
       <div className="flex flex-col gap-4">
         {fields.map((item, index) => (
-          <div key={item.id} className="flex flex-row gap-4 items-center">
+          <div key={item.id} className="flex flex-row gap-2 sm:gap-4 items-center">
             <FormField
               control={control}
               disabled={!enabled}
@@ -48,7 +48,7 @@ export function ExpenseCategoriesForm() {
               type="button"
               disabled={!enabled}
               variant="link"
-              size="sm"
+              size="icon"
               onClick={handleRemove}
               className="text-red-500"
             >
