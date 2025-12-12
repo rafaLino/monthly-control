@@ -5,6 +5,7 @@ import { apiService } from '@/services/api.service';
 import { useActions } from '@/store';
 import { Download, Upload } from 'lucide-react';
 import { useState } from 'react';
+import { toast } from 'sonner';
 import { updateLastAccess } from '../actions/update-last-access';
 import { OutdatedDataNotification } from './outdated-data-notification';
 
@@ -26,6 +27,7 @@ export const SaveOnCloudActions = () => {
       }
     } finally {
       setDownloading(false);
+      toast.dismiss();
     }
   };
 
