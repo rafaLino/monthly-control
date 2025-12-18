@@ -44,7 +44,7 @@ export function MultiCombobox({
         >
           <div className="flex flex-wrap gap-1 py-2 mr-6 min-h-10">
             {values.map((value) => (
-              <span key={value} className="bg-primary text-primary-foreground rounded-lg px-2 py-1 text-xs">
+              <span key={value} className="bg-sky-400 text-primary-foreground rounded-lg px-2 py-1 text-xs">
                 {value}
               </span>
             ))}
