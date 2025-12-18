@@ -1,35 +1,38 @@
 import { Button } from '@/components/ui/button';
 import { FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useTimeout } from '@/hooks/useTimeout';
 import { cn } from '@/lib/utils';
 import { useSettingsForm } from '@/modules/settings/components/setting-form/settings-form-hook';
 import { CircleMinus, CirclePlus } from 'lucide-react';
-import { MouseEvent } from 'react';
+import { MouseEvent, useRef } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { ExpenseCategoriesFormField } from './expense-categories-form-field';
 
 export function ExpenseCategoriesForm() {
   const { enabled } = useSettingsForm();
   const { control } = useFormContext();
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const runAction = useTimeout(() => buttonRef.current?.scrollIntoView({ behavior: 'smooth' }), 100);
 
   const { fields, append, remove } = useFieldArray({ control, name: 'categories' });
 
   const handleAdd = () => {
     append({ name: '', value: [] });
+    runAction();
   };
 
   const handleRemove = (e: MouseEvent<HTMLButtonElement>) => {
     const index = Number(e.currentTarget.dataset.index);
     remove(index);
   };
+
   return (
-    <div className="grid grid-cols-[50px_1fr] gap-0 sm:gap-4 text-center">
-      <Button type="button" disabled={!enabled} variant="link" size="sm" onClick={handleAdd} className="mt-1">
-        <CirclePlus />
-      </Button>
-      <div className="flex flex-col gap-4">
-        {fields.map((item, index) => (
-          <div key={item.id} className="flex flex-row gap-2 sm:gap-4 items-center">
+    <div className="flex flex-col w-full gap-2">
+      {fields.map((item, index) => (
+        <div key={item.id} className="flex flex-col gap-2 justify-between">
+          <div className="flex justify-between">
             <FormField
               control={control}
               disabled={!enabled}
@@ -42,21 +45,25 @@ export function ExpenseCategoriesForm() {
                 </FormItem>
               )}
             />
-            <ExpenseCategoriesFormField name={`categories.${index}.value`} disabled={!enabled} />
             <Button
               data-index={index}
+              aria-hidden={index === 0}
               type="button"
               disabled={!enabled}
               variant="link"
-              size="icon"
+              size="sm"
               onClick={handleRemove}
-              className="text-red-500"
+              className="text-red-500 aria-hidden:invisible"
             >
               <CircleMinus />
             </Button>
           </div>
-        ))}
-      </div>
+          <ExpenseCategoriesFormField name={`categories.${index}.value`} disabled={!enabled} />
+        </div>
+      ))}
+      <Button ref={buttonRef} type="button" disabled={!enabled} variant="default" size="sm" onClick={handleAdd}>
+        <CirclePlus />
+      </Button>
     </div>
   );
 }

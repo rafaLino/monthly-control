@@ -7,7 +7,7 @@ type ExpenseCategoriesListProps = {
 };
 export const ExpenseCategoriesList: FC<ExpenseCategoriesListProps> = ({ list }) => {
   return (
-    <ScrollArea className="h-64">
+    <ScrollArea className="h-60">
       {list?.map((category) => (
         <ExpenseCategoriesItem key={category.name} name={category.name} values={category.value} />
       ))}
