@@ -1,7 +1,6 @@
 @import url('@rafalino/react-quick-calculator/style.css') layer(base);
-/*
-  ---break---
-*/
+
+
 @plugin 'tailwindcss-animate';
 @import 'tailwindcss';
 /*
@@ -28,26 +27,16 @@
   }
 }
 
-
-
-@media screen and (min-width: 900px) {
-  ::-webkit-scrollbar {
-    width: 3px;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
 
-  ::-webkit-scrollbar-track {
-    width: 6px;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: #c6c6c68c;
-    border-radius: 24px;
+  body {
+    @apply bg-background text-foreground;
   }
 }
 
-/*
-  ---break---
-*/
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -87,9 +76,6 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
-/*
-  ---break---
-*/
 
 :root {
   --radius: 0.5rem;
@@ -126,9 +112,6 @@
   --sidebar-ring: oklch(0.704 0.04 256.788);
 }
 
-/*
-  ---break---
-*/
 
 .dark {
   --background: oklch(0.129 0.042 264.695);
@@ -164,16 +147,17 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
-/*
-  ---break---
-*/
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
+@media screen and (min-width: 900px) {
+  ::-webkit-scrollbar {
+    width: 3px;
   }
 
-  body {
-    @apply bg-background text-foreground;
+  ::-webkit-scrollbar-track {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #c6c6c68c;
+    border-radius: 24px;
   }
 }
