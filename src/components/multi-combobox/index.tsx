@@ -34,7 +34,7 @@ export function MultiCombobox({
   };
 
   return (
-    <div aria-disabled={disabled} className={cn('flex items-center space-x-2 sm:space-x-4', disabled && 'cursor-not-allowed')}>
+    <div aria-disabled={disabled} className={cn('flex items-center gap-x-2 sm:gap-x-4', disabled && 'cursor-not-allowed')}>
       <Popover open={open} onOpenChange={setOpen}>
         <div
           className={cn(

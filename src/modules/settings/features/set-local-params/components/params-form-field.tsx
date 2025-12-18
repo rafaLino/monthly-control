@@ -24,7 +24,7 @@ export const ParamsFormField: FC<ParamsFormFieldProps> = ({ label = '', name, di
       render={({ field }) => (
         <FormItem>
           {type === 'checkbox' ? (
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center gap-x-2">
               <FormControl>
                 <Checkbox id={name} disabled={disabled} checked={field.value} onCheckedChange={field.onChange} />
               </FormControl>
