@@ -14,7 +14,7 @@ export function ExpenseCategoriesForm() {
   const { control } = useFormContext();
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const runAction = useTimeout(() => buttonRef.current?.scrollIntoView({ behavior: 'smooth' }), 100);
+  const runAction = useTimeout(() => buttonRef.current?.scrollIntoView({ behavior: 'smooth' }));
 
   const { fields, append, remove } = useFieldArray({ control, name: 'categories' });
 
