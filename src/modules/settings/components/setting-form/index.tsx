@@ -36,7 +36,7 @@ export function SettingsForm<T extends FieldValues>({
   const [loading, setLoading] = useState(false);
 
   const {
-    formState: { isValid }
+    formState: { isValid, isDirty }
   } = form;
 
   const submit = useCallback(
@@ -57,6 +57,8 @@ export function SettingsForm<T extends FieldValues>({
     },
     [onSubmit]
   );
+
+  const saveDisabled = !isDirty || !isValid || !enableForm || loading;
 
   const contextValue = useMemo(
     () => ({
@@ -80,7 +82,7 @@ export function SettingsForm<T extends FieldValues>({
           <form onSubmit={form.handleSubmit(submit)} aria-readonly={!enableForm}>
             <CardContent className={cn('min-h-48', contentClassName)}>{children}</CardContent>
             <CardFooter className="border-t px-6 py-4">
-              <Button type="submit" disabled={!isValid || !enableForm || loading} className="gap-2">
+              <Button type="submit" disabled={saveDisabled} className="gap-2">
                 {t('save')}
                 {loading && <Loader2 className="w-4 h-4 animate-spin" />}
               </Button>

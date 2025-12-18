@@ -9,9 +9,13 @@ export const fetchExpenseCategories = async () => {
     throw new Error('parameter not found');
   }
 
+  if (parameter.type !== 'json') {
+    throw new Error('invalid parameter type');
+  }
+
   const categories = JSON.parse(parameter.value);
 
-  return { categories };
+  return { categories } as ExpenseCategories;
 };
 
 export const postExpenseCategories = async (data: ExpenseCategories) => {

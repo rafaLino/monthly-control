@@ -16,16 +16,16 @@ export const ExpenseCategoriesItem: FC<ExpenseCategoriesItemProps> = ({ name, va
   const items = expenses.filter((x) => values.includes(x.name));
   const total = sum(items);
   return (
-    <div className="p-4">
+    <div className="p-0">
       <div className="flex justify-between">
-        <Badge className="bg-blue-500">{name}</Badge>
+        <Badge className="items-stretch bg-sky-500 hover:bg-sky-400 ">{name}</Badge>
         <span className="font-semibold text-red-600">-{t('currency', { value: total })}</span>
       </div>
       <div className="mt-4">
         {items.map((item) => (
-          <section key={item.id} className="px-4">
+          <section key={item.id} className="px-2">
             <div className="flex justify-between">
-              <span className="text-xs font-semibold">{item.name}</span>
+              <span className="text-xs font-semibold text-slate-700">{item.name}</span>
               <span className="text-xs text-red-600">-{t('currency', { value: item.value })}</span>
             </div>
             <Separator className="my-2" />
