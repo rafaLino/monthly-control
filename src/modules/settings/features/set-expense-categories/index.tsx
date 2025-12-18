@@ -30,7 +30,7 @@ export function SetExpenseCategories() {
       title={'ExpenseCategoriesSettings.title'}
       description={'ExpenseCategoriesSettings.description'}
       onSubmitAsync={mutateAsync}
-      contentClassName='h-48 overflow-auto'
+      contentClassName="h-48 overflow-auto"
     >
       <ExpenseCategoriesForm />
     </SettingsForm>
