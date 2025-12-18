@@ -6,6 +6,8 @@ import { useForm } from 'react-hook-form';
 import { GoalForm } from './components/goal-form';
 
 export function SetGoals() {
+  'use no memo';
+
   const [goals, setGoals] = useGoals();
 
   const form = useForm<Goal>({

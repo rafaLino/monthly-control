@@ -6,6 +6,8 @@ import { useForm } from 'react-hook-form';
 import { ParamsForm } from './components/params-form';
 
 export function SetLocalParams() {
+  'use no memo';
+
   const [params, setParams] = useLocalParamsAll();
 
   const form = useForm<LocalParams>({

@@ -8,6 +8,7 @@ import { useExpenseCategories } from './hooks/useExpenseCategories';
 export function SetExpenseCategories() {
   /**
    * FormState is not working properly with react compiler
+   * issue: https://github.com/react-hook-form/react-hook-form/issues/12298
    */
   'use no memo';
 
@@ -29,7 +30,7 @@ export function SetExpenseCategories() {
       title={'ExpenseCategoriesSettings.title'}
       description={'ExpenseCategoriesSettings.description'}
       onSubmitAsync={mutateAsync}
-      contentClassName="p-2 sm:p-6"
+      contentClassName='h-48 overflow-auto'
     >
       <ExpenseCategoriesForm />
     </SettingsForm>
