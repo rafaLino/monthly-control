@@ -3,25 +3,25 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { DataTableFilterContext } from '@/context/DataTableFilterContext';
 import { useKeysDown } from '@/hooks/useKeyDown';
 import { useTemporalStore } from '@/store';
+import { RegisterType } from '@/types/register.types';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DataTable } from '../data-table';
 import { ExpenseCategoriesCard } from './components/expense-categories';
 import { SearchInput } from './components/search-input';
 import { SyncButton } from './components/sync-button';
-import { RegisterType } from '@/types/register.types';
 
 export default function RegisterTabs() {
   const { t } = useTranslation('translation', { keyPrefix: 'registerTabs' });
   const filterInputRef = useRef<HTMLInputElement>(null);
   const { undo, redo } = useTemporalStore((state) => state);
   const [filter, setFilter] = useState('');
-  const [tab, setTab] = useState<RegisterType>('incomes')
+  const [tab, setTab] = useState<RegisterType>('incomes');
 
   const handleTabChange = (value: string) => {
     setTab(value as RegisterType);
     setFilter('');
-  }
+  };
 
   useKeysDown({
     'ctrl.f': () => filterInputRef.current?.focus(),
@@ -29,7 +29,7 @@ export default function RegisterTabs() {
     'ctrl.y': redo,
     'alt.1': () => setTab('incomes'),
     'alt.2': () => setTab('expenses'),
-    'alt.3': () => setTab('investments'),
+    'alt.3': () => setTab('investments')
   });
 
   return (
