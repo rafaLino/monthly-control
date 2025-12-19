@@ -14,7 +14,7 @@ export const BalanceCard: React.FC<BalanceCardProps> = memo(({ incomesDone, inco
   const { t } = useTranslation('translation', { keyPrefix: 'balanceCard' });
   return (
     <Card className={'sm:col-span-2'}>
-      <div className={'flex justify-evenly sm:justify-between'}>
+      <div className={'flex justify-evenly p-0 sm:px-2 sm:justify-between'}>
         <CardHeader className="flex flex-col gap-4">
           <CardTitle className="text-gray-500">{t('incomes')}</CardTitle>
           <div className="flex flex-col sm:flex-row sm:gap-1">
