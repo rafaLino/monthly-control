@@ -13,7 +13,7 @@ type MainLayoutProps = {
 };
 export default function MainLayout({ pageLoading }: Readonly<MainLayoutProps>) {
   return (
-    <div className="flex min-h-screen flex-col bg-muted/40">
+    <div className="flex min-h-dvh flex-col bg-muted/40">
       <ProgressStatus show={pageLoading} />
       <RegisterAccess />
       <SideBar
