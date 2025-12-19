@@ -18,7 +18,7 @@ export default function MainLayout({ pageLoading }: Readonly<MainLayoutProps>) {
       <RegisterAccess />
       <SideBar
         header={
-          <>
+          <div className="flex w-full items-center justify-between sm:grid sm:grid-cols-3">
             <DynamicBreadcrumb />
             <ReferenceDate />
             <div className="flex gap-0 sm:gap-8 justify-end">
@@ -26,7 +26,7 @@ export default function MainLayout({ pageLoading }: Readonly<MainLayoutProps>) {
               <LanguageSelector />
               <UserMenu />
             </div>
-          </>
+          </div>
         }
       >
         <Outlet />

@@ -19,7 +19,7 @@ export const DynamicBreadcrumb = () => {
         {pathnames.length === 0 ? (
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link to="/">{t('home')}</Link>
+              <Link to="/" activeOptions={{ exact: true }} className="[&.active]:font-bold">{t('home')}</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
         ) : (
