@@ -15,7 +15,7 @@ export const BalanceCard: React.FC<BalanceCardProps> = memo(({ incomesDone, inco
   return (
     <Card className={'sm:col-span-2'}>
       <div className={'flex justify-evenly sm:justify-between'}>
-        <CardHeader className="flex flex-col gap-2">
+        <CardHeader className="flex flex-col gap-4">
           <CardTitle className="text-gray-500">{t('incomes')}</CardTitle>
           <div className="flex flex-col sm:flex-row sm:gap-1">
             <span className="font-semibold">{t('balance')}</span>
@@ -27,7 +27,7 @@ export const BalanceCard: React.FC<BalanceCardProps> = memo(({ incomesDone, inco
             <Item testid="balance_card:done" value={incomesDone} color={incomesDone < 0 ? 'red' : 'green'} />
           </div>
         </CardHeader>
-        <CardHeader className="flex flex-col gap-2">
+        <CardHeader className="flex flex-col gap-4">
           <CardTitle className="text-gray-500">{t('expenses')}</CardTitle>
           <div className="flex flex-col sm:flex-row sm:gap-1">
             <span className="font-semibold">{t('total')}</span>
