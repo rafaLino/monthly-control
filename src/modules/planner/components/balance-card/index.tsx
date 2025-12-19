@@ -1,52 +1,46 @@
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Item } from './item';
 
 type BalanceCardProps = {
-  incomesBalance: number | undefined;
-  incomesDone: number | undefined;
-  expensesBalance: number | undefined;
-  expensesDone: number | undefined;
+  incomesBalance: number;
+  incomesDone: number;
+  expensesBalance: number;
+  expensesDone: number;
 };
 
 export const BalanceCard: React.FC<BalanceCardProps> = memo(({ incomesDone, incomesBalance, expensesDone, expensesBalance }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('translation', { keyPrefix: 'balanceCard' });
   return (
     <Card className={'sm:col-span-2'}>
       <div className={'flex justify-evenly sm:justify-between'}>
-        <CardHeader className="flex flex-col gap-2">
-          <CardTitle className="text-gray-500">{t('balanceCard.incomes')}</CardTitle>
+        <CardHeader className="flex flex-col gap-4">
+          <CardTitle className="text-gray-500">{t('incomes')}</CardTitle>
           <div className="flex flex-col sm:flex-row sm:gap-1">
-            <span>{t('balanceCard.balance')}</span>
-            <CardTitle className="text-base" data-testid="balance_card:balance">
-              {t('currency', { value: incomesBalance })}
-            </CardTitle>
+            <span className="font-semibold">{t('balance')}</span>
+            <Item testid="balance_card:balance" value={incomesBalance} color={incomesBalance < 0 ? 'red' : 'green'} />
           </div>
 
           <div className="flex flex-col sm:flex-row sm:gap-1">
-            <span>{t('balanceCard.done')}</span>
-            <CardTitle className="text-base" data-testid="balance_card:done">
-              {t('currency', { value: incomesDone })}
-            </CardTitle>
+            <span className="font-semibold">{t('done')}</span>
+            <Item testid="balance_card:done" value={incomesDone} color={incomesDone < 0 ? 'red' : 'green'} />
           </div>
         </CardHeader>
-        <CardHeader className="flex flex-col gap-2">
-          <CardTitle className="text-gray-500">{t('balanceCard.expenses')}</CardTitle>
+        <CardHeader className="flex flex-col gap-4">
+          <CardTitle className="text-gray-500">{t('expenses')}</CardTitle>
           <div className="flex flex-col sm:flex-row sm:gap-1">
-            <span>{t('balanceCard.total')}</span>
-            <CardTitle className="text-base" data-testid="balance_card:cost">
-              {t('currency', { value: expensesBalance })}
-            </CardTitle>
+            <span className="font-semibold">{t('total')}</span>
+            <Item testid="balance_card:cost" value={expensesBalance} color="red" />
           </div>
 
           <div className="flex flex-col sm:flex-row sm:gap-1">
-            <span>{t('balanceCard.done')}</span>
-            <CardTitle className="text-base" data-testid="balance_card:cost_done">
-              {t('currency', { value: expensesDone })}
-            </CardTitle>
+            <span className="font-semibold">{t('done')}</span>
+            <Item testid="balance_card:cost_done" value={expensesDone} color="red" />
           </div>
         </CardHeader>
       </div>
     </Card>
   );
 });
+BalanceCard.displayName = 'BalanceCard';

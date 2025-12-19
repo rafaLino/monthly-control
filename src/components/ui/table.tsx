@@ -4,9 +4,9 @@ import { cn } from "@/lib/utils"
 
 const Table = React.forwardRef<
   HTMLTableElement,
-  React.HTMLAttributes<HTMLTableElement> & { parentClassName?: string}
+  React.HTMLAttributes<HTMLTableElement> & { parentClassName?: string }
 >(({ className, parentClassName, ...props }, ref) => (
-  <div className={cn("relative w-full overflow-auto h-80", parentClassName)}>
+  <div className={cn("relative w-full overflow-auto h-80 xl:h-88", parentClassName)}>
     <table
       ref={ref}
       className={cn("w-full caption-bottom text-sm", className)}
@@ -43,7 +43,7 @@ const TableFooter = React.forwardRef<
   <tfoot
     ref={ref}
     className={cn(
-      "border-t bg-muted/50 font-medium [&>tr]:last:border-b-0",
+      "border-t bg-muted/50 font-medium last:[&>tr]:border-b-0",
       className
     )}
     {...props}

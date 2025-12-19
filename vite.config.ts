@@ -4,6 +4,7 @@ import { defineConfig } from 'vite';
 import { tanstackRouter } from '@tanstack/router-plugin/vite';
 import { VitePWA } from 'vite-plugin-pwa';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
+import tailwindcss from "@tailwindcss/vite";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -13,6 +14,7 @@ export default defineConfig({
         plugins: ['babel-plugin-react-compiler']
       }
     }),
+    tailwindcss(),
     nodePolyfills(),
     VitePWA({
       manifest: {

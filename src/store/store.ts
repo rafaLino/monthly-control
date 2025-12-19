@@ -95,7 +95,7 @@ export const useGlobalStore = create<GlobalState>()(
         ...createDataAnalysisSlice(...args)
       }),
       {
-        limit: 10,
+        limit: 5,
         partialize: temporalConfig.partialize,
         equality: temporalConfig.equality,
         diff: temporalConfig.diff

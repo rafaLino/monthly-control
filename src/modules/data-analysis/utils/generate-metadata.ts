@@ -71,15 +71,15 @@ function createGroupPerMonthMetadata(
   const config = {
     incomes: {
       label: 'incomes',
-      color: 'hsl(var(--chart-2))'
+      color: 'var(--chart-2)'
     },
     expenses: {
       label: 'expenses',
-      color: 'hsl(var(--chart-1))'
+      color: 'var(--chart-1)'
     },
     investments: {
       label: 'investments',
-      color: 'hsl(var(--chart-4))'
+      color: 'var(--chart-4)'
     }
   } satisfies ChartConfig;
 
@@ -128,15 +128,15 @@ function createGroupPerYearMetadata(
   const config = {
     incomes: {
       label: 'incomes',
-      color: 'hsl(var(--chart-2))'
+      color: 'var(--chart-2)'
     },
     expenses: {
       label: 'expenses',
-      color: 'hsl(var(--chart-1))'
+      color: 'var(--chart-1)'
     },
     investments: {
       label: 'investments',
-      color: 'hsl(var(--chart-4))'
+      color: 'var(--chart-4)'
     }
   } satisfies ChartConfig;
 
@@ -159,7 +159,7 @@ function createIncomesEvolutionMetadata(items: Items[]): Metadata<{ incomes: num
   const config = {
     incomes: {
       label: 'incomes',
-      color: 'hsl(var(--chart-2))'
+      color: 'var(--chart-2)'
     }
   } satisfies ChartConfig;
 
@@ -182,7 +182,7 @@ function createExpensesEvolutionMetadata(items: Items[]): Metadata<{ expenses: n
   const config = {
     expenses: {
       label: 'expenses',
-      color: 'hsl(var(--chart-1))'
+      color: 'var(--chart-1)'
     }
   } satisfies ChartConfig;
 
@@ -205,7 +205,7 @@ function createInvestmentsEvolutionMetadata(items: Items[]): Metadata<{ investme
   const config = {
     investments: {
       label: 'investments',
-      color: 'hsl(var(--chart-4))'
+      color: 'var(--chart-4)'
     }
   } satisfies ChartConfig;
 
@@ -239,7 +239,7 @@ function createIncomesEvolutionPerYearMetadata(items: Items[]): Metadata<{ incom
   const config = {
     incomes: {
       label: 'incomes',
-      color: 'hsl(var(--chart-2))'
+      color: 'var(--chart-2)'
     }
   } satisfies ChartConfig;
 
@@ -273,7 +273,7 @@ function createExpensesEvolutionPerYearMetadata(items: Items[]): Metadata<{ expe
   const config = {
     expenses: {
       label: 'expenses',
-      color: 'hsl(var(--chart-1))'
+      color: 'var(--chart-1)'
     }
   } satisfies ChartConfig;
 
@@ -307,7 +307,7 @@ function createInvestmentsEvolutionPerYearMetadata(items: Items[]): Metadata<{ i
   const config = {
     investments: {
       label: 'investments',
-      color: 'hsl(var(--chart-4))'
+      color: 'var(--chart-4)'
     }
   } satisfies ChartConfig;
 
