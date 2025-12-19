@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { DataTableFilterContext } from '@/context/DataTableFilterContext';
 import { useKeysDown } from '@/hooks/useKeyDown';
 import { useTemporalStore } from '@/store';
+import { RegisterType } from '@/types/register.types';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DataTable } from '../data-table';
@@ -15,15 +16,24 @@ export default function RegisterTabs() {
   const filterInputRef = useRef<HTMLInputElement>(null);
   const { undo, redo } = useTemporalStore((state) => state);
   const [filter, setFilter] = useState('');
+  const [tab, setTab] = useState<RegisterType>('incomes');
+
+  const handleTabChange = (value: string) => {
+    setTab(value as RegisterType);
+    setFilter('');
+  };
 
   useKeysDown({
     'ctrl.f': () => filterInputRef.current?.focus(),
     'ctrl.z': undo,
-    'ctrl.y': redo
+    'ctrl.y': redo,
+    'alt.1': () => setTab('incomes'),
+    'alt.2': () => setTab('expenses'),
+    'alt.3': () => setTab('investments')
   });
 
   return (
-    <Tabs defaultValue="incomes" onValueChange={() => setFilter('')}>
+    <Tabs value={tab} defaultValue="incomes" onValueChange={handleTabChange}>
       <div className="flex items-center justify-between flex-wrap gap-1 sm:gap-2">
         <TabsList>
           <TabsTrigger aria-label="incomes" value="incomes">
