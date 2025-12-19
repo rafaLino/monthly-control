@@ -9,21 +9,31 @@ import { DataTable } from '../data-table';
 import { ExpenseCategoriesCard } from './components/expense-categories';
 import { SearchInput } from './components/search-input';
 import { SyncButton } from './components/sync-button';
+import { RegisterType } from '@/types/register.types';
 
 export default function RegisterTabs() {
   const { t } = useTranslation('translation', { keyPrefix: 'registerTabs' });
   const filterInputRef = useRef<HTMLInputElement>(null);
   const { undo, redo } = useTemporalStore((state) => state);
   const [filter, setFilter] = useState('');
+  const [tab, setTab] = useState<RegisterType>('incomes')
+
+  const handleTabChange = (value: string) => {
+    setTab(value as RegisterType);
+    setFilter('');
+  }
 
   useKeysDown({
     'ctrl.f': () => filterInputRef.current?.focus(),
     'ctrl.z': undo,
-    'ctrl.y': redo
+    'ctrl.y': redo,
+    'alt.1': () => setTab('incomes'),
+    'alt.2': () => setTab('expenses'),
+    'alt.3': () => setTab('investments'),
   });
 
   return (
-    <Tabs defaultValue="incomes" onValueChange={() => setFilter('')}>
+    <Tabs value={tab} defaultValue="incomes" onValueChange={handleTabChange}>
       <div className="flex items-center justify-between flex-wrap gap-1 sm:gap-2">
         <TabsList>
           <TabsTrigger aria-label="incomes" value="incomes">
