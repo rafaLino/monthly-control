@@ -4,7 +4,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { cn } from '@/lib/utils';
 import { Check, ChevronDown } from 'lucide-react';
 import { MouseEvent, useState } from 'react';
-import { LoadButton } from '../load-button';
+import { ClearButton, LoadButton } from '../buttons';
 
 type ExpensesComboBoxProps = {
   onChange?: (selected: string[]) => void;
@@ -13,6 +13,7 @@ type ExpensesComboBoxProps = {
   emptyMessage?: string;
   placeholder?: string;
   disabled?: boolean;
+  tooltip?: string;
   loadOptions?: (event: MouseEvent<HTMLButtonElement>) => Promise<void>;
 };
 export function MultiCombobox({
@@ -21,6 +22,7 @@ export function MultiCombobox({
   emptyMessage,
   placeholder,
   disabled,
+  tooltip,
   loadOptions,
   onChange
 }: Readonly<ExpensesComboBoxProps>) {
@@ -32,6 +34,8 @@ export function MultiCombobox({
     const newValues = values.includes(value) ? values.filter((x) => x !== value) : [...values, value];
     onChange?.(newValues);
   };
+
+  const handleClear = () => onChange?.([]);
 
   return (
     <div aria-disabled={disabled} className={cn('flex items-center gap-x-2 sm:gap-x-4', disabled && 'cursor-not-allowed')}>
@@ -59,7 +63,12 @@ export function MultiCombobox({
           <Command>
             <CommandInput
               placeholder={placeholder}
-              endIcon={<LoadButton hidden={!loadOptions || options.length > 0} onClick={loadOptions} />}
+              endIcon={
+                <>
+                  <ClearButton hidden={options.length === 0} title={tooltip} onClick={handleClear} />
+                  <LoadButton hidden={!loadOptions || options.length > 0} onClick={loadOptions} />
+                </>
+              }
             />
             <CommandList>
               <CommandEmpty>{emptyMessage}</CommandEmpty>

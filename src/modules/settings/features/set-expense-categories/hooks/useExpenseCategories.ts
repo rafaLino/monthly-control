@@ -1,9 +1,9 @@
 import { fetchExpenseCategories, postExpenseCategories } from '@/lib/expense-categories';
+import { ExpenseCategories } from '@/types/expense-categories';
 import { QueryKeys } from '@/types/queryKeys';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 export function useExpenseCategories() {
-  const queryClient = useQueryClient();
   const { data } = useQuery({
     queryKey: [QueryKeys.expenseCategories],
     queryFn: fetchExpenseCategories
@@ -11,8 +11,13 @@ export function useExpenseCategories() {
 
   const { mutateAsync } = useMutation({
     mutationFn: postExpenseCategories,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: [QueryKeys.expenseCategories] });
+    onMutate: (data, context) => {
+      const previous = context.client.getQueryData([QueryKeys.expenseCategories]) as ExpenseCategories;
+      context.client.setQueryData([QueryKeys.expenseCategories], data);
+      return { previous };
+    },
+    onError: (_, __, result, context) => {
+      context.client.setQueryData([QueryKeys.expenseCategories], result?.previous);
     }
   });
 

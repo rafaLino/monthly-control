@@ -123,7 +123,8 @@
     "title": "Categorías de Gastos",
     "description": "Establezca aquí sus categorías",
     "comboBoxEmpty": "Resultados no encontrados",
-    "comboBoxPlaceholder": "Seleccionar gastos..."
+    "comboBoxPlaceholder": "Seleccionar gastos...",
+    "clear": "Limpiar"
   },
   "projectionDialog": {
     "title": "Proyección",

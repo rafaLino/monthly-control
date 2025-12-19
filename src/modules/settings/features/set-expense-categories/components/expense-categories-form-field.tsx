@@ -29,6 +29,7 @@ export const ExpenseCategoriesFormField: FC<ExpenseCategoriesFormField> = ({ nam
               values={value}
               emptyMessage={t('comboBoxEmpty')}
               placeholder={t('comboBoxPlaceholder')}
+              tooltip={t('clear')}
               onChange={onChange}
               loadOptions={load}
             />

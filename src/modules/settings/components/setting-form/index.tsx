@@ -14,7 +14,7 @@ import { SettingsFormContext } from './settings-form-context';
 type SettingsFormProps<T extends FieldValues> = PropsWithChildren<{
   form: UseFormReturn<T>;
   onSubmit?: (data: T) => void;
-  onSubmitAsync?: (data: T) => Promise<void>;
+  onSubmitAsync?: (data: T) => Promise<unknown>;
   title: string;
   description: string;
   disabled?: boolean;
