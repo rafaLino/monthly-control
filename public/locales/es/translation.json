@@ -147,5 +147,10 @@
     "title": "Ponle un nombre a este punto de acceso",
     "placeholder": "Nombre del Acceso",
     "save": "Guardar"
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "description": "Lo sentimos, la página que buscas no existe o ha sido eliminada.",
+    "goHome": "Volver a la página principal"
   }
 }
