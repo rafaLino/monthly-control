@@ -9,5 +9,5 @@ export function ProgressStatus({ show }: ProgressStatusProps) {
     <Activity mode={show ? 'visible' : 'hidden'}>
       <Progress indeterminate className="h-0.5 absolute" />
     </Activity>
-  )
+  );
 }

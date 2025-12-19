@@ -38,7 +38,7 @@ export const Planner = () => {
         </div>
         <RegisterTabs />
       </div>
-      <div className='flex flex-col gap-y-1 xl:gap-y-2.5'>
+      <div className="flex flex-col gap-y-1 xl:gap-y-2.5">
         <Suspense fallback={<PieChartsSkeleton />}>
           <IncomesPieChart />
           <ExpensesPieChart />

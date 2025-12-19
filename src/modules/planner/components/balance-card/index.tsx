@@ -18,24 +18,24 @@ export const BalanceCard: React.FC<BalanceCardProps> = memo(({ incomesDone, inco
         <CardHeader className="flex flex-col gap-2">
           <CardTitle className="text-gray-500">{t('incomes')}</CardTitle>
           <div className="flex flex-col sm:flex-row sm:gap-1">
-            <span className='font-semibold'>{t('balance')}</span>
-            <Item testid="balance_card:balance" value={incomesBalance} color={incomesBalance < 0 ? "red" : "green"} />
+            <span className="font-semibold">{t('balance')}</span>
+            <Item testid="balance_card:balance" value={incomesBalance} color={incomesBalance < 0 ? 'red' : 'green'} />
           </div>
 
           <div className="flex flex-col sm:flex-row sm:gap-1">
-            <span className='font-semibold'>{t('done')}</span>
-            <Item testid="balance_card:done" value={incomesDone} color={incomesDone < 0 ? "red" : "green"} />
+            <span className="font-semibold">{t('done')}</span>
+            <Item testid="balance_card:done" value={incomesDone} color={incomesDone < 0 ? 'red' : 'green'} />
           </div>
         </CardHeader>
         <CardHeader className="flex flex-col gap-2">
           <CardTitle className="text-gray-500">{t('expenses')}</CardTitle>
           <div className="flex flex-col sm:flex-row sm:gap-1">
-            <span className='font-semibold'>{t('total')}</span>
+            <span className="font-semibold">{t('total')}</span>
             <Item testid="balance_card:cost" value={expensesBalance} color="red" />
           </div>
 
           <div className="flex flex-col sm:flex-row sm:gap-1">
-            <span className='font-semibold'>{t('done')}</span>
+            <span className="font-semibold">{t('done')}</span>
             <Item testid="balance_card:cost_done" value={expensesDone} color="red" />
           </div>
         </CardHeader>
@@ -44,5 +44,3 @@ export const BalanceCard: React.FC<BalanceCardProps> = memo(({ incomesDone, inco
   );
 });
 BalanceCard.displayName = 'BalanceCard';
-
-
