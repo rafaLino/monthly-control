@@ -123,7 +123,8 @@
     "title": "Categorias",
     "description": "Configure as categorias para suas despesas",
     "comboBoxEmpty": "Resultados não encontrados",
-    "comboBoxPlaceholder": "Selecione as despesas..."
+    "comboBoxPlaceholder": "Selecione as despesas...",
+    "clear": "Limpar"
   },
   "projectionDialog": {
     "title": "Projeção",
