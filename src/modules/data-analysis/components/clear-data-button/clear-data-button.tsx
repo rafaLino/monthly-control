@@ -13,7 +13,7 @@ export const ClearDataButton: FC<Props> = ({ helperText, onClick }) => {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button variant="destructive" size="icon" onClick={onClick}>
+          <Button variant="destructive" size="icon" onClick={onClick} className='text-destructive-foreground'>
             <OctagonX className="w-4 h-4" />
           </Button>
         </TooltipTrigger>
