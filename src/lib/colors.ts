@@ -36,3 +36,7 @@ export function getGoalCardColor(status: StatusGoal): ColorType {
   else if (status === 'WARNING') return 'yellow';
   else return 'red';
 }
+
+export function getColorClasses(type: RegisterType) {
+  return COLORS[getColor(type)];
+}
