@@ -1,7 +1,7 @@
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 import { useKeyDown } from '@/hooks/useKeyDown';
 import { Suspense, lazy, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { AdderSkeleton } from './components/adder-content-skeleton';
 
 const AdderContent = lazy(() =>
   import('./components/adder-content').then((module) => ({ default: module.AdderContent }))
@@ -10,7 +10,6 @@ const AdderContent = lazy(() =>
 const disableClose = (event: Event) => event.preventDefault();
 
 export const AdderDialog = () => {
-  const { t } = useTranslation('translation', { keyPrefix: 'projectionDialog' });
   const [open, setOpen] = useState(false);
 
   useKeyDown('alt.w', () => {
@@ -19,15 +18,16 @@ export const AdderDialog = () => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTitle hidden>{t('title')}</DialogTitle>
-      <DialogDescription hidden>{t('description')}</DialogDescription>
+      <DialogTitle hidden>adder dialog</DialogTitle>
+      <DialogDescription hidden>Sum your records</DialogDescription>
       <DialogContent
-        className="bg-background overflow-auto p-0 h-screen w-full max-w-screen"
+        className="bg-background overflow-auto p-0 h-screen w-full max-w-screen sm:h-1/2 sm:w-3/4"
         onInteractOutside={disableClose}
-        showClose={false}
+        showClose={true}
       >
-        <Suspense fallback="...loading">
-          <AdderContent onClose={() => setOpen(false)} />
+
+        <Suspense fallback={<AdderSkeleton />}>
+          <AdderContent />
         </Suspense>
       </DialogContent>
     </Dialog>
