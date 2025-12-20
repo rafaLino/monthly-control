@@ -6,6 +6,7 @@ import { GoalCard } from './features/goal-card';
 import { ProjectionDialog } from './features/projection-dialog';
 import { PieChartsSkeleton } from './features/register-pie-charts/pie-charts-skeleton';
 import RegisterTabs from './features/tabs/tabs';
+import { AdderDialog } from './features/adder-dialog';
 
 const relativePositionX = window.innerWidth * 0.58;
 const relativePositionY = window.innerHeight * 0.13;
@@ -25,6 +26,7 @@ export const Planner = () => {
     <>
       <Calculator x={relativePositionX} y={relativePositionY} className="hidden sm:block" />
       <ProjectionDialog />
+      <AdderDialog />
       <div className="grid auto-rows-max items-start gap-2 md:gap-4 lg:col-span-2">
         <div className="grid gap-2 sm:gap-0 sm:gap-x-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
           <TotalBalance />

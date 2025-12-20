@@ -10,13 +10,16 @@ import { DataTable } from '../data-table';
 import { ExpenseCategoriesCard } from './components/expense-categories';
 import { SearchInput } from './components/search-input';
 import { SyncButton } from './components/sync-button';
+import { useTab } from '@/modules/planner/hooks/useTab';
+
 
 export default function RegisterTabs() {
   const { t } = useTranslation('translation', { keyPrefix: 'registerTabs' });
   const filterInputRef = useRef<HTMLInputElement>(null);
   const { undo, redo } = useTemporalStore((state) => state);
   const [filter, setFilter] = useState('');
-  const [tab, setTab] = useState<RegisterType>('incomes');
+  const [tab, setTab] = useTab();
+
 
   const handleTabChange = (value: string) => {
     setTab(value as RegisterType);
