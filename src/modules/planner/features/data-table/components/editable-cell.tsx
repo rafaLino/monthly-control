@@ -65,8 +65,8 @@ export const EditableNumberCell: React.FC<EditableNumberCellProps> = ({ id, valu
   };
 
   const handleBlur = (newValue: string, event: React.FocusEvent<HTMLInputElement>) => {
-    const num = parseFloat(newValue);
-    onBlur?.(isNaN(num) ? 0 : num, event);
+    const num = Number.parseFloat(newValue);
+    onBlur?.(Number.isNaN(num) ? 0 : num, event);
     setIsEditing(false);
   };
 
