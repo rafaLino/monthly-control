@@ -14,7 +14,6 @@ import { ExpenseCategoriesCard } from './components/expense-categories';
 import { SearchInput } from './components/search-input';
 import { SyncButton } from './components/sync-button';
 
-
 export default function RegisterTabs() {
   const { t } = useTranslation('translation', { keyPrefix: 'registerTabs' });
   const [filter, setFilter] = useState('');
@@ -34,7 +33,7 @@ export default function RegisterTabs() {
   const handleOpenAdderDialog = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     adderDialogRef.current?.openDialog();
-  }
+  };
 
   useKeysDown({
     'ctrl.f': () => filterInputRef.current?.focus(),
@@ -45,41 +44,45 @@ export default function RegisterTabs() {
     'alt.3': () => setTab('investments')
   });
 
-  const TAB_CONFIGURATION = useMemo(() => ({
-    triggers: ['incomes', 'expenses', 'investments'] as const,
-    contents: [
-      {
-        trigger: 'incomes',
-        action: (
-          <div className='w-1/3'>
-            <AdderButton className='block sm:hidden' onClick={handleOpenAdderDialog} />
-          </div>
-        )
+  const TAB_CONFIGURATION = useMemo(
+    () =>
+      ({
+        triggers: ['incomes', 'expenses', 'investments'] as const,
+        contents: [
+          {
+            trigger: 'incomes',
+            action: (
+              <div className="w-1/3">
+                <AdderButton className="block sm:hidden" onClick={handleOpenAdderDialog} />
+              </div>
+            )
+          },
+          {
+            trigger: 'expenses',
+            action: (
+              <div className="flex flex-row items-center justify-between w-1/3 sm:w-min">
+                <AdderButton className="block sm:hidden" onClick={handleOpenAdderDialog} />
+                <HiddenOffline>
+                  <ExpenseCategoriesCard />
+                </HiddenOffline>
+              </div>
+            )
+          },
+          {
+            trigger: 'investments',
+            action: (
+              <div className="w-1/3">
+                <AdderButton className="block sm:hidden" onClick={handleOpenAdderDialog} />
+              </div>
+            )
+          }
+        ]
+      }) satisfies {
+        triggers: Array<RegisterType>;
+        contents: Array<{ trigger: RegisterType; action: ReactNode }>;
       },
-      {
-        trigger: 'expenses',
-        action: (
-          <div className='flex flex-row items-center justify-between w-1/3 sm:w-min'>
-            <AdderButton className='block sm:hidden' onClick={handleOpenAdderDialog} />
-            <HiddenOffline>
-              <ExpenseCategoriesCard />
-            </HiddenOffline>
-          </div>
-        )
-      },
-      {
-        trigger: 'investments',
-        action: (
-          <div className='w-1/3'>
-            <AdderButton className='block sm:hidden' onClick={handleOpenAdderDialog} />
-          </div>
-        )
-      },
-    ]
-  }) satisfies {
-    triggers: Array<RegisterType>,
-    contents: Array<{ trigger: RegisterType, action: ReactNode }>
-  }, [])
+    []
+  );
 
   return (
     <>
@@ -87,7 +90,7 @@ export default function RegisterTabs() {
       <Tabs value={tab} defaultValue="incomes" onValueChange={handleTabChange}>
         <div className="flex items-center justify-between flex-wrap gap-1 sm:gap-2">
           <TabsList>
-            {TAB_CONFIGURATION.triggers.map(trigger => (
+            {TAB_CONFIGURATION.triggers.map((trigger) => (
               <TabsTrigger key={trigger} aria-label={trigger} value={trigger}>
                 {t(trigger)}
               </TabsTrigger>
@@ -113,7 +116,7 @@ export default function RegisterTabs() {
             </TabsContent>
           ))}
         </DataTableFilterContext.Provider>
-      </Tabs >
+      </Tabs>
     </>
   );
 }

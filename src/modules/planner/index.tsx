@@ -6,7 +6,6 @@ import { ProjectionDialog } from './features/projection-dialog';
 import { PieChartsSkeleton } from './features/register-pie-charts/pie-charts-skeleton';
 import RegisterTabs from './features/tabs/tabs';
 
-
 const IncomesPieChart = lazy(() =>
   import('./features/register-pie-charts').then((module) => ({ default: module.IncomesPieChart }))
 );

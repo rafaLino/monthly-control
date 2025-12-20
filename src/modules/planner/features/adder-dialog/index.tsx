@@ -3,28 +3,26 @@ import { useKeyDown } from '@/hooks/useKeyDown';
 import { FC, RefObject, Suspense, lazy, useImperativeHandle, useState } from 'react';
 import { AdderSkeleton } from './components/adder-content-skeleton';
 
-const AdderContent = lazy(() =>
-  import('./components/adder-content').then((module) => ({ default: module.AdderContent }))
-);
+const AdderContent = lazy(() => import('./components/adder-content').then((module) => ({ default: module.AdderContent })));
 
 const disableClose = (event: Event) => event.preventDefault();
 
 export type AdderDialogRef = {
-  openDialog: () => void
-}
+  openDialog: () => void;
+};
 
 export const AdderDialog: FC<{
-  dialogRef: RefObject<AdderDialogRef | null>
+  dialogRef: RefObject<AdderDialogRef | null>;
 }> = ({ dialogRef }) => {
   const [open, setOpen] = useState(false);
 
   useImperativeHandle(dialogRef, () => {
     return {
       openDialog: () => {
-        setOpen(true)
+        setOpen(true);
       }
-    }
-  })
+    };
+  });
 
   useKeyDown('alt.w', () => {
     setOpen((prev) => !prev);
@@ -39,7 +37,6 @@ export const AdderDialog: FC<{
         onInteractOutside={disableClose}
         showClose={true}
       >
-
         <Suspense fallback={<AdderSkeleton />}>
           <AdderContent />
         </Suspense>
