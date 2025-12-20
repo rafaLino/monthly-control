@@ -81,7 +81,7 @@ export default function RegisterTabs() {
         triggers: Array<RegisterType>;
         contents: Array<{ trigger: RegisterType; action: ReactNode }>;
       },
-    []
+    [handleOpenAdderDialog]
   );
 
   return (
