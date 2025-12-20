@@ -1,6 +1,6 @@
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 import { useKeyDown } from '@/hooks/useKeyDown';
-import { Suspense, lazy, useState } from 'react';
+import { FC, RefObject, Suspense, lazy, useImperativeHandle, useState } from 'react';
 import { AdderSkeleton } from './components/adder-content-skeleton';
 
 const AdderContent = lazy(() =>
@@ -9,8 +9,22 @@ const AdderContent = lazy(() =>
 
 const disableClose = (event: Event) => event.preventDefault();
 
-export const AdderDialog = () => {
+export type AdderDialogRef = {
+  openDialog: () => void
+}
+
+export const AdderDialog: FC<{
+  dialogRef: RefObject<AdderDialogRef | null>
+}> = ({ dialogRef }) => {
   const [open, setOpen] = useState(false);
+
+  useImperativeHandle(dialogRef, () => {
+    return {
+      openDialog: () => {
+        setOpen(true)
+      }
+    }
+  })
 
   useKeyDown('alt.w', () => {
     setOpen((prev) => !prev);
@@ -18,7 +32,7 @@ export const AdderDialog = () => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTitle hidden>adder dialog</DialogTitle>
+      <DialogTitle hidden>Adder dialog</DialogTitle>
       <DialogDescription hidden>Sum your records</DialogDescription>
       <DialogContent
         className="bg-background overflow-auto p-0 h-screen w-full max-w-screen sm:h-1/2 sm:w-3/4"
