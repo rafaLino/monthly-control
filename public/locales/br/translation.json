@@ -47,7 +47,7 @@
   "registerTable": {
     "name": "Nome",
     "value": "Valor",
-    "addNewRegister": "adicione um novo registro..."
+    "addNewRegister": "Adicione um novo registro..."
   },
   "pagination": {
     "previous": "Anterior",
