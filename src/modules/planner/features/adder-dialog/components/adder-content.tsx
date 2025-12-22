@@ -1,17 +1,19 @@
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useSet } from '@/hooks/useSet';
-import { getColorClasses } from '@/lib/colors';
+import { Colors, getColorClasses } from '@/lib/colors';
 import { cn, sum } from '@/lib/utils';
-import { useTab } from '@/modules/planner/hooks/useTab';
 import { useReadRegisters } from '@/store';
-import { Register } from '@/types/register.types';
-import { FC, Fragment, MouseEvent } from 'react';
+import { Register, RegisterType, RegisterTypes } from '@/types/register.types';
+import { FC, MouseEvent, useState } from 'react';
 import { Translation } from 'react-i18next';
 
 export const AdderContent: FC = () => {
-  const [tab] = useTab();
-  const items = useReadRegisters(tab);
+  const [type, setType] = useState<RegisterType>('expenses');
+  const items = useReadRegisters(type);
   const set = useSet<string>();
-  const color = getColorClasses(tab);
+  const color = getColorClasses(type);
 
   const selectedItems = items.filter((item) => set.has(item.id));
   const total = sum(selectedItems);
@@ -22,22 +24,55 @@ export const AdderContent: FC = () => {
   };
 
   return (
-    <section className="grid grid-rows-2 items-center gap-2 relative bg-muted">
-      <div className="flex flex-col gap-1 items-center">
-        <Result value={total} />
-        <Expression selecteds={selectedItems} />
+    <section className="flex flex-col justify-between py-20 h-full items-center gap-2 bg-muted">
+      <div className="flex flex-col gap-2 items-center">
+        <RegisterSelection
+          className='mb-4'
+          value={type}
+          onChange={setType}
+        />
+        <Result value={total} color={color} />
+        <div className='min-h-10'>
+          {total > 0 && (<Button size='sm' className='w-full'>Clear</Button>)}
+        </div>
       </div>
-      <GridItems items={items} color={color.background} onClick={handleClick} isActive={set.has} />
+      <GridItems items={items} onClick={handleClick} isActive={set.has} />
     </section>
   );
 };
 
-const Result: FC<{ value: number }> = ({ value }) => {
+const RegisterSelection: FC<{
+  value: RegisterType,
+  onChange: (value: RegisterType) => void
+  className?: string
+}> = ({
+  value,
+  onChange,
+  className
+}) => {
+    return (
+      <RadioGroup className={cn('flex flex-row', className)} defaultValue="expenses" value={value} onValueChange={onChange}>
+        {RegisterTypes.map(type => (
+          <div key={type} className="flex items-center gap-x-4">
+            <RadioGroupItem value={type} id={type} />
+            <Label htmlFor={type}>{type}</Label>
+          </div>
+        ))}
+      </RadioGroup>
+    )
+  }
+
+const Result: FC<{ value: number, color: Colors }> = ({ value, color }) => {
   return (
-    <div className="flex justify-center items-center border outline shadow-xl rounded-md p-4 w-80 h-32 bg-sky-50 dark:bg-muted">
+    <div className={cn(
+      "flex justify-center items-center border outline shadow-xl rounded-md p-4 w-80 h-32 bg-muted",
+      color.background,
+      color.border,
+      color.text
+    )}>
       <Translation>
         {(t) => (
-          <span className="font-serif font-light text-neutral-600 dark:text-neutral-200 text-3xl inline-block text-ellipsis whitespace-nowrap overflow-hidden">
+          <span className="font-serif font-light text-3xl inline-block text-ellipsis whitespace-nowrap overflow-hidden">
             {t('currency', { value })}
           </span>
         )}
@@ -46,35 +81,13 @@ const Result: FC<{ value: number }> = ({ value }) => {
   );
 };
 
-const Expression: FC<{
-  selecteds: Array<Register>;
-}> = ({ selecteds }) => {
-  return (
-    <div className="flex flex-row flex-wrap items-center gap-x-2 px-6 font-serif min-h-5">
-      {selecteds.map(({ id, value }, index, { length }) => (
-        <Fragment key={id}>
-          <Translation>
-            {(t) => (
-              <span key={id} className="text-xs font-medium text-muted-foreground">
-                {t('currency', { value })}
-                <i className={cn('ml-1', index === length - 1 && 'hidden')}>+</i>
-              </span>
-            )}
-          </Translation>
-        </Fragment>
-      ))}
-    </div>
-  );
-};
-
 const GridItems: FC<{
   items: Array<Register>;
-  color?: string;
   onClick: (event: MouseEvent<HTMLButtonElement>) => void;
   isActive: (value: string) => boolean;
-}> = ({ items, color = 'bg-blue-300', isActive, onClick }) => {
+}> = ({ items, isActive, onClick }) => {
   return (
-    <div className="flex flex-row flex-wrap justify-center px-2 gap-2 overflow-auto max-h-64">
+    <div className="flex flex-row flex-wrap justify-center px-2 gap-2 overflow-auto max-w-full sm:max-w-1/2 max-h-64">
       {items.map((item) => (
         <button
           key={item.id}
@@ -82,7 +95,7 @@ const GridItems: FC<{
           onClick={onClick}
           className={cn(
             'flex flex-col justify-evenly p-2 bg-current/10 rounded-md shadow-md cursor-pointer size-20',
-            isActive(item.id) && color
+            isActive(item.id) && 'bg-current/20'
           )}
         >
           <Translation>

@@ -3,6 +3,12 @@ import { RegisterType } from '@/types/register.types';
 
 export type ColorType = 'red' | 'green' | 'yellow';
 
+export type Colors = {
+  border: string;
+  background: string;
+  text: string;
+};
+
 export const COLORS = {
   red: {
     border: 'border-red-600 dark:border-red-700',

@@ -24,7 +24,7 @@ export const AdderDialog: FC<{
     };
   });
 
-  useKeyDown('alt.w', () => {
+  useKeyDown('alt.c', () => {
     setOpen((prev) => !prev);
   });
 
@@ -33,7 +33,7 @@ export const AdderDialog: FC<{
       <DialogTitle hidden>Adder dialog</DialogTitle>
       <DialogDescription hidden>Sum your records</DialogDescription>
       <DialogContent
-        className="bg-background overflow-auto p-0 h-screen w-full max-w-screen sm:h-1/2 sm:w-3/4"
+        className="bg-background overflow-auto p-0 h-screen w-full max-w-screen sm:h-3/4 sm:w-3/4"
         onInteractOutside={disableClose}
         showClose={true}
       >
