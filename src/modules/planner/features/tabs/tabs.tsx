@@ -1,17 +1,26 @@
 import { HiddenOffline } from '@/components/hidden-offline';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { DataTableFilterContext } from '@/context/DataTableFilterContext';
+import { DataTableMenuContext } from '@/context/DataTableMenuContext';
 import { useKeysDown } from '@/hooks/useKeyDown';
 import { useTemporalStore } from '@/store';
-import { RegisterType } from '@/types/register.types';
+import { RegisterType, RegisterTypes } from '@/types/register.types';
 import { MouseEvent, ReactNode, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AdderDialog, AdderDialogRef } from '../adder-dialog';
 import { DataTable } from '../data-table';
-import { AdderButton } from './components/adder-button';
 import { ExpenseCategoriesCard } from './components/expense-categories';
 import { SearchInput } from './components/search-input';
 import { SyncButton } from './components/sync-button';
+
+const ExtraContentMap = new Map<RegisterType, ReactNode>([
+  [
+    'expenses',
+    <HiddenOffline key="expenses-extra-content">
+      <ExpenseCategoriesCard />
+    </HiddenOffline>
+  ]
+]);
 
 export default function RegisterTabs() {
   const { t } = useTranslation('translation', { keyPrefix: 'registerTabs' });
@@ -29,10 +38,15 @@ export default function RegisterTabs() {
     setFilter('');
   };
 
-  const handleOpenAdderDialog = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    adderDialogRef.current?.openDialog();
-  };
+  const menuContextValue = useMemo(
+    () => ({
+      onClick: (event: MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        adderDialogRef.current?.openDialog();
+      }
+    }),
+    []
+  );
 
   useKeysDown({
     'ctrl.f': () => filterInputRef.current?.focus(),
@@ -43,46 +57,15 @@ export default function RegisterTabs() {
     'alt.3': () => setTab('investments')
   });
 
-  const TAB_CONFIG = useMemo(
-    () =>
-      ({
-        incomes: {
-          action: (
-            <div className="w-1/3">
-              <AdderButton className="block sm:hidden" onClick={handleOpenAdderDialog} />
-            </div>
-          )
-        },
-        expenses: {
-          action: (
-            <div className="flex flex-row items-center justify-between w-1/3 sm:w-min">
-              <AdderButton className="block sm:hidden" onClick={handleOpenAdderDialog} />
-              <HiddenOffline>
-                <ExpenseCategoriesCard />
-              </HiddenOffline>
-            </div>
-          )
-        },
-        investments: {
-          action: (
-            <div className="w-1/3">
-              <AdderButton className="block sm:hidden" onClick={handleOpenAdderDialog} />
-            </div>
-          )
-        }
-      }) satisfies Record<RegisterType, { action: ReactNode }>,
-    [handleOpenAdderDialog]
-  );
-
   return (
     <>
       <AdderDialog dialogRef={adderDialogRef} />
       <Tabs value={tab} defaultValue="incomes" onValueChange={handleTabChange}>
         <div className="flex items-center justify-between flex-wrap gap-1 sm:gap-2">
           <TabsList>
-            {Object.keys(TAB_CONFIG).map((trigger) => (
-              <TabsTrigger key={trigger} aria-label={trigger} value={trigger}>
-                {t(trigger)}
+            {RegisterTypes.map((type) => (
+              <TabsTrigger key={type} aria-label={type} value={type}>
+                {t(type)}
               </TabsTrigger>
             ))}
           </TabsList>
@@ -97,15 +80,17 @@ export default function RegisterTabs() {
             <SyncButton />
           </div>
         </div>
-        <DataTableFilterContext.Provider value={filter}>
-          {Object.entries(TAB_CONFIG).map(([trigger, { action }]) => (
-            <TabsContent key={trigger} value={trigger}>
-              <DataTable key={trigger} type={trigger as RegisterType}>
-                {action}
-              </DataTable>
-            </TabsContent>
-          ))}
-        </DataTableFilterContext.Provider>
+        <DataTableMenuContext.Provider value={menuContextValue}>
+          <DataTableFilterContext.Provider value={filter}>
+            {RegisterTypes.map((type) => (
+              <TabsContent key={type} value={type}>
+                <DataTable key={type} type={type as RegisterType}>
+                  {ExtraContentMap.get(type)}
+                </DataTable>
+              </TabsContent>
+            ))}
+          </DataTableFilterContext.Provider>
+        </DataTableMenuContext.Provider>
       </Tabs>
     </>
   );

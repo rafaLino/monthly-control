@@ -47,7 +47,7 @@ const RegisterSelection: FC<{
   return (
     <RadioGroup className={cn('flex flex-row', className)} defaultValue="expenses" value={value} onValueChange={onChange}>
       {RegisterTypes.map((type) => (
-        <div key={type} className="flex items-center gap-x-4">
+        <div key={type} className="flex items-center gap-x-2">
           <RadioGroupItem value={type} id={type} />
           <Translation keyPrefix="adderDialog">{(t) => <Label htmlFor={type}>{t(type)}</Label>}</Translation>
         </div>

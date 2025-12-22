@@ -14,12 +14,13 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table';
-import { useCallback, useContext, useMemo } from 'react';
+import { useCallback, useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSkipper } from '../hooks/useSkipper';
 import { CheckedCell } from './checked-cell';
 import { CheckedHeaderCell } from './checked-header-cell';
 import { DeleteCell } from './delete-cell';
+import { MenuHeaderCell } from './menu-header-cell';
 import { NameCell } from './name-cell';
 import CustomPagination from './pagination';
 import { PercentCell } from './percent-cell';
@@ -36,6 +37,7 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
   const { t } = useTranslation('translation', { keyPrefix: 'registerTable' });
   const matches = useMediaQuery(MediaQueries.md);
   const filter = useContext(DataTableFilterContext);
+  const [rowSelection, setRowSelection] = useState({});
   const columns = useMemo<ColumnDef<Register>[]>(
     () => [
       {
@@ -62,12 +64,14 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
         header: '',
         id: 'percentage',
         accessorKey: 'value',
-        cell: PercentCell
+        cell: PercentCell,
+        enableSorting: false
       },
       {
-        header: '',
+        header: MenuHeaderCell,
         id: 'actions',
-        cell: DeleteCell
+        cell: DeleteCell,
+        enableSorting: false
       }
     ],
     [t]
@@ -120,11 +124,14 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getRowId: (row) => row.id,
     state: {
       columnVisibility: {
         percentage: matches
       },
-      globalFilter: filter
+      globalFilter: filter,
+      total,
+      rowSelection
     },
     initialState: {
       sorting: [
@@ -137,12 +144,12 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
         pageSize: 20
       }
     },
+    onRowSelectionChange: setRowSelection,
     autoResetPageIndex,
     meta: {
       updateData,
       removeData,
-      checkAllData,
-      total
+      checkAllData
     }
   });
 
