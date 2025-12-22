@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { COLORS, getColor } from '@/lib/colors';
+import { getColorClasses } from '@/lib/colors';
 import { useRegisterSum, useRegisters } from '@/store';
 import { RegisterType } from '@/types/register.types';
 import { PropsWithChildren } from 'react';
@@ -13,7 +13,7 @@ export const DataTable: React.FC<DataTableProps> = ({ type, children }) => {
   const { t } = useTranslation();
   const [data, setData] = useRegisters(type);
   const sum = useRegisterSum<number>(type);
-  const { text, border } = COLORS[getColor(type)];
+  const { text, border } = getColorClasses(type);
   return (
     <Card className={border}>
       <CardHeader className="px-7 pb-0 flex-row justify-between items-center">

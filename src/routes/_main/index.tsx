@@ -1,11 +1,14 @@
 import { Planner } from '@/modules/planner';
 import { load } from '@/store';
 import { createFileRoute } from '@tanstack/react-router';
-
+import { z } from 'zod';
 export const Route = createFileRoute('/_main/')({
   component: Index,
   loader: () => load(),
-  shouldReload: false
+  shouldReload: false,
+  validateSearch: z.object({
+    tab: z.enum(['incomes', 'expenses', 'investments']).optional()
+  })
 });
 
 function Index() {

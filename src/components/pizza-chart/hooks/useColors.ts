@@ -9,7 +9,7 @@ export function useColors(count: number) {
     setColors((prev) => {
       if (count > prevCount) return [...prev, randomColor({ format: 'hsl', luminosity: 'bright' })];
 
-      return prev.toSpliced(prev.length - 1);
+      return prev.toSpliced(-1);
     });
   }, [count, prevCount]);
 

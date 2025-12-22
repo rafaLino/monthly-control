@@ -3,6 +3,12 @@ import { RegisterType } from '@/types/register.types';
 
 export type ColorType = 'red' | 'green' | 'yellow';
 
+export type Colors = {
+  border: string;
+  background: string;
+  text: string;
+};
+
 export const COLORS = {
   red: {
     border: 'border-red-600 dark:border-red-700',
@@ -35,4 +41,8 @@ export function getGoalCardColor(status: StatusGoal): ColorType {
   if (status === 'OK') return 'green';
   else if (status === 'WARNING') return 'yellow';
   else return 'red';
+}
+
+export function getColorClasses(type: RegisterType) {
+  return COLORS[getColor(type)];
 }

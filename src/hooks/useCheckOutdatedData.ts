@@ -1,7 +1,6 @@
 import env from '@/lib/env';
 import { paramsService } from '@/services/params.service';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useCookiesStorage } from './useCookiesStorage';
 import { useLocalStorage } from './useLocalStorage';
 

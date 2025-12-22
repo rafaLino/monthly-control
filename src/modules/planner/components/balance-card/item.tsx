@@ -1,4 +1,5 @@
 import { CardTitle } from '@/components/ui/card';
+import { COLORS } from '@/lib/colors';
 import { cn } from '@/lib/utils';
 import { Translation } from 'react-i18next';
 
@@ -9,11 +10,11 @@ type ItemProps = {
 };
 
 export const Item = ({ value, color, testid }: ItemProps) => {
-  const colorClass = color === 'green' ? 'text-green-600 hover:text-green-600/80' : 'text-red-600 hover:text-red-600/80';
+  const { text } = COLORS[color];
   return (
     <Translation>
       {(t) => (
-        <CardTitle className={cn('text-base', colorClass)} data-testid={testid}>
+        <CardTitle className={cn('text-base hover:opacity-95', text)} data-testid={testid}>
           {t('currency', { value })}
         </CardTitle>
       )}
