@@ -153,5 +153,13 @@
     "title": "Página no encontrada",
     "description": "Lo sentimos, la página que buscas no existe o ha sido eliminada.",
     "goHome": "Volver a la página principal"
+  },
+  "adderDialog": {
+    "title": "Sumador",
+    "description": "¡Suma tus registros aquí!",
+    "incomes": "Ingresos",
+    "expenses": "Gastos",
+    "investments": "Inversiones",
+    "clear": "Limpiar"
   }
 }

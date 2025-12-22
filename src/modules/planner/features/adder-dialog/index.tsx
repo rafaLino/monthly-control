@@ -1,6 +1,7 @@
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 import { useKeyDown } from '@/hooks/useKeyDown';
 import { FC, RefObject, Suspense, lazy, useImperativeHandle, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { AdderSkeleton } from './components/adder-content-skeleton';
 
 const AdderContent = lazy(() => import('./components/adder-content').then((module) => ({ default: module.AdderContent })));
@@ -14,6 +15,7 @@ export type AdderDialogRef = {
 export const AdderDialog: FC<{
   dialogRef: RefObject<AdderDialogRef | null>;
 }> = ({ dialogRef }) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'adderDialog' });
   const [open, setOpen] = useState(false);
 
   useImperativeHandle(dialogRef, () => {
@@ -30,8 +32,8 @@ export const AdderDialog: FC<{
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTitle hidden>Adder dialog</DialogTitle>
-      <DialogDescription hidden>Sum your records</DialogDescription>
+      <DialogTitle hidden>{t('title')}</DialogTitle>
+      <DialogDescription hidden>{t('description')}</DialogDescription>
       <DialogContent
         className="bg-background overflow-auto p-0 h-screen w-full max-w-screen sm:h-3/4 sm:w-3/4"
         onInteractOutside={disableClose}

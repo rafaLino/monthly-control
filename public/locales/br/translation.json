@@ -153,5 +153,13 @@
     "title": "Página não encontrada",
     "description": "Desculpe, a página que você está procurando não existe ou foi removida.",
     "goHome": "Voltar à página inicial"
+  },
+  "adderDialog": {
+    "title": "Somador",
+    "description": "Some seus registros aqui!",
+    "incomes": "Receitas",
+    "expenses": "Despesas",
+    "investments": "Investimentos",
+    "clear": "Limpar"
   }
 }

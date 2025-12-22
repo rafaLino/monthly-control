@@ -18,58 +18,69 @@ export const AdderContent: FC = () => {
   const selectedItems = items.filter((item) => set.has(item.id));
   const total = sum(selectedItems);
 
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+  const handleSelect = (event: MouseEvent<HTMLButtonElement>) => {
     const id = event.currentTarget.dataset.id!;
     set.toggle(id);
+  };
+
+  const handleClear = () => {
+    set.clear();
   };
 
   return (
     <section className="flex flex-col justify-between py-20 h-full items-center gap-2 bg-muted">
       <div className="flex flex-col gap-2 items-center">
-        <RegisterSelection
-          className='mb-4'
-          value={type}
-          onChange={setType}
-        />
+        <RegisterSelection className="mb-4" value={type} onChange={setType} />
         <Result value={total} color={color} />
-        <div className='min-h-10'>
-          {total > 0 && (<Button size='sm' className='w-full'>Clear</Button>)}
-        </div>
+        <Actions total={total} onClick={handleClear} />
       </div>
-      <GridItems items={items} onClick={handleClick} isActive={set.has} />
+      <Items items={items} onClick={handleSelect} isActive={set.has} />
     </section>
   );
 };
 
 const RegisterSelection: FC<{
-  value: RegisterType,
-  onChange: (value: RegisterType) => void
-  className?: string
-}> = ({
-  value,
-  onChange,
-  className
-}) => {
-    return (
-      <RadioGroup className={cn('flex flex-row', className)} defaultValue="expenses" value={value} onValueChange={onChange}>
-        {RegisterTypes.map(type => (
-          <div key={type} className="flex items-center gap-x-4">
-            <RadioGroupItem value={type} id={type} />
-            <Label htmlFor={type}>{type}</Label>
-          </div>
-        ))}
-      </RadioGroup>
-    )
-  }
-
-const Result: FC<{ value: number, color: Colors }> = ({ value, color }) => {
+  value: RegisterType;
+  onChange: (value: RegisterType) => void;
+  className?: string;
+}> = ({ value, onChange, className }) => {
   return (
-    <div className={cn(
-      "flex justify-center items-center border outline shadow-xl rounded-md p-4 w-80 h-32 bg-muted",
-      color.background,
-      color.border,
-      color.text
-    )}>
+    <RadioGroup className={cn('flex flex-row', className)} defaultValue="expenses" value={value} onValueChange={onChange}>
+      {RegisterTypes.map((type) => (
+        <div key={type} className="flex items-center gap-x-4">
+          <RadioGroupItem value={type} id={type} />
+          <Translation keyPrefix="adderDialog">{(t) => <Label htmlFor={type}>{t(type)}</Label>}</Translation>
+        </div>
+      ))}
+    </RadioGroup>
+  );
+};
+
+const Actions: FC<{
+  total: number;
+  onClick: () => void;
+}> = ({ total, onClick }) => {
+  return (
+    <div className="min-h-10">
+      {total > 0 && (
+        <Button size="sm" className="w-full" onClick={onClick}>
+          <Translation keyPrefix="adderDialog">{(t) => t('clear')}</Translation>
+        </Button>
+      )}
+    </div>
+  );
+};
+
+const Result: FC<{ value: number; color: Colors }> = ({ value, color }) => {
+  return (
+    <div
+      className={cn(
+        'flex justify-center items-center border outline shadow-xl rounded-md p-4 w-80 h-32 bg-muted',
+        color.background,
+        color.border,
+        color.text
+      )}
+    >
       <Translation>
         {(t) => (
           <span className="font-serif font-light text-3xl inline-block text-ellipsis whitespace-nowrap overflow-hidden">
@@ -81,7 +92,7 @@ const Result: FC<{ value: number, color: Colors }> = ({ value, color }) => {
   );
 };
 
-const GridItems: FC<{
+const Items: FC<{
   items: Array<Register>;
   onClick: (event: MouseEvent<HTMLButtonElement>) => void;
   isActive: (value: string) => boolean;
