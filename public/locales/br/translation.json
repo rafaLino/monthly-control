@@ -42,7 +42,9 @@
     "search": "Pesquisar..."
   },
   "dataTable": {
-    "items": "{{length}} Itens"
+    "items": "{{length}} Itens",
+    "sum": "Soma",
+    "clear": "Limpar"
   },
   "registerTable": {
     "name": "Nome",

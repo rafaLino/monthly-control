@@ -42,7 +42,9 @@
     "search": "Buscar..."
   },
   "dataTable": {
-    "items": "{{length}} Ítems"
+    "items": "{{length}} Ítems",
+    "sum": "Suma",
+    "clear": "Limpiar"
   },
   "registerTable": {
     "name": "Nombre",

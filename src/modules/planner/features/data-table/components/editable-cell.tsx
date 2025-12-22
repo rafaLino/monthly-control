@@ -40,7 +40,7 @@ export const EditableCell: React.FC<EditableCellProps> = ({ id, value, type = 't
       onBlur={handleBlur}
       onKeyDown={handleKeyDown}
       onFocus={onFocus}
-      className="border-0 focus:border"
+      className="border-0 focus:border bg-inherit"
       autoComplete="off"
       {...props}
     />
@@ -52,7 +52,7 @@ type EditableNumberCellProps = Omit<React.PropsWithoutRef<EditableCellProps>, 'v
   onBlur?: (newValue: number, event: React.FocusEvent<HTMLInputElement>) => void;
 };
 
-export const EditableNumberCell: React.FC<EditableNumberCellProps> = ({ id, value, onBlur }) => {
+export const EditableNumberCell: React.FC<EditableNumberCellProps> = ({ id, value, onBlur, ...props }) => {
   const { t } = useTranslation();
   const [isEditing, setIsEditing] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -77,6 +77,7 @@ export const EditableNumberCell: React.FC<EditableNumberCellProps> = ({ id, valu
       value={isPending ? '' : formattedValue}
       onFocus={handleFocus}
       onBlur={handleBlur}
+      {...props}
     />
   );
 };

@@ -20,6 +20,7 @@ import { useSkipper } from '../hooks/useSkipper';
 import { CheckedCell } from './checked-cell';
 import { CheckedHeaderCell } from './checked-header-cell';
 import { DeleteCell } from './delete-cell';
+import { MenuHeaderCell } from './menu-header-cell';
 import { NameCell } from './name-cell';
 import CustomPagination from './pagination';
 import { PercentCell } from './percent-cell';
@@ -62,12 +63,14 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
         header: '',
         id: 'percentage',
         accessorKey: 'value',
-        cell: PercentCell
+        cell: PercentCell,
+        enableSorting: false
       },
       {
-        header: '',
+        header: MenuHeaderCell,
         id: 'actions',
-        cell: DeleteCell
+        cell: DeleteCell,
+        enableSorting: false
       }
     ],
     [t]
@@ -124,7 +127,8 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
       columnVisibility: {
         percentage: matches
       },
-      globalFilter: filter
+      globalFilter: filter,
+      total
     },
     initialState: {
       sorting: [
@@ -141,8 +145,7 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
     meta: {
       updateData,
       removeData,
-      checkAllData,
-      total
+      checkAllData
     }
   });
 
