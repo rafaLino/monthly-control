@@ -6,3 +6,5 @@ export type Register = {
 };
 
 export type RegisterType = 'incomes' | 'expenses' | 'investments';
+
+export const RegisterTypes = ['incomes', 'expenses', 'investments'] as const;

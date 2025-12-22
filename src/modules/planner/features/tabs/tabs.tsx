@@ -2,7 +2,6 @@ import { HiddenOffline } from '@/components/hidden-offline';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { DataTableFilterContext } from '@/context/DataTableFilterContext';
 import { useKeysDown } from '@/hooks/useKeyDown';
-import { useTab } from '@/modules/planner/hooks/useTab';
 import { useTemporalStore } from '@/store';
 import { RegisterType } from '@/types/register.types';
 import { MouseEvent, ReactNode, useMemo, useRef, useState } from 'react';
@@ -17,7 +16,7 @@ import { SyncButton } from './components/sync-button';
 export default function RegisterTabs() {
   const { t } = useTranslation('translation', { keyPrefix: 'registerTabs' });
   const [filter, setFilter] = useState('');
-  const [tab, setTab] = useTab();
+  const [tab, setTab] = useState<RegisterType>();
 
   const undo = useTemporalStore((state) => state.undo);
   const redo = useTemporalStore((state) => state.redo);
@@ -44,43 +43,34 @@ export default function RegisterTabs() {
     'alt.3': () => setTab('investments')
   });
 
-  const TAB_CONFIGURATION = useMemo(
+  const TAB_CONFIG = useMemo(
     () =>
       ({
-        triggers: ['incomes', 'expenses', 'investments'] as const,
-        contents: [
-          {
-            trigger: 'incomes',
-            action: (
-              <div className="w-1/3">
-                <AdderButton className="block sm:hidden" onClick={handleOpenAdderDialog} />
-              </div>
-            )
-          },
-          {
-            trigger: 'expenses',
-            action: (
-              <div className="flex flex-row items-center justify-between w-1/3 sm:w-min">
-                <AdderButton className="block sm:hidden" onClick={handleOpenAdderDialog} />
-                <HiddenOffline>
-                  <ExpenseCategoriesCard />
-                </HiddenOffline>
-              </div>
-            )
-          },
-          {
-            trigger: 'investments',
-            action: (
-              <div className="w-1/3">
-                <AdderButton className="block sm:hidden" onClick={handleOpenAdderDialog} />
-              </div>
-            )
-          }
-        ]
-      }) satisfies {
-        triggers: Array<RegisterType>;
-        contents: Array<{ trigger: RegisterType; action: ReactNode }>;
-      },
+        incomes: {
+          action: (
+            <div className="w-1/3">
+              <AdderButton className="block sm:hidden" onClick={handleOpenAdderDialog} />
+            </div>
+          )
+        },
+        expenses: {
+          action: (
+            <div className="flex flex-row items-center justify-between w-1/3 sm:w-min">
+              <AdderButton className="block sm:hidden" onClick={handleOpenAdderDialog} />
+              <HiddenOffline>
+                <ExpenseCategoriesCard />
+              </HiddenOffline>
+            </div>
+          )
+        },
+        investments: {
+          action: (
+            <div className="w-1/3">
+              <AdderButton className="block sm:hidden" onClick={handleOpenAdderDialog} />
+            </div>
+          )
+        }
+      }) satisfies Record<RegisterType, { action: ReactNode }>,
     [handleOpenAdderDialog]
   );
 
@@ -90,7 +80,7 @@ export default function RegisterTabs() {
       <Tabs value={tab} defaultValue="incomes" onValueChange={handleTabChange}>
         <div className="flex items-center justify-between flex-wrap gap-1 sm:gap-2">
           <TabsList>
-            {TAB_CONFIGURATION.triggers.map((trigger) => (
+            {Object.keys(TAB_CONFIG).map((trigger) => (
               <TabsTrigger key={trigger} aria-label={trigger} value={trigger}>
                 {t(trigger)}
               </TabsTrigger>
@@ -108,9 +98,9 @@ export default function RegisterTabs() {
           </div>
         </div>
         <DataTableFilterContext.Provider value={filter}>
-          {TAB_CONFIGURATION.contents.map(({ trigger, action }) => (
+          {Object.entries(TAB_CONFIG).map(([trigger, { action }]) => (
             <TabsContent key={trigger} value={trigger}>
-              <DataTable key={trigger} type={trigger}>
+              <DataTable key={trigger} type={trigger as RegisterType}>
                 {action}
               </DataTable>
             </TabsContent>
