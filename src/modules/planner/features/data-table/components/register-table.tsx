@@ -14,7 +14,7 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table';
-import { useCallback, useContext, useMemo, useState } from 'react';
+import { useCallback, useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSkipper } from '../hooks/useSkipper';
 import { CheckedCell } from './checked-cell';
@@ -37,7 +37,6 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
   const { t } = useTranslation('translation', { keyPrefix: 'registerTable' });
   const matches = useMediaQuery(MediaQueries.md);
   const filter = useContext(DataTableFilterContext);
-  const [rowSelection, setRowSelection] = useState({});
   const columns = useMemo<ColumnDef<Register>[]>(
     () => [
       {
@@ -129,8 +128,7 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
         percentage: matches
       },
       globalFilter: filter,
-      total,
-      rowSelection
+      total
     },
     initialState: {
       sorting: [
@@ -143,7 +141,6 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
         pageSize: 20
       }
     },
-    onRowSelectionChange: setRowSelection,
     autoResetPageIndex,
     meta: {
       updateData,

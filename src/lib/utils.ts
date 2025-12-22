@@ -19,7 +19,7 @@ export function sum(list: Register[]) {
   return list.reduce((acc, { value }) => acc + value, 0);
 }
 
-export function sumItems<T = Object>(list: T[], selector: (item: T) => number) {
+export function sumItems<T extends Object>(list: T[], selector: (item: T) => number) {
   return list.reduce((acc, curr) => acc + selector(curr), 0);
 }
 

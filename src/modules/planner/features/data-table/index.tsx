@@ -2,13 +2,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getColorClasses } from '@/lib/colors';
 import { useRegisterSum, useRegisters } from '@/store';
 import { RegisterType } from '@/types/register.types';
-import { MouseEvent, PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 import { useTranslation } from 'react-i18next';
 import RegisterTable from './components/register-table';
 
 type DataTableProps = PropsWithChildren<{
   type: RegisterType;
-  onMenuClick?: (e: MouseEvent<HTMLButtonElement>, type: RegisterType) => void;
 }>;
 export const DataTable: React.FC<DataTableProps> = ({ type, children }) => {
   const { t } = useTranslation();
