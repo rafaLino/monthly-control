@@ -25,7 +25,7 @@ const ExtraContentMap = new Map<RegisterType, ReactNode>([
 export default function RegisterTabs() {
   const { t } = useTranslation('translation', { keyPrefix: 'registerTabs' });
   const [filter, setFilter] = useState('');
-  const [tab, setTab] = useState<RegisterType>();
+  const [tab, setTab] = useState<RegisterType>('incomes');
 
   const undo = useTemporalStore((state) => state.undo);
   const redo = useTemporalStore((state) => state.redo);

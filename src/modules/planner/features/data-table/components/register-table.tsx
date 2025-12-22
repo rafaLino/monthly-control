@@ -124,7 +124,6 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    getRowId: (row) => row.id,
     state: {
       columnVisibility: {
         percentage: matches
