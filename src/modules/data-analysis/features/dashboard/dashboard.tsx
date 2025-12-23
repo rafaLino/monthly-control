@@ -1,14 +1,14 @@
+import { CsvDropZone } from '@/components/csv-drop-zone/csv-drop-zone';
+import { resolveCsv } from '@/lib/resolve-csv';
 import { cn } from '@/lib/utils';
 import { useLocalParams } from '@/store';
 import { QueryKeys } from '@/types/queryKeys';
 import { useQueryClient } from '@tanstack/react-query';
 import { FC } from 'react';
-import { CsvDropZone } from '../../components/csv-drop-zone/csv-drop-zone';
 import { SwapContainer } from '../../components/swap-container/swap-container';
 import { Metadata } from '../../types/metadata';
 import { generateMetadata } from '../../utils/generate-metadata';
 import { gridOptionsMap } from '../../utils/grid-config';
-import { resolveCsv } from '../../utils/resolve-csv';
 import { DashboardBarCharts } from './components/dashboard-bar-charts';
 import { DashboardSkeleton } from './components/dashboard-skeleton';
 
@@ -39,6 +39,8 @@ export const Dashboard: FC<Props> = ({ data, loading }) => {
       {(item) => <DashboardBarCharts {...item} />}
     </SwapContainer>
   ) : (
-    <CsvDropZone onDrop={handleDrop} />
+    <div className="w-4/5">
+      <CsvDropZone onDrop={handleDrop} />
+    </div>
   );
 };
