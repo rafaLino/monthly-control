@@ -8,6 +8,7 @@ declare module '@tanstack/react-router' {
     router: typeof router;
   }
 }
+
 const router = createRouter({
   routeTree,
   defaultNotFoundComponent: NotFound

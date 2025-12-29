@@ -120,7 +120,8 @@
     "gridCol": "Disposição padrão do painel",
     "aiAssistant": "Assistente de IA",
     "aiModel": "Modelo de IA",
-    "autoSave": "Salvar automático"
+    "autoSave": "Salvar automático",
+    "transactions": "Transações"
   },
   "ExpenseCategoriesSettings": {
     "title": "Categorias",
@@ -166,10 +167,10 @@
     "clear": "Limpar"
   },
   "transactions": {
-    "loading": "Loading...",
+    "loading": "Carregando...",
     "summary": "Resumo",
     "reset": "Reiniciar",
-    "refetch": "Recarregar",
+    "refetch": "Atualize",
     "save": "Salvar"
   }
 }

@@ -23,8 +23,8 @@ export function sumItems<T extends Object>(list: T[], selector: (item: T) => num
   return list.reduce((acc, curr) => acc + selector(curr), 0);
 }
 
-export function removeAccents(texto: string) {
-  return texto
+export function removeAccents(text: string) {
+  return text
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/\s+/g, '_');
