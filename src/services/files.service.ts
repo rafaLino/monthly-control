@@ -63,8 +63,8 @@ export class FileService {
     });
 
     if (!response.ok) return;
-    const content = await response.text();
-    return content ?? null;
+
+    return response.text()
   }
 }
 

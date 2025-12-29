@@ -4,10 +4,7 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_main/transactions')({
   beforeLoad: () => {
-    if (!env.VITE_ONLINE) {
-      throw notFound();
-    }
-    if (!getParam('transactions')) {
+    if (!env.VITE_ONLINE || !getParam('transactions')) {
       throw notFound();
     }
   }
