@@ -76,3 +76,7 @@ export function createNewRegister(name: string, value: number): Register {
     value
   };
 }
+
+export function toFile(content: string) {
+  return new Blob([content], { type: 'text/csv;charset=utf-8;' });
+}

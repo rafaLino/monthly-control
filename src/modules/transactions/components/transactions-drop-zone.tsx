@@ -7,7 +7,7 @@ import { normalizeTransactions } from '../utils';
 export const TransactionsDropZone: FC<
   PropsWithChildren<{
     showDropZone: boolean;
-    onDrop: (items: Transaction[], csv?: string) => Promise<void>;
+    onDrop: (items: Transaction[], csv: string) => Promise<void>;
   }>
 > = ({ showDropZone, children, onDrop }) => {
   const handleDrop = async (file: File | undefined) => {

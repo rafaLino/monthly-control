@@ -32,7 +32,7 @@ export function TransactionModule() {
 
   const loading = isPending || isLoading || isTransactionLoading;
 
-  const handleDrop = async (items: Transaction[], csv?: string) => {
+  const handleDrop = async (items: Transaction[], csv: string) => {
     startTransition(() => {
       const ref = getRefDateFromTransactions(items);
       dispatch({ type: 'SET_DATA', payload: { activeFile: ref, transactions: items, csv: csv } });

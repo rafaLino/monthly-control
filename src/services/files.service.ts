@@ -1,38 +1,19 @@
 import env from '@/lib/env';
+import { toFile } from '@/lib/utils';
 import { FileReponseData, TRefDate } from '@/types/refDate';
 
 export class FileService {
-  private saveCSV(ref: TRefDate, csv: string) {
-    return fetch(`${env.VITE_WORKER_URL}/${ref}`, {
-      method: 'PUT',
-      body: csv,
-      headers: new Headers({
-        'Content-Type': 'text/csv',
-        'x-api-key': env.VITE_API_SECRET
-      })
-    });
-  }
-
-  private removeCSV(ref: TRefDate) {
-    return fetch(`${env.VITE_WORKER_URL}/${ref}`, {
-      method: 'DELETE',
-      headers: new Headers({
-        'Content-Type': 'text/csv',
-        'x-api-key': env.VITE_API_SECRET
-      })
-    });
-  }
   public async save(ref: TRefDate, csv: string) {
-    const promise = fetch(`${env.VITE_FILES_URL}/files`, {
+    const formData = new FormData();
+    formData.append('ref', ref);
+    formData.append('csv', toFile(csv), ref);
+    return fetch(`${env.VITE_FILES_URL}/files`, {
       method: 'POST',
-      body: JSON.stringify({ ref }),
+      body: formData,
       headers: new Headers({
-        'Content-Type': 'application/json',
         'x-api-key': env.VITE_API_SECRET
       })
     });
-
-    await Promise.all([this.saveCSV(ref, csv), promise]);
   }
 
   public async getAll(): Promise<Array<FileReponseData>> {
@@ -63,22 +44,18 @@ export class FileService {
     return response.json() as Promise<FileReponseData>;
   }
 
-  public async remove(ref: TRefDate): Promise<boolean> {
-    const promise = fetch(`${env.VITE_FILES_URL}/files/${ref}`, {
+  public async remove(ref: TRefDate) {
+    return fetch(`${env.VITE_FILES_URL}/files/${ref}`, {
       method: 'DELETE',
       headers: new Headers({
         'Content-Type': 'application/json',
         'x-api-key': env.VITE_API_SECRET
       })
     });
-
-    const result = await Promise.allSettled([this.removeCSV(ref), promise]);
-
-    return result.every((req) => req.status === 'fulfilled');
   }
 
   public async download(ref: TRefDate): Promise<string | undefined> {
-    const response = await fetch(`${env.VITE_WORKER_URL}/${ref}`, {
+    const response = await fetch(`${env.VITE_FILES_URL}/files/${ref}/download`, {
       method: 'GET',
       headers: new Headers({
         'Content-Type': 'text/csv',
@@ -87,8 +64,8 @@ export class FileService {
     });
 
     if (!response.ok) return;
-
-    return response.text();
+    const content = await response.text();
+    return content ?? null;
   }
 }
 

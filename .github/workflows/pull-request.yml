@@ -47,7 +47,6 @@ jobs:
       VITE_PARAMS_API_URL: local
       VITE_ONLINE: off
       VITE_FILES_URL: local
-      VITE_WORKER_URL: local
       MODE: test
     container:
       image: mcr.microsoft.com/playwright:v1.51.1-noble

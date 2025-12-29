@@ -1,5 +1,7 @@
+import { toFile } from '@/lib/utils';
+
 export const saveFile = async (content: string, fileName = 'result.csv') => {
-  const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
+  const blob = toFile(content);
 
   const supportsFileSystemAccess = 'showSaveFilePicker' in window;
   // If the File System Access API is supported…
