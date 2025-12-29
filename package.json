@@ -1,7 +1,7 @@
 {
   "name": "monthly-control",
   "private": true,
-  "version": "2.14.2",
+  "version": "2.15.0",
   "type": "module",
   "scripts": {
     "start": "npm run build && vite preview --port=3000",
@@ -87,8 +87,8 @@
     "babel-plugin-react-compiler": "^1.0.0",
     "dotenv": "^16.6.1",
     "globals": "^15.15.0",
-    "tailwindcss": "^4.1.17",
     "tailwind-merge": "^2.6.0",
+    "tailwindcss": "^4.1.17",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.48.1",

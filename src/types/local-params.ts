@@ -6,7 +6,8 @@ export const Schema = z.object({
   grid_col: z.coerce.number(),
   ai_assistant: z.coerce.boolean(),
   ai_model: z.string().optional(),
-  auto_save: z.boolean().default(false)
+  auto_save: z.boolean().default(false),
+  transactions: z.boolean().default(false)
 });
 
 export type LocalParams = z.infer<typeof Schema>;
@@ -19,5 +20,6 @@ export const DEFAULT_LOCAL_PARAMS: LocalParams = {
   grid_col: 2,
   ai_assistant: false,
   ai_model: 'gemini-2.5-flash',
-  auto_save: false
+  auto_save: false,
+  transactions: false
 };

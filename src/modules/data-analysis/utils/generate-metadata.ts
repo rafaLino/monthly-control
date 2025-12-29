@@ -1,11 +1,11 @@
 import { ChartConfig } from '@/components/ui/chart';
 import { getColor } from '@/lib/colors';
+import { CSVtoObject } from '@/lib/csv-to-object';
 import { capitalize, removeAccents, sum } from '@/lib/utils';
 import { Register, RegisterType } from '@/types/register.types';
 import { getYear, toDate } from 'date-fns';
 import randomColor from 'randomcolor';
 import { Metadata, MetadataType } from '../types/metadata';
-import { CSVtoObject } from './csv-to-object';
 
 type Records = {
   incomes: Register[];

@@ -60,7 +60,8 @@
     "users": "Usuarios",
     "analytics": "Analíticas",
     "settings": "Configuraciones",
-    "toggleMenu": "Alternar menú"
+    "toggleMenu": "Alternar menú",
+    "transactions": "Transacciones"
   },
   "userMenu": {
     "myAccount": "Mi cuenta",
@@ -119,7 +120,8 @@
     "gridCol": "Columna de la cuadrícula",
     "aiAssistant": "Asistente de IA",
     "aiModel": "Modelo de IA",
-    "autoSave": "Salvamento automático"
+    "autoSave": "Salvamento automático",
+    "transactions": "Transacciones"
   },
   "ExpenseCategoriesSettings": {
     "title": "Categorías de Gastos",
@@ -163,5 +165,13 @@
     "expenses": "Gastos",
     "investments": "Inversiones",
     "clear": "Limpiar"
+  },
+  "transactions": {
+    "loading": "Cargando...",
+    "summary": "Resumen",
+    "reset": "Limpiar",
+    "refetch": "Actualizar",
+    "save": "Salvar",
+    "remove": "Eliminar"
   }
 }

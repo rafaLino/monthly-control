@@ -30,7 +30,7 @@ export const DataAnalysis = () => {
   };
 
   const handleautoDownload = (checked: CheckedState) => {
-    setLocalParam('automatic_download', checked === false);
+    setLocalParam('automatic_download', checked === true);
   };
 
   const handleClearData = () => {

@@ -12,7 +12,8 @@ const envSchema = z.object({
     .string()
     .nullish()
     .transform((val) => (val ? val === 'on' : true)),
-  VITE_FIREBASE_CONFIG: z.string().nullish().transform(parseFirebaseConfig)
+  VITE_FIREBASE_CONFIG: z.string().nullish().transform(parseFirebaseConfig),
+  VITE_FILES_URL: z.string()
 });
 
 export default envSchema.parse(import.meta.env);

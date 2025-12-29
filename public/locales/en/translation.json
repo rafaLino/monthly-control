@@ -60,7 +60,8 @@
     "users": "Users",
     "analytics": "Analytics",
     "settings": "Settings",
-    "toggleMenu": "Toggle menu"
+    "toggleMenu": "Toggle menu",
+    "transactions": "Transactions"
   },
   "userMenu": {
     "myAccount": "My account",
@@ -119,7 +120,8 @@
     "gridCol": "Grid col",
     "aiAssistant": "AI Assistant",
     "aiModel": "AI Model",
-    "autoSave": "Auto save"
+    "autoSave": "Auto save",
+    "transactions": "Transactions"
   },
   "ExpenseCategoriesSettings": {
     "title": "Expenses Categories",
@@ -163,5 +165,13 @@
     "expenses": "Expenses",
     "investments": "Investments",
     "clear": "Clear"
+  },
+  "transactions": {
+    "loading": "Loading...",
+    "summary": "Summary",
+    "reset": "Reset",
+    "refetch": "Refetch",
+    "save": "Save",
+    "remove": "Remove"
   }
 }
