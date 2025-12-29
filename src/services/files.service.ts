@@ -64,7 +64,7 @@ export class FileService {
 
     if (!response.ok) return;
 
-    return response.text()
+    return response.text();
   }
 }
 
