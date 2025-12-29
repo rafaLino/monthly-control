@@ -1,18 +1,17 @@
 import { TRefDate } from '@/types/refDate';
 import { useReducer } from 'react';
 import { Transaction } from '../types/transaction';
-import { setMap } from '../utils';
 
 type State = {
   activeFile: TRefDate | null;
   transactions: Transaction[];
-  filesMap: Map<TRefDate, string>;
+  csv: string | null;
 };
 
 type Action =
   | {
       type: 'SET_DATA';
-      payload: { activeFile: TRefDate; transactions: Transaction[]; csv: string | undefined };
+      payload: { activeFile: TRefDate; transactions: Transaction[]; csv: string };
     }
   | {
       type: 'SET_TRANSACTIONS';
@@ -24,15 +23,12 @@ type Action =
     }
   | {
       type: 'RESET';
-    }
-  | {
-      type: 'RESET_ACTIVE';
     };
 
 const INITIAL_STATE: State = {
   activeFile: null,
   transactions: [],
-  filesMap: new Map<TRefDate, string>()
+  csv: null
 };
 
 function reducer(state: State, action: Action): State {
@@ -43,20 +39,17 @@ function reducer(state: State, action: Action): State {
         ...state,
         activeFile: action.payload.activeFile,
         transactions: action.payload.transactions,
-        filesMap: setMap(state.filesMap, action.payload.activeFile, action.payload.csv)
+        csv: action.payload.csv
       };
     }
     case 'SET_TRANSACTIONS': {
-      return { ...state, transactions: action.payload };
+      return { ...state, csv: null, transactions: action.payload };
     }
     case 'SET_ACTIVE': {
-      return { ...state, activeFile: action.payload };
-    }
-    case 'RESET_ACTIVE': {
-      return { ...state, activeFile: null };
+      return { ...state, csv: null, activeFile: action.payload };
     }
     case 'RESET': {
-      return { ...state, activeFile: null, transactions: [] };
+      return { ...state, csv: null, activeFile: null, transactions: [] };
     }
     default:
       return state;

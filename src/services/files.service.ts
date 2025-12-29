@@ -48,7 +48,6 @@ export class FileService {
     return fetch(`${env.VITE_FILES_URL}/files/${ref}`, {
       method: 'DELETE',
       headers: new Headers({
-        'Content-Type': 'application/json',
         'x-api-key': env.VITE_API_SECRET
       })
     });

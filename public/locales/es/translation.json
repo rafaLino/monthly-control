@@ -169,8 +169,9 @@
   "transactions": {
     "loading": "Cargando...",
     "summary": "Resumen",
-    "reset": "Restablecer",
+    "reset": "Limpiar",
     "refetch": "Actualizar",
-    "save": "Salvar"
+    "save": "Salvar",
+    "remove": "Eliminar"
   }
 }

@@ -10,7 +10,7 @@ import {
 import { CSVtoObject } from '@/lib/csv-to-object';
 import { MouseEvent, useTransition } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Actions } from './components/actions';
+import { Actions, type TAction } from './components/actions';
 import { Files } from './components/files';
 import { Summary } from './components/summary';
 import { TransactionsDropZone } from './components/transactions-drop-zone';
@@ -20,13 +20,23 @@ import { useTransactionsQuery } from './hooks/useTransactionsQuery';
 import type { Transaction } from './types/transaction';
 import { getRefDateFromTransactions } from './utils';
 
-export function TransactionModule() {
+export function TransactionPage() {
   const { t } = useTranslation('translation');
   const [isPending, startTransition] = useTransition();
 
-  const [{ activeFile, filesMap, transactions }, dispatch] = useTransactions();
-  const { data: fileData, isLoading, isSaving, save, refetch } = useFilesQuery();
-  const isTransactionLoading = useTransactionsQuery(activeFile, (data) => {
+  const [{ activeFile, csv, transactions }, dispatch] = useTransactions();
+  const {
+    data: fileData,
+    isLoading,
+    isSaving,
+    isRemoving,
+    save,
+    remove,
+    refetch
+  } = useFilesQuery((action) => {
+    action === 'remove' && dispatch({ type: 'RESET' });
+  });
+  const isTransactionLoading = useTransactionsQuery(csv ? null : activeFile, (data) => {
     dispatch({ type: 'SET_TRANSACTIONS', payload: data });
   });
 
@@ -39,18 +49,12 @@ export function TransactionModule() {
     });
   };
 
-  const handleSave = () => {
-    if (activeFile && filesMap.has(activeFile)) {
-      save({ ref: activeFile, csv: filesMap.get(activeFile)! });
-    }
-  };
-
   const handleFileClick = async (event: MouseEvent<HTMLButtonElement>) => {
     const { state, value } = event.currentTarget.dataset as { state: string; value: string };
 
     if (state === 'new') {
       startTransition(() => {
-        dispatch({ type: 'SET_TRANSACTIONS', payload: CSVtoObject(filesMap.get(value)!) });
+        dispatch({ type: 'SET_TRANSACTIONS', payload: CSVtoObject(csv!) });
       });
       return;
     }
@@ -63,12 +67,26 @@ export function TransactionModule() {
     dispatch({ type: 'SET_ACTIVE', payload: value });
   };
 
-  const handleReset = () => {
-    dispatch({ type: 'RESET' });
-  };
-
-  const handleRefetch = () => {
-    refetch();
+  const handleActions = (action: TAction) => {
+    switch (action) {
+      case 'save': {
+        if (activeFile && csv) {
+          save({ ref: activeFile, csv });
+        }
+        break;
+      }
+      case 'refetch': {
+        refetch();
+        break;
+      }
+      case 'reset': {
+        dispatch({ type: 'RESET' });
+        break;
+      }
+      case 'remove': {
+        activeFile && remove(activeFile);
+      }
+    }
   };
 
   return (
@@ -76,16 +94,15 @@ export function TransactionModule() {
       <Files items={fileData} active={activeFile} onClick={handleFileClick} />
       <TransactionsDropZone showDropZone={transactions.length === 0} onDrop={handleDrop}>
         <Summary label={t('transactions.summary')} refDate={activeFile} items={transactions} />
-        <Actions.Root>
-          <Actions.Btn label={t('transactions.reset')} onClick={handleReset} />
-          <Actions.Btn label={t('transactions.refetch')} disabled={isLoading} onClick={handleRefetch} />
-          <Actions.Save
-            label={t('transactions.save')}
-            active={!!activeFile && transactions.length === 0}
-            disabled={isSaving}
-            onClick={handleSave}
-          />
-        </Actions.Root>
+        <Actions
+          slots={{
+            save: { disabled: isSaving },
+            reset: { disabled: isLoading },
+            refetch: { disabled: isLoading },
+            remove: { disabled: isRemoving }
+          }}
+          onClick={handleActions}
+        />
         <Loading
           loading={loading}
           fallback={

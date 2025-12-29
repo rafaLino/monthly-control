@@ -171,6 +171,7 @@
     "summary": "Summary",
     "reset": "Reset",
     "refetch": "Refetch",
-    "save": "Save"
+    "save": "Save",
+    "remove": "Remove"
   }
 }
