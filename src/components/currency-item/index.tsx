@@ -25,9 +25,9 @@ type CurrencyItemProps = Omit<ComponentPropsWithoutRef<'span'>, 'color' | 'child
   children?: ReactNode | ((v: string) => ReactNode);
 };
 
-export const CurrencyItem: FC<CurrencyItemProps> = ({ value, color: conditionalColor, children, className, ...props }) => {
+export const CurrencyItem: FC<CurrencyItemProps> = ({ value, color: conditionalColor, ...props }) => {
   const color = getColor(value, { ...DEFAULT_COLOR, ...conditionalColor });
-  return <Translation>{(t) => <Content color={color} valueAsString={t('currency', { value })} />}</Translation>;
+  return <Translation>{(t) => <Content color={color} valueAsString={t('currency', { value })} {...props} />}</Translation>;
 };
 
 const Content: FC<Omit<CurrencyItemProps, 'value' | 'color'> & { valueAsString: string; color: string }> = ({
