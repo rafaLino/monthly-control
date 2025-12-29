@@ -8,43 +8,40 @@ import {
   TimelineItemTitle
 } from '@/components/ui/8star-labs/timeline';
 import { CSVtoObject } from '@/lib/csv-to-object';
-import { TRefDate } from '@/types/refDate';
-import { MouseEvent, useState, useTransition } from 'react';
+import { MouseEvent, useTransition } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Actions } from './components/actions';
 import { Files } from './components/files';
 import { Summary } from './components/summary';
 import { TransactionsDropZone } from './components/transactions-drop-zone';
 import { useFilesQuery } from './hooks/useFilesQuery';
+import { useTransactions } from './hooks/useTransactions';
 import { useTransactionsQuery } from './hooks/useTransactionsQuery';
 import type { Transaction } from './types/transaction';
-import { getRefDateFromTransactions } from './utils/get-ref-from-transactions';
+import { getRefDateFromTransactions } from './utils';
 
 export function TransactionModule() {
   const { t } = useTranslation('translation');
-  const [csvs, setCsvs] = useState<Map<TRefDate, string>>(new Map());
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [activeFileRef, setActiveFileRef] = useState<TRefDate | null>(null);
-
-  const { data: fileData, isLoading, isSaving, save, refetch } = useFilesQuery({ setActiveFileRef });
-  const isTransactionLoading = useTransactionsQuery({ ref: activeFileRef, setTransactions });
   const [isPending, startTransition] = useTransition();
+
+  const [{ activeFile, filesMap, transactions }, dispatch] = useTransactions();
+  const { data: fileData, isLoading, isSaving, save, refetch } = useFilesQuery();
+  const isTransactionLoading = useTransactionsQuery(activeFile, (data) => {
+    dispatch({ type: 'SET_TRANSACTIONS', payload: data });
+  });
 
   const loading = isPending || isLoading || isTransactionLoading;
 
   const handleDrop = async (items: Transaction[], csv?: string) => {
     startTransition(() => {
-      setTransactions(items);
       const ref = getRefDateFromTransactions(items);
-      setActiveFileRef(ref);
-      setCsvs((prev) => new Map(prev).set(ref, csv!));
+      dispatch({ type: 'SET_DATA', payload: { activeFile: ref, transactions: items, csv: csv } });
     });
   };
 
   const handleSave = () => {
-    console.log('saving... ');
-    if (activeFileRef) {
-      save({ ref: activeFileRef, csv: csvs.get(activeFileRef)! });
+    if (activeFile && filesMap.has(activeFile)) {
+      save({ ref: activeFile, csv: filesMap.get(activeFile)! });
     }
   };
 
@@ -53,41 +50,47 @@ export function TransactionModule() {
 
     if (state === 'new') {
       startTransition(() => {
-        setTransactions(CSVtoObject(csvs.get(value)!));
+        dispatch({ type: 'SET_TRANSACTIONS', payload: CSVtoObject(filesMap.get(value)!) });
       });
       return;
     }
 
     if (state === 'opened') {
-      handleReset();
+      dispatch({ type: 'RESET' });
       return;
     }
 
-    setActiveFileRef(value);
+    dispatch({ type: 'SET_ACTIVE', payload: value });
   };
 
   const handleReset = () => {
-    setActiveFileRef(null);
-    setTransactions([]);
+    dispatch({ type: 'RESET' });
+  };
+
+  const handleRefetch = () => {
+    refetch();
   };
 
   return (
     <div className="grid grid-flow-row grid-cols-1 sm:grid-cols-3 gap-2 w-full">
-      <Files items={fileData} active={activeFileRef} onClick={handleFileClick} />
+      <Files items={fileData} active={activeFile} onClick={handleFileClick} />
       <TransactionsDropZone showDropZone={transactions.length === 0} onDrop={handleDrop}>
-        <Summary refDate={activeFileRef} items={transactions} />
-        <Actions
-          saving={isSaving}
-          unsaved={!!activeFileRef}
-          onRefetch={() => refetch()}
-          onSave={handleSave}
-          onReset={handleReset}
-        />
+        <Summary label={t('transactions.summary')} refDate={activeFile} items={transactions} />
+        <Actions.Root>
+          <Actions.Btn label={t('transactions.reset')} onClick={handleReset} />
+          <Actions.Btn label={t('transactions.refetch')} disabled={isLoading} onClick={handleRefetch} />
+          <Actions.Save
+            label={t('transactions.save')}
+            active={!!activeFile && transactions.length === 0}
+            disabled={isSaving}
+            onClick={handleSave}
+          />
+        </Actions.Root>
         <Loading
           loading={loading}
           fallback={
             <div className="flex min-h-100 items-center justify-center w-full col-span-3">
-              <span className="animate-pulse">Loading...</span>
+              <span className="animate-pulse">{t('transactions.loading')}</span>
             </div>
           }
         >

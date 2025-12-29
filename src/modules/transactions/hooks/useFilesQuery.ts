@@ -2,11 +2,10 @@ import { fileService } from '@/services/files.service';
 import { QueryKeys } from '@/types/queryKeys';
 import { FileReponseData, TRefDate } from '@/types/refDate';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Dispatch, SetStateAction } from 'react';
 
 const ONE_HOUR = 1000 * 60 * 60;
 
-export function useFilesQuery({ setActiveFileRef }: { setActiveFileRef: Dispatch<SetStateAction<TRefDate | null>> }) {
+export function useFilesQuery(onSettledCallback?: () => void) {
   const { data, isLoading, refetch } = useQuery({
     queryKey: [QueryKeys.files],
     queryFn: () => fileService.getAll(),
@@ -26,7 +25,7 @@ export function useFilesQuery({ setActiveFileRef }: { setActiveFileRef: Dispatch
         return;
       }
 
-      setActiveFileRef(null);
+      onSettledCallback?.();
     }
   });
 

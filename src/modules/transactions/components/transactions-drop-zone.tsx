@@ -2,7 +2,7 @@ import { CsvDropZone } from '@/components/csv-drop-zone/csv-drop-zone';
 import { resolveCsv } from '@/lib/resolve-csv';
 import { FC, PropsWithChildren } from 'react';
 import { Transaction } from '../types/transaction';
-import { normalizeTransactions } from '../utils/normalize-transactions';
+import { normalizeTransactions } from '../utils';
 
 export const TransactionsDropZone: FC<
   PropsWithChildren<{

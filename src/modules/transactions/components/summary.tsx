@@ -2,18 +2,21 @@ import { ConditionalColor, CurrencyItem } from '@/components/currency-item';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { sumItems } from '@/lib/utils';
 import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Transaction } from '../types/transaction';
 
 export const Summary: FC<{
   items: Transaction[];
   refDate: string | null;
-}> = ({ items, refDate }) => {
+  label?: string;
+}> = ({ items, refDate, label }) => {
+  const { t } = useTranslation('translation');
   const summary = computeSummary(items);
   return (
     <Card className="flex flex-col w-full justify-center items-center">
       <CardHeader className="items-center">
-        <CardTitle>Summary</CardTitle>
-        <CardDescription>{refDate}</CardDescription>
+        <CardTitle>{label}</CardTitle>
+        <CardDescription>{t('date', { date: refDate })}</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col w-full">
         {summary.map((item) => (

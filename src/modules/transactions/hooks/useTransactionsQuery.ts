@@ -2,26 +2,23 @@ import { fileService } from '@/services/files.service';
 import { QueryKeys } from '@/types/queryKeys';
 import { TRefDate } from '@/types/refDate';
 import { useQuery } from '@tanstack/react-query';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Transaction } from '../types/transaction';
-import { normalizeTransactions } from '../utils/normalize-transactions';
+import { normalizeTransactions } from '../utils';
 
-type Props = {
-  ref: TRefDate | null;
-  setTransactions: Dispatch<SetStateAction<Transaction[]>>;
-};
-export function useTransactionsQuery({ ref, setTransactions }: Props) {
-  const { data, isFetched, isLoading } = useQuery({
+export function useTransactionsQuery(ref: TRefDate | null, onSuccess?: (data: Transaction[]) => void) {
+  const { data, isLoading } = useQuery({
+    enabled: !!ref,
     queryKey: [QueryKeys.transactions, ref],
     queryFn: () => fileService.download(ref!),
-    enabled: !!ref
+    select: (data) => data && normalizeTransactions(data)
   });
 
   useEffect(() => {
     if (data) {
-      setTransactions(normalizeTransactions(data));
+      onSuccess?.(data);
     }
-  }, [isFetched, data]);
+  }, [data]);
 
   return isLoading;
 }

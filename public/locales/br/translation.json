@@ -60,7 +60,8 @@
     "users": "Usuários",
     "analytics": "Análises",
     "settings": "Configurações",
-    "toggleMenu": "Alternar menu"
+    "toggleMenu": "Alternar menu",
+    "transactions": "Transações"
   },
   "userMenu": {
     "myAccount": "Minha conta",
@@ -163,5 +164,12 @@
     "expenses": "Despesas",
     "investments": "Investimentos",
     "clear": "Limpar"
+  },
+  "transactions": {
+    "loading": "Loading...",
+    "summary": "Resumo",
+    "reset": "Reiniciar",
+    "refetch": "Recarregar",
+    "save": "Salvar"
   }
 }
