@@ -36,6 +36,8 @@ jobs:
           VITE_API_URL: ${{ vars.API_URL }}
           VITE_PARAMS_API_URL: ${{ secrets.VITE_PARAMS_API_URL }}
           VITE_FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
+          VITE_FILES_URL: ${{ secrets.VITE_FILES_URL }}
+          VITE_WORKER_URL: ${{ secrets.VITE_WORKER_URL }}
           
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
