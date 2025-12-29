@@ -15,10 +15,10 @@ export function useTransactionsQuery(ref: TRefDate | null, onSuccess?: (data: Tr
   });
 
   useEffect(() => {
-    if (data) {
+    if (data && !isLoading) {
       onSuccess?.(data);
     }
-  }, [data]);
+  }, [data, isLoading]);
 
   return isLoading;
 }
