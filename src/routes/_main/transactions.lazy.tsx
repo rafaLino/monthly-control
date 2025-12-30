@@ -1,4 +1,4 @@
-import { TransactionPage } from '@/modules/transactions';
+import { TransactionsPage } from '@/modules/transactions';
 import { createLazyFileRoute } from '@tanstack/react-router';
 
 export const Route = createLazyFileRoute('/_main/transactions')({
@@ -8,8 +8,8 @@ export const Route = createLazyFileRoute('/_main/transactions')({
 function Index() {
   return (
     <main className="grid flex-1 items-start gap-4 p-2 sm:py-0 md:gap-8">
-      <div className="flex flex-1 flex-col gap-4 items-center p-1 sm:p-4 md:gap-4 h-full">
-        <TransactionPage />
+      <div className="flex flex-1 flex-col gap-4 items-center p-1 sm:px-4 md:gap-4 h-full">
+        <TransactionsPage />
       </div>
     </main>
   );

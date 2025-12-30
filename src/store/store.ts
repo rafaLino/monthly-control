@@ -19,7 +19,6 @@ const createPlannerSlice: StateCreator<GlobalState, [], [], PlannerSlice> = (set
     expenses: 0.65,
     investments: 0.3
   },
-  loading: false,
   syncing: false,
   plannerActions: {
     setIncomes: (action) =>
@@ -38,7 +37,6 @@ const createPlannerSlice: StateCreator<GlobalState, [], [], PlannerSlice> = (set
         return { investments };
       }),
     setGoal: (goal: Goal) => set({ goal }),
-    setLoading: (loading: boolean) => set({ loading }),
     setRegisters: (incomes: Array<Register>, expenses: Array<Register>, investments: Array<Register>) => {
       set({ syncing: true, incomes, expenses, investments });
       setTimeout(() => {

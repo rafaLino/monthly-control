@@ -24,15 +24,16 @@ const iconsMap: Record<TAction, ReactElement> = {
 
 type ActionsProps = {
   actions?: Array<TAction>;
+  disabled?: boolean;
   slots?: Partial<Record<TAction, ComponentPropsWithoutRef<typeof DropdownMenuItem>>>;
   onClick?: (action: TAction, event: MouseEvent<HTMLDivElement>) => void;
 };
-export function Actions({ actions = DEFAULT, slots, onClick }: Readonly<ActionsProps>) {
+export function Actions({ actions = DEFAULT, disabled, slots, onClick }: Readonly<ActionsProps>) {
   const { t } = useTranslation('translation', { keyPrefix: 'transactions' });
   return (
     <div className="flex justify-end gap-4 w-full">
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
+        <DropdownMenuTrigger asChild disabled={disabled}>
           <Button variant="ghost" size="icon">
             <EllipsisVertical className="size-5" />
           </Button>

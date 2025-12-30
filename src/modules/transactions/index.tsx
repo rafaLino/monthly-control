@@ -1,3 +1,4 @@
+import { CurrencyItem } from '@/components/currency-item';
 import { Loading } from '@/components/loading';
 import { NavigationScrollArea } from '@/components/navigation-scroll-area';
 import {
@@ -15,16 +16,16 @@ import { Files } from './components/files';
 import { Summary } from './components/summary';
 import { TransactionsDropZone } from './components/transactions-drop-zone';
 import { useFilesQuery } from './hooks/useFilesQuery';
-import { useTransactions } from './hooks/useTransactions';
+import { useTransactionTree } from './hooks/useTransactionTree';
 import { useTransactionsQuery } from './hooks/useTransactionsQuery';
 import type { Transaction } from './types/transaction';
 import { getRefDateFromTransactions } from './utils';
 
-export function TransactionPage() {
+export function TransactionsPage() {
   const { t } = useTranslation('translation');
   const [isPending, startTransition] = useTransition();
 
-  const [{ activeFile, csv, transactions }, dispatch] = useTransactions();
+  const [{ activeFile, csv, transactions }, dispatch] = useTransactionTree();
   const {
     data: fileData,
     isLoading,
@@ -90,40 +91,45 @@ export function TransactionPage() {
   };
 
   return (
-    <div className="grid grid-flow-row grid-cols-1 sm:grid-cols-3 gap-2 w-full">
+    <div className="grid grid-flow-row grid-cols-1 sm:grid-cols-2 gap-2 w-full h-full">
       <Files items={fileData} active={activeFile} onClick={handleFileClick} />
-      <TransactionsDropZone showDropZone={transactions.length === 0} onDrop={handleDrop}>
-        <Summary label={t('transactions.summary')} refDate={activeFile} items={transactions} />
-        <Actions
-          slots={{
-            save: { disabled: isSaving },
-            reset: { disabled: isLoading },
-            refetch: { disabled: isLoading },
-            remove: { disabled: isRemoving }
-          }}
-          onClick={handleActions}
-        />
-        <Loading
-          loading={loading}
-          fallback={
-            <div className="flex min-h-100 items-center justify-center w-full col-span-3">
-              <span className="animate-pulse">{t('transactions.loading')}</span>
-            </div>
-          }
-        >
-          <NavigationScrollArea type="scroll" className="h-145 sm:h-160 w-full rounded-md overflow-y-hidden col-span-3">
-            <Timeline orientation="vertical" noCards vertItemSpacing={60}>
-              {transactions.map((item) => (
-                <TimelineItem key={item.id} variant="outline">
-                  <TimelineItemDate>{t('date', { date: item.date, context: { format: 'dd/MM/yy' } })}</TimelineItemDate>
-                  <TimelineItemTitle>{t('currency', { value: item.amount })}</TimelineItemTitle>
-                  <TimelineItemDescription>{item.title}</TimelineItemDescription>
-                </TimelineItem>
-              ))}
-            </Timeline>
-          </NavigationScrollArea>
-        </Loading>
-      </TransactionsDropZone>
+      <Actions
+        disabled={!activeFile}
+        slots={{
+          save: { disabled: isSaving },
+          reset: { disabled: isLoading },
+          refetch: { disabled: isLoading },
+          remove: { disabled: isRemoving }
+        }}
+        onClick={handleActions}
+      />
+      <div className="flex flex-col col-span-2 w-full items-center">
+        <TransactionsDropZone showDropZone={transactions.length === 0} onDrop={handleDrop}>
+          <Summary refDate={activeFile} items={transactions} />
+          <Loading
+            loading={loading}
+            fallback={
+              <div className="flex min-h-100 items-center justify-center w-full col-span-3">
+                <span className="animate-pulse">{t('transactions.loading')}</span>
+              </div>
+            }
+          >
+            <NavigationScrollArea type="scroll" className="h-130 sm:h-150 w-full rounded-md overflow-y-hidden col-span-3">
+              <Timeline orientation="vertical" noCards vertItemSpacing={60}>
+                {transactions.map((item) => (
+                  <TimelineItem key={item.id} variant="outline">
+                    <TimelineItemDate>{t('date', { date: item.date, context: { format: 'dd/MM/yy' } })}</TimelineItemDate>
+                    <TimelineItemTitle>
+                      <CurrencyItem value={Number(item.amount)} color={{ true: 'text-gray-800', false: 'text-green-500' }} />
+                    </TimelineItemTitle>
+                    <TimelineItemDescription>{item.title}</TimelineItemDescription>
+                  </TimelineItem>
+                ))}
+              </Timeline>
+            </NavigationScrollArea>
+          </Loading>
+        </TransactionsDropZone>
+      </div>
     </div>
   );
 }
