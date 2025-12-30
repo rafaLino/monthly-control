@@ -16,7 +16,7 @@ import { Files } from './components/files';
 import { Summary } from './components/summary';
 import { TransactionsDropZone } from './components/transactions-drop-zone';
 import { useFilesQuery } from './hooks/useFilesQuery';
-import { useTransactions as useTransactionTree } from './hooks/useTransactionTree';
+import { useTransactionTree } from './hooks/useTransactionTree';
 import { useTransactionsQuery } from './hooks/useTransactionsQuery';
 import type { Transaction } from './types/transaction';
 import { getRefDateFromTransactions } from './utils';

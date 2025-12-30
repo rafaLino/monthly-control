@@ -56,6 +56,6 @@ function reducer(state: State, action: Action): State {
   }
 }
 
-export function useTransactions() {
+export function useTransactionTree() {
   return useReducer(reducer, INITIAL_STATE);
 }
