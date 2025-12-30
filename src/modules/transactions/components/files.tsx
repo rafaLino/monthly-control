@@ -9,7 +9,7 @@ export const Files: FC<{
 }> = ({ items, active, onClick }) => {
   const alreadySaved = items?.some((x) => x.ref === active);
   return (
-    <div className="flex justify-start flex-wrap items-center gap-2 text-center content-start">
+    <div className="flex justify-start flex-wrap items-center gap-2 text-center">
       {items?.map((item) => (
         <FileChip
           key={item.ref}

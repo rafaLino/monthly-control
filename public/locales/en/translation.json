@@ -172,6 +172,7 @@
     "reset": "Reset",
     "refetch": "Refetch",
     "save": "Save",
-    "remove": "Remove"
+    "remove": "Remove",
+    "total": "Total"
   }
 }

@@ -172,6 +172,7 @@
     "reset": "Limpiar",
     "refetch": "Actualizar",
     "save": "Salvar",
-    "remove": "Eliminar"
+    "remove": "Eliminar",
+    "total": "Total"
   }
 }

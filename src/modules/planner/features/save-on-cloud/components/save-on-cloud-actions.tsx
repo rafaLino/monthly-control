@@ -1,3 +1,4 @@
+import { DotIndicator } from '@/components/dot-indicator/dot-indicator';
 import { Button } from '@/components/ui/button';
 import { useCheckOutdatedData } from '@/hooks/useCheckOutdatedData';
 import { saveRegisters } from '@/lib/fetch-registers';
@@ -8,7 +9,6 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 import { updateLastAccess } from '../actions/update-last-access';
 import { OutdatedDataNotification } from './outdated-data-notification';
-import { DotIndicator } from '@/components/dot-indicator/dot-indicator';
 
 export const SaveOnCloudActions = () => {
   const [uploading, setUploading] = useState(false);
