@@ -2,18 +2,20 @@ import { Button } from '@/components/ui/button';
 import { useCheckOutdatedData } from '@/hooks/useCheckOutdatedData';
 import { saveRegisters } from '@/lib/fetch-registers';
 import { apiService } from '@/services/api.service';
-import { useActions } from '@/store';
+import { useActions, useTemporalStore } from '@/store';
 import { Download, Upload } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { updateLastAccess } from '../actions/update-last-access';
 import { OutdatedDataNotification } from './outdated-data-notification';
+import { DotIndicator } from '@/components/dot-indicator/dot-indicator';
 
 export const SaveOnCloudActions = () => {
   const [uploading, setUploading] = useState(false);
   const [downloading, setDownloading] = useState(false);
   const { setRegisters, getRegisters } = useActions();
   const { isOutdated, setIsOutdated } = useCheckOutdatedData();
+  const hasChanges = useTemporalStore((state) => !!state.pastStates.length);
 
   const handleDowload = async () => {
     setDownloading(true);
@@ -54,6 +56,7 @@ export const SaveOnCloudActions = () => {
         onClick={handleUpload}
       >
         <Upload />
+        <DotIndicator className="size-2" active={hasChanges} animate />
       </Button>
     </div>
   );

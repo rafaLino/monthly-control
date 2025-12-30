@@ -5,11 +5,12 @@ type Props = {
   active?: boolean;
   animate?: boolean;
   className?: string;
+  animation?: string;
 };
-export const DotIndicator: FC<Props> = ({ active, animate, className }) => {
+export const DotIndicator: FC<Props> = ({ active, animate, animation = 'animate-pulse', className }) => {
   return active ? (
     <span
-      className={cn('flex w-3 h-3 me-3 bg-teal-500 rounded-full absolute -top-1 -right-4', animate && 'animate-pulse', className)}
+      className={cn('flex w-3 h-3 me-3 bg-teal-500 rounded-full absolute -top-1 -right-4', animate && animation, className)}
     />
   ) : null;
 };

@@ -15,14 +15,12 @@ export interface PlannerSlice {
   expenses: Array<Register>;
   investments: Array<Register>;
   goal: Goal;
-  loading: boolean;
   syncing: boolean;
   plannerActions: {
     setIncomes: (action: SetRegistersActionType) => void;
     setExpenses: (action: SetRegistersActionType) => void;
     setInvestments: (action: SetRegistersActionType) => void;
     setGoal: (goal: Goal) => void;
-    setLoading: (loading: boolean) => void;
     setSyncing: (syncing: boolean) => void;
     setRegisters: (incomes: Array<Register>, expenses: Array<Register>, investments: Array<Register>) => void;
     getRegisters: () => {
