@@ -61,7 +61,8 @@
     "analytics": "Análises",
     "settings": "Configurações",
     "toggleMenu": "Alternar menu",
-    "transactions": "Transações"
+    "transactions": "Transações",
+    "history": "Histórico"
   },
   "userMenu": {
     "myAccount": "Minha conta",

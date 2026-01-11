@@ -53,11 +53,7 @@ export function addNewItemToArray<T>(array: Array<T>, item: T): Array<T> {
   return [...array, item];
 }
 
-export function addOrReplaceItemOfArray<T extends { id: string }>(
-  array: Array<T>,
-  predicate: (item: T) => boolean,
-  item: T
-): Array<T> {
+export function addOrReplaceItemOfArray<T>(array: Array<T>, item: T, predicate: (item: T) => boolean): Array<T> {
   const index = array.findIndex(predicate);
   if (index >= 0) return replaceItemOfArray(array, item, index);
 

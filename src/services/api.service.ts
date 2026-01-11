@@ -1,4 +1,5 @@
 import env from '@/lib/env';
+import { TRefDate } from '@/types/refDate';
 import { Register } from '@/types/register.types';
 
 type ResponseData = {
@@ -70,6 +71,24 @@ export class ApiService {
     if (!response.ok) return;
 
     const responseData = (await response.json()) as { data: string };
+
+    return responseData.data;
+  }
+
+  public async getByRef(ref: TRefDate) {
+    const response = await fetch(`${env.VITE_API_URL}/history/${ref}`, {
+      method: 'GET',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'x-api-secret': env.VITE_API_SECRET
+      })
+    });
+
+    if (!response.ok) return;
+
+    const responseData = (await response.json()) as ResponseData;
+
+    if (!responseData.ok) throw new Error('Something went wrong!');
 
     return responseData.data;
   }

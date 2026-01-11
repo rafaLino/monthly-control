@@ -1,9 +1,10 @@
 import { TooltipLink } from '@/components/tooltip-link/tooltip-link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import env from '@/lib/env';
 import { useLocalParams } from '@/store';
 import { Link } from '@tanstack/react-router';
-import { BookText, Home, LineChart, PanelLeft, Settings } from 'lucide-react';
+import { BookText, History, Home, LineChart, PanelLeft, Settings } from 'lucide-react';
 import { FC, PropsWithChildren, ReactElement, ReactNode, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -39,6 +40,12 @@ export const SideBar: FC<SideBarProps> = ({ header, children }) => {
           label: 'transactions',
           icon: <BookText className="size-5" />,
           hidden: !isTransactionsEnabled
+        },
+        {
+          to: '/history',
+          label: 'history',
+          icon: <History className="size-5" />,
+          hidden: !env.VITE_ONLINE
         },
         {
           to: '/settings',

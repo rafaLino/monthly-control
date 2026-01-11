@@ -34,6 +34,25 @@ export function getTotalBalance(incomes: Array<Register>, expenses: Array<Regist
   };
 }
 
+export function getTotal(
+  records: { incomes: Array<Register>; expenses: Array<Register>; investments: Array<Register> } | undefined
+) {
+  if (!records) return { balance: 0, cost: 0 };
+  const { incomes, expenses, investments } = records;
+  const incomesTotal = sum(incomes);
+  const expensesTotal = sum(expenses);
+  const investmentsTotal = sum(investments);
+
+  const cost = expensesTotal + investmentsTotal;
+
+  const balance = incomesTotal - cost;
+
+  return {
+    balance,
+    cost
+  };
+}
+
 export function getIncomeGoal(incomes: Array<Register>, expenses: Array<Register>, investments: Array<Register>) {
   const incomesBalance = getPlannedBalance(incomes);
   const expensesBalance = getPlannedBalance(expenses);
