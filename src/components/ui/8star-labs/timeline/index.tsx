@@ -137,7 +137,7 @@ const timelineItemContainerVariants = cva("flex relative snap-center", {
 // EXPORTED INTERFACES AND COMPONENTS
 export interface TimelineItemProps
   extends
-    HTMLAttributes<HTMLLIElement>,
+    HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof timelineItemVariants> {
   hollow?: boolean;
 }
@@ -467,13 +467,14 @@ export function TimelineItem({
         role="listitem"
         aria-posinset={index + 1}
         aria-setsize={total}
-        {...props}
+        
       >
         <div
           id={`timeline-item-${index}`}
           style={getCardStyle(isVertical, cardWidth, maxCardWidth)}
           className={cn(timelineItemVariants({ variant, noCards }), className)}
           data-timeline-card={true}
+          {...props}
         >
           {children}
         </div>

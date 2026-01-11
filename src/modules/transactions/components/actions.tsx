@@ -31,7 +31,7 @@ type ActionsProps = {
 export function Actions({ actions = DEFAULT, disabled, slots, onClick }: Readonly<ActionsProps>) {
   const { t } = useTranslation('translation', { keyPrefix: 'transactions' });
   return (
-    <div className="flex justify-end gap-4 w-full">
+    <div className="flex justify-end sm:col-span-2 gap-4 w-full">
       <DropdownMenu>
         <DropdownMenuTrigger asChild disabled={disabled}>
           <Button variant="ghost" size="icon">

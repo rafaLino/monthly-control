@@ -18,7 +18,7 @@ export const TransactionsDropZone: FC<
   };
 
   return showDropZone ? (
-    <div className="w-3/4">
+    <div className="w-full">
       <CsvDropZone onDrop={handleDrop} />
     </div>
   ) : (
