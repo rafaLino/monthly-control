@@ -11,11 +11,15 @@ export const Summary: FC<{
   refDate: string | null;
 }> = ({ items, refDate }) => {
   const { t } = useTranslation('translation');
+
+  if (!refDate) return null;
+
   const { values, total } = computeSummary(items);
+
   return (
-    <Card className="flex flex-col w-full sm:w-3/4 justify-center items-center">
+    <Card className="flex flex-col col-span-2 col-start-2 w-full justify-center items-center">
       <CardHeader className="items-center p-4">
-        <CardDescription>{t('date', { date: getRefDate(refDate!) })}</CardDescription>
+        <CardDescription>{t('date', { date: getRefDate(refDate) })}</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-row gap-4 justify-evenly w-full">
         {values.map((item) => (

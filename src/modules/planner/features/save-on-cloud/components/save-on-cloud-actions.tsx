@@ -15,6 +15,7 @@ export const SaveOnCloudActions = () => {
   const [downloading, setDownloading] = useState(false);
   const { setRegisters, getRegisters } = useActions();
   const { isOutdated, setIsOutdated } = useCheckOutdatedData();
+  const clear = useTemporalStore((state) => state.clear);
   const hasChanges = useTemporalStore((state) => !!state.pastStates.length);
 
   const handleDowload = async () => {
@@ -38,6 +39,7 @@ export const SaveOnCloudActions = () => {
     const data = getRegisters();
     try {
       await Promise.all([apiService.save(data), updateLastAccess()]);
+      clear();
     } finally {
       setUploading(false);
     }

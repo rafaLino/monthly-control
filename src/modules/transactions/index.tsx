@@ -8,8 +8,12 @@ import {
   TimelineItemDescription,
   TimelineItemTitle
 } from '@/components/ui/8star-labs/timeline';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { CSVtoObject } from '@/lib/csv-to-object';
-import { MouseEvent, useTransition } from 'react';
+import { cn, sumItems } from '@/lib/utils';
+import { Trash2 } from 'lucide-react';
+import { MouseEvent, useState, useTransition } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Actions, type TAction } from './components/actions';
 import { Files } from './components/files';
@@ -24,6 +28,7 @@ import { getRefDateFromTransactions } from './utils';
 export function TransactionsPage() {
   const { t } = useTranslation('translation');
   const [isPending, startTransition] = useTransition();
+  const [selecteds, setSelecteds] = useState<Transaction[]>([]);
 
   const [{ activeFile, csv, transactions }, dispatch] = useTransactionTree();
   const {
@@ -90,8 +95,17 @@ export function TransactionsPage() {
     }
   };
 
+  const handleSelect = (event: MouseEvent<HTMLDivElement>) => {
+    const id = event.currentTarget.dataset.id as string;
+    const item = transactions.find((item) => item.id === id);
+
+    if (!item) return;
+
+    setSelecteds((prev) => (prev.includes(item) ? prev.filter((i) => i.id !== item.id) : [...prev, item]));
+  };
+
   return (
-    <div className="grid grid-flow-row grid-cols-1 sm:grid-cols-2 gap-2 w-full h-full">
+    <div className="grid grid-flow-row grid-cols-1 sm:grid-cols-4 gap-2 w-full h-full">
       <Files items={fileData} active={activeFile} onClick={handleFileClick} />
       <Actions
         disabled={!activeFile}
@@ -103,9 +117,19 @@ export function TransactionsPage() {
         }}
         onClick={handleActions}
       />
-      <div className="flex flex-col col-span-2 w-full items-center">
+      <Summary refDate={activeFile} items={transactions} />
+      <div className="grid grid-rows-subgrid col-span-2 sm:col-span-4 w-full items-start">
+        <Badge variant="outline" className={cn('hidden z-30 absolute right-0 sm:relative', !!selecteds.length && 'block')}>
+          <CurrencyItem
+            className="text-2xl"
+            value={sumItems(selecteds, (item) => +item.amount)}
+            color={{ true: 'text-red-400' }}
+          />
+          <Button variant="link" size="icon" className="cursor-pointer text-red-400" onClick={() => setSelecteds([])}>
+            <Trash2 className="size-4" />
+          </Button>
+        </Badge>
         <TransactionsDropZone showDropZone={transactions.length === 0} onDrop={handleDrop}>
-          <Summary refDate={activeFile} items={transactions} />
           <Loading
             loading={loading}
             fallback={
@@ -114,13 +138,19 @@ export function TransactionsPage() {
               </div>
             }
           >
-            <NavigationScrollArea type="scroll" className="h-130 sm:h-150 w-full rounded-md overflow-y-hidden col-span-3">
+            <NavigationScrollArea type="scroll" className="h-130 sm:h-150 w-full rounded-md overflow-y-hidden col-span-2">
               <Timeline orientation="vertical" noCards vertItemSpacing={60}>
                 {transactions.map((item) => (
-                  <TimelineItem key={item.id} variant="outline">
+                  <TimelineItem
+                    key={item.id}
+                    data-id={item.id}
+                    variant="outline"
+                    onClick={handleSelect}
+                    className={cn('cursor-pointer', selecteds.includes(item) && 'bg-sky-50')}
+                  >
                     <TimelineItemDate>{t('date', { date: item.date, context: { format: 'dd/MM/yy' } })}</TimelineItemDate>
                     <TimelineItemTitle>
-                      <CurrencyItem value={Number(item.amount)} color={{ true: 'text-gray-800', false: 'text-green-500' }} />
+                      <CurrencyItem value={Number(item.amount)} color={{ true: 'text-gray-700', false: 'text-green-500' }} />
                     </TimelineItemTitle>
                     <TimelineItemDescription>{item.title}</TimelineItemDescription>
                   </TimelineItem>
