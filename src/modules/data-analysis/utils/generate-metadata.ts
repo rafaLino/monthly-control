@@ -40,7 +40,7 @@ const METADATAS_FN = [
 
 export function generateMetadata(csv: string) {
   const items = convertToObject(csv);
-  return METADATAS_FN.map(fn => fn(items));
+  return METADATAS_FN.map((fn) => fn(items));
 }
 
 function convertToObject(csv: string): Array<Items> {
@@ -375,8 +375,8 @@ function createRegisterPerMonthMetadata(type: RegisterType, items: Items[]): Met
 
   items.forEach((item) => {
     item[type].forEach((register) => {
-      const name = removeAccents(register.name)
-      const date = format(item.date, 'yyyy-MM')
+      const name = removeAccents(register.name);
+      const date = format(item.date, 'yyyy-MM');
       const key = `${date}-${name}`;
 
       if (aggregatedMap.has(key)) {
@@ -393,9 +393,7 @@ function createRegisterPerMonthMetadata(type: RegisterType, items: Items[]): Met
     });
   });
 
-  const data = Array.from(aggregatedMap.values()).sort(
-    (a, b) => a.date.getTime() - b.date.getTime()
-  );
+  const data = Array.from(aggregatedMap.values()).sort((a, b) => a.date.getTime() - b.date.getTime());
 
   const colors = randomColor({ count: data.length, luminosity: 'bright', format: 'hsl', hue: getColor(type) });
 
