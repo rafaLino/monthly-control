@@ -3,7 +3,7 @@ import { getColor } from '@/lib/colors';
 import { CSVtoObject } from '@/lib/csv-to-object';
 import { capitalize, removeAccents, sum } from '@/lib/utils';
 import { Register, RegisterType } from '@/types/register.types';
-import { getYear, toDate } from 'date-fns';
+import { format, getYear, toDate } from 'date-fns';
 import randomColor from 'randomcolor';
 import { Metadata, MetadataType } from '../types/metadata';
 
@@ -40,12 +40,7 @@ const METADATAS_FN = [
 
 export function generateMetadata(csv: string) {
   const items = convertToObject(csv);
-  const result = [];
-  for (const fn of METADATAS_FN) {
-    result.push(fn(items));
-  }
-
-  return result;
+  return METADATAS_FN.map((fn) => fn(items));
 }
 
 function convertToObject(csv: string): Array<Items> {
@@ -376,19 +371,29 @@ function createWhereDoMyInvestmentsGoMetadata(items: Items[]): Metadata<{ name: 
 }
 
 function createRegisterPerMonthMetadata(type: RegisterType, items: Items[]): Metadata<any> {
-  const data = items
-    .flatMap((item) =>
-      item[type].map((register) => {
-        const name = removeAccents(register.name);
-        return {
+  const aggregatedMap = new Map<string, Record<string, any>>();
+
+  items.forEach((item) => {
+    item[type].forEach((register) => {
+      const name = removeAccents(register.name);
+      const date = format(item.date, 'yyyy-MM');
+      const key = `${date}-${name}`;
+
+      if (aggregatedMap.has(key)) {
+        const entry = aggregatedMap.get(key)!;
+        entry[name] = entry[name] + register.value;
+      } else {
+        aggregatedMap.set(key, {
           name,
           [name]: register.value,
           date: item.date,
           fill: `var(--color-${name})`
-        };
-      })
-    )
-    .toSorted((a, b) => a.date.getTime() - b.date.getTime());
+        });
+      }
+    });
+  });
+
+  const data = Array.from(aggregatedMap.values()).sort((a, b) => a.date.getTime() - b.date.getTime());
 
   const colors = randomColor({ count: data.length, luminosity: 'bright', format: 'hsl', hue: getColor(type) });
 
