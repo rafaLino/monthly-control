@@ -88,8 +88,7 @@ export class ApiService {
 
     const responseData = (await response.json()) as ResponseData;
 
-    if (!responseData.ok)
-      throw new Error('Something went wrong!');
+    if (!responseData.ok) throw new Error('Something went wrong!');
 
     return responseData.data;
   }
