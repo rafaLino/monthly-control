@@ -3,5 +3,6 @@ export const QueryKeys = {
   generateMetadata: 'generated-metadata',
   expenseCategories: 'expense-categories',
   files: 'files',
-  transactions: 'transactions'
+  transactions: 'transactions',
+  history: 'history'
 };

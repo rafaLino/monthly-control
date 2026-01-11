@@ -61,7 +61,8 @@
     "analytics": "Analytics",
     "settings": "Settings",
     "toggleMenu": "Toggle menu",
-    "transactions": "Transactions"
+    "transactions": "Transactions",
+    "history": "History"
   },
   "userMenu": {
     "myAccount": "My account",

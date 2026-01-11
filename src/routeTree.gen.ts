@@ -15,6 +15,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as MainRouteImport } from './routes/_main'
 import { Route as MainIndexRouteImport } from './routes/_main/index'
 import { Route as MainTransactionsRouteImport } from './routes/_main/transactions'
+import { Route as MainHistoryRouteImport } from './routes/_main/history'
 
 const MainSettingsLazyRouteImport = createFileRoute('/_main/settings')()
 const MainAnalyticsLazyRouteImport = createFileRoute('/_main/analytics')()
@@ -54,9 +55,15 @@ const MainTransactionsRoute = MainTransactionsRouteImport.update({
 } as any).lazy(() =>
   import('./routes/_main/transactions.lazy').then((d) => d.Route),
 )
+const MainHistoryRoute = MainHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => MainRoute,
+} as any).lazy(() => import('./routes/_main/history.lazy').then((d) => d.Route))
 
 export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
+  '/history': typeof MainHistoryRoute
   '/transactions': typeof MainTransactionsRoute
   '/analytics': typeof MainAnalyticsLazyRoute
   '/settings': typeof MainSettingsLazyRoute
@@ -64,6 +71,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
+  '/history': typeof MainHistoryRoute
   '/transactions': typeof MainTransactionsRoute
   '/analytics': typeof MainAnalyticsLazyRoute
   '/settings': typeof MainSettingsLazyRoute
@@ -73,6 +81,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_main': typeof MainRouteWithChildren
   '/login': typeof LoginRoute
+  '/_main/history': typeof MainHistoryRoute
   '/_main/transactions': typeof MainTransactionsRoute
   '/_main/analytics': typeof MainAnalyticsLazyRoute
   '/_main/settings': typeof MainSettingsLazyRoute
@@ -80,13 +89,20 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/login' | '/transactions' | '/analytics' | '/settings' | '/'
+  fullPaths:
+    | '/login'
+    | '/history'
+    | '/transactions'
+    | '/analytics'
+    | '/settings'
+    | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/login' | '/transactions' | '/analytics' | '/settings' | '/'
+  to: '/login' | '/history' | '/transactions' | '/analytics' | '/settings' | '/'
   id:
     | '__root__'
     | '/_main'
     | '/login'
+    | '/_main/history'
     | '/_main/transactions'
     | '/_main/analytics'
     | '/_main/settings'
@@ -142,10 +158,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MainTransactionsRouteImport
       parentRoute: typeof MainRoute
     }
+    '/_main/history': {
+      id: '/_main/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof MainHistoryRouteImport
+      parentRoute: typeof MainRoute
+    }
   }
 }
 
 interface MainRouteChildren {
+  MainHistoryRoute: typeof MainHistoryRoute
   MainTransactionsRoute: typeof MainTransactionsRoute
   MainAnalyticsLazyRoute: typeof MainAnalyticsLazyRoute
   MainSettingsLazyRoute: typeof MainSettingsLazyRoute
@@ -153,6 +177,7 @@ interface MainRouteChildren {
 }
 
 const MainRouteChildren: MainRouteChildren = {
+  MainHistoryRoute: MainHistoryRoute,
   MainTransactionsRoute: MainTransactionsRoute,
   MainAnalyticsLazyRoute: MainAnalyticsLazyRoute,
   MainSettingsLazyRoute: MainSettingsLazyRoute,
