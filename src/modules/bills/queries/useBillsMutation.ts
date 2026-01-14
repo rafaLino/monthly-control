@@ -1,11 +1,16 @@
 import { generateId, replaceItemOfArray } from '@/lib/utils';
 import { QueryKeys } from '@/types/queryKeys';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 import { MouseEvent } from 'react';
 import { billsService } from '../services/bills.service';
 import { Bill } from '../types';
 
-export function useBillsMutation() {
+export function useBillsQuery() {
+  const { data } = useSuspenseQuery({
+    queryKey: [QueryKeys.bills],
+    queryFn: billsService.get
+  });
+
   const { mutateAsync: saveBill } = useMutation({
     mutationFn: billsService.save,
     onMutate: (data, context) => {
@@ -62,5 +67,5 @@ export function useBillsMutation() {
     return removeBill(id);
   };
 
-  return [save, updateBill, remove] as const;
+  return [data, save, updateBill, remove] as const;
 }

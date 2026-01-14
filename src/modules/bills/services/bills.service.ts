@@ -30,12 +30,18 @@ export class BillsService {
     return usersMock;
   }
 
-  public async saveUsers(user: Partial<User>): Promise<number> {
+  public async saveUser(user: Partial<User>): Promise<number> {
     await sleep();
     console.info('saving user: ', user);
-
     id++;
+    usersMock.push({ ...user, id: id.toString() } as User);
+
     return id;
+  }
+
+  public async removeUser(id: string) {
+    await sleep();
+    console.info('removing user: ', id);
   }
 }
 

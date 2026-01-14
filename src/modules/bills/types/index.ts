@@ -10,3 +10,5 @@ export type User = {
   name: string;
   amount: number;
 };
+
+export type Status = 'idle' | 'success' | 'error';

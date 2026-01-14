@@ -1,26 +1,16 @@
 import { Card } from '@/components/ui/card';
-import { QueryKeys } from '@/types/queryKeys';
-import { useSuspenseQuery } from '@tanstack/react-query';
 import { BillsProvider } from './context/provider';
 import { BillsSummary } from './features/summary';
 import { BillsTable } from './features/table';
 import { BillsTags } from './features/tags';
 import { BillsUsers } from './features/users';
-import { useBillsMutation } from './queries/useBillsMutation';
-import { billsService } from './services/bills.service';
+import { useBillsQuery } from './queries/useBillsMutation';
+import { useUsersQuery } from './queries/useUsersMutation';
 
 export const BillsModule = () => {
-  const { data: billsData } = useSuspenseQuery({
-    queryKey: [QueryKeys.bills],
-    queryFn: billsService.get
-  });
+  const [billsData, save, update, remove] = useBillsQuery();
 
-  const { data: usersData } = useSuspenseQuery({
-    queryKey: [QueryKeys.usersBills],
-    queryFn: billsService.getUsers
-  });
-
-  const [save, update, remove] = useBillsMutation();
+  const [usersData, saveUser, removeUser] = useUsersQuery();
 
   return (
     <main className="grid grid-rows-1 grid-cols-1 min-h-full h-full gap-4 px-2 sm:grid-cols-3 sm:grid-rows-3 sm:px-4 sm:h-[calc(100vh-90px)]">
@@ -32,7 +22,7 @@ export const BillsModule = () => {
           <BillsSummary users={usersData} />
         </Card>
         <Card className="p-2">
-          <BillsUsers data={usersData} />
+          <BillsUsers data={usersData} onSave={saveUser} onRemove={removeUser} />
         </Card>
         <Card className="p-2 col-span-1 row-span-1 sm:row-span-2 sm:col-span-2">
           <BillsTags data={billsData} />
@@ -41,3 +31,4 @@ export const BillsModule = () => {
     </main>
   );
 };
+
