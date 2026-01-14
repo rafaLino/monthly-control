@@ -1,58 +1,67 @@
-export const billsMock = [{
+export const billsMock = [
+  {
     id: '1',
-    name: 'Sample Bill',
+    title: 'Sample Bill',
     amount: 1257,
     tags: ['tag1', 'tag2']
-}, {
+  },
+  {
     id: '2',
-    name: 'Another Bill',
+    title: 'Another Bill',
     amount: 1256,
     tags: ['tag3']
-}, {
+  },
+  {
     id: '3',
-    name: 'Third Bill',
+    title: 'Third Bill',
     amount: 1257,
     tags: ['tag1']
-},
-{
+  },
+  {
     id: '4',
-    name: 'Fourth Bill',
+    title: 'Fourth Bill',
     amount: 1257,
     tags: ['tag2', 'tag3']
-}, {
+  },
+  {
     id: '5',
-    name: 'Fifth Bill',
+    title: 'Fifth Bill',
     amount: 1257,
     tags: ['tag1', 'tag4']
-}, {
+  },
+  {
     id: '6',
-    name: 'Sixth Bill',
+    title: 'Sixth Bill',
     amount: 1257,
-    tags: ['tag2']
-}, {
+    tags: ['tag2', 'tag5']
+  },
+  {
     id: '7',
-    name: 'Seventh Bill',
+    title: 'Seventh Bill',
     amount: 1257,
     tags: ['tag3', 'tag4']
-}, {
+  },
+  {
     id: '8',
-    name: 'Eighth Bill',
+    title: 'Eighth Bill',
     amount: 1257,
-    tags: ['tag1']
-}, {
+    tags: ['tag1', 'tag5']
+  },
+  {
     id: '9',
-    name: 'Ninth Bill',
+    title: 'Ninth Bill',
     amount: 1257,
     tags: ['tag2', 'tag4']
-}, {
+  },
+  {
     id: '10',
-    name: 'Tenth Bill',
+    title: 'Tenth Bill',
     amount: 1254,
-    tags: ['tag3']
-}
-]
+    tags: ['tag3', 'tag10']
+  }
+];
 
 export const usersMock = [
-    { id: 'u1', name: 'Alice', amount: 11400 },
-    { id: 'u2', name: 'Bob', amount: 7700 }
-]
+  { id: 'u1', name: 'Alice', amount: 11400 },
+  { id: 'u2', name: 'Bob', amount: 7700 }
+];

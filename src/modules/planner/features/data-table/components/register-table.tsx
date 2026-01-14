@@ -1,3 +1,4 @@
+import { AddInput } from '@/components/add-input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { DataTableFilterContext } from '@/context/DataTableFilterContext';
 import { MediaQueries, useMediaQuery } from '@/hooks/useMediaQuery';
@@ -25,7 +26,6 @@ import CustomPagination from './pagination';
 import { PercentCell } from './percent-cell';
 import { SortingButton } from './sorting-button';
 import { ValueCell } from './value-cell';
-import { AddInput } from '@/components/add-input';
 
 type RegisterTableProps = {
   data: Array<Register>;

@@ -1,6 +1,6 @@
-import { useContext } from "react";
-import { BillsContext } from "../context";
+import { useContext } from 'react';
+import { BillsContext } from '../context';
 
 export function useBills() {
-    return useContext(BillsContext);
+  return useContext(BillsContext);
 }

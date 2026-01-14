@@ -28,7 +28,11 @@ type CurrencyItemProps = Omit<ComponentPropsWithoutRef<'span'>, 'color' | 'child
 
 export const CurrencyItem: FC<CurrencyItemProps> = ({ value, color: conditionalColor, prefix, ...props }) => {
   const color = getColor(value, { ...DEFAULT_COLOR, ...conditionalColor });
-  return <Translation>{(t) => <Content color={color} valueAsString={t('currency', { value })} prefix={prefix} {...props} />}</Translation>;
+  return (
+    <Translation>
+      {(t) => <Content color={color} valueAsString={t('currency', { value })} prefix={prefix} {...props} />}
+    </Translation>
+  );
 };
 
 const Content: FC<Omit<CurrencyItemProps, 'value' | 'color'> & { valueAsString: string; color: string }> = ({

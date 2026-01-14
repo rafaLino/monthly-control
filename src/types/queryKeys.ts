@@ -4,5 +4,7 @@ export const QueryKeys = {
   expenseCategories: 'expense-categories',
   files: 'files',
   transactions: 'transactions',
-  history: 'history'
+  history: 'history',
+  bills: 'bills',
+  usersBills: 'users-bills'
 };
