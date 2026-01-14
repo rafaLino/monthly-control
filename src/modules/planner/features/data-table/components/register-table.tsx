@@ -2,7 +2,6 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { DataTableFilterContext } from '@/context/DataTableFilterContext';
 import { MediaQueries, useMediaQuery } from '@/hooks/useMediaQuery';
 import { cn } from '@/lib/utils';
-import { AddInput } from '@/modules/planner/components/add-input';
 import { SetRegistersActionType } from '@/store/global.state';
 import { Register } from '@/types/register.types';
 import {
@@ -26,6 +25,7 @@ import CustomPagination from './pagination';
 import { PercentCell } from './percent-cell';
 import { SortingButton } from './sorting-button';
 import { ValueCell } from './value-cell';
+import { AddInput } from '@/components/add-input';
 
 type RegisterTableProps = {
   data: Array<Register>;
