@@ -4,8 +4,8 @@ import { BillsSummary } from './features/summary';
 import { BillsTable } from './features/table';
 import { BillsTags } from './features/tags';
 import { BillsUsers } from './features/users';
-import { useBillsQuery } from './queries/useBillsMutation';
-import { useUsersQuery } from './queries/useUsersMutation';
+import { useBillsQuery } from './queries/useBillsQuery';
+import { useUsersQuery } from './queries/useUsersQuery';
 
 export const BillsModule = () => {
   const [billsData, save, update, remove] = useBillsQuery();
@@ -31,4 +31,3 @@ export const BillsModule = () => {
     </main>
   );
 };
-

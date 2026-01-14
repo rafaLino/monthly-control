@@ -6,5 +6,6 @@ export const QueryKeys = {
   transactions: 'transactions',
   history: 'history',
   bills: 'bills',
-  usersBills: 'users-bills'
+  usersBills: 'users-bills',
+  emergencyFund: 'emergency-fund'
 };
