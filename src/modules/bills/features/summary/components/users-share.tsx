@@ -13,7 +13,7 @@ export const UsersShare: FC<{
   return (
     <>
       <div
-        title="How much fixed expenses affect your budget"
+        title={t('bills.summary.affectLabel')}
         className="flex flex-col gap-2 items-center justify-center text-amber-600"
       >
         <Percent className="size-4" />

@@ -5,24 +5,26 @@ import { Label } from '@/components/ui/label';
 import { Status } from '@/modules/bills/types';
 import { CheckCircle, CircleX, LoaderCircle } from 'lucide-react';
 import { FC, useActionState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const UserForm: FC<{
   action: (status: Status, formData: FormData) => Promise<Status>;
 }> = ({ action }) => {
+   const { t } = useTranslation('translation', { keyPrefix: 'bills.users' });
   const [status, formAction, isPending] = useActionState<Status, FormData>(action, 'idle');
   return (
     <form action={formAction}>
-      <DialogHeader>
-        <DialogTitle>Create User</DialogTitle>
-        <DialogDescription>Make changes to your user here. Click save when you&apos;re done.</DialogDescription>
+      <DialogHeader className='mb-2'>
+        <DialogTitle>{t('title')}</DialogTitle>
+        <DialogDescription>{t('description')}</DialogDescription>
       </DialogHeader>
       <div className="grid gap-4">
         <div className="grid gap-3">
-          <Label htmlFor="name">Name</Label>
+          <Label htmlFor="name">{t('name')}</Label>
           <Input id="name" name="name" />
         </div>
         <div className="grid gap-3">
-          <Label htmlFor="amount">Amount</Label>
+          <Label htmlFor="amount">{t('amount')}</Label>
           <Input id="amount" name="amount" type="number" />
         </div>
       </div>
@@ -33,10 +35,10 @@ export const UserForm: FC<{
         <div className="flex sm:gap-x-2 items-center">
           <DialogClose asChild>
             <Button type="button" variant="outline">
-              Cancel
+              {t('cancel')}
             </Button>
           </DialogClose>
-          <Button type="submit">Save changes</Button>
+          <Button type="submit">{t('save')}</Button>
         </div>
       </DialogFooter>
     </form>

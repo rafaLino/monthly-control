@@ -29,12 +29,9 @@ export const TagsContainer: FC<{
         ))}
       </div>
       <div className="flex flex-col">
-        <h4 className="my-2 text-sm leading-none font-medium text-zinc-600">
-          <span className='hidden sm:inline'>
-            Total:
-          </span>
+        <div className="my-2 text-sm leading-none font-medium text-zinc-600">
           <CurrencyItem value={total} color={{ true: 'text-blue-400' }} />
-        </h4>
+        </div>
         <ScrollArea className="h-full max-h-90 w-full rounded-md">
           <div className="p-4">
             {selectedBills.map((bill) => (

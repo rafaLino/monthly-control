@@ -11,6 +11,7 @@ export const FundExpect: FC<{
   syncing?: boolean;
   children?: (value: number) => ReactNode;
 }> = ({ billsPerYear, fund, children }) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'bills.summary' });
   const [fundValue, setFundValue] = useState(fund);
   useEffect(() => {
     setFundValue(fund);
@@ -21,13 +22,13 @@ export const FundExpect: FC<{
         <div className="flex flex-col items-center justify-center w-full">
           <div className='flex items-center w-full justify-center gap-x-4'>
             <CurrencyItem
-              title="Current"
+              title={t('current')}
               value={fundValue / 12}
               className="text-[10px] font-semibold"
               color={{ true: 'text-amber-400' }}
             />
             <CurrencyItem
-              title="Ideal"
+              title={t('ideal')}
               value={billsPerYear / 12}
               className="text-[10px] font-semibold"
               color={{ true: 'text-sky-400' }}
@@ -62,7 +63,7 @@ const FundPopover: FC<PropsWithChildren<{
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <span title="Fund" className="text-lg font-medium">
+        <span className="text-lg font-medium">
           {t('currency', { value })}
         </span>
       </PopoverTrigger>

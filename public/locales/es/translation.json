@@ -175,5 +175,30 @@
     "save": "Salvar",
     "remove": "Eliminar",
     "total": "Total"
+  },
+  "bills": {
+    "table": {
+      "title": "Título",
+      "amount": "Monto",
+      "addTag": "Agregar etiqueta",
+      "noTags": "Sin etiquetas"
+    },
+    "summary": {
+      "incomes": "Ingresos",
+      "bills": "Facturas",
+      "remaining": "Restante",
+      "affectLabel": "¿Cuánto afectan los gastos fijos a tu presupuesto?",
+      "current": "Actual",
+      "ideal": "Ideal",
+      "yearly": "Anual"
+    },
+    "users": {
+      "title": "Crear usuarios",
+      "description": "Crea nuevos usuarios aquí. Haz clic en guardar cuando termines.",
+      "name": "Nombre",
+      "amount": "Monto",
+      "save": "Guardar",
+      "cancel": "Cancelar"
+    }
   }
 }

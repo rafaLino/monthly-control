@@ -4,8 +4,8 @@ import { useFundQuery } from '../../queries/useFundQuery';
 import { User } from '../../types';
 import { Budget } from './components/budget';
 import { FundExpect } from './components/fund-expect';
-import { UsersShare } from './components/users-share';
 import { SyncButton } from './components/sync-button';
+import { UsersShare } from './components/users-share';
 
 export const BillsSummary: FC<{
   users: User[];
