@@ -2,7 +2,7 @@ import { CurrencyItem } from '@/components/currency-item';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { MinusCircle, UserPlus } from 'lucide-react';
-import { FC, Fragment, useState } from 'react';
+import { FC, Fragment } from 'react';
 import { useBills } from '../../context/hooks/useBills';
 import { Status, User } from '../../types';
 import { UserForm } from './components/form';
@@ -13,7 +13,7 @@ export const BillsUsers: FC<{
   onRemove: (id: string) => void;
 }> = ({ data, onSave, onRemove }) => {
   const { incomes, bills, remaining, calculateUserShare, calculateUserRemaining } = useBills();
-  const [dialogOpen, setDialogOpen] = useState(false);
+
   return (
     <div className="grid grid-cols-auto sm:grid-cols-4 justify-between px-2 sm:px-4 gap-2 sm:gap-4 items-center h-full text-zinc-600 dark:text-zinc-300 relative">
       {data.map((user) => (
@@ -38,7 +38,7 @@ export const BillsUsers: FC<{
       <hr className="col-span-4 w-full" />
 
       <div className="flex flex-row justify-between gap-2 col-span-4">
-        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <Dialog>
           <DialogTrigger asChild>
             <Button type="button" variant="outline" size="icon" className="rounded-full cursor-pointer">
               <UserPlus className="size-4" />

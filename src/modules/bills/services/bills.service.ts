@@ -1,4 +1,5 @@
 import env from '@/lib/env';
+import { sleep } from '@/lib/utils';
 import { paramsService } from '@/services/params.service';
 import { QueryKeys } from '@/types/queryKeys';
 import { Bill, User } from '../types';
@@ -48,7 +49,6 @@ export class BillsService {
     const response = await fetch(`${env.VITE_FILES_URL}/bills/${id}`, {
       method: 'DELETE',
       headers: new Headers({
-        'Content-Type': 'application/json',
         'x-api-key': env.VITE_API_SECRET
       })
     });
@@ -90,7 +90,6 @@ export class BillsService {
     const response = await fetch(`${env.VITE_FILES_URL}/bills/users/${id}`, {
       method: 'DELETE',
       headers: new Headers({
-        'Content-Type': 'application/json',
         'x-api-key': env.VITE_API_SECRET
       })
     });
@@ -117,9 +116,6 @@ function BillsServiceMock() {
   let bills: Array<Bill> = [];
   let fundParam: number = 0;
 
-  function sleep() {
-    return new Promise((resolve) => setTimeout(resolve, 500));
-  }
   async function save(bill: Bill) {
     console.debug('save bill ', bill);
     bills.push(bill);

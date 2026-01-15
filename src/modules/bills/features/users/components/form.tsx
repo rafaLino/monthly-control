@@ -12,6 +12,7 @@ export const UserForm: FC<{
 }> = ({ action }) => {
   const { t } = useTranslation('translation', { keyPrefix: 'bills.users' });
   const [status, formAction, isPending] = useActionState<Status, FormData>(action, 'idle');
+
   return (
     <form action={formAction}>
       <DialogHeader className="mb-2">

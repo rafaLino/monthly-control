@@ -62,7 +62,8 @@
     "settings": "Configuraciones",
     "toggleMenu": "Alternar menú",
     "transactions": "Transacciones",
-    "history": "Histórico"
+    "history": "Histórico",
+    "bills": "Cuentas"
   },
   "userMenu": {
     "myAccount": "Mi cuenta",

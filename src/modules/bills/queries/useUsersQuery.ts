@@ -11,8 +11,9 @@ export function useUsersQuery() {
 
   const { mutateAsync: saveUser } = useMutation({
     mutationFn: billsService.saveUser,
-    onSettled: (_, __, ___, ____, context) => {
-      context.client.invalidateQueries({ queryKey: [QueryKeys.usersBills] });
+    onSettled: (result, __, userData, ____, context) => {
+      const previous = context.client.getQueryData<User[]>([QueryKeys.usersBills]) ?? [];
+      context.client.setQueryData([QueryKeys.usersBills], [...previous, { ...userData, id: result?.toString() }]);
     }
   });
 

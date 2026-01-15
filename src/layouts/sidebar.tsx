@@ -4,7 +4,7 @@ import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from 
 import env from '@/lib/env';
 import { useLocalParams } from '@/store';
 import { Link } from '@tanstack/react-router';
-import { BookText, History, Home, LineChart, PanelLeft, Settings } from 'lucide-react';
+import { BookText, Goal, History, Home, LineChart, PanelLeft, Settings } from 'lucide-react';
 import { FC, PropsWithChildren, ReactElement, ReactNode, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -46,6 +46,11 @@ export const SideBar: FC<SideBarProps> = ({ header, children }) => {
           label: 'history',
           icon: <History className="size-5" />,
           hidden: !env.VITE_ONLINE
+        },
+        {
+          to: '/bills',
+          label: 'bills',
+          icon: <Goal className="size-5" />
         },
         {
           to: '/settings',

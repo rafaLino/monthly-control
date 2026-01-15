@@ -81,3 +81,7 @@ export function toFile(content: string) {
 export function isFalsy(value: number | undefined) {
   return value === undefined || value === null || isNaN(value);
 }
+
+export function sleep(ms = 500) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
