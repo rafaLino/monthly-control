@@ -30,7 +30,9 @@ export const TagsContainer: FC<{
       </div>
       <div className="flex flex-col">
         <h4 className="my-2 text-sm leading-none font-medium text-zinc-600">
-          Total:
+          <span className='hidden sm:inline'>
+            Total:
+          </span>
           <CurrencyItem value={total} color={{ true: 'text-blue-400' }} />
         </h4>
         <ScrollArea className="h-full max-h-90 w-full rounded-md">

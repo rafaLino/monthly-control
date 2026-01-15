@@ -13,7 +13,7 @@ export const BillsModule = () => {
   const [usersData, saveUser, removeUser] = useUsersQuery();
 
   return (
-    <main className="grid grid-rows-1 grid-cols-1 h-full gap-4 px-2 sm:grid-cols-3 sm:grid-rows-3 sm:px-4">
+    <main className="grid grid-rows-1 grid-cols-1 h-full gap-4 p-2 sm:grid-cols-3 sm:grid-rows-3 sm:px-4">
       <BillsProvider bills={billsData} users={usersData}>
         <Card className="h-full p-2 row-span-1 sm:row-span-3 overflow-hidden flex flex-col">
           <BillsTable data={billsData} onAdd={save} onChange={update} onRemove={remove} />

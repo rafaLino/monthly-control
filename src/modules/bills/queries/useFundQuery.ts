@@ -3,12 +3,12 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { billsService } from '../services/bills.service';
 
 export function useFundQuery() {
-  const { data, refetch } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: [QueryKeys.emergencyFund],
     queryFn: billsService.getFundParam
   });
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationKey: [QueryKeys.emergencyFund],
     mutationFn: billsService.setFundParam,
     onSuccess: (_, newFund, __, context) => {
@@ -27,6 +27,7 @@ export function useFundQuery() {
 
   return {
     fund: data ?? 0,
+    isPending: isLoading || isPending,
     sync
   };
 }

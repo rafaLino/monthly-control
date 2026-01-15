@@ -112,66 +112,78 @@ export class BillsService {
   }
 }
 
-class BillsServiceMock {
-  private users: Array<User> = []
-  private bills: Array<Bill> = []
-  private fundParam: number = 0;
-  private sleep() {
+function BillsServiceMock() {
+  let users: Array<User> = []
+  let bills: Array<Bill> = []
+  let fundParam: number = 0;
+
+  function sleep() {
     return new Promise(resolve => setTimeout(resolve, 500));
   }
-  public async save(bill: Bill) {
-    await this.sleep();
+  async function save(bill: Bill) {
     console.debug('save bill ', bill);
-    this.bills.push(bill);
+    bills.push(bill);
   }
 
-  public async get(): Promise<Array<Bill>> {
-    await this.sleep();
+  async function get(): Promise<Array<Bill>> {
+    await sleep();
     console.debug('get bills');
-    return this.bills;
+    return bills;
   }
 
-  public async update(bill: Bill) {
-    await this.sleep();
+  async function update(bill: Bill) {
+    await sleep();
     console.debug('update bill ', bill);
-    this.bills = this.bills.map(b => (b.id === bill.id ? bill : b));
+    bills = bills.map(b => (b.id === bill.id ? bill : b));
   }
 
-  public async remove(id: string) {
-    await this.sleep();
+  async function remove(id: string) {
+    await sleep();
     console.debug('remove bill ', id);
-    this.bills = this.bills.filter(bill => bill.id !== id);
+    bills = bills.filter(bill => bill.id !== id);
   }
 
-  public async getUsers(): Promise<Array<User>> {
-    await this.sleep();
+  async function getUsers(): Promise<Array<User>> {
+    await sleep();
     console.debug('get users');
-    return this.users;
+    return users;
   }
 
-  public async saveUser(user: Partial<User>): Promise<number> {
-    await this.sleep();
+  async function saveUser(user: Partial<User>): Promise<number> {
+    await sleep();
     console.debug('save user ', user);
-    const id = this.users.length + 1;
-    this.users.push({ ...user, id: String(id) } as User);
+    const id = users.length + 1;
+    users.push({ ...user, id: String(id) } as User);
     return id;
   }
 
-  public async removeUser(id: string) {
-    await this.sleep();
+  async function removeUser(id: string) {
+    await sleep();
     console.debug('remove user ', id);
-    this.users = this.users.filter(user => user.id !== id);
+    users = users.filter(user => user.id !== id);
   }
 
-  public async getFundParam(): Promise<number> {
-    await this.sleep();
-    return this.fundParam;
+  async function getFundParam(): Promise<number> {
+    await sleep();
+    return fundParam;
   }
 
-  public async setFundParam(newFund: number): Promise<void> {
-    await this.sleep();
-    this.fundParam = newFund;
+  async function setFundParam(newFund: number): Promise<void> {
+    await sleep();
+    fundParam = newFund;
+  }
+
+  return {
+    save,
+    get,
+    update,
+    remove,
+    getUsers,
+    saveUser,
+    removeUser,
+    getFundParam,
+    setFundParam
   }
 }
 
-export const billsService = env.VITE_ONLINE ? new BillsService() : new BillsServiceMock();
+export const billsService = env.VITE_ONLINE ? new BillsService() : BillsServiceMock();

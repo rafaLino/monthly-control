@@ -12,12 +12,12 @@ export const Budget: FC<{
   return (
     <>
       <div className="flex flex-col gap-1 items-center">
-        <span className="font-medium">Incomes</span>
+        <span className="font-medium hidden sm:inline">Incomes</span>
         <CurrencyItem value={incomes} className="text-lg font-semibold" />
         <CurrencyItem title="year" value={incomesPerYear} className="text-xs font-semibold" />
       </div>
       <div className="flex flex-col gap-1 items-center">
-        <span className="font-medium">Bills</span>
+        <span className="font-medium hidden sm:inline">Bills</span>
         <CurrencyItem value={bills} className="text-lg font-semibold" prefix="-" color={{ true: 'text-red-400' }} />
         <CurrencyItem
           title="year"
@@ -28,7 +28,7 @@ export const Budget: FC<{
         />
       </div>
       <div className="flex flex-col gap-1 items-center">
-        <span className="font-medium">Remaining</span>
+        <span className="font-medium hidden sm:inline">Remaining</span>
         <CurrencyItem value={remaining} className="text-lg font-semibold" color={{ true: 'text-sky-400' }} />
         <CurrencyItem title="year" value={remainingPerYear} className="text-xs font-semibold" color={{ true: 'text-sky-400' }} />
       </div>

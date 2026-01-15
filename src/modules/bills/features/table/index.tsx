@@ -22,7 +22,7 @@ export const BillsTable: FC<{
   return (
     <div className="grid grid-rows-[auto_1fr] h-full gap-2 overflow-hidden">
       <AddInput id="add-bill" onAdd={onAdd} />
-      <Table parentClassName="h-190 overflow-auto" className="w-full">
+      <Table parentClassName="sm:h-190 overflow-auto" className="w-full">
         <TableHeader className="sticky bg-secondary top-0">
           <TableRow>
             <TableHead className="w-80">Title</TableHead>

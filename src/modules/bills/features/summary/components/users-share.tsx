@@ -20,12 +20,12 @@ export const UsersShare: FC<{
         <span className="font-medium">{t('percentage', { value: percentage })}</span>
       </div>
       <div className="col-span-2 flex justify-around w-full gap-1 items-center">
-        {users.map((user) => (
+        {users.length > 0 ? users.map((user) => (
           <div key={user.id} className="flex flex-col gap-1 ">
             <span className="font-medium text-xs text-amber-400">{user.name}</span>
             <CurrencyItem value={calculateUserShare(user)} color={{ true: 'text-amber-400' }} />
           </div>
-        ))}
+        )) : (<span>-</span>)}
       </div>
     </>
   );
