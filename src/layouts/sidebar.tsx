@@ -4,7 +4,7 @@ import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from 
 import env from '@/lib/env';
 import { useLocalParams } from '@/store';
 import { Link } from '@tanstack/react-router';
-import { BookText, History, Home, LineChart, PanelLeft, Settings } from 'lucide-react';
+import { BookText, Goal, History, Home, LineChart, PanelLeft, Settings } from 'lucide-react';
 import { FC, PropsWithChildren, ReactElement, ReactNode, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -48,6 +48,11 @@ export const SideBar: FC<SideBarProps> = ({ header, children }) => {
           hidden: !env.VITE_ONLINE
         },
         {
+          to: '/bills',
+          label: 'bills',
+          icon: <Goal className="size-5" />
+        },
+        {
           to: '/settings',
           label: 'settings',
           icon: <Settings className="size-5" />
@@ -77,7 +82,7 @@ export const SideBar: FC<SideBarProps> = ({ header, children }) => {
           <NavLastLink {...ROUTES.at(-1)} />
         </nav>
       </aside>
-      <div className="flex flex-col sm:gap-3 sm:py-4 sm:pl-14">
+      <div className="flex flex-col sm:gap-3 sm:py-3 sm:pl-14 sm:max-h-(--max-h-lg)">
         <SideBarHeader routes={ROUTES}>{header}</SideBarHeader>
         {children}
       </div>

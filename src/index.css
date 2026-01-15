@@ -82,6 +82,8 @@
 
   --breakpoint-2xl: 87.5rem;
   /* 1400px (default) */
+  
+  --max-h-lg: calc(100vh - 5.625rem);
 
   --animate-progress: progress 1.5s infinite ease-in-out;
   --animate-accordion-down: accordion-down 0.2s ease-out;

@@ -22,12 +22,17 @@ const DEFAULT_COLOR = {
 type CurrencyItemProps = Omit<ComponentPropsWithoutRef<'span'>, 'color' | 'children'> & {
   value: number;
   color?: Partial<ConditionalColor>;
+  prefix?: string;
   children?: ReactNode | ((v: string) => ReactNode);
 };
 
-export const CurrencyItem: FC<CurrencyItemProps> = ({ value, color: conditionalColor, ...props }) => {
+export const CurrencyItem: FC<CurrencyItemProps> = ({ value, color: conditionalColor, prefix, ...props }) => {
   const color = getColor(value, { ...DEFAULT_COLOR, ...conditionalColor });
-  return <Translation>{(t) => <Content color={color} valueAsString={t('currency', { value })} {...props} />}</Translation>;
+  return (
+    <Translation>
+      {(t) => <Content color={color} valueAsString={t('currency', { value })} prefix={prefix} {...props} />}
+    </Translation>
+  );
 };
 
 const Content: FC<Omit<CurrencyItemProps, 'value' | 'color'> & { valueAsString: string; color: string }> = ({
@@ -35,13 +40,14 @@ const Content: FC<Omit<CurrencyItemProps, 'value' | 'color'> & { valueAsString: 
   color,
   className,
   children,
+  prefix,
   ...props
 }) => {
   if (children) renderChildren(valueAsString);
 
   return (
-    <span className={cn('text-base hover:opacity-95', className, color)} {...props}>
-      {valueAsString}
+    <span className={cn('text-base hover:opacity-95 whitespace-nowrap', className, color)} {...props}>
+      {prefix} {valueAsString}
     </span>
   );
 };

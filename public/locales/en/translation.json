@@ -62,7 +62,8 @@
     "settings": "Settings",
     "toggleMenu": "Toggle menu",
     "transactions": "Transactions",
-    "history": "History"
+    "history": "History",
+    "bills": "Bills"
   },
   "userMenu": {
     "myAccount": "My account",
@@ -175,5 +176,30 @@
     "save": "Save",
     "remove": "Remove",
     "total": "Total"
+  },
+  "bills": {
+    "table": {
+      "title": "Title",
+      "amount": "Amount",
+      "addTag": "Add tag",
+      "noTags": "No tags"
+    },
+    "summary": {
+      "incomes": "Incomes",
+      "bills": "Bills",
+      "remaining": "Remaining",
+      "affectLabel": "How much do fixed expenses affect your budget?",
+      "current": "Current",
+      "ideal": "Ideal",
+      "yearly": "Yearly"
+    },
+    "users": {
+      "title": "Create users",
+      "description": "Create new users here. Click save when finished.",
+      "name": "Name",
+      "amount": "Amount",
+      "save": "Save",
+      "cancel": "Cancel"
+    }
   }
 }

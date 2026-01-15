@@ -62,7 +62,8 @@
     "settings": "Configurações",
     "toggleMenu": "Alternar menu",
     "transactions": "Transações",
-    "history": "Histórico"
+    "history": "Histórico",
+    "bills": "Contas"
   },
   "userMenu": {
     "myAccount": "Minha conta",
@@ -175,5 +176,30 @@
     "save": "Salvar",
     "remove": "Remover",
     "total": "Total"
+  },
+  "bills": {
+    "table": {
+      "title": "Título",
+      "amount": "Valor",
+      "addTag": "Adicionar etiqueta",
+      "noTags": "Sem etiquetas"
+    },
+    "summary": {
+      "incomes": "Receitas",
+      "bills": "Contas",
+      "remaining": "Restante",
+      "affectLabel": "Quanto despesas fixas afetam seu orçamento?",
+      "current": "Atual",
+      "ideal": "Ideal",
+      "yearly": "Anual"
+    },
+    "users": {
+      "title": "Criar usuários",
+      "description": "Crie novos usuários aqui. Clique em salvar quando terminar.",
+      "name": "Nome",
+      "amount": "Valor",
+      "save": "Salvar",
+      "cancel": "Cancelar"
+    }
   }
 }

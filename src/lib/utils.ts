@@ -77,3 +77,11 @@ export function createNewRegister(name: string, value: number): Register {
 export function toFile(content: string) {
   return new Blob([content], { type: 'text/csv;charset=utf-8;' });
 }
+
+export function isFalsy(value: number | undefined) {
+  return value === undefined || value === null || isNaN(value);
+}
+
+export function sleep(ms = 500) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
