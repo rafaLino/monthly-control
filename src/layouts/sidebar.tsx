@@ -77,7 +77,7 @@ export const SideBar: FC<SideBarProps> = ({ header, children }) => {
           <NavLastLink {...ROUTES.at(-1)} />
         </nav>
       </aside>
-      <div className="flex flex-col sm:gap-3 sm:py-4 sm:pl-14">
+      <div className="flex flex-col sm:gap-3 sm:py-3 sm:pl-14 sm:max-h-(--max-h-lg)">
         <SideBarHeader routes={ROUTES}>{header}</SideBarHeader>
         {children}
       </div>
