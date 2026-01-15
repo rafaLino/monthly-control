@@ -110,9 +110,9 @@ const renderIcon = (comparison: 'equal' | 'download' | 'upload') => {
 };
 
 const checkValue = (cached: number | undefined, value: number) => {
-  if (isFalsy(cached) || value === 0) return 'download';
+  if (isFalsy(cached) || cached === value) return 'equal';
 
-  if (cached === value) return 'equal';
+  if (value === 0) return 'download';
 
   return 'upload';
 };

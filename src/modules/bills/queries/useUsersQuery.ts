@@ -32,9 +32,10 @@ export function useUsersQuery() {
   });
 
   const save = async (_: Status, data: FormData): Promise<Status> => {
-    const user = Object.fromEntries(data.entries()) as Partial<User>;
+    const name = (data.get('name') as string);
+    const amount = Number(data.get('amount'));
 
-    await saveUser(user);
+    await saveUser({ name, amount });
     return 'success';
   };
 

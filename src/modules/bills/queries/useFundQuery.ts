@@ -8,7 +8,7 @@ export function useFundQuery() {
     queryFn: getFundParam
   });
 
-  const { mutate } = useMutation({
+  const { mutateAsync } = useMutation({
     mutationKey: [QueryKeys.emergencyFund],
     mutationFn: saveFundParam,
     onSuccess: (_, newFund, __, context) => {
@@ -16,9 +16,9 @@ export function useFundQuery() {
     }
   });
 
-  const sync = (action: 'download' | 'upload', fund: number) => {
+  const sync = async (action: 'download' | 'upload', fund: number) => {
     if (action === 'upload') {
-      mutate(fund);
+      await mutateAsync(fund);
       return;
     }
 

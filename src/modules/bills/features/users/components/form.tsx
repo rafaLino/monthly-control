@@ -27,7 +27,9 @@ export const UserForm: FC<{
         </div>
       </div>
       <DialogFooter className="flex flex-row mt-4 items-center sm:justify-between">
-        <StatusMark pending={isPending} status={status} />
+        <div>
+          <StatusMark pending={isPending} status={status} />
+        </div>
         <div className="flex sm:gap-x-2 items-center">
           <DialogClose asChild>
             <Button type="button" variant="outline">
