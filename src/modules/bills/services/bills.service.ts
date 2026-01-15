@@ -1,7 +1,7 @@
 import env from '@/lib/env';
-import { Bill, User } from '../types';
 import { paramsService } from '@/services/params.service';
 import { QueryKeys } from '@/types/queryKeys';
+import { Bill, User } from '../types';
 
 export class BillsService {
   public async save(bill: Bill) {
@@ -82,8 +82,8 @@ export class BillsService {
 
     if (!response.ok) throw new Error('Something went wrong!');
 
-    const result = await response.json() as { id: string }
-    return +result.id
+    const result = (await response.json()) as { id: string };
+    return +result.id;
   }
 
   public async removeUser(id: string) {
@@ -99,7 +99,7 @@ export class BillsService {
   }
 
   public async getFundParam(): Promise<number> {
-    const param = await paramsService.getParams(QueryKeys.emergencyFund)
+    const param = await paramsService.getParams(QueryKeys.emergencyFund);
     return param ? +param.value : 0;
   }
 
@@ -108,17 +108,17 @@ export class BillsService {
       name: QueryKeys.emergencyFund,
       value: newFund.toString(),
       type: 'number'
-    })
+    });
   }
 }
 
 function BillsServiceMock() {
-  let users: Array<User> = []
-  let bills: Array<Bill> = []
+  let users: Array<User> = [];
+  let bills: Array<Bill> = [];
   let fundParam: number = 0;
 
   function sleep() {
-    return new Promise(resolve => setTimeout(resolve, 500));
+    return new Promise((resolve) => setTimeout(resolve, 500));
   }
   async function save(bill: Bill) {
     console.debug('save bill ', bill);
@@ -134,13 +134,13 @@ function BillsServiceMock() {
   async function update(bill: Bill) {
     await sleep();
     console.debug('update bill ', bill);
-    bills = bills.map(b => (b.id === bill.id ? bill : b));
+    bills = bills.map((b) => (b.id === bill.id ? bill : b));
   }
 
   async function remove(id: string) {
     await sleep();
     console.debug('remove bill ', id);
-    bills = bills.filter(bill => bill.id !== id);
+    bills = bills.filter((bill) => bill.id !== id);
   }
 
   async function getUsers(): Promise<Array<User>> {
@@ -160,7 +160,7 @@ function BillsServiceMock() {
   async function removeUser(id: string) {
     await sleep();
     console.debug('remove user ', id);
-    users = users.filter(user => user.id !== id);
+    users = users.filter((user) => user.id !== id);
   }
 
   async function getFundParam(): Promise<number> {
@@ -183,7 +183,7 @@ function BillsServiceMock() {
     removeUser,
     getFundParam,
     setFundParam
-  }
+  };
 }
 
 export const billsService = env.VITE_ONLINE ? new BillsService() : BillsServiceMock();

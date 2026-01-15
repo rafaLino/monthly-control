@@ -10,11 +10,11 @@ import { useTranslation } from 'react-i18next';
 export const UserForm: FC<{
   action: (status: Status, formData: FormData) => Promise<Status>;
 }> = ({ action }) => {
-   const { t } = useTranslation('translation', { keyPrefix: 'bills.users' });
+  const { t } = useTranslation('translation', { keyPrefix: 'bills.users' });
   const [status, formAction, isPending] = useActionState<Status, FormData>(action, 'idle');
   return (
     <form action={formAction}>
-      <DialogHeader className='mb-2'>
+      <DialogHeader className="mb-2">
         <DialogTitle>{t('title')}</DialogTitle>
         <DialogDescription>{t('description')}</DialogDescription>
       </DialogHeader>

@@ -20,7 +20,7 @@ export const FundExpect: FC<{
     <>
       <div className="flex flex-col items-center">
         <div className="flex flex-col items-center justify-center w-full">
-          <div className='flex items-center w-full justify-center gap-x-4'>
+          <div className="flex items-center w-full justify-center gap-x-4">
             <CurrencyItem
               title={t('current')}
               value={fundValue / 12}
@@ -48,30 +48,30 @@ export const FundExpect: FC<{
   );
 };
 
-const FundPopover: FC<PropsWithChildren<{
-  value?: number;
-  onChange?: (fund: number) => void;
-}>> = ({ value = 0, onChange }) => {
+const FundPopover: FC<
+  PropsWithChildren<{
+    value?: number;
+    onChange?: (fund: number) => void;
+  }>
+> = ({ value = 0, onChange }) => {
   const { t } = useTranslation('translation');
   const [open, setOpen] = useState(false);
 
   const handleEnter = useOnEnter((e) => {
     setOpen(false);
     onChange?.(Number((e.target as HTMLInputElement).value));
-  })
+  });
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <span className="text-lg font-medium">
-          {t('currency', { value })}
-        </span>
+        <span className="text-lg font-medium">{t('currency', { value })}</span>
       </PopoverTrigger>
       <PopoverContent>
         <div className="flex flex-wrap gap-2">
           <Input name="fund" defaultValue={value} onKeyDown={handleEnter} className="w-full" />
         </div>
       </PopoverContent>
-    </Popover >
+    </Popover>
   );
 };

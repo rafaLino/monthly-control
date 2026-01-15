@@ -12,20 +12,21 @@ export const UsersShare: FC<{
   const { t } = useTranslation('translation');
   return (
     <>
-      <div
-        title={t('bills.summary.affectLabel')}
-        className="flex flex-col gap-2 items-center justify-center text-amber-600"
-      >
+      <div title={t('bills.summary.affectLabel')} className="flex flex-col gap-2 items-center justify-center text-amber-600">
         <Percent className="size-4" />
         <span className="font-medium">{t('percentage', { value: percentage })}</span>
       </div>
       <div className="col-span-2 flex justify-around w-full gap-1 items-center">
-        {users.length > 0 ? users.map((user) => (
-          <div key={user.id} className="flex flex-col gap-1 ">
-            <span className="font-medium text-xs text-amber-400">{user.name}</span>
-            <CurrencyItem value={calculateUserShare(user)} color={{ true: 'text-amber-400' }} />
-          </div>
-        )) : (<span>-</span>)}
+        {users.length > 0 ? (
+          users.map((user) => (
+            <div key={user.id} className="flex flex-col gap-1 ">
+              <span className="font-medium text-xs text-amber-400">{user.name}</span>
+              <CurrencyItem value={calculateUserShare(user)} color={{ true: 'text-amber-400' }} />
+            </div>
+          ))
+        ) : (
+          <span>-</span>
+        )}
       </div>
     </>
   );

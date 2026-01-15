@@ -32,7 +32,12 @@ export const Budget: FC<{
       <div className="flex flex-col gap-1 items-center">
         <span className="font-medium hidden sm:inline">{t('remaining')}</span>
         <CurrencyItem value={remaining} className="text-lg font-semibold" color={{ true: 'text-sky-400' }} />
-        <CurrencyItem title={t('yearly')} value={remainingPerYear} className="text-xs font-semibold" color={{ true: 'text-sky-400' }} />
+        <CurrencyItem
+          title={t('yearly')}
+          value={remainingPerYear}
+          className="text-xs font-semibold"
+          color={{ true: 'text-sky-400' }}
+        />
       </div>
     </>
   );

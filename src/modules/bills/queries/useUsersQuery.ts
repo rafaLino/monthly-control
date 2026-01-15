@@ -32,7 +32,7 @@ export function useUsersQuery() {
   });
 
   const save = async (_: Status, data: FormData): Promise<Status> => {
-    const name = (data.get('name') as string);
+    const name = data.get('name') as string;
     const amount = Number(data.get('amount'));
 
     await saveUser({ name, amount });

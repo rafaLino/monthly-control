@@ -33,9 +33,7 @@ export const BillsSummary: FC<{
       <hr className="col-span-3 w-full" />
 
       <FundExpect billsPerYear={billsPerYear} fund={fund}>
-        {(fundValue) => (
-          <SyncButton value={fundValue} isPending={isPending} onClick={(action) => sync(action, fundValue)} />
-        )}
+        {(fundValue) => <SyncButton value={fundValue} isPending={isPending} onClick={(action) => sync(action, fundValue)} />}
       </FundExpect>
     </div>
   );
