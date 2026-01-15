@@ -1,16 +1,16 @@
 import { QueryKeys } from '@/types/queryKeys';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { getFundParam, saveFundParam } from '../features/summary/helpers/fetches';
+import { billsService } from '../services/bills.service';
 
 export function useFundQuery() {
   const { data, refetch } = useQuery({
     queryKey: [QueryKeys.emergencyFund],
-    queryFn: getFundParam
+    queryFn: billsService.getFundParam
   });
 
   const { mutateAsync } = useMutation({
     mutationKey: [QueryKeys.emergencyFund],
-    mutationFn: saveFundParam,
+    mutationFn: billsService.setFundParam,
     onSuccess: (_, newFund, __, context) => {
       context.client.setQueryData([QueryKeys.emergencyFund], newFund);
     }
