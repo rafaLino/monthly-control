@@ -39,7 +39,7 @@ export const SideBar: FC<SideBarProps> = ({ header, children }) => {
           to: '/transactions',
           label: 'transactions',
           icon: <BookText className="size-5" />,
-          hidden: !isTransactionsEnabled
+          hidden: !isTransactionsEnabled || !env.VITE_ONLINE
         },
         {
           to: '/history',
