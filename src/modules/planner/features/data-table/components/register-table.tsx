@@ -153,7 +153,7 @@ export default function RegisterTable({ data, total, onChange }: Readonly<Regist
     <div className="p-1">
       <div className="h-2" />
       <Table>
-        <TableHeader>
+        <TableHeader className="sticky top-0 z-30 bg-background">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
