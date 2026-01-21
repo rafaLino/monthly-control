@@ -1,17 +1,21 @@
-import { usePrevious } from '@/hooks/usePrevious';
 import randomColor from 'randomcolor';
-import { useEffect, useState } from 'react';
+import { startTransition, useEffect, useState } from 'react';
+
+const generateColors = (previous: string[], count: number) => {
+  if (previous.length === 0) {
+    return randomColor({ count, format: 'hsl', luminosity: 'bright' });
+  }
+  return count >= previous.length ? [...previous, randomColor({ format: 'hsl', luminosity: 'bright' })] : previous.toSpliced(-1)
+}
 
 export function useColors(count: number) {
-  const [colors, setColors] = useState(randomColor({ count, format: 'hsl', luminosity: 'bright' }));
-  const prevCount = usePrevious(count, 0);
-  useEffect(() => {
-    setColors((prev) => {
-      if (count > prevCount) return [...prev, randomColor({ format: 'hsl', luminosity: 'bright' })];
+  const [colors, setColors] = useState<string[]>([]);
 
-      return prev.toSpliced(-1);
+  useEffect(() => {
+    startTransition(() => {
+      setColors(prev => generateColors(prev, count));
     });
-  }, [count, prevCount]);
+  }, [count]);
 
   return colors;
 }
