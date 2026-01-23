@@ -10,7 +10,7 @@ import { useUsersQuery } from './queries/useUsersQuery';
 export const BillsModule = () => {
   const [billsData, save, update, remove] = useBillsQuery();
 
-  const [usersData, saveUser, removeUser] = useUsersQuery();
+  const [usersData, saveUser, updateUser, removeUser] = useUsersQuery();
 
   return (
     <main className="grid grid-rows-1 grid-cols-1 h-full gap-4 p-2 sm:grid-cols-3 sm:grid-rows-3 sm:px-4">
@@ -22,7 +22,7 @@ export const BillsModule = () => {
           <BillsSummary users={usersData} />
         </Card>
         <Card className="p-2">
-          <BillsUsers data={usersData} onSave={saveUser} onRemove={removeUser} />
+          <BillsUsers data={usersData} onSave={saveUser} onRemove={removeUser} onUpdate={updateUser} />
         </Card>
         <Card className="p-2 col-span-1 row-span-1 sm:row-span-2 sm:col-span-2">
           <BillsTags data={billsData} />

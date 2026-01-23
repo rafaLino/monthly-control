@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { MinusCircle, UserPlus } from 'lucide-react';
 import { FC, Fragment } from 'react';
+import { PopoverInput } from '../../components/popover-input';
 import { useBills } from '../../context/hooks/useBills';
 import { Status, User } from '../../types';
 import { UserForm } from './components/form';
@@ -11,7 +12,8 @@ export const BillsUsers: FC<{
   data: User[];
   onSave: (status: Status, data: FormData) => Promise<Status>;
   onRemove: (id: string) => void;
-}> = ({ data, onSave, onRemove }) => {
+  onUpdate: (user: User) => void;
+}> = ({ data, onSave, onRemove, onUpdate }) => {
   const { incomes, bills, remaining, calculateUserShare, calculateUserRemaining } = useBills();
 
   return (
@@ -29,7 +31,9 @@ export const BillsUsers: FC<{
               <MinusCircle className="size-4" />
             </Button>
           </div>
-          <CurrencyItem value={user.amount} className="font-medium" />
+          <PopoverInput value={user.amount} onChange={(amount) => onUpdate({ ...user, amount })}>
+            <CurrencyItem value={user.amount} className="font-medium" />
+          </PopoverInput>
           <CurrencyItem value={calculateUserShare(user)} className="font-medium text-sm" color={{ true: 'text-amber-400' }} />
           <CurrencyItem value={calculateUserRemaining(user)} className="font-medium text-sm" color={{ true: 'text-sky-400' }} />
         </Fragment>
