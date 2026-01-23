@@ -92,6 +92,22 @@ export class ApiService {
 
     return responseData.data;
   }
+
+  public async copy() {
+    const response = await fetch(`${env.VITE_API_URL}/record`, {
+      method: 'PUT',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'x-api-secret': env.VITE_API_SECRET
+      })
+    });
+
+    if (!response.ok) return false;
+
+    const result = await response.json();
+
+    return result.ok;
+  }
 }
 
 export const apiService = new ApiService();

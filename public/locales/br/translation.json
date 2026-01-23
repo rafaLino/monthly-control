@@ -5,6 +5,8 @@
   "remaining": "Restante {{value, CURRENCY_FORMAT}}",
   "enabled": "Habilitado",
   "save": "Salvar",
+  "error": "Something went wrong",
+  "loading": "Carregando...",
   "breadcrumb": {
     "home": "Início",
     "users": "Usuários",
@@ -69,7 +71,8 @@
     "myAccount": "Minha conta",
     "settings": "Configurações",
     "support": "Suporte",
-    "logout": "Sair"
+    "logout": "Sair",
+    "copyData": "Copiar registros"
   },
   "login": {
     "welcome": "Bem vindo!",
@@ -93,7 +96,9 @@
   },
   "notification": {
     "title": "Nova versão disponível!",
-    "action": "Obter nova versão"
+    "action": "Obter nova versão",
+    "copiedSuccess": "Registros copiado com sucesso!",
+    "copiedError": "Erro ao copiar registros!"
   },
   "dashboard": {
     "total": "Total",
@@ -181,8 +186,8 @@
     "table": {
       "title": "Título",
       "amount": "Valor",
-      "addTag": "Adicionar etiqueta",
-      "noTags": "Sem etiquetas"
+      "addTag": "Adicionar tag",
+      "noTags": "Sem tags"
     },
     "summary": {
       "incomes": "Receitas",
