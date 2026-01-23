@@ -186,8 +186,8 @@
     "table": {
       "title": "Título",
       "amount": "Valor",
-      "addTag": "Adicionar etiqueta",
-      "noTags": "Sem etiquetas"
+      "addTag": "Adicionar tag",
+      "noTags": "Sem tags"
     },
     "summary": {
       "incomes": "Receitas",
