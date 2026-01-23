@@ -49,6 +49,10 @@ export const useReadRegisters = <T = Register>(type: RegisterType, selector?: (i
   return useGlobalStore(useShallow((state) => (selector ? selector(state[type]) : state[type]) as Array<T>));
 };
 
+export const useContainsRegisters = () => {
+  return useGlobalStore((state) => !!state.incomes.length || !!state.expenses.length || !!state.investments.length);
+};
+
 export const useRegisterSum = <T = number>(type: RegisterType, selector?: (val: number) => T) => {
   return useGlobalStore((state) => {
     const value = getPlannedBalance(state[type]);

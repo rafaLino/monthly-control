@@ -5,6 +5,8 @@
   "remaining": "Remaining {{value, CURRENCY_FORMAT}}",
   "enabled": "Enabled",
   "save": "Save",
+  "error": "Something went wrong",
+  "loading": "Loading...",
   "breadcrumb": {
     "home": "Home",
     "users": "Users",
@@ -69,7 +71,8 @@
     "myAccount": "My account",
     "settings": "Settings",
     "support": "Support",
-    "logout": "Logout"
+    "logout": "Logout",
+    "copyData": "Copy records"
   },
   "login": {
     "welcome": "Welcome",
@@ -93,7 +96,9 @@
   },
   "notification": {
     "title": "New version available!",
-    "action": "Get new version"
+    "action": "Get new version",
+    "copiedSuccess": "Registers copied successfully!",
+    "copiedError": "Error copying registers!"
   },
   "dashboard": {
     "total": "Total",

@@ -5,6 +5,8 @@
   "remaining": "Restante {{value, CURRENCY_FORMAT}}",
   "enabled": "Activado",
   "save": "Salvar",
+  "error": "Algo salió mal",
+  "loading": "Cargando...",
   "breadcrumb": {
     "home": "Inicio",
     "users": "Usuarios",
@@ -69,7 +71,8 @@
     "myAccount": "Mi cuenta",
     "settings": "Configuraciones",
     "support": "Soporte",
-    "logout": "Cerrar sesión"
+    "logout": "Cerrar sesión",
+    "copyData": "Copiar registros"
   },
   "login": {
     "welcome": "Bienvenido",
@@ -93,7 +96,9 @@
   },
   "notification": {
     "title": "¡Nueva versión disponible!",
-    "action": "Obtener nueva versión"
+    "action": "Obtener nueva versión",
+    "copiedSuccess": "¡Registros copiados con éxito!",
+    "copiedError": "¡Error al copiar los registros!"
   },
   "dashboard": {
     "total": "Total",

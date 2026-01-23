@@ -1,3 +1,4 @@
+import { HiddenOffline } from '@/components/hidden-offline';
 import { ThemeSwitch } from '@/components/theme-switch/theme-switch';
 import { Thumbnail } from '@/components/thumbnail';
 import {
@@ -14,6 +15,7 @@ import { Link } from '@tanstack/react-router';
 import { LoaderCircle, LogOut } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { CopyDropdownMenuItem } from './components/copy-dropdown-menu-item';
 export const UserMenu = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'userMenu' });
   const { logout, user } = useAuth0();
@@ -41,7 +43,10 @@ export const UserMenu = () => {
           <DropdownMenuItem asChild>
             <Link to="/settings">{t('settings')}</Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>{t('support')}</DropdownMenuItem>
+          <HiddenOffline>
+            <CopyDropdownMenuItem>{t('copyData')}</CopyDropdownMenuItem>
+          </HiddenOffline>
+          <DropdownMenuItem disabled>{t('support')}</DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={handleLogout}>
             <LogOut className="w-5 h-5 mr-2" />

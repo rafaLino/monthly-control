@@ -6,7 +6,7 @@ type Props = {
   onAction: () => Promise<void>;
 };
 export function OutdatedDataNotification({ show, onAction }: Props) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('translation', { keyPrefix: 'notification' });
 
   const action = useEffectEvent(() => {
     onAction();
@@ -16,10 +16,10 @@ export function OutdatedDataNotification({ show, onAction }: Props) {
   useEffect(() => {
     if (show) {
       const timeout = setTimeout(() => {
-        toast.info(t('notification.title'), {
+        toast.info(t('title'), {
           duration: Infinity,
           action: {
-            label: t('notification.action'),
+            label: t('action'),
             onClick: action
           }
         });
