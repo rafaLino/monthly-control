@@ -86,6 +86,19 @@ export class BillsService {
     return +result.id;
   }
 
+  public async updateUser(user: User) {
+    const response = await fetch(`${env.VITE_FILES_URL}/bills/users/${user.id}`, {
+      method: 'PUT',
+      body: JSON.stringify(user),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'x-api-key': env.VITE_API_SECRET
+      })
+    });
+
+    if (!response.ok) throw new Error('Something went wrong!');
+  }
+
   public async removeUser(id: string) {
     const response = await fetch(`${env.VITE_FILES_URL}/bills/users/${id}`, {
       method: 'DELETE',
@@ -153,6 +166,12 @@ function BillsServiceMock() {
     return id;
   }
 
+  async function updateUser(user: User) {
+    await sleep();
+    console.debug('update user ', user);
+    users = users.map((u) => (u.id === user.id ? user : u));
+  }
+
   async function removeUser(id: string) {
     await sleep();
     console.debug('remove user ', id);
@@ -176,6 +195,7 @@ function BillsServiceMock() {
     remove,
     getUsers,
     saveUser,
+    updateUser,
     removeUser,
     getFundParam,
     setFundParam

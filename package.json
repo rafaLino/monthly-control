@@ -1,7 +1,7 @@
 {
   "name": "monthly-control",
   "private": true,
-  "version": "2.18.0",
+  "version": "2.18.1",
   "type": "module",
   "scripts": {
     "start": "npm run build && vite preview --port=3000",
@@ -48,7 +48,7 @@
     "cmdk": "^1.1.1",
     "date-fns": "^3.6.0",
     "firebase": "^12.7.0",
-    "i18next": "^23.16.8",
+    "i18next": "^25.8.0",
     "i18next-http-backend": "^2.7.3",
     "idb": "^8.0.3",
     "idb-keyval": "^6.2.2",
@@ -61,7 +61,7 @@
     "react-dom": "^19.2.3",
     "react-dropzone": "^14.3.8",
     "react-hook-form": "^7.69.0",
-    "react-i18next": "^15.7.4",
+    "react-i18next": "^16.5.3",
     "react-markdown": "^10.1.0",
     "recharts": "2.15.2",
     "sonner": "^2.0.7",

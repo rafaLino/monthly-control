@@ -1,8 +1,6 @@
 import { CurrencyItem } from '@/components/currency-item';
-import { Input } from '@/components/ui/input';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { useOnEnter } from '@/hooks/useOnEnter';
-import { FC, PropsWithChildren, ReactNode, useEffect, useState } from 'react';
+import { PopoverInput } from '@/modules/bills/components/popover-input';
+import { FC, ReactNode, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export const FundExpect: FC<{
@@ -35,7 +33,9 @@ export const FundExpect: FC<{
             />
           </div>
           <div className="flex flex-row gap-x-2">
-            <FundPopover value={fundValue} onChange={setFundValue} />
+            <PopoverInput value={fundValue} onChange={setFundValue}>
+              <span className="text-lg font-medium">{t('currency', { value: fundValue, keyPrefix: '' })}</span>
+            </PopoverInput>
             {children?.(fundValue)}
           </div>
         </div>
@@ -45,33 +45,5 @@ export const FundExpect: FC<{
         <CurrencyItem value={fund - billsPerYear} className="text-lg font-semibold" />
       </div>
     </>
-  );
-};
-
-const FundPopover: FC<
-  PropsWithChildren<{
-    value?: number;
-    onChange?: (fund: number) => void;
-  }>
-> = ({ value = 0, onChange }) => {
-  const { t } = useTranslation('translation');
-  const [open, setOpen] = useState(false);
-
-  const handleEnter = useOnEnter((e) => {
-    setOpen(false);
-    onChange?.(Number((e.target as HTMLInputElement).value));
-  });
-
-  return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <span className="text-lg font-medium">{t('currency', { value })}</span>
-      </PopoverTrigger>
-      <PopoverContent>
-        <div className="flex flex-wrap gap-2">
-          <Input name="fund" defaultValue={value} onKeyDown={handleEnter} className="w-full" />
-        </div>
-      </PopoverContent>
-    </Popover>
   );
 };

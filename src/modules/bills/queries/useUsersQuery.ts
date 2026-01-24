@@ -17,6 +17,21 @@ export function useUsersQuery() {
     }
   });
 
+  const { mutateAsync: updateUser } = useMutation({
+    mutationFn: billsService.updateUser,
+    onMutate: (userData, context) => {
+      const previous = context.client.getQueryData([QueryKeys.usersBills]) as User[];
+      context.client.setQueryData(
+        [QueryKeys.usersBills],
+        previous.map((u) => (u.id === userData.id ? userData : u))
+      );
+      return { previous };
+    },
+    onError: (_, __, result, context) => {
+      context.client.setQueryData([QueryKeys.usersBills], result?.previous);
+    }
+  });
+
   const { mutateAsync: removeUser } = useMutation({
     mutationFn: billsService.removeUser,
     onMutate: (id, context) => {
@@ -40,5 +55,5 @@ export function useUsersQuery() {
     return 'success';
   };
 
-  return [data, save, removeUser] as const;
+  return [data, save, updateUser, removeUser] as const;
 }
