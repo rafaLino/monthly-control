@@ -1,4 +1,4 @@
-import { CSVtoObject } from '@/lib/csv-to-object';
+import { CSVtoObject } from '@/lib/csv-parser/csv-to-object';
 import { RefDateSchema } from '@/types/refDate';
 import { getMonth, getYear } from 'date-fns';
 import { Transaction } from '../types/transaction';

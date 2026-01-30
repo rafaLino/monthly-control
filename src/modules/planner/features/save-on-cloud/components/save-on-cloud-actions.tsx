@@ -22,6 +22,7 @@ const DownloadButton = () => {
   const [downloading, setDownloading] = useState(false);
   const { setRegisters } = useActions();
   const { isOutdated, setIsOutdated } = useCheckOutdatedData();
+  const clear = useTemporalStore((state) => state.clear);
 
   const handleDowload = async () => {
     setDownloading(true);
@@ -32,6 +33,7 @@ const DownloadButton = () => {
         setRegisters(data.incomes, data.expenses, data.investments);
         await saveRegisters(data);
         setIsOutdated(false);
+        clear();
       }
     } finally {
       setDownloading(false);

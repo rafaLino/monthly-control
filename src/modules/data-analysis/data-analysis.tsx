@@ -5,6 +5,7 @@ import { QueryKeys } from '@/types/queryKeys';
 import { CheckedState } from '@radix-ui/react-checkbox';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
+import { saveFile } from '../../lib/save-file';
 import { ClearDataButton } from './components/clear-data-button/clear-data-button';
 import { DownloadButton } from './components/download-button/download-button';
 import { GridButton } from './components/grid-button/grid-button';
@@ -12,7 +13,6 @@ import { Assistant } from './features/assistant';
 import { Dashboard } from './features/dashboard/dashboard';
 import { GenerateDataButton } from './features/generate-data-button/generate-data-button';
 import { downloadMetadata } from './utils/data-analysis.logic';
-import { saveFile } from './utils/save-file';
 
 export const DataAnalysis = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'dashboard' });
