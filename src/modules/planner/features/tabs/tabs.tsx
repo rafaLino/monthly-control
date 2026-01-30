@@ -49,12 +49,12 @@ export default function RegisterTabs() {
   );
 
   useKeysDown({
-    'ctrl.f': () => filterInputRef.current?.focus(),
-    'ctrl.z': undo,
-    'ctrl.y': redo,
     'alt.1': () => setTab('incomes'),
     'alt.2': () => setTab('expenses'),
-    'alt.3': () => setTab('investments')
+    'alt.3': () => setTab('investments'),
+    'ctrl.f': () => filterInputRef.current?.focus(),
+    'ctrl.z': undo,
+    'ctrl.y': redo
   });
 
   return (

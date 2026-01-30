@@ -72,7 +72,8 @@
     "settings": "Configuraciones",
     "support": "Soporte",
     "logout": "Cerrar sesión",
-    "copyData": "Copiar registros"
+    "copyData": "Copiar registros",
+    "generateCsv": "Generar CSV"
   },
   "login": {
     "welcome": "Bienvenido",

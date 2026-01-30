@@ -1,6 +1,6 @@
 import { ChartConfig } from '@/components/ui/chart';
 import { getColor } from '@/lib/colors';
-import { CSVtoObject } from '@/lib/csv-to-object';
+import { CSVtoObject } from '@/lib/csv-parser';
 import { capitalize, removeAccents, sum } from '@/lib/utils';
 import { Register, RegisterType } from '@/types/register.types';
 import { format, getYear, toDate } from 'date-fns';

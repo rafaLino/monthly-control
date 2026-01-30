@@ -9,25 +9,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
-import { cn } from '@/lib/utils';
+import env from '@/lib/env';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Link } from '@tanstack/react-router';
-import { LoaderCircle, LogOut } from 'lucide-react';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CopyDropdownMenuItem } from './components/copy-dropdown-menu-item';
+import { GenerateCsvDropdownMenuItem } from './components/generate-csv-dropdown-menu-item';
+import { LogoutDropdownMenuItem } from './components/logout-dropdown-menu-item';
+
 export const UserMenu = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'userMenu' });
-  const { logout, user } = useAuth0();
-  const [loading, setLoading] = useState(false);
-  const handleLogout = async () => {
-    setLoading(true);
-    try {
-      await logout({ logoutParams: { returnTo: `${window.location.origin}/login` } });
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { user } = useAuth0();
   return (
     <div className="flex">
       <DropdownMenu>
@@ -46,13 +38,14 @@ export const UserMenu = () => {
           <HiddenOffline>
             <CopyDropdownMenuItem>{t('copyData')}</CopyDropdownMenuItem>
           </HiddenOffline>
+          <GenerateCsvDropdownMenuItem hidden={env.VITE_ONLINE}>{t('generateCsv')}</GenerateCsvDropdownMenuItem>
           <DropdownMenuItem disabled>{t('support')}</DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={handleLogout}>
-            <LogOut className="w-5 h-5 mr-2" />
-            {t('logout')}
-            <LoaderCircle className={cn('w-5 h-5 ml-2 animate-spin', loading ? 'visible' : 'invisible')} />
-          </DropdownMenuItem>
+          <HiddenOffline>
+            <>
+              <DropdownMenuSeparator />
+              <LogoutDropdownMenuItem />
+            </>
+          </HiddenOffline>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

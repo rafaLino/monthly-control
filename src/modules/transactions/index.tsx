@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/8star-labs/timeline';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { CSVtoObject } from '@/lib/csv-to-object';
+import { CSVtoObject } from '@/lib/csv-parser/csv-to-object';
 import { cn, sumItems } from '@/lib/utils';
 import { Trash2 } from 'lucide-react';
 import { MouseEvent, useState, useTransition } from 'react';
