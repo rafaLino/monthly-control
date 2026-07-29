@@ -1,4 +1,5 @@
 import { CurrencyItem } from '@/components/currency-item';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -10,12 +11,12 @@ import { RefDateSchema } from '@/types/refDate';
 import { Register } from '@/types/register.types';
 import { Query, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
-import { CheckCircle2, XCircle } from 'lucide-react';
+import { ArrowDownToLine, CheckCircle2, XCircle } from 'lucide-react';
 import {
   ComponentPropsWithoutRef,
   FC,
   Fragment,
-  KeyboardEvent,
+  type KeyboardEvent,
   MouseEvent,
   ReactNode,
   useDeferredValue,
@@ -113,8 +114,12 @@ const RefDateInput: FC<ComponentPropsWithoutRef<'input'> & { onEnter: (value: st
   const [error, setError] = useState<string>();
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleEnter = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.code !== 'Enter' || !inputRef.current) return;
+  const handleEnter = (e: KeyboardEvent<HTMLInputElement> | MouseEvent<HTMLButtonElement>) => {
+    if (e instanceof KeyboardEvent && e.code !== 'Enter') return;
+
+    if (!inputRef.current) {
+      return;
+    }
 
     const parsedResult = RefDateSchema.safeParse(inputRef.current.value);
     if (parsedResult.success) {
@@ -124,9 +129,15 @@ const RefDateInput: FC<ComponentPropsWithoutRef<'input'> & { onEnter: (value: st
       setError(parsedResult.error.errors.map((err) => err.message).join(','));
     }
   };
+
   return (
     <div className="grid w-full max-w-sm items-center">
-      <Input ref={inputRef} name="ref" defaultValue={value} onKeyDown={handleEnter} {...props} />
+      <div className="flex relative">
+        <Input ref={inputRef} placeholder="yyyy-MM" name="ref" defaultValue={value} onKeyDown={handleEnter} {...props} />
+        <Button variant="ghost" size="icon" onClick={handleEnter} className="absolute right-0 top-0 hover:bg-transparent">
+          <ArrowDownToLine className="size-4" />
+        </Button>
+      </div>
       <span className="text-red-400 text-xs mx-2">{error}</span>
     </div>
   );
